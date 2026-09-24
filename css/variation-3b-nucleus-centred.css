@@ -62,7 +62,7 @@ body[data-variation="3b"] :is(
 .hero-v3b__title {
   display: inline-block;              /* natural width is measured on narrow screens */
   white-space: nowrap;
-  font-size: 64px;                    /* Figma: 64px Medium, line-height 1.2, 674px frame */
+  font-size: 62px;                    /* Figma 64px, 2px smaller; line-height 1.2, 674px frame */
   line-height: 1.2;
   font-weight: 500;
 }
@@ -80,21 +80,21 @@ body[data-variation="3b"] :is(
   border-radius: 16px;
   background: rgba(var(--ink), 0.06);
   border-color: rgba(var(--ink), 0.12);
-  font-size: min(56px, 9vw);          /* Figma: 56px Medium */
+  font-size: min(54px, 9vw);          /* Figma 56px, 2px smaller */
   line-height: 1.2;
   max-width: 674px;
 }
 .hero-v3b__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; line-height: 1; }
 .hero-v3b__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." white, "crypto" orange */
-.hero-v3b__join { flex: none; }
+.hero-v3b__join { flex: none; font-size: 18px; }   /* label 2px smaller than the 20px large button */
 
 /* Bonus line (Figma highlight usage) */
-.hero-v3b__bonus { font-size: 18px; line-height: 1.2; font-weight: 500; color: var(--c-text); }   /* Figma: 18px Medium */
+.hero-v3b__bonus { font-size: 16px; line-height: 1.2; font-weight: 500; color: var(--c-text); }   /* Figma 18px, 2px smaller */
 .hero-v3b__pts { color: #4affba; font-weight: 600; }
 .hero-v3b__muted { color: var(--c-text-64); }
 .hero-v3b__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
 
-.hero-v3b__sub { font-size: 16px; line-height: 1.2; font-weight: 500; color: var(--c-text-64); }   /* Figma: 16px Medium, 64%, one line */
+.hero-v3b__sub { font-size: 14px; line-height: 1.2; font-weight: 500; color: var(--c-text-64); }   /* Figma 16px, 2px smaller; 64%, one line */
 @media (min-width: 760px) { .hero-v3b__bonus, .hero-v3b__sub { white-space: nowrap; } }
 
 /* Compact stat cards (shared look with Variation 3), frosted over the sphere */
@@ -105,6 +105,6 @@ body[data-variation="3b"] :is(
   .hero--v3b { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
   .hero-v3b__domain { flex-direction: column; align-items: stretch; height: auto; gap: 8px; padding: 12px 8px 8px 14px; }
   .hero-v3b__typed { height: 48px; font-size: 36px; }
-  .hero-v3b__bonus { font-size: 16px; line-height: 1.35; }
+  .hero-v3b__bonus { font-size: 15px; line-height: 1.35; }
   .hero-v3b__sub { line-height: 1.4; }
 }

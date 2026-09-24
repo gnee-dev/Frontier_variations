@@ -310,17 +310,17 @@
   var title3b = document.getElementById("hero-v3b-title");
   var field3b = hero3b && hero3b.querySelector(".hero-v3b__domain");
 
-  // Figma size: 64px in a 674px frame, the same width as the domain field.
+  // 62px (Figma 64px, 2px smaller) in a 674px frame, the width of the domain field.
   // Only on screens too narrow for the 674px field is the headline scaled
   // down, so it keeps matching the (narrower) field instead of overflowing.
   function fitTitle() {
     if (!title3b || !field3b || !field3b.offsetWidth) return;
     title3b.style.fontSize = "";
     if (field3b.offsetWidth >= 674) return;           // desktop: exact Figma 64px
-    title3b.style.fontSize = "64px";
+    title3b.style.fontSize = "62px";
     var natural = title3b.scrollWidth;
     if (!natural) return;
-    var size = Math.min(64, 64 * field3b.offsetWidth / natural);
+    var size = Math.min(62, 62 * field3b.offsetWidth / natural);
     title3b.style.fontSize = Math.max(26, size).toFixed(2) + "px";
   }
 

@@ -77,7 +77,7 @@ assets/
 
 ## Variation 3b: Nucleus centred
 
-- **Layout.** This follows the second Figma file at its exact sizes: one centred 674px stack of the 64px headline, the 674 × 88 domain field (56px text) with Join Frontier inside it, the 18px highlighted bonus line with the live countdown, and the 16px subtitle. Each is one line with a 1.2 line height, and the gaps are 24px, 20px and 24px. On screens too narrow for the 674px field, the headline scales down in script to match the field's width. Three compact stat cards sit at the bottom.
+- **Layout.** This follows the second Figma file's layout with every font 2px smaller than Figma: one centred 674px stack of the 62px headline, the 674 × 88 domain field (54px text, 18px button label) with Join Frontier inside it, the 16px highlighted bonus line with the live countdown, and the 14px subtitle. Each is one line with a 1.2 line height, and the gaps are 24px, 20px and 24px. On screens too narrow for the 674px field, the headline scales down in script to match the field's width. Three compact stat cards sit at the bottom.
 - **Sphere.** It's the same particle sphere as Variation 3, much bigger (the nucleus is up to 300px in radius), centred near the bottom edge. The top dome rises between the copy and the cards, and the rest disappears behind the cards and out of the bottom of the hero, with a soft fade. It keeps rotating, and pixels under the copy are dimmed.
 - **Hover names.** They work the same way as the other variations: static points hold the names, and an idle cursor keeps its name.
 - **Code.** `js/variation-3-nucleus.js` builds both 3 and 3b from one `makeNucleus()` function with different placements.
