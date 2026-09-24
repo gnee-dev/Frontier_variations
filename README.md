@@ -9,7 +9,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 02 · Dissolve ring | Light mode. Left-aligned headline, domain field with Join Frontier inside it, a bonus line with a live countdown, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
 | 03 · Nucleus | Dark mode. Headline left, typed domain + Join Frontier right (equal heights), and a centred particle sphere: a rotating nucleus inside a sparse halo. Three compact stat cards at the bottom. | ✅ Done |
 | 03b · Nucleus centred | Dark mode. The second Figma file's centred stack (headline sized to the domain field's width, field with Join Frontier inside, bonus line, subtitle) with a big particle sphere rising out of the bottom of the hero. | ✅ Done |
-| 04 | Placeholder | ⏳ To design |
+| 04 · Horizon | Dark mode. The 03b centred stack over a pixel landscape along the bottom of the hero: rolling hills of square pixels in perspective, moving toward the viewer as if flying forward, with a glowing crest line. | ✅ Done |
 
 With six tabs, the nav shows only the tab numbers (01, 01b, 02…) below 1200px wide; hover a tab for its full name. On phones (560px and below), the tabs get their own full-width row under the logo and Sign up.
 
@@ -44,12 +44,13 @@ css/
   variation-2-dissolve-ring.css # Hero variation 2 (dissolve ring) + the light theme for the whole page
   variation-3-nucleus.css       # Hero variation 3 (nucleus particle sphere, dark)
   variation-3b-nucleus-centred.css # Hero variation 3b (centred copy, sphere rising from the bottom)
-  variation-placeholder.css     # Temporary styles for variation 4
+  variation-4-horizon.css       # Hero variation 4 (pixel landscape; layout from 3b)
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-dissolve-ring.js  # dissolve ring: rotating pixel arc + static hover points with names
   variation-3-nucleus.js        # nucleus builder for 3 and 3b: rotating particle sphere + halo + static hover points; 3b headline fitting
+  variation-4-horizon.js        # horizon: moving pixel landscape + static hover points; headline fitting
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -93,9 +94,15 @@ assets/
 - **Hover names.** They work the same way as the other variations: static points hold the names, and an idle cursor keeps its name.
 - **Code.** `js/variation-3-nucleus.js` builds both 3 and 3b from one `makeNucleus()` function with different placements.
 
-## Adding variation 4
+## Variation 4: Horizon
 
-1. Replace the `#hero-v4` placeholder `<section>` in `index.html`. Keep `data-hero="4"`.
-2. Add `css/variation-4-<name>.css` (and `js/variation-4-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["4"] = { start, stop }`, and the tabs start and stop it.
-3. Rename the tab label in the nav (`[data-variation-tab="4"]`).
-4. To theme the whole page, redefine the tokens under `body[data-variation="4"]`. `variation-2-dissolve-ring.css` shows how.
+- **Layout.** It uses the same markup and classes as Variation 3b (`hero-v3b__*`): the centred headline, the domain field sized to the headline, the bonus line with the live countdown, the subtitle and three compact stat cards. The tab-wide rules (−0.08% letter-spacing, 40px buttons with 18px labels) cover both tabs.
+- **Landscape.** A height field of rolling hills (a valley in the middle rising to both sides) is sampled on a fixed world grid of small square pixels and drawn in perspective. The horizon sits between the copy and the stat cards. The grid moves toward the camera, about 0.28 world units a second, with a slow sideways drift, so it reads as flying forward over the hills. Rows are drawn near to far against a per-column skyline, so hills hide what's behind them. Far rows and columns thin out in two steps and fade into the horizon without popping. Slopes facing the camera catch more light, and one contour line glows like the crest light in the reference. There are faint stars above, and the whole layer fades out at the bottom edge.
+- **Hover names.** As in the other variations, an invisible layer of static points (24px apart, 20px on phones) covers the ground below the skyline. Each point holds one name, which stays put while the cursor is idle even though the landscape keeps moving. Pixels under the copy and cards are dimmed.
+- **Tuning.** `height()`, `SPEED`, `CONTOUR`, `Z_FAR` and the `LOD_1`/`LOD_2` distances are at the top of `js/variation-4-horizon.js`.
+
+## Adding another variation
+
+1. Add a tab in the nav (`data-variation-tab="5"`, `aria-controls="hero-v5"`) and a `<section data-hero="5">` hero in `index.html`, and allow the id in the hash regex in `js/main.js`.
+2. Add `css/variation-5-<name>.css` (and `js/variation-5-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["5"] = { start, stop }`, and the tabs start and stop it.
+3. To theme the whole page, redefine the tokens under `body[data-variation="5"]`. `variation-2-dissolve-ring.css` shows how.
