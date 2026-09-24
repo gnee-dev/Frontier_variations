@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/sections.css" />
   <link rel="stylesheet" href="css/hero-shared.css" />
   <link rel="stylesheet" href="css/variation-1-pixel-globe.css" />
+  <link rel="stylesheet" href="css/variation-1b-colour.css" />
   <link rel="stylesheet" href="css/variation-2-dissolve-ring.css" />
   <link rel="stylesheet" href="css/variation-3-nucleus.css" />
   <link rel="stylesheet" href="css/variation-3b-nucleus-centred.css" />
@@ -30,19 +31,22 @@
 
       <nav class="variation-tabs" role="tablist" aria-label="Hero variations">
         <span class="variation-tabs__indicator" aria-hidden="true"></span>
-        <button class="variation-tabs__tab is-active" role="tab" aria-selected="true" aria-controls="hero-v1" data-variation-tab="1">
+        <button class="variation-tabs__tab is-active" role="tab" aria-selected="true" aria-controls="hero-v1" title="Pixel globe" data-variation-tab="1">
           <span class="variation-tabs__num">01</span> Pixel globe
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2" data-variation-tab="2">
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v1" title="Globe colour" data-variation-tab="1b">
+          <span class="variation-tabs__num">01b</span> Globe colour
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2" title="Dissolve ring" data-variation-tab="2">
           <span class="variation-tabs__num">02</span> Dissolve ring
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" data-variation-tab="3">
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Nucleus" data-variation-tab="3">
           <span class="variation-tabs__num">03</span> Nucleus
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3b" data-variation-tab="3b">
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3b" title="Nucleus centred" data-variation-tab="3b">
           <span class="variation-tabs__num">03b</span> Nucleus centred
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v4" data-variation-tab="4">
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v4" title="Variation 4" data-variation-tab="4">
           <span class="variation-tabs__num">04</span> Variation 4
         </button>
       </nav>
@@ -53,7 +57,8 @@
 
   <main id="top">
     <!-- ======================= HERO · VARIATION 1 (PIXEL GLOBE) ======================= -->
-    <section class="hero hero--v1" id="hero-v1" data-hero="1" role="tabpanel" aria-label="Hero variation 1: Pixel globe">
+    <!-- data-hero="1 1b": the 01b tab reuses this hero with the colour theme (css/variation-1b-colour.css) -->
+    <section class="hero hero--v1" id="hero-v1" data-hero="1 1b" role="tabpanel" aria-label="Hero variation 1: Pixel globe">
       <!-- Pixel globe sits behind every hero element -->
       <canvas class="pixel-globe" id="pixel-globe" aria-hidden="true"></canvas>
       <div class="hero-tip" id="pixel-globe-tooltip" aria-hidden="true">
@@ -100,7 +105,7 @@
           </li>
           <li class="panel stat-card stat-card--cta" data-anim="rise" data-globe-avoid style="--d: 0.64s">
             <div class="panel__label">
-              <span class="stat-card__bonus"><span class="pulse-dot" aria-hidden="true"></span>+10,000 pts bonus expires today</span>
+              <span class="stat-card__bonus"><span class="pulse-dot" aria-hidden="true"></span><span><span class="pts-highlight">+10,000 pts</span> bonus expires today</span></span>
             </div>
             <a class="btn btn--primary btn--lg btn--shine btn--block" id="join" href="#join">
               Join Frontier

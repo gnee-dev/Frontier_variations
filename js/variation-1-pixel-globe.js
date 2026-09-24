@@ -109,6 +109,7 @@
     canvas.style.width = W + "px";
     canvas.style.height = H + "px";
 
+    readPalette();
     var mobile = W < 760;
     cell = mobile ? 7 : W < 1200 ? 8 : 9;
     pitch = mobile ? 24 : 28;
@@ -131,8 +132,32 @@
   /* ---------------- Rendering ---------------- */
 
   var LEVELS = 16;
-  var buckets = [];
-  for (var b = 0; b < LEVELS; b++) buckets.push([]);
+  var BANDS = 8;                 // vertical colour bands for the land gradient
+  var buckets = [];              // [band * LEVELS + level] for land, then ocean/seams
+  for (var b = 0; b < (BANDS + 1) * LEVELS; b++) buckets.push([]);
+
+  // Pixel colours come from the theme (CSS custom properties on <body>), so a
+  // colour variation can reuse this globe: --globe-land-top / --globe-land-bottom
+  // (land gradient, top to bottom), --globe-ocean, --globe-alpha (brightness x).
+  // Defaults are the white Variation 1 look.
+  var pal = { top: [255, 255, 255], bottom: [255, 255, 255], ocean: [255, 255, 255], alpha: 1 };
+  function readPalette() {
+    var cs = getComputedStyle(document.body);
+    function rgb(name, fallback) {
+      var v = cs.getPropertyValue(name).trim();
+      if (!v) return fallback;
+      var parts = v.split(",").map(function (n) { return parseFloat(n); });
+      return parts.length === 3 && parts.every(function (n) { return !isNaN(n); }) ? parts : fallback;
+    }
+    pal.top = rgb("--globe-land-top", [255, 255, 255]);
+    pal.bottom = rgb("--globe-land-bottom", [255, 255, 255]);
+    pal.ocean = rgb("--globe-ocean", [255, 255, 255]);
+    pal.alpha = parseFloat(cs.getPropertyValue("--globe-alpha")) || 1;
+  }
+  function bandColor(bd) {
+    var t = BANDS > 1 ? bd / (BANDS - 1) : 0;
+    return [0, 1, 2].map(function (i) { return Math.round(pal.top[i] + (pal.bottom[i] - pal.top[i]) * t); }).join(",");
+  }
   var hover = null; // { col, row, lat, lon, name }
   var pointer = null;
 
@@ -179,7 +204,9 @@
     if (!W) return;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    for (var k = 0; k < LEVELS; k++) buckets[k].length = 0;
+    for (var k = 0; k < buckets.length; k++) buckets[k].length = 0;
+    // the land gradient runs over the visible cap of the globe (top of the disc to its middle)
+    var bandTop = cy - R, bandSpan = Math.max(1, R);
 
     var rowMin = Math.max(0, Math.floor((cy - R) / cell));
     var rowMax = Math.min(Math.ceil(H / cell), Math.ceil((cy + R) / cell));
@@ -207,23 +234,29 @@
           alpha = (0.027 + 0.054 * light) * limb;
           size = cell * 0.22;
         }
-        alpha *= dimAt(p.x, p.y);
+        alpha *= dimAt(p.x, p.y) * pal.alpha;
         if (alpha < 0.02) continue;
         var level = Math.min(LEVELS - 1, Math.round(alpha * (LEVELS - 1)));
-        buckets[level].push(p.x - size / 2, p.y - size / 2, size);
+        var band = m > 180
+          ? Math.min(BANDS - 1, Math.max(0, Math.floor((p.y - bandTop) / bandSpan * BANDS)))
+          : BANDS;                                     // ocean and seams share the ocean colour
+        buckets[band * LEVELS + level].push(p.x - size / 2, p.y - size / 2, size);
       }
     }
 
-    for (var lv = 1; lv < LEVELS; lv++) {
-      var list = buckets[lv];
-      if (!list.length) continue;
-      ctx.fillStyle = "rgba(255,255,255," + (lv / (LEVELS - 1)).toFixed(3) + ")";
-      for (var i = 0; i < list.length; i += 3) ctx.fillRect(list[i], list[i + 1], list[i + 2], list[i + 2]);
+    for (var bd = 0; bd <= BANDS; bd++) {
+      var col = bd < BANDS ? bandColor(bd) : pal.ocean.join(",");
+      for (var lv = 1; lv < LEVELS; lv++) {
+        var list = buckets[bd * LEVELS + lv];
+        if (!list.length) continue;
+        ctx.fillStyle = "rgba(" + col + "," + (lv / (LEVELS - 1)).toFixed(3) + ")";
+        for (var i = 0; i < list.length; i += 3) ctx.fillRect(list[i], list[i + 1], list[i + 2], list[i + 2]);
+      }
     }
 
     // Faint atmosphere rim so the silhouette always reads as a globe
     var halo = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.08);
-    halo.addColorStop(0, "rgba(255,255,255,0.045)");
+    halo.addColorStop(0, "rgba(" + pal.ocean.join(",") + ",0.045)");   // rim in the ocean colour
     halo.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = halo;
     ctx.beginPath();

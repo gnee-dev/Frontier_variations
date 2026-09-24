@@ -21,9 +21,12 @@
     indicator.style.transform = "translateX(" + tab.offsetLeft + "px)";
   }
 
+  // A hero can serve several tabs: data-hero="1 1b" (1b is a colour theme of hero 1)
+  function heroServes(hero, id) { return hero.dataset.hero.split(" ").indexOf(id) !== -1; }
+
   function setVariation(id, opts) {
     id = String(id);
-    if (!heroes.some(function (h) { return h.dataset.hero === id; })) id = "1";
+    if (!heroes.some(function (h) { return heroServes(h, id); })) id = "1";
     document.body.dataset.variation = id;
 
     tabs.forEach(function (tab) {
@@ -35,7 +38,7 @@
     });
 
     heroes.forEach(function (hero) {
-      var on = hero.dataset.hero === id;
+      var on = heroServes(hero, id);
       hero.hidden = !on;
       hero.classList.remove("is-entered");
       if (on) {
@@ -45,14 +48,15 @@
       }
     });
 
-    // Each variation's motion script registers itself in window.FrontierHeroMotion
+    // Each hero's motion script registers itself in window.FrontierHeroMotion under
+    // the hero's first id; stop the others first, then (re)start the active one so
+    // it re-reads theme colours when switching between tabs that share a hero
+    var active = heroes.filter(function (h) { return heroServes(h, id); })[0];
+    var motionKey = active ? active.dataset.hero.split(" ")[0] : id;
     var motion = window.FrontierHeroMotion || {};
-    Object.keys(motion).forEach(function (key) {
-      if (key === id) motion[key].start();
-      else motion[key].stop();
-    });
+    Object.keys(motion).forEach(function (key) { motion[key].stop(); });
+    if (motion[motionKey]) motion[motionKey].start();
     typer.stop();
-    var active = heroes.filter(function (h) { return h.dataset.hero === id; })[0];
     typer.start(active && active.querySelector(".domain-box__text"));
 
     if (!opts || !opts.silent) history.replaceState(null, "", "#v" + id);
@@ -226,6 +230,6 @@
 
   /* ---------------- Boot ---------------- */
 
-  var fromHash = (location.hash.match(/^#v([1-4]|3b)$/) || [])[1] || "1";
+  var fromHash = (location.hash.match(/^#v([1-4]|1b|3b)$/) || [])[1] || "1";
   setVariation(fromHash, { silent: true });
 })();

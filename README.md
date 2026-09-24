@@ -5,10 +5,13 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | Tab | Variation | Status |
 | --- | --- | --- |
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
+| 01b · Globe colour | Variation 1 with exactly the same layout and content, in the Figma colours: a rose-to-amber pixel globe with faint blue oceans, orange accents and icons, green points, and soft dusk light behind the hero. | ✅ Done |
 | 02 · Dissolve ring | Light mode. Left-aligned headline, domain field with Join Frontier inside it, a bonus line with a live countdown, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
 | 03 · Nucleus | Dark mode. Headline left, typed domain + Join Frontier right (equal heights), and a centred particle sphere: a rotating nucleus inside a sparse halo. Three compact stat cards at the bottom. | ✅ Done |
 | 03b · Nucleus centred | Dark mode. The second Figma file's centred stack (headline sized to the domain field's width, field with Join Frontier inside, bonus line, subtitle) with a big particle sphere rising out of the bottom of the hero. | ✅ Done |
 | 04 | Placeholder | ⏳ To design |
+
+With six tabs, the nav shows only the tab numbers (01, 01b, 02…) below 1200px wide; hover a tab for its full name. On phones (560px and below), the tabs get their own full-width row under the logo and Sign up.
 
 The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`, `#v3b`, `#v4`.
 
@@ -37,6 +40,7 @@ css/
   hero-shared.css               # domain field, stat/CTA cards, hover name card (used by every hero)
   sections.css                  # How it works, Back the extensions, Steps, Applicants, Banner, Footer
   variation-1-pixel-globe.css   # Hero variation 1 (pixel globe, dark)
+  variation-1b-colour.css       # Variation 1b: colour theme over the variation 1 hero and page
   variation-2-dissolve-ring.css # Hero variation 2 (dissolve ring) + the light theme for the whole page
   variation-3-nucleus.css       # Hero variation 3 (nucleus particle sphere, dark)
   variation-3b-nucleus-centred.css # Hero variation 3b (centred copy, sphere rising from the bottom)
@@ -60,6 +64,13 @@ assets/
 - **Readability.** Pixels under the headline, domain field, subtitle and cards are dimmed, and the cards are frosted glass.
 - **Hover names.** On top of the rotating globe sits an invisible layer of static points (28px apart) that covers exactly the globe disc. Each point holds one name. Hovering a point shows its name in a small 14px card, and it stays put until the cursor moves to another point. The globe keeps rotating underneath. The names from the brief (`vault.crypto`, `gen.wealth`, `burner.wallet`, `anon.agent`, …) come up more often than the generated ones. To change the names, edit `NAMES`, `TLDS` and `FEATURED` in `js/variation-1-pixel-globe.js`.
 - **Motion.** The hero has a staggered entrance, the typing domain field, stat counters and a light sweep across the button. Sections below the hero reveal on scroll. Motion is switched off when the visitor has `prefers-reduced-motion` turned on.
+
+## Variation 1b: Globe colour
+
+- **Same page.** It reuses the Variation 1 hero (`data-hero="1 1b"`), so the layout, copy, hierarchy and motion are identical. Only colours change, all in `css/variation-1b-colour.css` under `body[data-variation="1b"]`.
+- **Palette (from Figma).** A near-black plum background, white headings and 64% body text as in V1, orange `#E96E26` buttons with a brighter `#FF7C31` for orange text, green `#4AFFBA` for points (the "+10,000 pts" highlight, pills, the live dot), and blue `#4AC6FF` only as a faint tint on the oceans and the applicants strip.
+- **Globe.** The land pixels shade from rose at the top of the globe to warm amber lower down. The script reads the colours from the CSS variables `--globe-land-top`, `--globe-land-bottom`, `--globe-ocean` and `--globe-alpha`, so V1 stays white.
+- **Accents.** The card label icons and chain icons are orange. The How it works visuals get a soft orange glow, the timeline and hot TLD dots are orange, and the banner has a warm glow.
 
 ## Variation 2: Dissolve ring
 

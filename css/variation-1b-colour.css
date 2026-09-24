@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Variation 1b — "Globe colour"
+   The Variation 1 hero and page, unchanged in layout, with colours taken
+   from the Figma file: a dusk palette (orange rising into magenta and
+   violet, like the Figma sunrise), orange #E96E26 as the accent, green
+   #4AFFBA for points, and a whisper of blue #4AC6FF.
+   Text colours and hierarchy stay as in Variation 1 (white headings,
+   64% body), so everything stays legible; colour is only used for
+   accents, the globe and soft background light.
+   ========================================================================== */
+
+body[data-variation="1b"] {
+  --ink: 248, 253, 255;                       /* Figma "Lily white" #F8FDFF */
+  --c-bg: #07060a;                            /* near-black with a hint of plum */
+  --c-bg-2: #08070b;
+  --c-accent: #e96e26;
+  --c-accent-hover: #ff7c31;
+  --c-accent-press: #d45f1a;
+  --c-accent-text: #ff7c31;                   /* a touch brighter for text on dark */
+  --c-points: #4affba;                        /* Figma points green */
+  --c-sky: #4ac6ff;                           /* Figma blue */
+
+  --panel-bg: rgba(255, 255, 255, 0.035);
+  --panel-bg-solid: rgba(18, 14, 20, 0.62);
+  --panel-bd: rgba(255, 214, 190, 0.09);      /* warm hairline */
+
+  --c-well-top: #130e12;
+  --c-well-bottom: #09070a;
+  --c-chip-solid: #343434;                    /* Figma */
+  --c-tip-bg: rgba(16, 12, 18, 0.9);
+  /* chain icons (black SVGs) tinted to the accent orange */
+  --icon-filter: brightness(0) saturate(100%) invert(55%) sepia(76%) saturate(2400%) hue-rotate(349deg) brightness(97%) contrast(91%);
+
+  /* pixel globe palette (read by js/variation-1-pixel-globe.js) */
+  --globe-land-top: 232, 120, 168;            /* rose at the top of the globe */
+  --globe-land-bottom: 255, 150, 72;          /* warm amber toward its middle */
+  --globe-ocean: 74, 198, 255;
+  --globe-alpha: 1.7;                         /* colour needs a little more presence than white */
+}
+
+/* ---------- Hero: soft dusk light behind the globe ---------- */
+body[data-variation="1b"] .hero--v1 {
+  background:
+    radial-gradient(55% 45% at 50% 100%, rgba(233, 110, 38, 0.16), rgba(160, 60, 110, 0.07) 50%, transparent 75%),
+    radial-gradient(40% 35% at 50% 38%, rgba(120, 80, 170, 0.07), transparent 70%),
+    var(--c-bg-2);
+}
+body[data-variation="1b"] .panel__label svg { color: var(--c-accent-text); opacity: 0.85; }
+body[data-variation="1b"] .pts-highlight { color: var(--c-points); }
+body[data-variation="1b"] .hero-tip__name .tld { color: var(--c-accent-text); }
+body[data-variation="1b"] .pulse-dot,
+body[data-variation="1b"] .pulse-dot::after { background: var(--c-points); }
+
+/* ---------- How it works (Figma: orange-lit card visuals) ---------- */
+body[data-variation="1b"] .card__visual {
+  background:
+    radial-gradient(110% 80% at 50% 118%, rgba(255, 124, 49, 0.2), transparent 62%),
+    linear-gradient(180deg, var(--c-well-top), var(--c-well-bottom));
+}
+body[data-variation="1b"] .chip { background: rgba(233, 110, 38, 0.13); border-color: rgba(233, 110, 38, 0.14); }
+body[data-variation="1b"] .chip--solid { background: var(--c-chip-solid); border-color: transparent; }
+body[data-variation="1b"] .pts-pill {
+  color: var(--c-points);
+  background: rgba(74, 255, 186, 0.12);
+  border-color: rgba(74, 255, 186, 0.16);
+}
+body[data-variation="1b"] .points__value > span { color: var(--c-accent-text); }
+body[data-variation="1b"] .backers { border-color: rgba(255, 214, 190, 0.18); background: rgba(255, 124, 49, 0.04); }
+body[data-variation="1b"] .backers__bar i { background: var(--c-accent); }
+
+/* ---------- Back the extensions ---------- */
+body[data-variation="1b"] .tld-grid li.is-hot { color: var(--c-accent-text); }
+body[data-variation="1b"] .tld-grid li.is-hot::before {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 5px rgba(233, 110, 38, 0.18);
+}
+body[data-variation="1b"] .tld-grid li:hover::before { border-color: var(--c-accent-text); }
+
+/* ---------- Steps timeline ---------- */
+body[data-variation="1b"] .timeline__fill { background: linear-gradient(90deg, rgba(233, 110, 38, 0.7), var(--c-accent-hover)); }
+body[data-variation="1b"] .is-visible .is-done .timeline__dot,
+body[data-variation="1b"] .is-visible .is-current .timeline__dot {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+}
+body[data-variation="1b"] .is-visible .is-current .timeline__dot { box-shadow: 0 0 0 6px rgba(233, 110, 38, 0.2); }
+body[data-variation="1b"] .timeline__pts { color: var(--c-points); background: rgba(74, 255, 186, 0.12); }
+
+/* ---------- Applicants: Figma's blue-tinted logo strip ---------- */
+body[data-variation="1b"] .applicants .panel--flush {
+  background: rgba(74, 198, 255, 0.06);
+  border-color: rgba(74, 198, 255, 0.12);
+}
+
+/* ---------- Banner: warm glow instead of flat glass (Figma orange blurs) ---------- */
+body[data-variation="1b"] .banner {
+  background:
+    radial-gradient(45% 140% at 88% 50%, rgba(214, 96, 27, 0.34), transparent 70%),
+    radial-gradient(40% 120% at 22% 0%, rgba(232, 109, 37, 0.12), transparent 70%),
+    var(--panel-bg-solid);
+  border-color: rgba(255, 214, 190, 0.12);
+}
