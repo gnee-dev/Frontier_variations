@@ -58,8 +58,9 @@
 .pixel-globe__name { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
 .pixel-globe__name .tld { color: var(--c-text-64); font-weight: 500; }
 .pixel-globe__coord { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: var(--c-text-40); font-variant-numeric: tabular-nums; white-space: pre; }
-.pixel-globe__tooltip.is-swap .pixel-globe__name { animation: tip-swap 0.3s var(--ease-out); }
-@keyframes tip-swap { from { opacity: 0; transform: translateY(5px); filter: blur(3px); } }
+/* names change several times a second while the globe turns: keep the swap quick and crisp */
+.pixel-globe__tooltip.is-swap .pixel-globe__name { animation: tip-swap 0.16s var(--ease-out); }
+@keyframes tip-swap { from { opacity: 0.35; transform: translateY(3px); } }
 
 .pixel-globe__hint {
   position: absolute;

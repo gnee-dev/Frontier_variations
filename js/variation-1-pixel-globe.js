@@ -2,12 +2,13 @@
    Hero · Variation 1 — pixel globe
    - The earth is drawn on a fixed screen grid of square pixels (an
      "LED wall" look). Every grid cell samples the rotating globe:
-     land pixels are bright, ocean pixels faint, borders show as seams.
+     land pixels are softly lit, ocean pixels faint, borders show as seams.
    - The globe sits behind the hero copy and cards. Pixels under those
      elements are dimmed so text and buttons stay readable.
-   - Every pixel is a name: hovering a pixel pauses the rotation and shows
+   - Every pixel is a name: hovering a pixel shows
      that pixel's string (tied to its lat/lon, so a spot always gives the
-     same name) next to the cursor.
+     same name) next to the cursor. The globe keeps rotating while
+     hovered, so the name updates as the earth moves under the cursor.
    Exposes window.FrontierGlobe = { start, stop }.
    ========================================================================== */
 (function () {
@@ -196,13 +197,13 @@
         var limb = Math.min(1, p.z * 3); // fade toward the rim
         var alpha, size;
         if (m > 180) {            // land
-          alpha = (0.28 + 0.72 * light) * (0.35 + 0.65 * limb);
+          alpha = (0.1 + 0.3 * light) * (0.35 + 0.65 * limb); // muted: max ≈ 0.4
           size = cell * (0.46 + 0.3 * light);
         } else if (m > 40) {      // border seam
-          alpha = (0.12 + 0.3 * light) * limb;
+          alpha = (0.05 + 0.12 * light) * limb;
           size = cell * 0.4;
         } else {                  // ocean
-          alpha = (0.05 + 0.12 * light) * limb;
+          alpha = (0.03 + 0.06 * light) * limb;
           size = cell * 0.22;
         }
         alpha *= dimAt(p.x, p.y);
@@ -221,7 +222,7 @@
 
     // Faint atmosphere rim so the silhouette always reads as a globe
     var halo = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.08);
-    halo.addColorStop(0, "rgba(255,255,255,0.10)");
+    halo.addColorStop(0, "rgba(255,255,255,0.05)");
     halo.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = halo;
     ctx.beginPath();
@@ -235,7 +236,7 @@
       var hy = hover.row * cell;
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(hx + 1, hy + 1, cell - 2, cell - 2);
-      ctx.strokeStyle = "rgba(255,255,255,0.55)";
+      ctx.strokeStyle = "rgba(255,255,255,0.4)";
       ctx.lineWidth = 1;
       ctx.strokeRect(hx - cell + 0.5, hy - cell + 0.5, cell * 3 - 1, cell * 3 - 1);
     }
@@ -268,11 +269,9 @@
     if (!p || dimAt(p.x, p.y) < 1) return clearHover();
 
     var name = nameFor(p.lat, p.lon);
-    var changed = !hover || hover.col !== col || hover.row !== row;
     if (!hover || hover.name !== name) renderName(name);
     hover = { col: col, row: row, lat: p.lat, lon: p.lon, name: name };
-    if (changed) tipCoord.textContent = formatCoord(p.lat, p.lon);
-    targetSpeed = 0;
+    tipCoord.textContent = formatCoord(p.lat, p.lon);
     hero.classList.add("is-globe-hover");
     tooltip.classList.add("is-visible");
     placeTooltip();
@@ -281,7 +280,6 @@
   function clearHover() {
     if (hover) { hover = null; tooltip.classList.remove("is-visible"); }
     hero.classList.remove("is-globe-hover");
-    targetSpeed = BASE_SPEED;
   }
 
   function placeTooltip() {
