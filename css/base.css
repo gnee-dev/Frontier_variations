@@ -92,15 +92,17 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   align-items: center;
   justify-content: center;
   gap: 10px;
+  /* Figma "S" button: 40px tall, 10.5px × 16px padding, 8px radius */
   height: 40px;
-  padding: 0 16px;
+  padding: 10.5px 16px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--btn-bd);
   background: var(--btn-bg);
   color: var(--btn-fg);
   font-weight: 600;
   font-size: 16px;
-  letter-spacing: 0.005em;
+  line-height: 19px;
+  letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
   isolation: isolate;
@@ -124,8 +126,9 @@ h1, h2, h3, p, dl, dd { margin: 0; }
 
 .btn--ghost:hover { --btn-bg: rgba(255, 255, 255, 0.1); --btn-bd: rgba(255, 255, 255, 0.24); }
 
-.btn--sm { height: 40px; padding: 0 16px; font-size: 16px; }
-.btn--lg { height: 52px; padding: 0 22px; font-size: 20px; border-radius: 10px; }
+.btn--sm,
+.btn--ghost { padding: 10.5px 8px; gap: 6px; }       /* Figma nav "Sign up" / shade "Save my spot": 8px sides */
+.btn--lg { height: 45px; padding: 10.5px 16px; font-size: 20px; line-height: 24px; letter-spacing: -0.0008em; } /* Figma "Join Frontier": 153 × 45 */
 
 .btn__arrow { width: 20px; height: 20px; transition: transform 0.35s var(--ease-out); }
 .btn:hover .btn__arrow { transform: translateX(4px); }
@@ -278,7 +281,7 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   .nav__logo img { width: 80px; }
   .variation-tabs__tab { padding: 0 8px; gap: 0; font-size: 0; }
   .variation-tabs__num { font-size: 12px; color: inherit; }
-  .nav .btn { padding: 0 12px; font-size: 14px; height: 36px; }
+  .nav .btn { padding: 8px; font-size: 14px; height: 36px; }
 }
 
 /* ---------- Motion primitives ---------- */

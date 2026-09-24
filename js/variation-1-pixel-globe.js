@@ -5,10 +5,10 @@
      land pixels are softly lit, ocean pixels faint, borders show as seams.
    - The globe sits behind the hero copy and cards. Pixels under those
      elements are dimmed so text and buttons stay readable.
-   - Every pixel is a name: hovering a pixel shows
-     that pixel's string (tied to its lat/lon, so a spot always gives the
-     same name) next to the cursor. The globe keeps rotating while
-     hovered, so the name updates as the earth moves under the cursor.
+   - On top sits an invisible layer of static points covering exactly the
+     globe disc. Each point holds one name. Hovering a point shows its
+     name (and the coordinate under it at that moment) until the cursor
+     moves to another point; the globe keeps rotating underneath.
    Exposes window.FrontierGlobe = { start, stop }.
    ========================================================================== */
 (function () {
@@ -64,7 +64,7 @@
     return mask[(y | 0) * MASK_W + (x | 0)];
   }
 
-  /* ---------------- One name per pixel ---------------- */
+  /* ---------------- Names for the static hover points ---------------- */
 
   var NAMES = ["vault", "gen", "burner", "anon", "satoshi", "degen", "swarm", "gold", "ledger", "pixel",
     "first", "family", "node", "open", "cold", "based", "rare", "ghost", "hodl", "mint", "prime",
@@ -72,38 +72,26 @@
     "dao", "orbit", "keys", "signal", "sats", "meta", "pure", "trust", "safe", "chain", "hyper", "lucky",
     "noble", "atlas", "echo", "zero", "frontier", "genesis", "vista", "summit", "harbor", "ember"];
   var TLDS = [".crypto", ".wealth", ".wallet", ".agent", ".btc", ".sol", ".nft", ".robot", ".human", ".hype", ".gate"];
-  // A few fixed spots keep the names from the brief where people will look for them
-  var FIXED = {};
-  function fix(lat, lon, name) { FIXED[cellKey(lat, lon)] = name; }
+  // The names from the brief turn up more often than the generated ones
+  var FEATURED = ["vault.crypto", "gen.wealth", "burner.wallet", "anon.agent", "satoshi.btc", "swarm.robot"];
 
-  var GEO_CELL = 1.5; // degrees; one name per 1.5° × 1.5° patch of earth
-  function cellKey(lat, lon) {
-    var la = Math.floor((lat + 90) / GEO_CELL);
-    var lo = Math.floor((((lon + 180) % 360) + 360) % 360 / GEO_CELL);
-    return la * 1000 + lo;
-  }
   function hash(n) {
     n = Math.imul(n ^ (n >>> 16), 0x45d9f3b);
     n = Math.imul(n ^ (n >>> 16), 0x45d9f3b);
     return (n ^ (n >>> 16)) >>> 0;
   }
-  function nameFor(lat, lon) {
-    var key = cellKey(lat, lon);
-    if (FIXED[key]) return FIXED[key];
-    var h = hash(key + 7919);
-    return NAMES[h % NAMES.length] + TLDS[(h >>> 12) % TLDS.length];
+  // i, j: integer position of the static point relative to the globe centre
+  function pointName(i, j) {
+    var h = hash((i + 512) * 4096 + (j + 512) + 7919);
+    if (h % 7 === 0) return FEATURED[(h >>> 8) % FEATURED.length];
+    return NAMES[(h >>> 3) % NAMES.length] + TLDS[(h >>> 13) % TLDS.length];
   }
-  fix(47.37, 8.54, "vault.crypto");   // Zürich
-  fix(40.71, -74.0, "gen.wealth");    // New York
-  fix(1.35, 103.82, "burner.wallet"); // Singapore
-  fix(64.15, -21.9, "anon.agent");    // Reykjavík
-  fix(13.69, -89.19, "satoshi.btc");  // San Salvador
-  fix(35.68, 139.69, "swarm.robot");  // Tokyo
 
   /* ---------------- Layout ---------------- */
 
   var W = 0, H = 0, dpr = 1;
-  var cell = 10;          // grid pitch in CSS px
+  var cell = 10;          // pixel grid pitch in CSS px
+  var pitch = 28;         // spacing of the static hover points in CSS px
   var R = 600;            // globe radius in CSS px
   var cx = 0, cy = 0;     // globe centre in CSS px
   var avoid = [];         // rects (CSS px, canvas space) where pixels are dimmed
@@ -124,6 +112,7 @@
 
     var mobile = W < 760;
     cell = mobile ? 7 : W < 1200 ? 8 : 9;
+    pitch = mobile ? 24 : 28;
     R = mobile ? W * 0.72 : Math.min(W * 0.4, 660);
     cx = W * 0.5;
     // Show roughly the top 60% of the globe (both edges visible), rising behind the cards
@@ -197,13 +186,13 @@
         var limb = Math.min(1, p.z * 3); // fade toward the rim
         var alpha, size;
         if (m > 180) {            // land
-          alpha = (0.1 + 0.3 * light) * (0.35 + 0.65 * limb); // muted: max ≈ 0.4
+          alpha = (0.09 + 0.27 * light) * (0.35 + 0.65 * limb); // muted: max ≈ 0.36
           size = cell * (0.46 + 0.3 * light);
         } else if (m > 40) {      // border seam
-          alpha = (0.05 + 0.12 * light) * limb;
+          alpha = (0.045 + 0.108 * light) * limb;
           size = cell * 0.4;
         } else {                  // ocean
-          alpha = (0.03 + 0.06 * light) * limb;
+          alpha = (0.027 + 0.054 * light) * limb;
           size = cell * 0.22;
         }
         alpha *= dimAt(p.x, p.y);
@@ -222,7 +211,7 @@
 
     // Faint atmosphere rim so the silhouette always reads as a globe
     var halo = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.08);
-    halo.addColorStop(0, "rgba(255,255,255,0.05)");
+    halo.addColorStop(0, "rgba(255,255,255,0.045)");
     halo.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = halo;
     ctx.beginPath();
@@ -230,15 +219,15 @@
     ctx.arc(cx, cy, R * 0.96, 0, Math.PI * 2, true);
     ctx.fill();
 
-    // Hovered pixel
+    // Hovered static point: a small marker that stays put while the globe turns
     if (hover) {
-      var hx = hover.col * cell;
-      var hy = hover.row * cell;
+      var hx = Math.round(hover.x);
+      var hy = Math.round(hover.y);
       ctx.fillStyle = "#ffffff";
-      ctx.fillRect(hx + 1, hy + 1, cell - 2, cell - 2);
+      ctx.fillRect(hx - 3, hy - 3, 6, 6);
       ctx.strokeStyle = "rgba(255,255,255,0.4)";
       ctx.lineWidth = 1;
-      ctx.strokeRect(hx - cell + 0.5, hy - cell + 0.5, cell * 3 - 1, cell * 3 - 1);
+      ctx.strokeRect(hx - 9.5, hy - 9.5, 19, 19);
     }
   }
 
@@ -261,20 +250,30 @@
     tooltip.classList.add("is-swap");
   }
 
+  // Snap the cursor to the nearest static point. The name only changes when
+  // the cursor reaches a different point, so an idle cursor keeps its name.
   function updateHover() {
     if (!pointer) return clearHover();
-    var col = Math.floor(pointer.x / cell);
-    var row = Math.floor(pointer.y / cell);
-    var p = project(col, row);
-    if (!p || dimAt(p.x, p.y) < 1) return clearHover();
+    // Stick to the current point until the cursor is clearly nearer another one
+    if (hover && Math.abs(pointer.x - hover.x) < pitch * 0.65 && Math.abs(pointer.y - hover.y) < pitch * 0.65) return;
+    var i = Math.round((pointer.x - cx) / pitch);
+    var j = Math.round((pointer.y - cy) / pitch);
+    var x = cx + i * pitch;
+    var y = cy + j * pitch;
+    var dx = (x - cx) / R;
+    var dy = (y - cy) / R;
+    if (dx * dx + dy * dy > 0.97 || y > H || dimAt(x, y) < 1) return clearHover();
+    if (hover && hover.i === i && hover.j === j) return;
 
-    var name = nameFor(p.lat, p.lon);
-    if (!hover || hover.name !== name) renderName(name);
-    hover = { col: col, row: row, lat: p.lat, lon: p.lon, name: name };
-    tipCoord.textContent = formatCoord(p.lat, p.lon);
+    var name = pointName(i, j);
+    var p = project(x / cell - 0.5, y / cell - 0.5);
+    hover = { i: i, j: j, x: x, y: y, name: name };
+    renderName(name);
+    tipCoord.textContent = p ? formatCoord(p.lat, p.lon) : "";
     hero.classList.add("is-globe-hover");
     tooltip.classList.add("is-visible");
     placeTooltip();
+    if (!running) draw();
   }
 
   function clearHover() {
@@ -286,10 +285,10 @@
     if (!hover) return;
     var w = tooltip.offsetWidth;
     var h = tooltip.offsetHeight;
-    var x = (hover.col + 0.5) * cell + 16;
-    var y = (hover.row + 0.5) * cell - h - 16;
-    if (x + w > W - 8) x = (hover.col + 0.5) * cell - w - 16;
-    if (y < 8) y = (hover.row + 0.5) * cell + 20;
+    var x = hover.x + 16;
+    var y = hover.y - h - 16;
+    if (x + w > W - 8) x = hover.x - w - 16;
+    if (y < 8) y = hover.y + 20;
     tooltip.style.setProperty("--tx", Math.round(x) + "px");
     tooltip.style.setProperty("--ty", Math.round(y) + "px");
   }
@@ -299,7 +298,6 @@
     var r = hero.getBoundingClientRect();
     pointer = { x: e.clientX - r.left, y: e.clientY - r.top };
     updateHover();
-    if (!running) draw();
   });
   hero.addEventListener("pointerleave", function () { pointer = null; clearHover(); });
   hero.addEventListener("pointerdown", function (e) {
@@ -325,7 +323,6 @@
     speed += (targetSpeed - speed) * Math.min(1, dt * 0.008);
     if (Math.abs(speed) > 0.00001) {
       lam -= speed * dt;
-      if (hover) updateHover();
     }
     draw();
     rafId = requestAnimationFrame(frame);
@@ -345,7 +342,7 @@
 
   /* ---------------- Boot ---------------- */
 
-  function relayout() { if (layout()) draw(); }
+  function relayout() { if (layout()) { clearHover(); draw(); } }
   if ("ResizeObserver" in window) new ResizeObserver(relayout).observe(hero);
   window.addEventListener("resize", relayout);
   // Card positions settle after fonts load and the entrance animation ends
