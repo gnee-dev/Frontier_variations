@@ -36,14 +36,13 @@ css/
   variation-1-pixel-globe.css   # Hero variation 1 (pixel globe)
   variation-placeholder.css     # Temporary styles for variations 2 & 3
 js/
-  main.js                       # tab switching, typing domain, counters, scroll reveals, parallax
+  main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation, hover-to-pause, one name per pixel
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
   logos/                        # Frontier wordmark + partner logos (exported from the Figma file)
   icons/                        # chain icons used in the "Deposit" card
-  img/banner-dunes.jpg          # banner background (desaturated in CSS for variation 1)
 ```
 
 ## Variation 1: Pixel globe

@@ -2,7 +2,7 @@
    Frontier Lander — page behaviour
    - Variation tabs in the nav (persisted in the URL hash: #v1 / #v2 / #v3)
    - Hero entrance, typing domain, counters
-   - Scroll reveals, card sheen, nav state, banner parallax
+   - Scroll reveals, card sheen
    ========================================================================== */
 (function () {
   "use strict";
@@ -194,26 +194,6 @@
       card.style.setProperty("--my", e.clientY - r.top + "px");
     });
   });
-
-  /* ---------------- Nav + parallax on scroll ---------------- */
-
-  var nav = document.getElementById("nav");
-  var bannerMedia = document.querySelector(".banner__media");
-  var ticking = false;
-
-  function onScroll() {
-    ticking = false;
-    nav.classList.toggle("is-scrolled", window.scrollY > 24);
-    if (bannerMedia && !reduceMotion) {
-      var r = bannerMedia.parentElement.getBoundingClientRect();
-      var progress = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
-      bannerMedia.style.setProperty("--parallax", (progress * -40).toFixed(1) + "px");
-    }
-  }
-  window.addEventListener("scroll", function () {
-    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
-  }, { passive: true });
-  onScroll();
 
   /* ---------------- Boot ---------------- */
 

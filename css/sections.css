@@ -284,24 +284,9 @@
   gap: 24px;
   min-height: var(--stat-h);
   padding: clamp(24px, 2.5vw, 36px);
-  overflow: hidden;
-  isolation: isolate;
-}
-.banner__media {
-  position: absolute;
-  inset: -20% 0;
-  z-index: -1;
-  background: url("../assets/img/banner-dunes.jpg") center 42% / cover no-repeat;
-  filter: grayscale(1) contrast(1.25) brightness(1.05);
-  transform: translateY(var(--parallax, 0px)) scale(1.05);
-  will-change: transform;
-}
-.banner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 70%);
+  /* same fill and stroke as the stat cards */
+  background: var(--panel-bg-solid);
+  border-color: var(--panel-bd);
 }
 .banner__title { font-size: clamp(28px, 2.6vw, 36px); font-weight: 500; line-height: 1.15; letter-spacing: -0.035em; max-width: 560px; text-wrap: balance; }
 @media (max-width: 720px) {
