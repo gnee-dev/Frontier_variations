@@ -77,7 +77,14 @@
     rOut = mobile ? W * 0.8 : Math.min(W * 0.4, 620);
     rIn = rOut * 0.66;
     cx = W - rOut * (mobile ? 0.02 : 0.08);
-    cy = H - (mobile ? rOut * 0.05 : rOut * 0.12);
+    cy = H - (mobile ? rOut * 0.05 : rOut * 0.12) - H * 0.1;   // raised 10% of the hero height
+
+    // hand the ring geometry to the CSS glow behind the pixels
+    var layerEl = canvas.parentElement;
+    layerEl.style.setProperty("--ring-x", cx + "px");
+    layerEl.style.setProperty("--ring-y", cy + "px");
+    layerEl.style.setProperty("--ring-in", rIn + "px");
+    layerEl.style.setProperty("--ring-out", rOut + "px");
 
     color = getComputedStyle(document.body).getPropertyValue("--c-ring").trim() || "#e96e26";
 

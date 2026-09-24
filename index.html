@@ -108,7 +108,10 @@
     <!-- ======================= HERO · VARIATION 2 (DISSOLVE RING, light) ======================= -->
     <section class="hero hero--v2" id="hero-v2" data-hero="2" role="tabpanel" aria-label="Hero variation 2: Dissolve ring" hidden>
       <!-- Dissolve ring: orange pixel arc in the bottom-right corner, behind the content -->
-      <canvas class="dissolve-ring" id="dissolve-ring" aria-hidden="true"></canvas>
+      <div class="dissolve-ring-layer" id="dissolve-ring-layer" aria-hidden="true">
+        <div class="dissolve-ring__glow"></div>
+        <canvas class="dissolve-ring" id="dissolve-ring"></canvas>
+      </div>
       <div class="hero-tip" id="dissolve-ring-tooltip" aria-hidden="true">
         <span class="hero-tip__name"></span>
       </div>
@@ -126,7 +129,7 @@
               Join Frontier
               <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <span class="hero-v2__bonus"><span class="pulse-dot" aria-hidden="true"></span>+10,000 pts bonus expires today</span>
+            <span class="hero-v2__bonus"><span class="pulse-dot" aria-hidden="true"></span><span><span class="hero-v2__pts">+10,000 pts</span> bonus expires today</span></span>
           </div>
         </div>
 

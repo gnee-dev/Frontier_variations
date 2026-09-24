@@ -12,11 +12,13 @@ body[data-variation="2"] {
   --ink: 17, 17, 19;                  /* #111113 */
   --c-bg: #f4f4f2;
   --c-bg-2: #f4f4f2;
-  /* Orange darkened for contrast on light: white button text 4.6:1 */
-  --c-accent: #c4531b;
-  --c-accent-hover: #b04814;
-  --c-accent-press: #9e3f10;
-  --c-accent-text: #c4531b;
+  /* Orange for light mode: lighter and more saturated than the brand orange
+     so it stays vivid; white button text 3.85:1, TLD on the page 3.5:1 */
+  --c-accent: #da5a12;
+  --c-accent-hover: #c9500e;
+  --c-accent-press: #b5470c;
+  --c-accent-text: #da5a12;
+  --c-points: #1ac684;               /* the "+10,000 pts" highlight */
   --c-ring: #e96e26;                  /* ring pixels keep the brand orange */
 
   --panel-bg: rgba(255, 255, 255, 0.55);
@@ -48,16 +50,40 @@ body[data-variation="2"] {
 .hero--v2.is-globe-hover { cursor: crosshair; }
 
 /* ---------- Dissolve ring (behind everything) ---------- */
-.dissolve-ring {
+/* Layer = soft glow + pixel canvas. The mask fades its lower edge into the
+   page background so the hero blends into the sections below. */
+.dissolve-ring-layer {
   position: absolute;
   inset: 0;
   z-index: -1;
-  width: 100%;
-  height: 100%;
+  pointer-events: none;
   opacity: 0;
   transition: opacity 1.4s var(--ease-out) 0.3s;
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
 }
-.hero--v2.is-entered .dissolve-ring { opacity: 1; }
+.hero--v2.is-entered .dissolve-ring-layer { opacity: 1; }
+.dissolve-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Soft orange glow following the ring band; position and radii are set
+   from the ring script (--ring-x/--ring-y/--ring-in/--ring-out) */
+.dissolve-ring__glow {
+  position: absolute;
+  inset: -120px;
+  background: radial-gradient(
+    circle at calc(var(--ring-x, 100%) + 120px) calc(var(--ring-y, 100%) + 120px),
+    rgba(233, 110, 38, 0) calc(var(--ring-in, 300px) * 0.82),
+    rgba(233, 110, 38, 0.16) calc(var(--ring-in, 300px) * 1.05),
+    rgba(233, 110, 38, 0.1) calc(var(--ring-out, 480px) * 0.92),
+    rgba(233, 110, 38, 0) calc(var(--ring-out, 480px) * 1.3)
+  );
+  filter: blur(48px);
+  animation: ring-glow 7s ease-in-out infinite;
+}
+@keyframes ring-glow {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
 
 /* ---------- Head: left-aligned ---------- */
 .hero-v2__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
@@ -67,9 +93,9 @@ body[data-variation="2"] {
   gap: 24px;               /* Figma: 24px between headline, domain field and subtitle */
   max-width: 674px;        /* Figma column width */
 }
-/* Letter-spacing matches the section headings (-0.04em) */
+/* Letter-spacing matches the section headings (-0.04em); same size as the typed string */
 .hero-v2__title {
-  font-size: min(56px, 10vw);
+  font-size: min(40px, 9vw);
   line-height: 1.1;
   font-weight: 500;
   letter-spacing: -0.04em;
@@ -98,10 +124,12 @@ body[data-variation="2"] {
 /* CTA under the copy (Figma: button, then the bonus note under it) */
 .hero-v2__cta { display: grid; justify-items: start; gap: 13px; margin-top: 4px; }
 .hero-v2__bonus { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; color: var(--c-text-64); }
+.hero-v2__pts { color: var(--c-points); font-weight: 600; }
 
 /* Three shorter stat cards */
 .hero-v2__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.hero-v2__cards .stat-card { min-height: 148px; gap: 16px; }
+.hero-v2__cards .stat-card { min-height: 0; gap: 10px; padding: 24px; }
+.hero-v2__cards .stat-card__note { margin-top: 4px; }
 .hero-v2__cards .stat-card__value { font-size: clamp(36px, 3.3vw, 48px); }
 @media (max-width: 760px) { .hero-v2__cards { grid-template-columns: 1fr; } }
 
