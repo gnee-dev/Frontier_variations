@@ -310,18 +310,21 @@
   var title3b = document.getElementById("hero-v3b-title");
   var field3b = hero3b && hero3b.querySelector(".hero-v3b__domain");
 
-  // 56px in a 674px frame, the width of the domain field.
-  // Only on screens too narrow for the 674px field is the headline scaled
-  // down, so it keeps matching the (narrower) field instead of overflowing.
+  // The domain field is always exactly as wide as the headline's text.
+  // The headline stays at its 56px size; only when it doesn't fit the
+  // column (narrow screens) is it scaled down, and the field follows.
+  var stack3b = hero3b && hero3b.querySelector(".hero-v3b__stack");
   function fitTitle() {
-    if (!title3b || !field3b || !field3b.offsetWidth) return;
+    if (!title3b || !field3b || !stack3b || !stack3b.clientWidth) return;
     title3b.style.fontSize = "";
-    if (field3b.offsetWidth >= 674) return;           // desktop: exact Figma 64px
-    title3b.style.fontSize = "56px";
-    var natural = title3b.scrollWidth;
-    if (!natural) return;
-    var size = Math.min(56, 56 * field3b.offsetWidth / natural);
-    title3b.style.fontSize = Math.max(26, size).toFixed(2) + "px";
+    var avail = stack3b.clientWidth;
+    var natural = title3b.scrollWidth;              // inline-block + nowrap: the text's width
+    if (natural > avail) {
+      var base = parseFloat(getComputedStyle(title3b).fontSize);
+      title3b.style.fontSize = Math.max(24, base * avail / natural).toFixed(2) + "px";
+      natural = title3b.scrollWidth;
+    }
+    field3b.style.width = Math.min(natural, avail) + "px";
   }
 
   if (hero3b) {

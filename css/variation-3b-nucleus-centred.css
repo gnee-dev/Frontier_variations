@@ -1,10 +1,9 @@
 /* ==========================================================================
    Hero · Variation 3b — "Nucleus centred" (dark mode)
-   Layout (second Figma file, exact sizes): one centred 674px stack of the
-   64px headline, the 674 × 88 domain field (56px) with Join Frontier
-   inside it, the 18px bonus line and the 16px subtitle, each one line.
-   On narrow screens the headline scales down to the field's width
-   (js/variation-3-nucleus.js). A much bigger particle sphere rises out of the bottom of the
+   Layout (second Figma file): one centred stack of the headline, the
+   domain field with Join Frontier inside it (always exactly as wide as
+   the headline's text, set in js/variation-3-nucleus.js), the bonus line
+   and the subtitle. A much bigger particle sphere rises out of the bottom of the
    hero behind everything; three compact stat cards sit at the bottom.
    ========================================================================== */
 
@@ -60,14 +59,13 @@ body[data-variation="3b"] :is(
   margin-inline: auto;
 }
 .hero-v3b__title {
-  display: inline-block;              /* natural width is measured on narrow screens */
+  display: inline-block;              /* its natural width sets the domain field's width */
   white-space: nowrap;
   font-size: 56px;                    /* Figma 64px, 8px smaller; line-height 1.2, 674px frame */
   line-height: 1.2;
   font-weight: 500;
 }
-/* desktop: a 674px frame (as in Figma); flex centring keeps the text centred on it */
-@media (min-width: 760px) { .hero-v3b__title { display: flex; justify-content: center; width: 674px; } }
+/* the domain field is sized in JS to exactly this text's width */
 .hero-v3b__claim { display: grid; justify-items: center; gap: 20px; width: 100%; }   /* Figma: 20px field → bonus line */
 
 /* Domain field with Join Frontier inside (Figma: 674 × 88, 18px insets) */
@@ -82,7 +80,7 @@ body[data-variation="3b"] :is(
   border-color: rgba(var(--ink), 0.12);
   font-size: min(48px, 9vw);          /* Figma 56px, 8px smaller */
   line-height: 1.2;
-  max-width: 674px;
+  max-width: 100%;                    /* width = the headline's text width (set in JS) */
 }
 .hero-v3b__typed { display: inline-flex; align-items: center; min-width: 0; height: 40px; line-height: 40px; }   /* same height as the button */
 .hero-v3b__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." white, "crypto" orange */
