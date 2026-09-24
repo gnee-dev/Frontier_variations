@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/hero-shared.css" />
   <link rel="stylesheet" href="css/variation-1-pixel-globe.css" />
   <link rel="stylesheet" href="css/variation-2-dissolve-ring.css" />
-  <link rel="stylesheet" href="css/variation-3-twin-earth.css" />
+  <link rel="stylesheet" href="css/variation-3-nucleus.css" />
   <link rel="stylesheet" href="css/variation-placeholder.css" />
 </head>
 
@@ -36,7 +36,7 @@
           <span class="variation-tabs__num">02</span> Dissolve ring
         </button>
         <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" data-variation-tab="3">
-          <span class="variation-tabs__num">03</span> Twin earth
+          <span class="variation-tabs__num">03</span> Nucleus
         </button>
         <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v4" data-variation-tab="4">
           <span class="variation-tabs__num">04</span> Variation 4
@@ -175,10 +175,10 @@
       <p class="hero-hint" aria-hidden="true">Hover a pixel to reveal its name</p>
     </section>
 
-    <!-- ======================= HERO · VARIATION 3 (TWIN EARTH, dark) ======================= -->
-    <section class="hero hero--v3" id="hero-v3" data-hero="3" role="tabpanel" aria-label="Hero variation 3: Twin earth" hidden>
+    <!-- ======================= HERO · VARIATION 3 (NUCLEUS, dark) ======================= -->
+    <section class="hero hero--v3" id="hero-v3" data-hero="3" role="tabpanel" aria-label="Hero variation 3: Nucleus" hidden>
       <div class="container hero-v3__inner">
-        <!-- Left copy · half-real / half-pixel earth · right claim. Both sides share one grid row, so they are the same height. -->
+        <!-- Left copy · particle sphere · right claim. Both sides share one grid row, so they are the same height. -->
         <div class="hero-v3__stage">
           <div class="hero-v3__left">
             <h1 class="hero-v3__title" data-anim="rise" style="--d: 0.10s">Be the first<br /> to ever own</h1>
@@ -186,8 +186,8 @@
           </div>
 
           <div class="hero-v3__globe" data-anim="globe-fade">
-            <canvas class="twin-earth" id="twin-earth" role="img" aria-label="Half of the earth drawn realistically, the other half as its digital pixel twin. Hover a pixel to reveal a name."></canvas>
-            <div class="hero-tip" id="twin-earth-tooltip" aria-hidden="true">
+            <canvas class="nucleus" id="nucleus" role="img" aria-label="A rotating sphere of particles inside a cloud of drifting particles. Hover it to reveal a name."></canvas>
+            <div class="hero-tip" id="nucleus-tooltip" aria-hidden="true">
               <span class="hero-tip__name"></span>
             </div>
           </div>
@@ -489,7 +489,7 @@
 
   <script src="js/variation-1-pixel-globe.js"></script>
   <script src="js/variation-2-dissolve-ring.js"></script>
-  <script src="js/variation-3-twin-earth.js"></script>
+  <script src="js/variation-3-nucleus.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

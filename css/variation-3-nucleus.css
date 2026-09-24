@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Hero · Variation 3 — "Twin earth" (dark mode)
-   Layout: headline + subtitle on the left, the earth in the middle (left
-   half realistic, right half its digital pixel twin), domain field + Join
+   Hero · Variation 3 — "Nucleus" (dark mode)
+   Layout: headline + subtitle on the left, a particle sphere in the middle
+   (rotating nucleus inside a sparse particle halo), domain field + Join
    Frontier + bonus line on the right, three compact stat cards at the
    bottom. The two side columns share one grid row so they are the same
    height, top and bottom aligned.
@@ -26,12 +26,12 @@ body[data-variation="3"] :is(
   min-height: max(720px, min(968px, 100svh));
   padding: calc(20px + var(--nav-h) + 40px) 0 40px;
   background:
-    radial-gradient(40% 45% at 50% 44%, rgba(120, 160, 200, 0.06), transparent 70%),
+    radial-gradient(34% 40% at 50% 44%, rgba(255, 255, 255, 0.045), transparent 70%),
     var(--c-bg);
   overflow: hidden;
   isolation: isolate;
 }
-.hero--v3.is-globe-hover .twin-earth { cursor: crosshair; }
+.hero--v3.is-globe-hover .nucleus { cursor: crosshair; }
 
 .hero-v3__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
 
@@ -55,6 +55,8 @@ body[data-variation="3"] :is(
   justify-content: space-between;
   gap: 20px;
 }
+.hero-v3__left,
+.hero-v3__right { position: relative; z-index: 1; }   /* above the sphere's spill-over */
 .hero-v3__left { grid-column: 1; align-items: flex-start; }
 .hero-v3__right { grid-column: 3; align-items: flex-end; text-align: right; }
 
@@ -84,17 +86,19 @@ body[data-variation="3"] :is(
 .hero-v3__muted { color: var(--c-text-64); }
 .hero-v3__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
 
-/* ---------- Twin earth ---------- */
+/* ---------- Nucleus (particle sphere) ----------
+   The canvas spills past its square box so the halo can drift wider than
+   the nucleus without pushing the side columns apart. */
 .hero-v3__globe {
   grid-column: 2;
   grid-row: 1 / 4;
   align-self: center;
   position: relative;
-  width: min(34vw, 540px, calc(100svh - 360px));
+  width: min(32vw, 500px, calc(100svh - 380px));
   min-width: 300px;
   aspect-ratio: 1;
 }
-.twin-earth { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nucleus { position: absolute; inset: -18%; width: 136%; height: 136%; }
 [data-anim="globe-fade"] { opacity: 0; transform: scale(0.96); }
 .is-entered [data-anim="globe-fade"] { animation: globe-fade 1.6s var(--ease-out) 0.15s forwards; }
 @keyframes globe-fade { to { opacity: 1; transform: none; } }
