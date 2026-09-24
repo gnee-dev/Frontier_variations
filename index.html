@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frontier — Be the first to ever own</title>
+  <meta name="description" content="Frontier is a buyer membership program for the upcoming ICANN round. Claim the next internet frontier." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..800&display=swap" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/variation-1-globe.css" />
+  <link rel="stylesheet" href="css/variation-placeholder.css" />
+</head>
+
+<body data-variation="1">
+  <!-- ============================== NAV ============================== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="#top" aria-label="Frontier home">
+        <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="128" height="13" />
+      </a>
+
+      <nav class="variation-tabs" role="tablist" aria-label="Hero variations">
+        <span class="variation-tabs__indicator" aria-hidden="true"></span>
+        <button class="variation-tabs__tab is-active" role="tab" aria-selected="true" aria-controls="hero-v1" data-variation-tab="1">
+          <span class="variation-tabs__num">01</span> Globe
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2" data-variation-tab="2">
+          <span class="variation-tabs__num">02</span> Variation 2
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" data-variation-tab="3">
+          <span class="variation-tabs__num">03</span> Variation 3
+        </button>
+      </nav>
+
+      <a class="btn btn--primary btn--sm" href="#join">Sign up</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ======================= HERO · VARIATION 1 (GLOBE) ======================= -->
+    <section class="hero hero--v1" id="hero-v1" data-hero="1" role="tabpanel" aria-label="Hero variation 1: Globe">
+      <div class="hero-v1__bg" aria-hidden="true">
+        <div class="hero-v1__grid"></div>
+        <div class="hero-v1__glow"></div>
+      </div>
+
+      <div class="hero-v1__inner container">
+        <div class="hero-v1__copy">
+          <h1 class="hero-v1__title" data-anim="rise" style="--d: 0.10s">Be the first to ever own</h1>
+
+          <div class="domain-box" data-anim="rise" style="--d: 0.25s" aria-live="polite">
+            <span class="domain-box__text" id="hero-domain">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span>
+          </div>
+
+          <p class="hero-v1__sub" data-anim="rise" style="--d: 0.40s">Hundreds of new endings arrive in 2026. Claim the next internet frontier.</p>
+
+          <div class="hero-v1__cta" data-anim="rise" style="--d: 0.55s">
+            <a class="btn btn--primary btn--lg btn--shine" id="join" href="#join">
+              Join Frontier
+              <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="hero-v1__bonus"><span class="pulse-dot" aria-hidden="true"></span>+10,000 pts bonus expires today</span>
+          </div>
+        </div>
+
+        <div class="hero-v1__visual" data-anim="globe">
+          <div class="globe" id="globe">
+            <div class="globe__rings" aria-hidden="true">
+              <span class="globe__ring globe__ring--1"></span>
+              <span class="globe__ring globe__ring--2"></span>
+            </div>
+            <canvas class="globe__canvas" id="globe-canvas" aria-label="Rotating political globe. Hover a country to reveal a Frontier name." role="img"></canvas>
+            <div class="globe__tooltip" id="globe-tooltip" aria-hidden="true">
+              <span class="globe__tooltip-name"></span>
+              <span class="globe__tooltip-place"></span>
+            </div>
+            <p class="globe__hint" aria-hidden="true">Hover to explore · drag to spin</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats (content from the "How it works" stats row, surfaced in the hero) -->
+      <div class="container">
+        <dl class="stats" data-anim="rise" style="--d: 0.75s">
+          <div class="stats__item">
+            <dt>Points rate</dt>
+            <dd><span class="stats__value" data-count-to="4" data-count-suffix="x">4x</span><span class="stats__note">Epoch 1 • ends Mar 21, 2027</span></dd>
+          </div>
+          <div class="stats__item">
+            <dt>Members</dt>
+            <dd><span class="stats__value" data-count-to="17714">17,714</span><span class="stats__note">signed up</span></dd>
+          </div>
+          <div class="stats__item">
+            <dt>Extensions live</dt>
+            <dd><span class="stats__value" data-count-to="35">35</span><span class="stats__note">more TLDs coming soon</span></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ======================= HERO · VARIATION 2 (placeholder) ======================= -->
+    <section class="hero hero--placeholder" id="hero-v2" data-hero="2" role="tabpanel" aria-label="Hero variation 2" hidden>
+      <div class="container hero-placeholder">
+        <span class="hero-placeholder__tag">Variation 02</span>
+        <h1 class="hero-placeholder__title">Be the first to ever own</h1>
+        <p class="hero-placeholder__sub">This hero variation is reserved and will be designed next.</p>
+      </div>
+    </section>
+
+    <!-- ======================= HERO · VARIATION 3 (placeholder) ======================= -->
+    <section class="hero hero--placeholder" id="hero-v3" data-hero="3" role="tabpanel" aria-label="Hero variation 3" hidden>
+      <div class="container hero-placeholder">
+        <span class="hero-placeholder__tag">Variation 03</span>
+        <h1 class="hero-placeholder__title">Be the first to ever own</h1>
+        <p class="hero-placeholder__sub">This hero variation is reserved and will be designed next.</p>
+      </div>
+    </section>
+
+    <!-- ============================== HOW IT WORKS ============================== -->
+    <section class="section how" id="how-it-works">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <span class="section-head__index">01</span>
+            <h2 class="section-head__title">How Frontier works</h2>
+            <p class="section-head__desc">Frontier is a buyer membership program for the upcoming ICANN round.  Frontier Members get early access to new top-level domains, before the mass market.</p>
+          </div>
+          <a class="btn btn--ghost" href="#join">Save my spot</a>
+        </header>
+
+        <div class="cards">
+          <!-- Deposit -->
+          <article class="card" data-reveal style="--d: 0s">
+            <div class="card__visual card__visual--deposit" aria-hidden="true">
+              <div class="chip-rail chip-rail--a">
+                <div class="chip-rail__track">
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-hyperliquid.svg" alt="" /></span>
+                  <span class="chip"><img src="assets/icons/chain-ethereum.svg" alt="" /></span>
+                  <span class="chip"></span>
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-hyperliquid.svg" alt="" /></span>
+                  <span class="chip"><img src="assets/icons/chain-ethereum.svg" alt="" /></span>
+                  <span class="chip"></span>
+                </div>
+              </div>
+              <div class="chip-rail chip-rail--b">
+                <div class="chip-rail__track">
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-solana.svg" alt="" /></span>
+                  <span class="chip"></span>
+                  <span class="chip chip--solid"></span>
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-solana.svg" alt="" /></span>
+                  <span class="chip"></span>
+                  <span class="chip chip--solid"></span>
+                </div>
+              </div>
+            </div>
+            <div class="card__body">
+              <span class="card__step">01</span>
+              <h3 class="card__title">Deposit</h3>
+              <p class="card__text">Deposit into a protected vault account. Withdraw anytime.</p>
+            </div>
+          </article>
+
+          <!-- Earn -->
+          <article class="card" data-reveal style="--d: 0.12s">
+            <div class="card__visual card__visual--earn" aria-hidden="true">
+              <span class="pts-pill" style="--x: 5%;  --y: 9%;  --t: 0s">+2,000 pts</span>
+              <span class="pts-pill" style="--x: 70%; --y: 7%;  --t: 1.1s">+2,000 pts </span>
+              <span class="pts-pill" style="--x: 72%; --y: 80%; --t: 2.2s">+2,000 pts</span>
+              <span class="pts-pill" style="--x: 4%;  --y: 80%; --t: 0.6s">+2,000 pts</span>
+              <span class="pts-pill" style="--x: 38%; --y: 85%; --t: 1.7s">+2,000 pts</span>
+              <div class="points">
+                <span class="points__label">My points</span>
+                <span class="points__value"><span data-count-to="55000">55,000</span><small>points</small></span>
+              </div>
+            </div>
+            <div class="card__body">
+              <span class="card__step">02</span>
+              <h3 class="card__title">Earn</h3>
+              <p class="card__text">Earn interest and points towards your choice of TLD namespaces.</p>
+            </div>
+          </article>
+
+          <!-- Claim -->
+          <article class="card" data-reveal style="--d: 0.24s">
+            <div class="card__visual card__visual--claim" aria-hidden="true">
+              <span class="claim__label">Extensions</span>
+              <ul class="backers">
+                <li class="backers__row"><span class="backers__tld">.btc</span><span class="backers__bar"><i style="--w: 100%"></i></span><span class="backers__count">5 backers</span></li>
+                <li class="backers__row"><span class="backers__tld">.crypto</span><span class="backers__bar"><i style="--w: 63%"></i></span><span class="backers__count">3 backers</span></li>
+                <li class="backers__row"><span class="backers__tld">.robot</span><span class="backers__bar"><i style="--w: 45%"></i></span><span class="backers__count">2 backers</span></li>
+              </ul>
+            </div>
+            <div class="card__body">
+              <span class="card__step">03</span>
+              <h3 class="card__title">Claim</h3>
+              <p class="card__text">Use points to set priority across TLD strings. Always before general sale.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== BACK THE EXTENSIONS ============================== -->
+    <section class="section backing" id="backing">
+      <div class="container">
+        <header class="section-head section-head--center" data-reveal>
+          <span class="section-head__index">02</span>
+          <h2 class="section-head__title">Back the extensions you want</h2>
+          <p class="section-head__desc">Allocate points towards namespaces starting reveal day to lock-in your position.</p>
+        </header>
+      </div>
+
+      <div class="marquee marquee--tlds" data-reveal>
+        <div class="marquee__track">
+          <ul class="marquee__group">
+            <li>.hype</li><li>.human</li><li>.agent</li><li class="is-hot">.robot</li><li>.btc</li><li>.sol</li><li>.gate</li><li>.nft</li>
+          </ul>
+          <ul class="marquee__group" aria-hidden="true">
+            <li>.hype</li><li>.human</li><li>.agent</li><li class="is-hot">.robot</li><li>.btc</li><li>.sol</li><li>.gate</li><li>.nft</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== STEPS ============================== -->
+    <section class="section steps" id="steps">
+      <div class="container">
+        <header class="section-head section-head--center" data-reveal>
+          <span class="section-head__index">03</span>
+          <h2 class="section-head__title">Get ready for the next internet land rush</h2>
+          <p class="section-head__desc">The internet rarely expands. The last time was 2012. This time may be the last</p>
+        </header>
+
+        <ol class="timeline" data-reveal data-timeline>
+          <li class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></li>
+          <li class="timeline__step is-done">
+            <span class="timeline__dot"></span>
+            <span class="timeline__label">Step 01</span>
+            <span class="timeline__title">Sign up <em class="timeline__pts">+10,000 pts</em></span>
+          </li>
+          <li class="timeline__step is-current">
+            <span class="timeline__dot"></span>
+            <span class="timeline__label">Step 02</span>
+            <span class="timeline__title">Stake on vaults</span>
+          </li>
+          <li class="timeline__step">
+            <span class="timeline__dot"></span>
+            <span class="timeline__label">Step 03</span>
+            <span class="timeline__title">Back TLDs</span>
+          </li>
+          <li class="timeline__step">
+            <span class="timeline__dot"></span>
+            <span class="timeline__label">Step 04</span>
+            <span class="timeline__title">Claim your names</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== APPLICANTS ============================== -->
+    <section class="section applicants" id="applicants">
+      <div class="container">
+        <header class="section-head section-head--center" data-reveal>
+          <span class="section-head__index">04</span>
+          <h2 class="section-head__title">Over 20 TLD applicants and registries are part of Frontier</h2>
+          <p class="section-head__desc">If you are a TLD applicant, Frontier shows which of your strings have real money behind them before you spend a dollar on launch.</p>
+        </header>
+      </div>
+
+      <div class="marquee marquee--logos" data-reveal>
+        <div class="marquee__track">
+          <ul class="marquee__group">
+            <li><img src="assets/logos/partner-base.svg" alt="Base" height="32" /></li>
+            <li><img src="assets/logos/partner-solana.svg" alt="Solana" height="32" /></li>
+            <li><img src="assets/logos/partner-avalanche.svg" alt="Avalanche" height="32" /></li>
+            <li><img src="assets/logos/partner-internetx.svg" alt="InterNetX" height="44" /></li>
+            <li><img src="assets/logos/partner-identity-digital.svg" alt="Identity Digital" height="43" /></li>
+            <li><img src="assets/logos/partner-namecheap.svg" alt="Namecheap" height="33" /></li>
+          </ul>
+          <ul class="marquee__group" aria-hidden="true">
+            <li><img src="assets/logos/partner-base.svg" alt="" height="32" /></li>
+            <li><img src="assets/logos/partner-solana.svg" alt="" height="32" /></li>
+            <li><img src="assets/logos/partner-avalanche.svg" alt="" height="32" /></li>
+            <li><img src="assets/logos/partner-internetx.svg" alt="" height="44" /></li>
+            <li><img src="assets/logos/partner-identity-digital.svg" alt="" height="43" /></li>
+            <li><img src="assets/logos/partner-namecheap.svg" alt="" height="33" /></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container applicants__cta" data-reveal>
+        <a class="btn btn--primary" href="#partner">Become a Frontier TLD partner</a>
+      </div>
+    </section>
+
+    <!-- ============================== BANNER ============================== -->
+    <section class="section banner-wrap">
+      <div class="container">
+        <div class="banner" data-reveal>
+          <div class="banner__media" aria-hidden="true"></div>
+          <h2 class="banner__title">Be first to the new internet frontier.</h2>
+          <a class="btn btn--primary btn--lg btn--shine" href="#join">Join Frontier</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__links">
+        <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="110" height="11" />
+        <span>2026</span>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Terms of Service</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Privacy Policy</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Brand kit</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Docs</a>
+      </div>
+      <div class="footer__social">
+        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78L17.75 3Zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45Z"/></svg></a>
+        <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.5 4.1 18.4 19.3c-.2 1-.9 1.3-1.8.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-7.9c.4-.3-.1-.5-.6-.2L6.2 13.2l-4.7-1.5c-1-.3-1-1 .2-1.5L20.1 3c.9-.3 1.6.2 1.4 1.1Z"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+        <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.3 5.3A17 17 0 0 0 15.1 4l-.5 1a15.7 15.7 0 0 0-5.2 0l-.5-1a17 17 0 0 0-4.2 1.3C2 9.2 1.3 13 1.6 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 10.8 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.2-3.1-11.5ZM8.5 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm7 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vendored libraries (d3-geo + topojson) and map data: work offline / from file:// -->
+  <script src="js/vendor/d3-array.min.js"></script>
+  <script src="js/vendor/d3-geo.min.js"></script>
+  <script src="js/vendor/topojson-client.min.js"></script>
+  <script src="js/data/world-countries-50m.js"></script>
+
+  <script src="js/variation-1-globe.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
