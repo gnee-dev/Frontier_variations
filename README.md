@@ -6,7 +6,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | --- | --- | --- |
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
 | 01b · Globe colour | Variation 1 with exactly the same layout and content, in the Figma colours: a rose-to-amber pixel globe with faint blue oceans, orange accents and icons, green points, and soft dusk light behind the hero. | ✅ Done |
-| 02 · Dissolve ring | Light mode. Left-aligned headline, domain field with Join Frontier inside it, a bonus line with a live countdown, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
+| 02 · Horizon light | Light mode of 04 · Horizon: the same hero (centred stack, moving pixel landscape, stat cards) in Variation 2's colours: warm off-white page, lighter orange `#DA5A12` buttons and TLD, green `#1AC684` points, and orange `#E96E26` landscape pixels. | ✅ Done |
 | 03 · Nucleus | Dark mode. Headline left, typed domain + Join Frontier right (equal heights), and a centred particle sphere: a rotating nucleus inside a sparse halo. Three compact stat cards at the bottom. | ✅ Done |
 | 03b · Nucleus centred | Dark mode. The second Figma file's centred stack (headline sized to the domain field's width, field with Join Frontier inside, bonus line, subtitle) with a big particle sphere rising out of the bottom of the hero. | ✅ Done |
 | 04 · Horizon | Dark mode. The 03b centred stack over a pixel landscape along the bottom of the hero: rolling hills of square pixels in perspective, moving toward the viewer as if flying forward, with a glowing crest line. | ✅ Done |
@@ -41,16 +41,15 @@ css/
   sections.css                  # How it works, Back the extensions, Steps, Applicants, Banner, Footer
   variation-1-pixel-globe.css   # Hero variation 1 (pixel globe, dark)
   variation-1b-colour.css       # Variation 1b: colour theme over the variation 1 hero and page
-  variation-2-dissolve-ring.css # Hero variation 2 (dissolve ring) + the light theme for the whole page
+  variation-2-horizon-light.css # Variation 2: the light theme for the whole page, applied to the variation 4 hero
   variation-3-nucleus.css       # Hero variation 3 (nucleus particle sphere, dark)
   variation-3b-nucleus-centred.css # Hero variation 3b (centred copy, sphere rising from the bottom)
   variation-4-horizon.css       # Hero variation 4 (pixel landscape; layout from 3b)
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
-  variation-2-dissolve-ring.js  # dissolve ring: rotating pixel arc + static hover points with names
   variation-3-nucleus.js        # nucleus builder for 3 and 3b: rotating particle sphere + halo + static hover points; 3b headline fitting
-  variation-4-horizon.js        # horizon: moving pixel landscape + static hover points; headline fitting
+  variation-4-horizon.js        # horizon (tabs 04 and 02): moving pixel landscape + static hover points; headline fitting
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -73,13 +72,12 @@ assets/
 - **Globe.** The land pixels shade from rose at the top of the globe to warm amber lower down. The script reads the colours from the CSS variables `--globe-land-top`, `--globe-land-bottom`, `--globe-ocean` and `--globe-alpha`, so V1 stays white.
 - **Accents.** The card label icons and chain icons are orange. The How it works visuals get a soft orange glow, the timeline and hot TLD dots are orange, and the banner has a warm glow.
 
-## Variation 2: Dissolve ring
+## Variation 2: Horizon light
 
-- **Light mode.** The whole page switches to a light theme while this tab is on. Every colour comes from theme tokens on `<body>` in `base.css`, and `variation-2-dissolve-ring.css` redefines them under `body[data-variation="2"]`. Buttons and the typed TLD use a lighter, more saturated orange, `#DA5A12`. White button text on it has 3.85:1 contrast. The ring pixels and their soft glow use the brand `#E96E26`, and "+10,000 pts" is green, `#1AC684`.
-- **Layout.** This follows the updated Figma hero, kept left-aligned. The whole page uses −0.08% letter-spacing (small uppercase labels keep their wider tracking). The headline and the typed domain are both 40px, with the name part of the domain in a light grey. The Join Frontier button sits inside the domain field on the right. Under the field is the bonus line, highlighted as in Figma: "+10,000 pts bonus" in green, "opens in" and the countdown in the text colour, and the rest muted. Then comes the 16px subtitle. Three shorter stat cards sit at the bottom.
-- **Countdown.** "deposit opens in 4d 09h 44m" is live. It counts down to the `data-countdown-to` date on the element, currently `2026-09-28T19:00:00Z`, and updates every 15 seconds.
-- **Dissolve ring.** A thick ring of small square orange pixels curls over the bottom-right corner, and the whole ring rotates. The pattern lives in the ring's own polar coordinates and is sampled on a fixed pixel grid, so it stays crisp. It's dense along the inner band and dissolves toward the outer edge and the lower tail. Some pixels are lighter "shade" tones, and each one slowly drops out and returns. A blurred orange glow sits behind the ring, and the whole layer fades out at the bottom of the hero into the page background.
-- **Hover names.** As in Variation 1, an invisible layer of static points (20px apart) covers the ring band. Each point holds one name, which stays put while the cursor is idle even though the ring keeps turning.
+- **Same hero as 04.** Tab 02 reuses the Variation 4 hero (`data-hero="4 2"`), so the elements, layout and motion are identical: the centred stack, the moving pixel landscape with hover names, and the three stat cards.
+- **Variation 2's colours.** The whole page switches to the light theme while this tab is on. Every colour comes from theme tokens on `<body>`, and `css/variation-2-horizon-light.css` redefines them under `body[data-variation="2"]`. Buttons and the typed TLD use the lighter orange `#DA5A12` (white button text has 3.85:1 contrast), "+10,000 pts" is green `#1AC684`, and the name part of the domain is a light grey.
+- **Landscape.** The pixels are the brand orange `#E96E26` (the colour of the old dissolve ring), up to 72% opacity, with a soft orange light along the horizon and faint dark specks for stars. The script reads these from the `--horizon-pixel`, `--horizon-max`, `--horizon-glow`, `--horizon-star` and `--horizon-marker` variables, so tab 04 keeps its grey-on-black.
+- The earlier dissolve ring hero was replaced by this one; it's in the git history if it's needed again.
 
 ## Variation 3: Nucleus
 
@@ -105,4 +103,4 @@ assets/
 
 1. Add a tab in the nav (`data-variation-tab="5"`, `aria-controls="hero-v5"`) and a `<section data-hero="5">` hero in `index.html`, and allow the id in the hash regex in `js/main.js`.
 2. Add `css/variation-5-<name>.css` (and `js/variation-5-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["5"] = { start, stop }`, and the tabs start and stop it.
-3. To theme the whole page, redefine the tokens under `body[data-variation="5"]`. `variation-2-dissolve-ring.css` shows how.
+3. To theme the whole page, redefine the tokens under `body[data-variation="5"]`. `variation-2-horizon-light.css` shows how.

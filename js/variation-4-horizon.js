@@ -12,7 +12,9 @@
    - Names: an invisible layer of static points covers the landscape. Each
      point holds one name, shown until the cursor moves to another point,
      so an idle cursor keeps its name while the landscape keeps moving.
-   Registers window.FrontierHeroMotion["4"] = { start, stop }.
+   Colours are read from CSS variables (--horizon-*), so tab 02 reuses this
+   hero in the light theme (data-hero="4 2").
+   Registers window.FrontierHeroMotion["4"] = { start, stop } (it runs for both tabs).
    ========================================================================== */
 (function () {
   "use strict";
@@ -86,8 +88,23 @@
   var seed = 20260924;
   function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
 
+  // Colours come from CSS variables, so the light tab (02) can recolour the
+  // shared hero; the defaults are the dark tab's (04) white-on-black.
+  var pal = {};
+  function readPalette() {
+    var cs = getComputedStyle(hero);
+    function v(name, def) { var x = cs.getPropertyValue(name).trim(); return x || def; }
+    pal.pixel = v("--horizon-pixel", "255, 255, 255");
+    pal.max = parseFloat(v("--horizon-max", "0.58"));
+    pal.glow = v("--horizon-glow", "255, 255, 255");
+    pal.glowA = v("--horizon-glow", "") ? 0.09 : 0.045;
+    pal.star = v("--horizon-star", "255, 255, 255");
+    pal.marker = v("--horizon-marker", "255, 255, 255");
+  }
+
   function layout() {
     if (canvas.offsetWidth < 20) return false;
+    readPalette();
     W = canvas.offsetWidth;
     H = canvas.offsetHeight;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -139,7 +156,7 @@
     ctx.clearRect(0, 0, W, H);
 
     // stars above the horizon
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "rgb(" + pal.star + ")";
     for (var s = 0; s < stars.length; s++) {
       var st = stars[s];
       ctx.globalAlpha = st.a * (0.7 + 0.3 * Math.sin(time * st.tws + st.tw)) * dimAt(st.x, st.y);
@@ -148,9 +165,9 @@
 
     // faint glow along the horizon
     var g = ctx.createLinearGradient(0, horizon - 90, 0, horizon + 60);
-    g.addColorStop(0, "rgba(255,255,255,0)");
-    g.addColorStop(0.6, "rgba(255,255,255,0.045)");
-    g.addColorStop(1, "rgba(255,255,255,0)");
+    g.addColorStop(0, "rgba(" + pal.glow + ",0)");
+    g.addColorStop(0.6, "rgba(" + pal.glow + "," + pal.glowA + ")");
+    g.addColorStop(1, "rgba(" + pal.glow + ",0)");
     ctx.globalAlpha = 1;
     ctx.fillStyle = g;
     ctx.fillRect(0, horizon - 90, W, 150);
@@ -225,20 +242,20 @@
     }
     for (i = 0; i < W; i++) skyline[i] = ybuf[i];
 
-    // grey, never solid white: the brightest pixels top out at about 56% white
-    ctx.fillStyle = "#fff";
+    // grey, never solid white: on the dark tab the brightest pixels top out at about 56% white
+    ctx.fillStyle = "rgb(" + pal.pixel + ")";
     for (l = 1; l < LEVELS; l++) {
-      ctx.globalAlpha = (l + 0.5) / LEVELS * 0.58;
+      ctx.globalAlpha = (l + 0.5) / LEVELS * pal.max;
       ctx.fill(paths[l]);
     }
     ctx.globalAlpha = 1;
 
     if (hover) {
       var hx = Math.round(hover.x), hy = Math.round(hover.y);
-      ctx.strokeStyle = "rgba(255,255,255,0.7)";
+      ctx.strokeStyle = "rgba(" + pal.marker + ",0.7)";
       ctx.lineWidth = 1;
       ctx.strokeRect(hx - 8.5, hy - 8.5, 17, 17);
-      ctx.fillStyle = "#fff";
+      ctx.fillStyle = "rgb(" + pal.marker + ")";
       ctx.fillRect(hx - 2, hy - 2, 4, 4);
     }
   }
