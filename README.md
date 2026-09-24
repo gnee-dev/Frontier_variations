@@ -7,8 +7,9 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
 | 02 · Dissolve ring | Light mode. Left-aligned headline, domain field with Join Frontier inside it, a bonus line with a live countdown, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
 | 03 | Placeholder | ⏳ To design |
+| 04 | Placeholder | ⏳ To design |
 
-The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`.
+The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`, `#v4`.
 
 ## Preview
 
@@ -36,7 +37,7 @@ css/
   sections.css                  # How it works, Back the extensions, Steps, Applicants, Banner, Footer
   variation-1-pixel-globe.css   # Hero variation 1 (pixel globe, dark)
   variation-2-dissolve-ring.css # Hero variation 2 (dissolve ring) + the light theme for the whole page
-  variation-placeholder.css     # Temporary styles for variation 3
+  variation-placeholder.css     # Temporary styles for variations 3 and 4
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
@@ -64,7 +65,9 @@ assets/
 - **Dissolve ring.** A thick ring of small square orange pixels curls over the bottom-right corner, and the whole ring rotates. The pattern lives in the ring's own polar coordinates and is sampled on a fixed pixel grid, so it stays crisp. It's dense along the inner band and dissolves toward the outer edge and the lower tail. Some pixels are lighter "shade" tones, and each one slowly drops out and returns. A blurred orange glow sits behind the ring, and the whole layer fades out at the bottom of the hero into the page background.
 - **Hover names.** As in Variation 1, an invisible layer of static points (20px apart) covers the ring band. Each point holds one name, which stays put while the cursor is idle even though the ring keeps turning.
 
-## Adding variation 3
+## Adding variation 3 or 4
+
+The steps below use variation 3; variation 4 works the same way with `4` in place of `3`.
 
 1. Replace the `#hero-v3` placeholder `<section>` in `index.html`. Keep `data-hero="3"`.
 2. Add `css/variation-3-<name>.css` (and `js/variation-3-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["3"] = { start, stop }`, and the tabs start and stop it.

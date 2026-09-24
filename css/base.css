@@ -291,7 +291,7 @@ h1, h2, h3, p, dl, dd { margin: 0; }
 }
 .variation-tabs__tab.is-active .variation-tabs__num { color: var(--c-text-64); }
 
-@media (max-width: 860px) {
+@media (max-width: 1000px) {  /* compact nav: four tabs need the room */
   .nav__inner { grid-template-columns: auto 1fr auto; padding-left: 12px; }
   .nav__logo img { width: 96px; }
   .variation-tabs { justify-self: center; }
