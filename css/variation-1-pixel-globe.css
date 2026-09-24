@@ -113,6 +113,7 @@
   line-height: 1;
   white-space: nowrap;
 }
+.domain-box__text { color: var(--c-text-64); }         /* name part: white at 64% */
 .domain-box__text .tld { color: var(--c-accent); } /* TLD in the button orange */
 .domain-box__caret {
   width: 3px;
