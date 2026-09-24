@@ -7,9 +7,10 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
 | 02 · Dissolve ring | Light mode. Left-aligned headline, domain field with Join Frontier inside it, a bonus line with a live countdown, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
 | 03 · Nucleus | Dark mode. Headline left, typed domain + Join Frontier right (equal heights), and a centred particle sphere: a rotating nucleus inside a sparse halo. Three compact stat cards at the bottom. | ✅ Done |
+| 03b · Nucleus centred | Dark mode. The second Figma file's centred stack (headline sized to the domain field's width, field with Join Frontier inside, bonus line, subtitle) with a big particle sphere rising out of the bottom of the hero. | ✅ Done |
 | 04 | Placeholder | ⏳ To design |
 
-The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`, `#v4`.
+The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`, `#v3b`, `#v4`.
 
 ## Preview
 
@@ -38,12 +39,13 @@ css/
   variation-1-pixel-globe.css   # Hero variation 1 (pixel globe, dark)
   variation-2-dissolve-ring.css # Hero variation 2 (dissolve ring) + the light theme for the whole page
   variation-3-nucleus.css       # Hero variation 3 (nucleus particle sphere, dark)
+  variation-3b-nucleus-centred.css # Hero variation 3b (centred copy, sphere rising from the bottom)
   variation-placeholder.css     # Temporary styles for variation 4
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-dissolve-ring.js  # dissolve ring: rotating pixel arc + static hover points with names
-  variation-3-nucleus.js        # nucleus: rotating particle sphere + halo + static hover points with names
+  variation-3-nucleus.js        # nucleus builder for 3 and 3b: rotating particle sphere + halo + static hover points; 3b headline fitting
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -72,6 +74,13 @@ assets/
 - **Layout.** Dark mode with orange buttons. "Be the first to ever own" and the subtitle sit on the left. The typed domain with the Join Frontier button right under it, and the bonus line (with the live countdown), sit on the right. The particle sphere is in the middle. Both side columns share one grid row, so they're always the same height, with their tops and bottoms aligned. Three compact stat cards sit at the bottom, and the page uses −0.08% letter-spacing, as in Variation 2.
 - **Nucleus.** A particle sphere drawn on a canvas in tiny square pixels. The nucleus is ~1,500 pixels spread over a sphere, rotating in 3D (about 18° a second) on a slightly tilted axis. Near-side pixels are bigger and brighter, so it reads as a solid ball. Around it, a halo of ~1,400 single pixels (and a few larger faint ones) turns much more slowly for parallax, and the pixels twinkle gently. The whole graphic is muted and fades softly toward its edge, like the globe in Variation 1. The canvas spills past its box so the halo can spread wider than the column gap, and it's centred on the page.
 - **Hover names.** As in the other variations, an invisible layer of static points (20px apart) covers the sphere. Each point holds one name, which stays put while the cursor is idle even though the nucleus keeps spinning.
+
+## Variation 3b: Nucleus centred
+
+- **Layout.** This follows the second Figma file: one centred stack of the headline, the 674 × 88 domain field with Join Frontier inside it, the highlighted bonus line with the live countdown, and the 16px subtitle. The headline is fitted in script to exactly the domain field's width, so the two always match (64px in Figma with Google Sans Flex). Three compact stat cards sit at the bottom.
+- **Sphere.** It's the same particle sphere as Variation 3, much bigger (the nucleus is up to 300px in radius), centred near the bottom edge. The top dome rises between the copy and the cards, and the rest disappears behind the cards and out of the bottom of the hero, with a soft fade. It keeps rotating, and pixels under the copy are dimmed.
+- **Hover names.** They work the same way as the other variations: static points hold the names, and an idle cursor keeps its name.
+- **Code.** `js/variation-3-nucleus.js` builds both 3 and 3b from one `makeNucleus()` function with different placements.
 
 ## Adding variation 4
 

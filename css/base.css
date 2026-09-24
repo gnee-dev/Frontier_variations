@@ -301,7 +301,7 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   .nav { inset-block-start: 12px; }
   .nav__inner { gap: 8px; }
   .nav__logo img { width: 80px; }
-  .variation-tabs__tab { padding: 0 8px; gap: 0; font-size: 0; }
+  .variation-tabs__tab { padding: 0 6px; gap: 0; font-size: 0; }
   .variation-tabs__num { font-size: 12px; color: inherit; }
   .nav .btn { padding: 8px; font-size: 14px; height: 36px; }
 }

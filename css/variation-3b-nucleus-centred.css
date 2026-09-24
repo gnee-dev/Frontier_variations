@@ -1,0 +1,104 @@
+/* ==========================================================================
+   Hero · Variation 3b — "Nucleus centred" (dark mode)
+   Layout (second Figma file): one centred stack. The headline is fitted
+   to exactly the domain field's width (js/variation-3-nucleus.js), then
+   the domain field with Join Frontier inside it, the bonus line, and the
+   subtitle. A much bigger particle sphere rises out of the bottom of the
+   hero behind everything; three compact stat cards sit at the bottom.
+   ========================================================================== */
+
+/* -0.08% letter-spacing across the page on this tab (as in Variations 2 and 3) */
+body[data-variation="3b"],
+body[data-variation="3b"] :is(
+  .hero-v3b__title, .domain-box, .stat-card__value, .btn,
+  .section-head__title, .card__title, .points__value, .tld-grid li,
+  .timeline__title, .banner__title
+) {
+  letter-spacing: -0.0008em;
+}
+
+/* ---------- Hero shell (Figma: 968px tall, nav at 20px + 54px) ---------- */
+.hero--v3b {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max(760px, min(968px, 100svh));
+  padding: calc(20px + var(--nav-h) + 64px) 0 40px;
+  background: var(--c-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero--v3b.is-globe-hover { cursor: crosshair; }
+
+/* ---------- Particle sphere (behind everything, rising from the bottom) ---------- */
+.nucleus-3b {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease-out) 0.2s;
+  /* soft fade at the bottom edge, like the Variation 1 globe */
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}
+.hero--v3b.is-entered .nucleus-3b { opacity: 0.82; }
+
+/* ---------- Centred stack ---------- */
+.hero-v3b__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
+.hero-v3b__stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);   /* the headline must not widen the column */
+  justify-items: center;
+  gap: 24px;                          /* Figma: 24px between headline, field group and subtitle */
+  text-align: center;
+  width: 100%;
+  max-width: 674px;                   /* Figma column width */
+  margin-inline: auto;
+}
+.hero-v3b__title {
+  display: inline-block;              /* its natural width is measured to fit the field */
+  white-space: nowrap;
+  font-size: 64px;                    /* Figma: 64px Medium (fitted to the field width in JS) */
+  line-height: 1.2;
+  font-weight: 500;
+}
+.hero-v3b__claim { display: grid; justify-items: center; gap: 20px; width: 100%; }   /* Figma: 20px field → bonus line */
+
+/* Domain field with Join Frontier inside (Figma: 674 × 88, 18px insets) */
+.hero-v3b__domain {
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  height: 88px;
+  padding: 0 18px;
+  border-radius: 16px;
+  background: rgba(var(--ink), 0.06);
+  border-color: rgba(var(--ink), 0.12);
+  font-size: min(56px, 9vw);          /* Figma: 56px Medium */
+  line-height: 1.2;
+}
+.hero-v3b__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; line-height: 1; }
+.hero-v3b__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." white, "crypto" orange */
+.hero-v3b__join { flex: none; }
+
+/* Bonus line (Figma highlight usage) */
+.hero-v3b__bonus { font-size: 18px; line-height: 1.3; font-weight: 500; color: var(--c-text); }
+.hero-v3b__pts { color: #4affba; font-weight: 600; }
+.hero-v3b__muted { color: var(--c-text-64); }
+.hero-v3b__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.hero-v3b__sub { font-size: 16px; line-height: 1.4; font-weight: 500; color: var(--c-text-64); max-width: 560px; }
+
+/* Compact stat cards (shared look with Variation 3), frosted over the sphere */
+.hero-v3b__cards .stat-card { background: rgba(12, 12, 12, 0.55); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 560px) {
+  .hero--v3b { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
+  .hero-v3b__domain { flex-direction: column; align-items: stretch; height: auto; gap: 8px; padding: 12px 8px 8px 14px; }
+  .hero-v3b__typed { height: 48px; font-size: 36px; }
+  .hero-v3b__bonus { font-size: 16px; }
+}
