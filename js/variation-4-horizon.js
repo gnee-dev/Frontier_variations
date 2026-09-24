@@ -52,15 +52,20 @@
   var Z_NEAR = 0.45, Z_FAR = 10;
   var LOD_1 = 3.2, LOD_2 = 6.4;   // beyond these, keep every 2nd / every 4th row and column
   var SPEED = reduceMotion ? 0 : 0.00028;   // world units per ms
-  var CONTOUR = 0.55;        // height of the glowing contour line
+  var CONTOUR = 0.62;        // height of the glowing contour line
 
-  // valley in the middle rising to both sides, with rolling hills on top
+  // valley in the middle rising to both sides, with hills everywhere on top
+  // (including in the valley) and taller ranges toward the horizon
   function height(x, z) {
-    var valley = 0.95 * (1 - Math.exp(-x * x * 0.11));
-    var roll = 0.24 * Math.sin(0.36 * z + 0.7 * x + 1.3) * Math.cos(0.23 * z - 0.4 * x);
+    var valley = 0.8 * (1 - Math.exp(-x * x * 0.11));
+    var roll = 0.26 * Math.sin(0.36 * z + 0.7 * x + 1.3) * Math.cos(0.23 * z - 0.4 * x);
     var swell = 0.14 * Math.sin(0.17 * z - 0.26 * x + 0.6);
-    var detail = 0.03 * Math.sin(1.1 * z - 1.4 * x);
-    return Math.max(0, valley + roll + swell + detail + 0.1);
+    var b = 0.5 + 0.5 * Math.sin(0.55 * z + 1.15 * x + 0.4);
+    var hills = 0.34 * b * b * (0.65 + 0.35 * Math.sin(0.29 * z - 0.8 * x + 2.1));
+    var r = 0.5 + 0.5 * Math.sin(0.13 * z + 0.42 * x - 0.9);
+    var range = 0.5 * r * r * r * Math.min(1, Math.abs(x) * 0.25 + 0.35);
+    var detail = 0.045 * Math.sin(1.1 * z - 1.4 * x) + 0.03 * Math.sin(1.9 * x + 0.7 * z);
+    return Math.max(0, valley + roll + swell + hills + range + detail + 0.06);
   }
 
   /* ---------------- Layout ---------------- */
@@ -220,9 +225,10 @@
     }
     for (i = 0; i < W; i++) skyline[i] = ybuf[i];
 
+    // grey, never solid white: the brightest pixels top out at about 56% white
     ctx.fillStyle = "#fff";
     for (l = 1; l < LEVELS; l++) {
-      ctx.globalAlpha = (l + 0.5) / LEVELS * 0.85;   // muted a little, so the copy stays first
+      ctx.globalAlpha = (l + 0.5) / LEVELS * 0.58;
       ctx.fill(paths[l]);
     }
     ctx.globalAlpha = 1;
