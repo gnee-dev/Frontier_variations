@@ -9,7 +9,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: calc(var(--nav-h) + 88px) 0 clamp(220px, 26vw, 340px);
+  /* Figma hero: 968px tall; nav sits at 20px + 54px */
+  min-height: max(720px, min(968px, 100svh));
+  padding: calc(20px + var(--nav-h) + 56px) 0 40px;
   background: var(--c-bg-2);
   overflow: hidden;
   isolation: isolate;
@@ -62,7 +64,7 @@
 .pixel-globe__hint {
   position: absolute;
   left: 50%;
-  bottom: 28px;
+  bottom: 12px;
   transform: translateX(-50%);
   font-size: 12px;
   letter-spacing: 0.14em;
@@ -75,7 +77,8 @@
 .hero--v1.is-globe-hover .pixel-globe__hint { opacity: 0; }
 
 /* ---------- Head: headline + domain ---------- */
-.hero-v1__inner { display: grid; gap: clamp(40px, 5vw, 64px); }
+/* headline + domain pinned to the top, cards pinned to the bottom, globe in between */
+.hero-v1__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 56px; }
 .hero-v1__head {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -83,7 +86,7 @@
   gap: 32px 48px;
 }
 .hero-v1__title {
-  font-size: clamp(52px, 7.4vw, 112px);
+  font-size: clamp(48px, 5.6vw, 80px);
   line-height: 0.98;
   font-weight: 500;
   letter-spacing: -0.045em;
@@ -136,7 +139,7 @@
 }
 .stat-card__value {
   margin-top: auto;
-  font-size: clamp(48px, 5.2vw, 76px);
+  font-size: clamp(40px, 3.9vw, 56px);
   line-height: 1;
   font-weight: 500;
   letter-spacing: -0.045em;
@@ -155,7 +158,7 @@
   .hero-v1__claim { justify-self: start; }
 }
 @media (max-width: 560px) {
-  .hero--v1 { padding-top: calc(var(--nav-h) + 56px); }
+  .hero--v1 { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
   .hero-cards { grid-template-columns: 1fr; }
   .stat-card { min-height: 0; gap: 18px; }
   .domain-box { height: 68px; padding: 0 18px; }

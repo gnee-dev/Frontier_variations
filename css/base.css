@@ -38,8 +38,8 @@
   --panel-bd: rgba(255, 255, 255, 0.09);
   --panel-radius: 20px;
   --panel-pad: 28px;
-  --panel-gap: 20px;
-  --stat-h: 220px;
+  --panel-gap: 24px;
+  --stat-h: 196px;
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

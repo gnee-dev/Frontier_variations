@@ -5,7 +5,7 @@
    padding and label row, so the page reads as one system.
    ========================================================================== */
 
-.section { position: relative; padding-block: clamp(40px, 4.5vw, 64px); }
+.section { position: relative; padding-block: clamp(40px, 5.55vw, 80px); }
 
 /* ---------- Section heads (left-aligned, like the hero) ---------- */
 .section-head {
@@ -17,8 +17,8 @@
 }
 .section-head__text { display: grid; gap: 16px; max-width: 760px; }
 .section-head__title {
-  font-size: clamp(36px, 4.6vw, 64px);
-  line-height: 1.02;
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1.1;
   font-weight: 500;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -38,7 +38,7 @@
   .section-head__desc { font-size: 16px; }
 }
 
-.panel--wide { padding: clamp(28px, 4vw, 44px); }
+.panel--wide { padding: clamp(24px, 2.5vw, 36px); }
 .panel--flush { padding: 0; overflow: hidden; }
 
 /* ---------- How it works: cards ---------- */
@@ -80,7 +80,7 @@
   border: 1px solid var(--c-line-soft);
 }
 .card__body { display: grid; gap: 6px; }
-.card__title { font-size: 26px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+.card__title { font-size: 23px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
 .card__text { font-size: 16px; line-height: 1.45; color: var(--c-text-64); max-width: 320px; }
 
 /* Deposit — infinite chip rails */
@@ -254,7 +254,7 @@
 }
 .timeline__step:hover .timeline__dot { transform: scale(1.12); }
 .timeline__label { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-text-64); }
-.timeline__title { font-size: 26px; font-weight: 500; line-height: 1.25; letter-spacing: -0.02em; }
+.timeline__title { font-size: 23px; font-weight: 500; line-height: 1.25; letter-spacing: -0.02em; }
 .timeline__pts {
   font-style: normal;
   font-size: 15px;
@@ -283,7 +283,7 @@
   justify-content: space-between;
   gap: 24px;
   min-height: var(--stat-h);
-  padding: clamp(28px, 4vw, 44px);
+  padding: clamp(24px, 2.5vw, 36px);
   overflow: hidden;
   isolation: isolate;
 }
@@ -303,7 +303,7 @@
   z-index: -1;
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 70%);
 }
-.banner__title { font-size: clamp(30px, 3.6vw, 48px); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; max-width: 560px; text-wrap: balance; }
+.banner__title { font-size: clamp(28px, 2.6vw, 36px); font-weight: 500; line-height: 1.15; letter-spacing: -0.035em; max-width: 560px; text-wrap: balance; }
 @media (max-width: 720px) {
   .banner { flex-direction: column; align-items: flex-start; justify-content: flex-end; }
 }
