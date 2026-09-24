@@ -1,11 +1,11 @@
 /* ==========================================================================
    Hero · Variation 3 — nucleus (particle sphere)
-   - Nucleus: ~900 particles spread over a sphere, rotating in 3D. Depth
-     drives size and brightness, so the near side reads bright and the far
-     side dim, and it looks like a solid ball of light.
-   - Halo: ~1,400 tiny particles in a wide shell around it, plus a few soft
-     out-of-focus glows. The halo turns much more slowly than the nucleus
-     for parallax, and a few particles twinkle.
+   - Nucleus: ~1,500 tiny square pixels spread over a sphere, rotating in 3D.
+     Depth drives pixel size and brightness, so the near side reads bright
+     and the far side dim, and it looks like a solid ball.
+   - Halo: ~1,400 single pixels in a wide shell around it, plus a few
+     larger, faint ones. The halo turns much more slowly than the nucleus
+     for parallax, and the pixels twinkle gently.
    - Names: an invisible layer of static points covers the sphere. Each
      point holds one name, shown until the cursor moves to another point,
      so an idle cursor keeps its name while the nucleus keeps spinning.
@@ -53,7 +53,7 @@
   var core = [];   // nucleus particles on (and just under) the unit sphere
   var halo = [];   // halo particles in a shell from 1.35 to 2.4
   (function build() {
-    var N = 900, golden = Math.PI * (3 - Math.sqrt(5));
+    var N = 1500, golden = Math.PI * (3 - Math.sqrt(5));
     for (var i = 0; i < N; i++) {
       var y = 1 - (i + 0.5) / N * 2;
       var r = Math.sqrt(1 - y * y);
@@ -65,25 +65,10 @@
     for (var k = 0; k < 1400; k++) {
       var u = rnd() * 2 - 1, a = rnd() * Math.PI * 2, rr = Math.sqrt(1 - u * u);
       var rad = 1.35 + Math.pow(rnd(), 0.7) * 1.05;     // thins out toward the edge
-      var bokeh = rnd() < 0.035;                        // a few soft, out-of-focus glows
+      var bokeh = rnd() < 0.012;                        // a few larger, faint pixels
       halo.push({ x: Math.cos(a) * rr * rad, y: u * rad * 0.92, z: Math.sin(a) * rr * rad,
                   s: bokeh ? 3 + rnd() * 4 : 0.4 + rnd() * 0.9, b: bokeh, tw: rnd() * 6.28, tws: 0.4 + rnd() * 1.2 });
     }
-  })();
-
-  // soft round sprite for glow
-  var sprite = (function () {
-    var c = document.createElement("canvas");
-    c.width = c.height = 64;
-    var g = c.getContext("2d");
-    var grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grd.addColorStop(0, "rgba(255,255,255,1)");
-    grd.addColorStop(0.25, "rgba(255,255,255,0.85)");
-    grd.addColorStop(0.55, "rgba(255,255,255,0.18)");
-    grd.addColorStop(1, "rgba(255,255,255,0)");
-    g.fillStyle = grd;
-    g.fillRect(0, 0, 64, 64);
-    return c;
   })();
 
   /* ---------------- Layout ---------------- */
@@ -145,30 +130,32 @@
     ctx.fillStyle = g;
     ctx.fillRect(cx - rCore * 1.4, cy - rCore * 1.4, rCore * 2.8, rCore * 2.8);
 
-    // halo
+    // halo: tiny square pixels; the few "bokeh" ones are larger and faint
+    ctx.fillStyle = "#fff";
     for (var i = 0; i < halo.length; i++) {
       var h = halo[i];
       var q = project(h, aHalo, rCore);
       var tw = 0.75 + 0.25 * Math.sin(time * h.tws + h.tw);
-      var s = h.s * q.k;
       if (h.b) {
-        ctx.globalAlpha = 0.16 * tw;
-        ctx.drawImage(sprite, q.x - s * 2, q.y - s * 2, s * 4, s * 4);
+        var bs = Math.round(h.s * q.k);
+        ctx.globalAlpha = 0.1 * tw;
+        ctx.fillRect(Math.round(q.x - bs / 2), Math.round(q.y - bs / 2), bs, bs);
       } else {
-        ctx.globalAlpha = (0.32 + 0.35 * (q.z + 2.4) / 4.8) * tw;
-        ctx.drawImage(sprite, q.x - s * 1.6, q.y - s * 1.6, s * 3.2, s * 3.2);
+        var hs = h.s * q.k < 0.9 ? 1 : 2;
+        ctx.globalAlpha = (0.35 + 0.4 * (q.z + 2.4) / 4.8) * tw;
+        ctx.fillRect(Math.round(q.x), Math.round(q.y), hs, hs);
       }
     }
 
-    // nucleus: near side bright and larger, far side dim
+    // nucleus: tiny pixels, near side bigger and brighter, far side small and dim
     for (var j = 0; j < core.length; j++) {
       var c = core[j];
       var p = project(c, aCore, rCore);
       var front = (p.z + 1) / 2;                 // 0 back … 1 front
       var twc = 0.85 + 0.15 * Math.sin(time * 1.3 + c.tw);
-      var size = c.s * (0.7 + 0.9 * front) * p.k;
-      ctx.globalAlpha = Math.min(1, (0.2 + 0.9 * front * front) * twc);
-      ctx.drawImage(sprite, p.x - size * 2, p.y - size * 2, size * 4, size * 4);
+      var size = Math.max(1, Math.round(c.s * (0.6 + 1.25 * front) * p.k));
+      ctx.globalAlpha = Math.min(1, (0.25 + 0.95 * front * front) * twc);
+      ctx.fillRect(Math.round(p.x - size / 2), Math.round(p.y - size / 2), size, size);
     }
 
     ctx.globalCompositeOperation = "source-over";

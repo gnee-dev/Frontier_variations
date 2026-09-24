@@ -94,11 +94,21 @@ body[data-variation="3"] :is(
   grid-row: 1 / 4;
   align-self: center;
   position: relative;
-  width: min(32vw, 500px, calc(100svh - 380px));
-  min-width: 300px;
+  width: min(35.2vw, 550px, calc((100svh - 380px) * 1.1));   /* 10% bigger */
+  min-width: 330px;
   aspect-ratio: 1;
 }
-.nucleus { position: absolute; inset: -18%; width: 136%; height: 136%; }
+.nucleus {
+  position: absolute;
+  inset: -18%;
+  width: 136%;
+  height: 136%;
+  max-width: none;          /* the reset caps canvases at 100%, which pushed the sphere left */
+  opacity: 0.82;            /* muted, like the globe in Variation 1 */
+  /* soft fade toward the edge of the halo */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 34%, rgba(0, 0, 0, 0.55) 52%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 34%, rgba(0, 0, 0, 0.55) 52%, transparent 70%);
+}
 [data-anim="globe-fade"] { opacity: 0; transform: scale(0.96); }
 .is-entered [data-anim="globe-fade"] { animation: globe-fade 1.6s var(--ease-out) 0.15s forwards; }
 @keyframes globe-fade { to { opacity: 1; transform: none; } }
@@ -117,7 +127,7 @@ body[data-variation="3"] :is(
   .hero-v3__right { align-items: center; text-align: center; }
   .hero-v3__claim, .hero-v3__cta { justify-items: center; }
   .hero-v3__sub, .hero-v3__bonus { max-width: 480px; }
-  .hero-v3__globe { justify-self: center; width: min(78vw, 460px); min-width: 0; }
+  .hero-v3__globe { justify-self: center; width: min(78vw, 500px); min-width: 0; }
 }
 @media (max-width: 760px) {
   .hero-v3__cards { grid-template-columns: 1fr; }
