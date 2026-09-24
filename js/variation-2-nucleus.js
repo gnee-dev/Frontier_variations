@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Hero · Variations 3 and 3b — nucleus (particle sphere)
+   Hero · Variations 2 and 2b — nucleus (particle sphere)
    - Nucleus: ~1,500 tiny square pixels spread over a sphere, rotating in 3D.
      Depth drives pixel size and brightness, so the near side reads bright
      and the far side dim, and it looks like a solid ball.
@@ -10,10 +10,10 @@
      point holds one name, shown until the cursor moves to another point,
      so an idle cursor keeps its name while the nucleus keeps spinning.
    One builder, two placements:
-     3  : sphere centred between the two text columns
-     3b : a much bigger sphere rising out of the bottom of the hero, behind
+     2  : sphere centred between the two text columns
+     2b : a much bigger sphere rising out of the bottom of the hero, behind
           the centred copy (pixels under the copy are dimmed)
-   Registers window.FrontierHeroMotion["3"] and ["3b"] = { start, stop }.
+   Registers window.FrontierHeroMotion["2"] and ["2b"] = { start, stop }.
    ========================================================================== */
 (function () {
   "use strict";
@@ -288,53 +288,53 @@
     return { relayout: relayout };
   }
 
-  /* ---------------- Variation 3: sphere between the columns ---------------- */
+  /* ---------------- Variation 2: sphere between the columns ---------------- */
 
-  var box3 = document.querySelector("#hero-v3 .hero-v3__globe");
-  if (box3) makeNucleus({
-    key: "3",
-    hero: document.getElementById("hero-v3"),
+  var box2 = document.querySelector("#hero-v2 .hero-v2__globe");
+  if (box2) makeNucleus({
+    key: "2",
+    hero: document.getElementById("hero-v2"),
     canvas: document.getElementById("nucleus"),
     tooltip: document.getElementById("nucleus-tooltip"),
     listenEl: document.getElementById("nucleus"),
-    tipParent: box3,
+    tipParent: box2,
     geometry: function (W, H) {
-      var bw = box3.offsetWidth;
+      var bw = box2.offsetWidth;
       return { cx: W / 2, cy: H / 2, rCore: bw * 0.2, pitch: bw < 400 ? 18 : 20 };
     }
   });
 
-  /* ---------------- Variation 3b: big sphere rising from the bottom ---------------- */
+  /* ---------------- Variation 2b: big sphere rising from the bottom ---------------- */
 
-  var hero3b = document.getElementById("hero-v3b");
-  var title3b = document.getElementById("hero-v3b-title");
-  var field3b = hero3b && hero3b.querySelector(".hero-v3b__domain");
+  var hero2b = document.getElementById("hero-v2b");
+  var title2b = document.getElementById("hero-v2b-title");
+  var field2b = hero2b && hero2b.querySelector(".hero-v2b__domain");
 
   // The domain field is always exactly as wide as the headline's text.
   // The headline stays at its 56px size; only when it doesn't fit the
   // column (narrow screens) is it scaled down, and the field follows.
-  var stack3b = hero3b && hero3b.querySelector(".hero-v3b__stack");
+  var stack2b = hero2b && hero2b.querySelector(".hero-v2b__stack");
   function fitTitle() {
-    if (!title3b || !field3b || !stack3b || !stack3b.clientWidth) return;
-    title3b.style.fontSize = "";
-    var avail = stack3b.clientWidth;
-    var natural = title3b.scrollWidth;              // inline-block + nowrap: the text's width
+    if (!title2b || !field2b || !stack2b || !stack2b.clientWidth) return;
+    title2b.style.fontSize = "";
+    var avail = stack2b.clientWidth;
+    var natural = title2b.scrollWidth;              // inline-block + nowrap: the text's width
     if (natural > avail) {
-      var base = parseFloat(getComputedStyle(title3b).fontSize);
-      title3b.style.fontSize = Math.max(24, base * avail / natural).toFixed(2) + "px";
-      natural = title3b.scrollWidth;
+      var base = parseFloat(getComputedStyle(title2b).fontSize);
+      title2b.style.fontSize = Math.max(24, base * avail / natural).toFixed(2) + "px";
+      natural = title2b.scrollWidth;
     }
-    field3b.style.width = Math.min(natural, avail) + "px";
+    field2b.style.width = Math.min(natural, avail) + "px";
   }
 
-  if (hero3b) {
-    var ctl3b = makeNucleus({
-      key: "3b",
-      hero: hero3b,
-      canvas: document.getElementById("nucleus-3b"),
-      tooltip: document.getElementById("nucleus-3b-tooltip"),
-      listenEl: hero3b,
-      tipParent: hero3b,
+  if (hero2b) {
+    var ctl2b = makeNucleus({
+      key: "2b",
+      hero: hero2b,
+      canvas: document.getElementById("nucleus-2b"),
+      tooltip: document.getElementById("nucleus-2b-tooltip"),
+      listenEl: hero2b,
+      tipParent: hero2b,
       avoidSelector: "[data-globe-avoid]",
       beforeLayout: fitTitle,
       geometry: function (W, H) {
@@ -346,6 +346,6 @@
         return { cx: W / 2, cy: (mobile ? H + r * 0.1 : H - r * 0.2) + r * 0.4, rCore: r, pitch: mobile ? 20 : 24 };
       }
     });
-    window.addEventListener("resize", function () { if (ctl3b) ctl3b.relayout(); else fitTitle(); });
+    window.addEventListener("resize", function () { if (ctl2b) ctl2b.relayout(); else fitTitle(); });
   }
 })();

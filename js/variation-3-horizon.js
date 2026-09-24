@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Hero · Variation 4 — "Horizon"
+   Hero · Variation 3 — "Horizon"
    - Landscape: a height field of rolling hills (a valley in the middle,
      rising to both sides), sampled on a fixed world grid of square pixels
      and drawn in perspective along the bottom of the hero. The grid moves
@@ -12,16 +12,16 @@
    - Names: an invisible layer of static points covers the landscape. Each
      point holds one name, shown until the cursor moves to another point,
      so an idle cursor keeps its name while the landscape keeps moving.
-   Colours are read from CSS variables (--horizon-*), so tab 02 reuses this
-   hero in the light theme (data-hero="4 2").
-   Registers window.FrontierHeroMotion["4"] = { start, stop } (it runs for both tabs).
+   Colours are read from CSS variables (--horizon-*), so tab 03b reuses this
+   hero in the light theme (data-hero="3 3b").
+   Registers window.FrontierHeroMotion["3"] = { start, stop } (it runs for both tabs).
    ========================================================================== */
 (function () {
   "use strict";
 
-  var hero = document.getElementById("hero-v4");
-  var canvas = document.getElementById("horizon-4");
-  var tooltip = document.getElementById("horizon-4-tooltip");
+  var hero = document.getElementById("hero-v3");
+  var canvas = document.getElementById("horizon-3");
+  var tooltip = document.getElementById("horizon-3-tooltip");
   if (!hero || !canvas || !tooltip) return;
   var ctx = canvas.getContext("2d");
   var tipName = tooltip.querySelector(".hero-tip__name");
@@ -88,8 +88,8 @@
   var seed = 20260924;
   function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
 
-  // Colours come from CSS variables, so the light tab (02) can recolour the
-  // shared hero; the defaults are the dark tab's (04) white-on-black.
+  // Colours come from CSS variables, so the light tab (03b) can recolour the
+  // shared hero; the defaults are the dark tab's (03) white-on-black.
   var pal = {};
   function readPalette() {
     var cs = getComputedStyle(hero);
@@ -112,7 +112,7 @@
     canvas.height = H * dpr;
     var mobile = W < 760;
     // the horizon sits between the copy and the cards; the ground fills the rest
-    var cards = hero.querySelector(".hero-v3b__cards");
+    var cards = hero.querySelector(".hero-v2b__cards");
     var cardsTop = cards ? layoutRect(cards, hero).y : H * 0.75;
     horizon = mobile ? Math.min(H * 0.55, cardsTop - 40) : Math.min(H * 0.6, cardsTop - 70);
     focal = (H - horizon) * 1.05 / CAM_H;
@@ -242,7 +242,7 @@
     }
     for (i = 0; i < W; i++) skyline[i] = ybuf[i];
 
-    // grey, never solid white: on the dark tab the brightest pixels top out at about 56% white
+    // grey, never solid white: on the dark tab (03) the brightest pixels top out at about 56% white
     ctx.fillStyle = "rgb(" + pal.pixel + ")";
     for (l = 1; l < LEVELS; l++) {
       ctx.globalAlpha = (l + 0.5) / LEVELS * pal.max;
@@ -307,11 +307,11 @@
   hero.addEventListener("pointerdown", function (e) { if (e.pointerType === "touch") onMove(e); });
   hero.addEventListener("pointerleave", clearHover);
 
-  /* ---------------- Headline fitting (as in Variation 3b) ---------------- */
+  /* ---------------- Headline fitting (as in Variation 2b) ---------------- */
 
-  var title = document.getElementById("hero-v4-title");
-  var field = hero.querySelector(".hero-v3b__domain");
-  var stack = hero.querySelector(".hero-v3b__stack");
+  var title = document.getElementById("hero-v3-title");
+  var field = hero.querySelector(".hero-v2b__domain");
+  var stack = hero.querySelector(".hero-v2b__stack");
   function fitTitle() {
     if (!title || !field || !stack || !stack.clientWidth) return;
     title.style.fontSize = "";
@@ -364,7 +364,7 @@
   }
 
   window.FrontierHeroMotion = window.FrontierHeroMotion || {};
-  window.FrontierHeroMotion["4"] = {
+  window.FrontierHeroMotion["3"] = {
     start: function () {
       enabled = true;
       requestAnimationFrame(function () { relayout(); if (onScreen) start(); });

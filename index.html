@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="css/hero-shared.css" />
   <link rel="stylesheet" href="css/variation-1-pixel-globe.css" />
   <link rel="stylesheet" href="css/variation-1b-colour.css" />
-  <link rel="stylesheet" href="css/variation-3-nucleus.css" />
-  <link rel="stylesheet" href="css/variation-3b-nucleus-centred.css" />
-  <link rel="stylesheet" href="css/variation-4-horizon.css" />
-  <link rel="stylesheet" href="css/variation-2-horizon-light.css" />
+  <link rel="stylesheet" href="css/variation-2-nucleus.css" />
+  <link rel="stylesheet" href="css/variation-2b-nucleus-centred.css" />
+  <link rel="stylesheet" href="css/variation-3-horizon.css" />
+  <link rel="stylesheet" href="css/variation-3b-horizon-light.css" />
 </head>
 
 <body data-variation="1">
@@ -32,22 +32,22 @@
       <nav class="variation-tabs" role="tablist" aria-label="Hero variations">
         <span class="variation-tabs__indicator" aria-hidden="true"></span>
         <button class="variation-tabs__tab is-active" role="tab" aria-selected="true" aria-controls="hero-v1" title="Pixel globe" data-variation-tab="1">
-          <span class="variation-tabs__num">01</span> Pixel globe
+          <span class="variation-tabs__num">01</span><span class="variation-tabs__name">Pixel globe</span>
         </button>
         <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v1" title="Globe colour" data-variation-tab="1b">
-          <span class="variation-tabs__num">01b</span> Globe colour
+          <span class="variation-tabs__num">01b</span><span class="variation-tabs__name">Globe colour</span>
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v4" title="Horizon light" data-variation-tab="2">
-          <span class="variation-tabs__num">02</span> Horizon light
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2" title="Nucleus" data-variation-tab="2">
+          <span class="variation-tabs__num">02</span><span class="variation-tabs__name">Nucleus</span>
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Nucleus" data-variation-tab="3">
-          <span class="variation-tabs__num">03</span> Nucleus
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2b" title="Nucleus centred" data-variation-tab="2b">
+          <span class="variation-tabs__num">02b</span><span class="variation-tabs__name">Nucleus centred</span>
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3b" title="Nucleus centred" data-variation-tab="3b">
-          <span class="variation-tabs__num">03b</span> Nucleus centred
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Horizon" data-variation-tab="3">
+          <span class="variation-tabs__num">03</span><span class="variation-tabs__name">Horizon</span>
         </button>
-        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v4" title="Horizon" data-variation-tab="4">
-          <span class="variation-tabs__num">04</span> Horizon
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Horizon light" data-variation-tab="3b">
+          <span class="variation-tabs__num">03b</span><span class="variation-tabs__name">Horizon light</span>
         </button>
       </nav>
 
@@ -118,46 +118,46 @@
       <p class="hero-hint" aria-hidden="true">Hover a pixel to reveal its name</p>
     </section>
 
-    <!-- ======================= HERO · VARIATION 3 (NUCLEUS, dark) ======================= -->
-    <section class="hero hero--v3" id="hero-v3" data-hero="3" role="tabpanel" aria-label="Hero variation 3: Nucleus" hidden>
-      <div class="container hero-v3__inner">
+    <!-- ======================= HERO · VARIATION 2 (NUCLEUS, dark) ======================= -->
+    <section class="hero hero--v2" id="hero-v2" data-hero="2" role="tabpanel" aria-label="Hero variation 2: Nucleus" hidden>
+      <div class="container hero-v2__inner">
         <!-- Left copy · particle sphere · right claim. Both sides share one grid row, so they are the same height. -->
-        <div class="hero-v3__stage">
-          <div class="hero-v3__left">
-            <h1 class="hero-v3__title" data-anim="rise" style="--d: 0.10s">Be the first<br /> to ever own</h1>
-            <p class="hero-v3__sub" data-anim="rise" style="--d: 0.22s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+        <div class="hero-v2__stage">
+          <div class="hero-v2__left">
+            <h1 class="hero-v2__title" data-anim="rise" style="--d: 0.10s">Be the first<br /> to ever own</h1>
+            <p class="hero-v2__sub" data-anim="rise" style="--d: 0.22s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
           </div>
 
-          <div class="hero-v3__globe" data-anim="globe-fade">
+          <div class="hero-v2__globe" data-anim="globe-fade">
             <canvas class="nucleus" id="nucleus" role="img" aria-label="A rotating sphere of particles inside a cloud of drifting particles. Hover it to reveal a name."></canvas>
             <div class="hero-tip" id="nucleus-tooltip" aria-hidden="true">
               <span class="hero-tip__name"></span>
             </div>
           </div>
 
-          <div class="hero-v3__right">
+          <div class="hero-v2__right">
             <!-- typed domain + Join Frontier grouped at the top; bonus line pinned to the bottom -->
-            <div class="hero-v3__claim" data-anim="rise" style="--d: 0.16s">
-              <div class="domain-box hero-v3__domain" aria-live="polite">
+            <div class="hero-v2__claim" data-anim="rise" style="--d: 0.16s">
+              <div class="domain-box hero-v2__domain" aria-live="polite">
                 <span class="domain-box__text">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span>
               </div>
-              <a class="btn btn--primary btn--shine hero-v3__join" href="#join">
+              <a class="btn btn--primary btn--shine hero-v2__join" href="#join">
                 Join Frontier
                 <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
-            <div class="hero-v3__cta" data-anim="rise" style="--d: 0.28s">
-              <p class="hero-v3__bonus">
-                <span class="hero-v3__pts">+10,000 pts bonus</span>
-                <span class="hero-v3__muted">on signup · deposit</span>
+            <div class="hero-v2__cta" data-anim="rise" style="--d: 0.28s">
+              <p class="hero-v2__bonus">
+                <span class="hero-v2__pts">+10,000 pts bonus</span>
+                <span class="hero-v2__muted">on signup · deposit</span>
                 opens in
-                <strong class="hero-v3__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v3__muted">, Sep 28</span>
+                <strong class="hero-v2__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2__muted">, Sep 28</span>
               </p>
             </div>
           </div>
         </div>
 
-        <ul class="hero-cards hero-v3__cards">
+        <ul class="hero-cards hero-v2__cards">
           <li class="panel stat-card" data-anim="rise" style="--d: 0.44s">
             <div class="panel__label">
               <span>Points rate</span>
@@ -186,41 +186,41 @@
       </div>
     </section>
 
-    <!-- ======================= HERO · VARIATION 3b (NUCLEUS CENTRED, dark) ======================= -->
-    <section class="hero hero--v3b" id="hero-v3b" data-hero="3b" role="tabpanel" aria-label="Hero variation 3b: Nucleus centred" hidden>
+    <!-- ======================= HERO · VARIATION 2b (NUCLEUS CENTRED, dark) ======================= -->
+    <section class="hero hero--v2b" id="hero-v2b" data-hero="2b" role="tabpanel" aria-label="Hero variation 2b: Nucleus centred" hidden>
       <!-- Big particle sphere rising out of the bottom of the hero, behind the copy -->
-      <canvas class="nucleus-3b" id="nucleus-3b" aria-hidden="true"></canvas>
-      <div class="hero-tip" id="nucleus-3b-tooltip" aria-hidden="true">
+      <canvas class="nucleus-2b" id="nucleus-2b" aria-hidden="true"></canvas>
+      <div class="hero-tip" id="nucleus-2b-tooltip" aria-hidden="true">
         <span class="hero-tip__name"></span>
       </div>
 
-      <div class="container hero-v3b__inner">
+      <div class="container hero-v2b__inner">
         <!-- Centred stack, as in the second Figma file. The headline is sized to the domain field's width. -->
-        <div class="hero-v3b__center">
-        <div class="hero-v3b__stack">
-          <h1 class="hero-v3b__title" id="hero-v3b-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
+        <div class="hero-v2b__center">
+        <div class="hero-v2b__stack">
+          <h1 class="hero-v2b__title" id="hero-v2b-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
 
-          <div class="hero-v3b__claim" data-anim="rise" style="--d: 0.22s">
-            <div class="domain-box hero-v3b__domain" data-globe-avoid>
-              <span class="hero-v3b__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
-              <a class="btn btn--primary btn--lg btn--shine hero-v3b__join" href="#join">
+          <div class="hero-v2b__claim" data-anim="rise" style="--d: 0.22s">
+            <div class="domain-box hero-v2b__domain" data-globe-avoid>
+              <span class="hero-v2b__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+              <a class="btn btn--primary btn--lg btn--shine hero-v2b__join" href="#join">
                 Join Frontier
                 <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
-            <p class="hero-v3b__bonus" data-globe-avoid>
-              <span class="hero-v3b__pts">+10,000 pts bonus</span>
-              <span class="hero-v3b__muted">on signup · deposit</span>
+            <p class="hero-v2b__bonus" data-globe-avoid>
+              <span class="hero-v2b__pts">+10,000 pts bonus</span>
+              <span class="hero-v2b__muted">on signup · deposit</span>
               opens in
-              <strong class="hero-v3b__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v3b__muted">, Sep 28</span>
+              <strong class="hero-v2b__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2b__muted">, Sep 28</span>
             </p>
           </div>
 
-          <p class="hero-v3b__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+          <p class="hero-v2b__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
         </div>
         </div>
 
-        <ul class="hero-cards hero-v3__cards hero-v3b__cards">
+        <ul class="hero-cards hero-v2__cards hero-v2b__cards">
           <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.44s">
             <div class="panel__label">
               <span>Points rate</span>
@@ -249,43 +249,43 @@
       </div>
     </section>
 
-    <!-- ======================= HERO · VARIATION 4 (HORIZON, dark) + 2 (HORIZON LIGHT) ======================= -->
-    <!-- data-hero="4 2": the 02 tab reuses this hero with the light theme (css/variation-2-horizon-light.css) -->
-    <section class="hero hero--v3b hero--v4" id="hero-v4" data-hero="4 2" role="tabpanel" aria-label="Hero variation 4: Horizon" hidden>
-      <!-- Pixel landscape along the bottom of the hero, moving toward the viewer (js/variation-4-horizon.js).
-           The layout reuses the Variation 3b centred stack (hero-v3b__* classes). -->
-      <canvas class="horizon-4" id="horizon-4" aria-hidden="true"></canvas>
-      <div class="hero-tip" id="horizon-4-tooltip" aria-hidden="true">
+    <!-- ======================= HERO · VARIATION 3 (HORIZON, dark) + 3b (HORIZON LIGHT) ======================= -->
+    <!-- data-hero="3 3b": the 03b tab reuses this hero with the light theme (css/variation-3b-horizon-light.css) -->
+    <section class="hero hero--v2b hero--v3" id="hero-v3" data-hero="3 3b" role="tabpanel" aria-label="Hero variation 3: Horizon" hidden>
+      <!-- Pixel landscape along the bottom of the hero, moving toward the viewer (js/variation-3-horizon.js).
+           The layout reuses the Variation 2b centred stack (hero-v2b__* classes). -->
+      <canvas class="horizon-3" id="horizon-3" aria-hidden="true"></canvas>
+      <div class="hero-tip" id="horizon-3-tooltip" aria-hidden="true">
         <span class="hero-tip__name"></span>
       </div>
 
-      <div class="container hero-v3b__inner">
-        <!-- Centred stack, as in Variation 3b -->
-        <div class="hero-v3b__center">
-        <div class="hero-v3b__stack">
-          <h1 class="hero-v3b__title" id="hero-v4-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
+      <div class="container hero-v2b__inner">
+        <!-- Centred stack, as in Variation 2b -->
+        <div class="hero-v2b__center">
+        <div class="hero-v2b__stack">
+          <h1 class="hero-v2b__title" id="hero-v3-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
 
-          <div class="hero-v3b__claim" data-anim="rise" style="--d: 0.22s">
-            <div class="domain-box hero-v3b__domain" data-globe-avoid>
-              <span class="hero-v3b__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
-              <a class="btn btn--primary btn--lg btn--shine hero-v3b__join" href="#join">
+          <div class="hero-v2b__claim" data-anim="rise" style="--d: 0.22s">
+            <div class="domain-box hero-v2b__domain" data-globe-avoid>
+              <span class="hero-v2b__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+              <a class="btn btn--primary btn--lg btn--shine hero-v2b__join" href="#join">
                 Join Frontier
                 <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
-            <p class="hero-v3b__bonus" data-globe-avoid>
-              <span class="hero-v3b__pts">+10,000 pts bonus</span>
-              <span class="hero-v3b__muted">on signup · deposit</span>
+            <p class="hero-v2b__bonus" data-globe-avoid>
+              <span class="hero-v2b__pts">+10,000 pts bonus</span>
+              <span class="hero-v2b__muted">on signup · deposit</span>
               opens in
-              <strong class="hero-v3b__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v3b__muted">, Sep 28</span>
+              <strong class="hero-v2b__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2b__muted">, Sep 28</span>
             </p>
           </div>
 
-          <p class="hero-v3b__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+          <p class="hero-v2b__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
         </div>
         </div>
 
-        <ul class="hero-cards hero-v3__cards hero-v3b__cards">
+        <ul class="hero-cards hero-v2__cards hero-v2b__cards">
           <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.44s">
             <div class="panel__label">
               <span>Points rate</span>
@@ -550,8 +550,8 @@
   <script src="js/data/world-countries-50m.js"></script>
 
   <script src="js/variation-1-pixel-globe.js"></script>
-  <script src="js/variation-3-nucleus.js"></script>
-  <script src="js/variation-4-horizon.js"></script>
+  <script src="js/variation-2-nucleus.js"></script>
+  <script src="js/variation-3-horizon.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

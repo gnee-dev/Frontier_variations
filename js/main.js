@@ -1,6 +1,6 @@
 /* ==========================================================================
    Frontier Lander — page behaviour
-   - Variation tabs in the nav (persisted in the URL hash: #v1 … #v4, #v3b)
+   - Variation tabs in the nav (persisted in the URL hash: #v1, #v1b, #v2, #v2b, #v3, #v3b)
    - Hero entrance, typing domain, counters
    - Scroll reveals, card sheen
    ========================================================================== */
@@ -21,6 +21,25 @@
     indicator.style.transform = "translateX(" + tab.offsetLeft + "px)";
   }
 
+  // Tab names open and close as the active tab changes (see .variation-tabs__name),
+  // so the tab being slid to is still changing size: glide the indicator from where
+  // it is to the tab's live position and width, over the names' 0.45s.
+  var glideId = 0;
+  function glideIndicator(tab) {
+    if (!indicator || !tab) return;
+    cancelAnimationFrame(glideId);
+    var x0 = indicator.offsetLeft + (new DOMMatrixReadOnly(getComputedStyle(indicator).transform).m41 || 0);
+    var w0 = indicator.offsetWidth, t0 = performance.now(), dur = 450;
+    indicator.style.transition = "none";
+    (function step(now) {
+      var t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 3);
+      indicator.style.width = (w0 + (tab.offsetWidth - w0) * e) + "px";
+      indicator.style.transform = "translateX(" + (x0 + (tab.offsetLeft - x0) * e) + "px)";
+      if (t < 1) glideId = requestAnimationFrame(step);
+      else indicator.style.transition = "";
+    })(t0);
+  }
+
   // A hero can serve several tabs: data-hero="1 1b" (1b is a colour theme of hero 1)
   function heroServes(hero, id) { return hero.dataset.hero.split(" ").indexOf(id) !== -1; }
 
@@ -34,7 +53,7 @@
       tab.classList.toggle("is-active", on);
       tab.setAttribute("aria-selected", on ? "true" : "false");
       tab.tabIndex = on ? 0 : -1;
-      if (on) moveIndicator(tab);
+      if (on) glideIndicator(tab);
     });
 
     heroes.forEach(function (hero) {
@@ -230,6 +249,6 @@
 
   /* ---------------- Boot ---------------- */
 
-  var fromHash = (location.hash.match(/^#v([1-4]|1b|3b)$/) || [])[1] || "1";
+  var fromHash = (location.hash.match(/^#v([1-3]b?)$/) || [])[1] || "1";
   setVariation(fromHash, { silent: true });
 })();
