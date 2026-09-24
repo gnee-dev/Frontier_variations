@@ -37,6 +37,18 @@ body[data-variation="2"] {
   --icon-filter: brightness(0);
 }
 
+/* ---------- Letter-spacing: -0.08% across the whole page ----------
+   Overrides the tighter tracking used elsewhere (headings, numbers, the
+   typed string). Small uppercase labels keep their wider tracking. */
+body[data-variation="2"],
+body[data-variation="2"] :is(
+  .hero-v2__title, .domain-box, .stat-card__value, .btn,
+  .section-head__title, .card__title, .points__value, .tld-grid li,
+  .timeline__title, .banner__title
+) {
+  letter-spacing: -0.0008em;
+}
+
 /* ---------- Hero shell (Figma: 968px tall, nav at 20px + 54px) ---------- */
 .hero--v2 {
   position: relative;
@@ -94,12 +106,11 @@ body[data-variation="2"] {
   gap: 24px;               /* Figma: 24px between headline, domain field and subtitle */
   max-width: 674px;        /* Figma column width */
 }
-/* Letter-spacing matches the section headings (-0.04em); same size as the typed string */
+/* Same size as the typed string */
 .hero-v2__title {
   font-size: min(40px, 9vw);
   line-height: 1.1;
   font-weight: 500;
-  letter-spacing: -0.04em;
   width: fit-content;
   text-wrap: balance;
 }
@@ -111,16 +122,15 @@ body[data-variation="2"] {
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-  height: 88px;
-  padding: 0 18px;                      /* Figma: text and button 18px in from the edges */
+  height: auto;
+  padding: 8px 8px 8px 18px;            /* tight around the button; 18px before the typed name */
   border-radius: 16px;
   font-size: min(40px, 9vw);
   line-height: 1.2;
-  letter-spacing: -0.04em;
 }
-.hero-v2__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; }
-.hero-v2__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." in the text colour, "crypto" orange */
-.hero-v2__join { flex: none; letter-spacing: 0; }
+.hero-v2__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; line-height: 1; }
+.hero-v2__domain .domain-box__text { color: var(--c-text-40); }   /* lighter grey name part, "crypto" orange */
+.hero-v2__join { flex: none; }
 
 /* Bonus line (Figma highlight usage: points green, key facts in the text colour, rest muted) */
 .hero-v2__bonus { font-size: 18px; line-height: 1.3; font-weight: 500; color: var(--c-text); }
@@ -146,7 +156,7 @@ body[data-variation="2"] {
 @media (max-width: 560px) {
   .hero--v2 { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
   /* narrow screens: the button drops under the typed name, still inside the field */
-  .hero-v2__domain { flex-direction: column; align-items: stretch; height: auto; gap: 12px; padding: 14px; }
+  .hero-v2__domain { flex-direction: column; align-items: stretch; height: auto; gap: 8px; padding: 12px 8px 8px 14px; }
   .hero-v2__typed { height: 48px; }
   .hero-v2__bonus { font-size: 16px; }
 }
