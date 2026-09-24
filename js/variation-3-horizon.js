@@ -97,7 +97,8 @@
     function v(name, def) { var x = cs.getPropertyValue(name).trim(); return x || def; }
     pal.pixel = v("--horizon-pixel", "255, 255, 255");         // near ground
     pal.pixelFar = v("--horizon-pixel-far", pal.pixel);         // toward the horizon
-    pal.line = v("--horizon-line", pal.pixel);                  // the lit contour line
+    pal.line = v("--horizon-line", pal.pixel);                  // the lit contour line ("none": no line)
+    pal.noLine = pal.line === "none";
     var a = pal.pixel.split(",").map(Number), b = pal.pixelFar.split(",").map(Number);
     pal.bands = [];
     for (var i = 0; i < BANDS; i++) {
@@ -225,7 +226,7 @@
         // the glowing contour: the height crosses CONTOUR between this point and its neighbour
         var d0 = h - CONTOUR;
         var onLine = z < Z_FAR * 0.7 && (d0 * (hz - CONTOUR) <= 0 || (hPrev === hPrev && d0 * (hPrev - CONTOUR) <= 0));
-        rowX[n] = sx; rowY[n] = sy; rowA[n] = a; rowS[n] = onLine ? 1 : 0;
+        rowX[n] = sx; rowY[n] = sy; rowA[n] = a; rowS[n] = onLine && !pal.noLine ? 1 : 0;
         hPrev = h;
         n++;
       }

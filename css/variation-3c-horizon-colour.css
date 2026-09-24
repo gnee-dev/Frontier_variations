@@ -6,7 +6,7 @@
    which covers both 1b and 3c: near-black plum, white headings and 64% body
    text, orange #E96E26 buttons, green #4AFFBA points, a touch of blue #4AC6FF.
    The landscape is a dusk: warm amber in the foreground fading to rose
-   toward the horizon, with the crest line in the Figma blue.
+   toward the horizon.
    The hero markup is shared with tabs 03 and 03b (data-hero="3 3b 3c").
    ========================================================================== */
 
@@ -14,7 +14,7 @@ body[data-variation="3c"] {
   /* landscape palette (read by js/variation-3-horizon.js) */
   --horizon-pixel: 255, 150, 72;       /* warm amber (01b globe) near the viewer */
   --horizon-pixel-far: 226, 112, 170;  /* rose (01b globe) toward the horizon */
-  --horizon-line: 74, 198, 255;        /* Figma blue for the lit crest line */
+  --horizon-line: none;                /* no lit crest line: every pixel follows the amber-to-rose ground */
   --horizon-max: 0.8;                  /* colour needs more presence than grey to read as amber, not brown */
   --horizon-glow: 214, 96, 150;        /* rose light along the horizon */
   --horizon-star: 248, 253, 255;

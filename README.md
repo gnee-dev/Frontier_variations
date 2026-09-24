@@ -10,7 +10,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 02b · Nucleus centred | Dark mode. The second Figma file's centred stack (headline sized to the domain field's width, field with Join Frontier inside, bonus line, subtitle) with a big particle sphere rising out of the bottom of the hero. | ✅ Done |
 | 03 · Horizon | Dark mode. The 02b centred stack over a pixel landscape along the bottom of the hero: rolling hills of square pixels in perspective, moving toward the viewer as if flying forward, with a glowing crest line. | ✅ Done |
 | 03b · Horizon light | Light mode of 03 · Horizon: the same hero (centred stack, moving pixel landscape, stat cards) in the light theme's colours: warm off-white page, lighter orange `#DA5A12` buttons and TLD, green `#1AC684` points, and orange `#E96E26` landscape pixels. | ✅ Done |
-| 03c · Horizon colour | 03 · Horizon with exactly the same layout, in the 01b / Figma colours: near-black plum, a dusk landscape (amber near, rose toward the horizon) with a blue crest line, orange accents and green points. | ✅ Done |
+| 03c · Horizon colour | 03 · Horizon with exactly the same layout, in the 01b / Figma colours: near-black plum, a dusk landscape (amber near, rose toward the horizon), orange accents and green points. | ✅ Done |
 
 The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 03, "c") versions next to it. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (720px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
 
@@ -105,7 +105,7 @@ assets/
 
 - **Same hero as 03.** Tab 03c also reuses the Variation 3 hero (`data-hero="3 3b 3c"`), so the layout, copy, hierarchy and motion are identical.
 - **01b colours.** The page tokens and the section accents come from `css/variation-1b-colour.css`, whose rules cover both `1b` and `3c`: a near-black plum background, white headings and 64% body text, orange `#E96E26` buttons (`#FF7C31` for orange text such as the typed TLD), green `#4AFFBA` for points, and orange card icons. `css/variation-3c-horizon-colour.css` adds the hero: soft dusk light (a rose band at the horizon, warm light from below), a warm-tinted domain field and plum-tinted stat cards.
-- **Dusk landscape.** The ground shades from warm amber near the viewer to rose toward the horizon, the lit crest line is the Figma blue `#4AC6FF`, and the horizon glows rose. The script reads `--horizon-pixel`, `--horizon-pixel-far` and `--horizon-line` (and the other `--horizon-*` variables) and draws the ground in six depth bands for the gradient. Colour is used only in the landscape and the accents, so the copy stays first.
+- **Dusk landscape.** The ground shades from warm amber near the viewer to rose toward the horizon, and the horizon glows rose. There's no lit crest line on this tab (`--horizon-line: none`), so every pixel follows the same gradient. The script reads `--horizon-pixel`, `--horizon-pixel-far` and `--horizon-line` (and the other `--horizon-*` variables) and draws the ground in six depth bands for the gradient. Colour is used only in the landscape and the accents, so the copy stays first.
 
 ## Adding another variation
 
