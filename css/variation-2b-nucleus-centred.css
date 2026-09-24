@@ -8,9 +8,9 @@
    ========================================================================== */
 
 /* -0.08% letter-spacing across the page on this tab (as in Variation 2) */
-/* (Variations 3, 3b and 3c reuse this layout, so the tab-wide rules cover them too) */
-body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"]),
-body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"]) :is(
+/* (Variations 3, 3b and 3c reuse this layout, and 4 shares its type and buttons, so the tab-wide rules cover them too) */
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"]),
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"]) :is(
   .hero-v2b__title, .domain-box, .stat-card__value, .btn,
   .section-head__title, .card__title, .points__value, .tld-grid li,
   .timeline__title, .banner__title
@@ -102,7 +102,7 @@ body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [dat
 
 /* One button everywhere on the page content of this tab: 40px tall, 18px label,
    9px × 16px padding. The nav's Sign up keeps the same size as the other tabs. */
-body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"]) main .btn {
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"]) main .btn {
   height: 40px;
   padding: 9px 16px;
   font-size: 18px;
@@ -110,9 +110,9 @@ body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [dat
   gap: 8px;
   border-radius: var(--radius-sm);
 }
-body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"]) main .btn .btn__arrow { width: 16px; height: 16px; }
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"]) main .btn .btn__arrow { width: 16px; height: 16px; }
 /* very narrow phones: 16px labels so the longest button ("Become a Frontier TLD partner") fits */
-@media (max-width: 400px) { body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"]) main .btn { font-size: 16px; padding-inline: 14px; } }
+@media (max-width: 400px) { body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"]) main .btn { font-size: 16px; padding-inline: 14px; } }
 
 /* Bonus line (Figma highlight usage) */
 .hero-v2b__bonus { font-size: 16px; line-height: 1.2; font-weight: 500; color: var(--c-text); }   /* Figma 18px, 2px smaller */

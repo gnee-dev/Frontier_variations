@@ -11,10 +11,11 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 03 · Horizon | Dark mode. The 02b centred stack over a pixel landscape along the bottom of the hero: rolling hills of square pixels in perspective, moving toward the viewer as if flying forward, with a glowing crest line. | ✅ Done |
 | 03b · Horizon light | Light mode of 03 · Horizon: the same hero (centred stack, moving pixel landscape, stat cards) in the light theme's colours: warm off-white page, lighter orange `#DA5A12` buttons and TLD, green `#1AC684` points, and orange `#E96E26` landscape pixels. | ✅ Done |
 | 03c · Horizon colour | 03 · Horizon with exactly the same layout, in the 01b / Figma colours: near-black plum, a dusk landscape (amber near, rose toward the horizon), orange accents and green points. | ✅ Done |
+| 04 · Video frame | Dark mode, after the split-screen reference: a contained video frame on the left (60% of the container, lined up with the nav and the stat cards) with corner labels and a Watch brief button, and the Variation 3 elements on the right, left-aligned. Placeholder image until the video exists. | ✅ Done |
 
-The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 03, "c") versions next to it. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (720px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
+The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 03, "c") versions next to it. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (760px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
 
-The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v1b`, `#v2`, `#v2b`, `#v3`, `#v3b`, `#v3c`.
+The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v1b`, `#v2`, `#v2b`, `#v3`, `#v3b`, `#v3c`, `#v4`.
 
 ## Preview
 
@@ -47,16 +48,19 @@ css/
   variation-3-horizon.css       # Hero variation 3 (pixel landscape; layout from 2b)
   variation-3b-horizon-light.css # Variation 3b: the light theme for the whole page, applied to the variation 3 hero
   variation-3c-horizon-colour.css # Variation 3c: landscape + hero colours over the variation 3 hero (page colours from 1b)
+  variation-4-video-frame.css   # Hero variation 4 (video frame left, copy right)
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-nucleus.js        # nucleus builder for 2 and 2b: rotating particle sphere + halo + static hover points; 2b headline fitting
   variation-3-horizon.js        # horizon (tabs 03, 03b and 03c): moving pixel landscape + static hover points; headline fitting
+  variation-4-video-frame.js    # hover names over the video frame
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
   logos/                        # Frontier wordmark + partner logos (exported from the Figma file)
   icons/                        # chain icons used in the "Deposit" card
+  media/video-placeholder.webp  # placeholder for the Variation 4 video
 ```
 
 ## Variation 1: Pixel globe
@@ -107,8 +111,15 @@ assets/
 - **01b colours.** The page tokens and the section accents come from `css/variation-1b-colour.css`, whose rules cover both `1b` and `3c`: a near-black plum background, white headings and 64% body text, orange `#E96E26` buttons (`#FF7C31` for orange text such as the typed TLD), green `#4AFFBA` for points, and orange card icons. `css/variation-3c-horizon-colour.css` adds the hero: soft dusk light (a rose band at the horizon, warm light from below), a warm-tinted domain field and plum-tinted stat cards.
 - **Dusk landscape.** The ground shades from warm amber near the viewer to rose toward the horizon, and the horizon glows rose. There's no lit crest line on this tab (`--horizon-line: none`), so every pixel follows the same gradient. The script reads `--horizon-pixel`, `--horizon-pixel-far` and `--horizon-line` (and the other `--horizon-*` variables) and draws the ground in six depth bands for the gradient. Colour is used only in the landscape and the accents, so the copy stays first.
 
+## Variation 4: Video frame
+
+- **Layout.** After the split-screen reference, with our fonts, colours and hierarchy. The left 60% of the container is a video frame. It isn't full bleed: it sits inside the same container as the nav bar and the stat cards (all three share the same left and right edges), starts 20px under the nav, and has the panel radius and border. The right column holds the Variation 3 elements, left-aligned: the 48px headline, the domain field with Join Frontier inside (the button moves under the typed name when the column gets narrow), the bonus line with the live countdown, and the subtitle, vertically centred beside the frame. Three compact stat cards run along the bottom. On tablets and phones the frame goes on top, then the copy, then the cards.
+- **Frame.** For now it shows `assets/media/video-placeholder.webp`, with a slow push-in so it doesn't feel static. To use a video, replace the `<img class="hero-v4__media">` in `index.html` with `<video class="hero-v4__media" autoplay muted loop playsinline poster="…"><source src="…"></video>`; the styles already cover it. Corner labels, from the reference: a "Live feed" chip with a green live dot at the top left, three small uppercase lines at the bottom left (hidden on phones), and a Watch brief button at the bottom right. Soft darkening at the top and bottom edges keeps them legible.
+- **Colours.** The dark theme: orange `#E96E26` buttons and TLD, green `#4AFFBA` for "+10,000 pts" and the live dot. Type sizes and the −0.08% letter-spacing come from the shared centred-layout rules.
+- **Hover names.** As in the other variations, an invisible layer of static points (28px apart, 22px on phones) covers the frame. Each point holds one name, shown with a small square marker until the cursor moves to another point. The labels and the button are kept clear.
+
 ## Adding another variation
 
-1. Add a tab in the nav (`data-variation-tab="4"`, `aria-controls="hero-v4"`, with `variation-tabs__num` and `variation-tabs__name` spans) and a `<section data-hero="4">` hero in `index.html`, and allow the id in the hash regex in `js/main.js`.
-2. Add `css/variation-4-<name>.css` (and `js/variation-4-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["4"] = { start, stop }`, and the tabs start and stop it.
-3. To theme the whole page, redefine the tokens under `body[data-variation="4"]`. `variation-3b-horizon-light.css` shows how.
+1. Add a tab in the nav (`data-variation-tab="5"`, `aria-controls="hero-v5"`, with `variation-tabs__num` and `variation-tabs__name` spans) and a `<section data-hero="5">` hero in `index.html`, and allow the id in the hash regex in `js/main.js`.
+2. Add `css/variation-5-<name>.css` (and `js/variation-5-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["5"] = { start, stop }`, and the tabs start and stop it.
+3. To theme the whole page, redefine the tokens under `body[data-variation="5"]`. `variation-3b-horizon-light.css` shows how.

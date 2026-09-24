@@ -1,6 +1,6 @@
 /* ==========================================================================
    Frontier Lander — page behaviour
-   - Variation tabs in the nav (persisted in the URL hash: #v1, #v1b, #v2, #v2b, #v3, #v3b, #v3c)
+   - Variation tabs in the nav (persisted in the URL hash: #v1, #v1b, #v2, #v2b, #v3, #v3b, #v3c, #v4)
    - Hero entrance, typing domain, counters
    - Scroll reveals, card sheen
    ========================================================================== */
@@ -249,6 +249,6 @@
 
   /* ---------------- Boot ---------------- */
 
-  var fromHash = (location.hash.match(/^#v([1-3][bc]?)$/) || [])[1] || "1";
+  var fromHash = (location.hash.match(/^#v([1-3][bc]?|4)$/) || [])[1] || "1";
   setVariation(fromHash, { silent: true });
 })();
