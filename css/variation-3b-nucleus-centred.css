@@ -1,9 +1,10 @@
 /* ==========================================================================
    Hero · Variation 3b — "Nucleus centred" (dark mode)
-   Layout (second Figma file): one centred stack. The headline is fitted
-   to exactly the domain field's width (js/variation-3-nucleus.js), then
-   the domain field with Join Frontier inside it, the bonus line, and the
-   subtitle. A much bigger particle sphere rises out of the bottom of the
+   Layout (second Figma file, exact sizes): one centred 674px stack of the
+   64px headline, the 674 × 88 domain field (56px) with Join Frontier
+   inside it, the 18px bonus line and the 16px subtitle, each one line.
+   On narrow screens the headline scales down to the field's width
+   (js/variation-3-nucleus.js). A much bigger particle sphere rises out of the bottom of the
    hero behind everything; three compact stat cards sit at the bottom.
    ========================================================================== */
 
@@ -59,12 +60,14 @@ body[data-variation="3b"] :is(
   margin-inline: auto;
 }
 .hero-v3b__title {
-  display: inline-block;              /* its natural width is measured to fit the field */
+  display: inline-block;              /* natural width is measured on narrow screens */
   white-space: nowrap;
-  font-size: 64px;                    /* Figma: 64px Medium (fitted to the field width in JS) */
+  font-size: 64px;                    /* Figma: 64px Medium, line-height 1.2, 674px frame */
   line-height: 1.2;
   font-weight: 500;
 }
+/* desktop: a 674px frame (as in Figma); flex centring keeps the text centred on it */
+@media (min-width: 760px) { .hero-v3b__title { display: flex; justify-content: center; width: 674px; } }
 .hero-v3b__claim { display: grid; justify-items: center; gap: 20px; width: 100%; }   /* Figma: 20px field → bonus line */
 
 /* Domain field with Join Frontier inside (Figma: 674 × 88, 18px insets) */
@@ -79,18 +82,20 @@ body[data-variation="3b"] :is(
   border-color: rgba(var(--ink), 0.12);
   font-size: min(56px, 9vw);          /* Figma: 56px Medium */
   line-height: 1.2;
+  max-width: 674px;
 }
 .hero-v3b__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; line-height: 1; }
 .hero-v3b__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." white, "crypto" orange */
 .hero-v3b__join { flex: none; }
 
 /* Bonus line (Figma highlight usage) */
-.hero-v3b__bonus { font-size: 18px; line-height: 1.3; font-weight: 500; color: var(--c-text); }
+.hero-v3b__bonus { font-size: 18px; line-height: 1.2; font-weight: 500; color: var(--c-text); }   /* Figma: 18px Medium */
 .hero-v3b__pts { color: #4affba; font-weight: 600; }
 .hero-v3b__muted { color: var(--c-text-64); }
 .hero-v3b__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
 
-.hero-v3b__sub { font-size: 16px; line-height: 1.4; font-weight: 500; color: var(--c-text-64); max-width: 560px; }
+.hero-v3b__sub { font-size: 16px; line-height: 1.2; font-weight: 500; color: var(--c-text-64); }   /* Figma: 16px Medium, 64%, one line */
+@media (min-width: 760px) { .hero-v3b__bonus, .hero-v3b__sub { white-space: nowrap; } }
 
 /* Compact stat cards (shared look with Variation 3), frosted over the sphere */
 .hero-v3b__cards .stat-card { background: rgba(12, 12, 12, 0.55); }
@@ -100,5 +105,6 @@ body[data-variation="3b"] :is(
   .hero--v3b { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
   .hero-v3b__domain { flex-direction: column; align-items: stretch; height: auto; gap: 8px; padding: 12px 8px 8px 14px; }
   .hero-v3b__typed { height: 48px; font-size: 36px; }
-  .hero-v3b__bonus { font-size: 16px; }
+  .hero-v3b__bonus { font-size: 16px; line-height: 1.35; }
+  .hero-v3b__sub { line-height: 1.4; }
 }
