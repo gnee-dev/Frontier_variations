@@ -5,7 +5,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | Tab | Variation | Status |
 | --- | --- | --- |
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
-| 02 · Dissolve ring | Light mode. Left-aligned headline, domain field and Join Frontier button, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
+| 02 · Dissolve ring | Light mode. Left-aligned headline, domain field with Join Frontier inside it, a bonus line with a live countdown, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
 | 03 | Placeholder | ⏳ To design |
 
 The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`.
@@ -59,7 +59,8 @@ assets/
 ## Variation 2: Dissolve ring
 
 - **Light mode.** The whole page switches to a light theme while this tab is on. Every colour comes from theme tokens on `<body>` in `base.css`, and `variation-2-dissolve-ring.css` redefines them under `body[data-variation="2"]`. Buttons and the typed TLD use a lighter, more saturated orange, `#DA5A12`. White button text on it has 3.85:1 contrast. The ring pixels and their soft glow use the brand `#E96E26`, and "+10,000 pts" is green, `#1AC684`.
-- **Layout.** One left-aligned column holds the headline and the domain field, both at 40px (the name part of the domain in a light grey), and the subtitle at 16px. The headline and domain field use the same −0.04em letter-spacing as the section headings. Below them come the Join Frontier button and the bonus note, as in Figma. Three shorter stat cards sit at the bottom.
+- **Layout.** This follows the updated Figma hero, kept left-aligned. The headline and the typed domain are both 40px with −0.04em letter-spacing. The Join Frontier button sits inside the domain field on the right. Under the field is the bonus line, highlighted as in Figma: "+10,000 pts bonus" in green, "opens in" and the countdown in the text colour, and the rest muted. Then comes the 16px subtitle. Three shorter stat cards sit at the bottom.
+- **Countdown.** "deposit opens in 4d 09h 44m" is live. It counts down to the `data-countdown-to` date on the element, currently `2026-09-28T19:00:00Z`, and updates every 15 seconds.
 - **Dissolve ring.** A thick ring of small square orange pixels curls over the bottom-right corner, and the whole ring rotates. The pattern lives in the ring's own polar coordinates and is sampled on a fixed pixel grid, so it stays crisp. It's dense along the inner band and dissolves toward the outer edge and the lower tail. Some pixels are lighter "shade" tones, and each one slowly drops out and returns. A blurred orange glow sits behind the ring, and the whole layer fades out at the bottom of the hero into the page background.
 - **Hover names.** As in Variation 1, an invisible layer of static points (20px apart) covers the ring band. Each point holds one name, which stays put while the cursor is idle even though the ring keeps turning.
 

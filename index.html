@@ -119,18 +119,25 @@
       <div class="container hero-v2__inner">
         <div class="hero-v2__head">
           <h1 class="hero-v2__title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
-          <div class="domain-box hero-v2__domain" data-anim="rise" data-globe-avoid style="--d: 0.22s" aria-live="polite">
-            <span class="domain-box__text">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span>
+
+          <div class="hero-v2__claim" data-anim="rise" style="--d: 0.22s">
+            <!-- Domain field with the Join Frontier button inside it, as in Figma -->
+            <div class="domain-box hero-v2__domain" data-globe-avoid>
+              <span class="hero-v2__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+              <a class="btn btn--primary btn--lg btn--shine hero-v2__join" href="#join">
+                Join Frontier
+                <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <p class="hero-v2__bonus" data-globe-avoid>
+              <span class="hero-v2__pts">+10,000 pts bonus</span>
+              <span class="hero-v2__muted">on signup · deposit</span>
+              opens in
+              <strong class="hero-v2__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2__muted">, Sep 28</span>
+            </p>
           </div>
-          <p class="hero-v2__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. They work exactly like .com.</p>
-          <!-- CTA under the copy, as in Figma (left-aligned here) -->
-          <div class="hero-v2__cta" data-anim="rise" data-globe-avoid style="--d: 0.44s">
-            <a class="btn btn--primary btn--lg btn--shine" href="#join">
-              Join Frontier
-              <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <span class="hero-v2__bonus"><span class="pulse-dot" aria-hidden="true"></span><span><span class="hero-v2__pts">+10,000 pts</span> bonus expires today</span></span>
-          </div>
+
+          <p class="hero-v2__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
         </div>
 
         <ul class="hero-cards hero-v2__cards">

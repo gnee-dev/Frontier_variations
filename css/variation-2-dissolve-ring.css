@@ -1,7 +1,8 @@
 /* ==========================================================================
    Hero · Variation 2 — "Dissolve ring" (light mode)
-   Layout: headline, domain field, subtitle and the Join Frontier button
-   left-aligned; three shorter stat cards pinned to the bottom; a rotating
+   Layout (updated Figma, kept left-aligned): headline; domain field with
+   the Join Frontier button inside it; bonus line with a live countdown;
+   subtitle; three shorter stat cards pinned to the bottom; a rotating
    orange pixel ring that dissolves toward its edges in the bottom-right.
    The light theme applies to the whole page while this variation is on.
    ========================================================================== */
@@ -100,31 +101,40 @@ body[data-variation="2"] {
   font-weight: 500;
   letter-spacing: -0.04em;
   width: fit-content;
+  text-wrap: balance;
 }
 @media (min-width: 760px) { .hero-v2__title { white-space: nowrap; } } /* one line, as in Figma */
+.hero-v2__claim { display: grid; gap: 20px; width: 100%; max-width: 674px; }   /* Figma: 20px field → bonus line */
+
+/* Domain field with the Join Frontier button inside, right-aligned (Figma: 674 × 88) */
 .hero-v2__domain {
+  justify-content: space-between;
+  gap: 16px;
   width: 100%;
-  max-width: 560px;
-  height: 72px;
-  padding: 9px 16px;            /* Figma: 9px × 16px */
+  height: 88px;
+  padding: 0 18px;                      /* Figma: text and button 18px in from the edges */
   border-radius: 16px;
   font-size: min(40px, 9vw);
   line-height: 1.2;
   letter-spacing: -0.04em;
 }
-.hero-v2__domain .domain-box__text { color: var(--c-text-40); }  /* lighter grey name part */
+.hero-v2__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; }
+.hero-v2__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." in the text colour, "crypto" orange */
+.hero-v2__join { flex: none; letter-spacing: 0; }
+
+/* Bonus line (Figma highlight usage: points green, key facts in the text colour, rest muted) */
+.hero-v2__bonus { font-size: 18px; line-height: 1.3; font-weight: 500; color: var(--c-text); }
+.hero-v2__pts { color: var(--c-points); font-weight: 600; }
+.hero-v2__muted { color: var(--c-text-64); }
+.hero-v2__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
+
 .hero-v2__sub {
-  font-size: 16px;
+  font-size: 16px;                      /* Figma: 16px Medium, 64% */
   line-height: 1.4;
   font-weight: 500;
   color: var(--c-text-64);
-  max-width: 520px;
+  max-width: 560px;
 }
-
-/* CTA under the copy (Figma: button, then the bonus note under it) */
-.hero-v2__cta { display: grid; justify-items: start; gap: 13px; margin-top: 4px; }
-.hero-v2__bonus { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; color: var(--c-text-64); }
-.hero-v2__pts { color: var(--c-points); font-weight: 600; }
 
 /* Three shorter stat cards */
 .hero-v2__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -135,5 +145,8 @@ body[data-variation="2"] {
 
 @media (max-width: 560px) {
   .hero--v2 { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
-  .hero-v2__domain { height: 60px; }
+  /* narrow screens: the button drops under the typed name, still inside the field */
+  .hero-v2__domain { flex-direction: column; align-items: stretch; height: auto; gap: 12px; padding: 14px; }
+  .hero-v2__typed { height: 48px; }
+  .hero-v2__bonus { font-size: 16px; }
 }

@@ -92,14 +92,17 @@
     var timer = 0;
     var active = false;
 
+    // Name part as plain text, TLD in a .tld span. data-dot="name" keeps the
+    // dot with the name ("vault." + "crypto"), otherwise it goes with the TLD.
     function render(text) {
       var dot = text.indexOf(".");
       if (dot === -1) { el.textContent = text; return; }
+      var cut = el.dataset.dot === "name" ? dot + 1 : dot;
       el.innerHTML = "";
-      el.appendChild(document.createTextNode(text.slice(0, dot)));
+      el.appendChild(document.createTextNode(text.slice(0, cut)));
       var tld = document.createElement("span");
       tld.className = "tld";
-      tld.textContent = text.slice(dot);
+      tld.textContent = text.slice(cut);
       el.appendChild(tld);
     }
 
@@ -143,6 +146,26 @@
       }
     };
   })();
+
+  /* ---------------- Countdowns ([data-countdown-to="ISO date"]) ---------------- */
+
+  var countdowns = document.querySelectorAll("[data-countdown-to]");
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function tickCountdowns() {
+    var now = Date.now();
+    countdowns.forEach(function (el) {
+      var left = Math.max(0, Date.parse(el.dataset.countdownTo) - now);
+      var mins = Math.floor(left / 60000);
+      var d = Math.floor(mins / 1440);
+      var h = Math.floor((mins % 1440) / 60);
+      var m = mins % 60;
+      el.textContent = d + "d " + pad2(h) + "h " + pad2(m) + "m";
+    });
+  }
+  if (countdowns.length) {
+    tickCountdowns();
+    setInterval(tickCountdowns, 15000);
+  }
 
   /* ---------------- Counters ---------------- */
 
