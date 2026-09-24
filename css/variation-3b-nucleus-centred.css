@@ -23,7 +23,8 @@ body[data-variation="3b"] :is(
   display: flex;
   flex-direction: column;
   min-height: max(760px, min(968px, 100svh));
-  padding: calc(20px + var(--nav-h) + 64px) 0 40px;
+  /* top padding ends exactly at the nav's bottom edge (nav: 20px + 54px) */
+  padding: calc(20px + var(--nav-h)) 0 40px;
   background: var(--c-bg);
   overflow: hidden;
   isolation: isolate;
@@ -47,7 +48,16 @@ body[data-variation="3b"] :is(
 .hero--v3b.is-entered .nucleus-3b { opacity: 0.82; }
 
 /* ---------- Centred stack ---------- */
-.hero-v3b__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
+/* The stack fills the space between the nav and the stat cards and centres
+   itself in it: equal gaps above and below at every breakpoint. */
+.hero-v3b__inner { flex: 1; display: flex; flex-direction: column; }
+.hero-v3b__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(32px, 5vh, 56px);   /* minimum breathing room on short screens */
+}
 .hero-v3b__stack {
   display: grid;
   grid-template-columns: minmax(0, 1fr);   /* the headline must not widen the column */
@@ -97,6 +107,8 @@ body[data-variation="3b"] main .btn {
   border-radius: var(--radius-sm);
 }
 body[data-variation="3b"] main .btn .btn__arrow { width: 16px; height: 16px; }
+/* very narrow phones: 16px labels so the longest button ("Become a Frontier TLD partner") fits */
+@media (max-width: 400px) { body[data-variation="3b"] main .btn { font-size: 16px; padding-inline: 14px; } }
 
 /* Bonus line (Figma highlight usage) */
 .hero-v3b__bonus { font-size: 16px; line-height: 1.2; font-weight: 500; color: var(--c-text); }   /* Figma 18px, 2px smaller */
@@ -112,7 +124,7 @@ body[data-variation="3b"] main .btn .btn__arrow { width: 16px; height: 16px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 560px) {
-  .hero--v3b { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
+  .hero--v3b { min-height: 0; padding-top: calc(12px + var(--nav-h)); }   /* nav sits at 12px here */
   .hero-v3b__domain { flex-direction: column; align-items: stretch; height: auto; gap: 8px; padding: 12px 8px 8px 14px; }
   .hero-v3b__typed { height: 48px; font-size: 36px; }
   .hero-v3b__bonus { font-size: 15px; line-height: 1.35; }

@@ -305,6 +305,9 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   .variation-tabs__num { font-size: 12px; color: inherit; }
   .nav .btn { padding: 8px; font-size: 14px; height: 36px; }
 }
+@media (max-width: 380px) {
+  .variation-tabs__tab { padding: 0 4px; }   /* five tabs + Sign up on the narrowest phones */
+}
 
 /* ---------- Motion primitives ---------- */
 /* Hero entrance: elements marked data-anim="rise" play once the hero is active */
