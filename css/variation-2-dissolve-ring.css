@@ -121,7 +121,7 @@ body[data-variation="2"] :is(
 .hero-v2__domain {
   justify-content: space-between;
   gap: 16px;
-  width: 100%;
+  width: calc(100% - 10px);             /* 664px on desktop */
   height: auto;
   padding: 8px 8px 8px 18px;            /* tight around the button; 18px before the typed name */
   border-radius: 16px;
