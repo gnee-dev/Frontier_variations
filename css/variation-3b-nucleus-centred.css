@@ -48,16 +48,19 @@ body[data-variation="3b"] :is(
 .hero--v3b.is-entered .nucleus-3b { opacity: 0.82; }
 
 /* ---------- Centred stack ---------- */
-/* The stack fills the space between the nav and the stat cards and centres
-   itself in it: equal gaps above and below at every breakpoint. */
+/* The stack sits in the space between the nav and the stat cards, raised
+   above centre: the free space splits 30% above / 70% below, which lifts it
+   by about 10% of that space's height on desktop. On short screens with no
+   free space it keeps the minimum gaps. */
 .hero-v3b__inner { flex: 1; display: flex; flex-direction: column; }
 .hero-v3b__center {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding-block: clamp(32px, 5vh, 56px);   /* minimum breathing room on short screens */
 }
+.hero-v3b__center::before { content: ""; flex: 3 1 0; }
+.hero-v3b__center::after  { content: ""; flex: 7 1 0; }
 .hero-v3b__stack {
   display: grid;
   grid-template-columns: minmax(0, 1fr);   /* the headline must not widen the column */
