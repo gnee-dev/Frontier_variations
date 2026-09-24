@@ -1,8 +1,8 @@
 /* ==========================================================================
    Hero · Variation 2 — "Dissolve ring" (light mode)
-   Layout: headline, domain field and subtitle left-aligned at the Figma
-   sizes; the same four cards pinned to the bottom; an orange pixel ring
-   that dissolves toward its edges sits in the bottom-right corner.
+   Layout: headline, domain field, subtitle and the Join Frontier button
+   left-aligned; three shorter stat cards pinned to the bottom; a rotating
+   orange pixel ring that dissolves toward its edges in the bottom-right.
    The light theme applies to the whole page while this variation is on.
    ========================================================================== */
 
@@ -59,43 +59,53 @@ body[data-variation="2"] {
 }
 .hero--v2.is-entered .dissolve-ring { opacity: 1; }
 
-/* ---------- Head: left-aligned, Figma type sizes ---------- */
-.hero-v2__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 56px; }
+/* ---------- Head: left-aligned ---------- */
+.hero-v2__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
 .hero-v2__head {
   display: grid;
   justify-items: start;
   gap: 24px;               /* Figma: 24px between headline, domain field and subtitle */
   max-width: 674px;        /* Figma column width */
 }
+/* Letter-spacing matches the section headings (-0.04em) */
 .hero-v2__title {
-  font-size: min(64px, 11vw);   /* Figma: 64px Medium */
-  line-height: 1.2;
+  font-size: min(56px, 10vw);
+  line-height: 1.1;
   font-weight: 500;
-  letter-spacing: -0.0008em;    /* Figma: -0.08% */
+  letter-spacing: -0.04em;
   width: fit-content;
 }
 @media (min-width: 760px) { .hero-v2__title { white-space: nowrap; } } /* one line, as in Figma */
 .hero-v2__domain {
   width: 100%;
-  max-width: 674px;             /* Figma: 674 × 89 */
-  height: 89px;
+  max-width: 560px;
+  height: 72px;
   padding: 9px 16px;            /* Figma: 9px × 16px */
   border-radius: 16px;
-  font-size: min(56px, 10vw);   /* Figma: 56px Medium */
+  font-size: min(40px, 9vw);
   line-height: 1.2;
-  letter-spacing: -0.0008em;
+  letter-spacing: -0.04em;
 }
+.hero-v2__domain .domain-box__text { color: var(--c-text-40); }  /* lighter grey name part */
 .hero-v2__sub {
-  font-size: 18px;              /* Figma: 18px Medium */
-  line-height: 1.2;
+  font-size: 16px;
+  line-height: 1.4;
   font-weight: 500;
-  letter-spacing: -0.0008em;
   color: var(--c-text-64);
-  width: fit-content;
+  max-width: 520px;
 }
+
+/* CTA under the copy (Figma: button, then the bonus note under it) */
+.hero-v2__cta { display: grid; justify-items: start; gap: 13px; margin-top: 4px; }
+.hero-v2__bonus { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; color: var(--c-text-64); }
+
+/* Three shorter stat cards */
+.hero-v2__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hero-v2__cards .stat-card { min-height: 148px; gap: 16px; }
+.hero-v2__cards .stat-card__value { font-size: clamp(36px, 3.3vw, 48px); }
+@media (max-width: 760px) { .hero-v2__cards { grid-template-columns: 1fr; } }
 
 @media (max-width: 560px) {
   .hero--v2 { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
-  .hero-v2__domain { height: 68px; }
-  .hero-v2__sub { line-height: 1.4; }
+  .hero-v2__domain { height: 60px; }
 }

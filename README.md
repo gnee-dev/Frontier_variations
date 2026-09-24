@@ -5,7 +5,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | Tab | Variation | Status |
 | --- | --- | --- |
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
-| 02 · Dissolve ring | Light mode. Left-aligned headline and domain field at the Figma sizes, the same four cards, and an orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
+| 02 · Dissolve ring | Light mode. Left-aligned headline, domain field and Join Frontier button, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
 | 03 | Placeholder | ⏳ To design |
 
 The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`.
@@ -40,7 +40,7 @@ css/
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
-  variation-2-dissolve-ring.js  # dissolve ring: shimmering pixel arc + one name per ring cell
+  variation-2-dissolve-ring.js  # dissolve ring: rotating pixel arc + static hover points with names
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -59,9 +59,9 @@ assets/
 ## Variation 2: Dissolve ring
 
 - **Light mode.** The whole page switches to a light theme while this tab is on. Every colour comes from theme tokens on `<body>` in `base.css`, and `variation-2-dissolve-ring.css` redefines them under `body[data-variation="2"]`. The orange is deepened to `#C4531B` for buttons and the typed TLD, so white button text has 4.6:1 contrast. The ring pixels keep the brand `#E96E26`.
-- **Layout.** The headline, domain field and subtitle are left-aligned at the Figma sizes: 64px headline on one line, a 674 × 89px domain field with 56px text, an 18px subtitle, and 24px gaps. The four cards stay at the bottom, as in Variation 1.
-- **Dissolve ring.** A thick ring of square orange pixels on a fixed grid curls over the bottom-right corner. It's denser along the inner edge and dissolves toward the outer edge and the lower tail. Each pixel drops out and reappears on its own slow clock, so the ring shimmers. Pixels behind the text and cards are dimmed.
-- **Hover names.** Each cell in the ring holds one name, shown in the same small card as Variation 1 and kept until the cursor moves to another cell.
+- **Layout.** One left-aligned column holds the headline (56px), the domain field (40px text, name part in a light grey) and the subtitle (16px). The headline and domain field use the same −0.04em letter-spacing as the section headings. Below them come the Join Frontier button and the bonus note, as in Figma. Three shorter stat cards sit at the bottom.
+- **Dissolve ring.** A thick ring of small square orange pixels curls over the bottom-right corner, and the whole ring rotates. The pattern lives in the ring's own polar coordinates and is sampled on a fixed pixel grid, so it stays crisp. It's dense along the inner band and dissolves toward the outer edge and the lower tail. Some pixels are lighter "shade" tones, and each one slowly drops out and returns.
+- **Hover names.** As in Variation 1, an invisible layer of static points (20px apart) covers the ring band. Each point holds one name, which stays put while the cursor is idle even though the ring keeps turning.
 
 ## Adding variation 3
 

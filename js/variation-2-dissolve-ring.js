@@ -1,15 +1,17 @@
 /* ==========================================================================
    Hero · Variation 2 — dissolve ring
-   - A thick ring of square orange pixels on a fixed screen grid, centred
-     just inside the right edge near the bottom, so its upper-left quarter
-     (and the hollow inside it) curls over the bottom-right corner.
-   - The ring "dissolves": pixels are dense along the inner band and thin
-     out toward the outer edge and toward the lower tail of the arc. Each
-     pixel re-rolls on its own slow clock, so the ring shimmers as pixels
-     drop out and reappear, and the dense band gently drifts.
+   - A thick ring of small square orange pixels, curling over the
+     bottom-right corner. The pixel pattern lives in the ring's own polar
+     coordinates, so the whole ring rotates; it is sampled on a fixed
+     screen grid, so it always stays crisp pixels.
+   - The ring "dissolves": dense along the inner band, thinning toward the
+     outer edge and toward the lower tail (that envelope stays put while
+     the pattern flows through it). Some pixels are lighter "shade" tones,
+     and each pixel slowly drops out and returns, so the ring shimmers.
    - Pixels under the copy and cards are dimmed so text stays readable.
-   - Every grid cell in the ring band holds one name. Hovering a cell shows
-     its name until the cursor moves to another cell.
+   - Names: an invisible layer of static points covers the ring band. Each
+     point holds one name, shown until the cursor moves to another point,
+     so an idle cursor keeps its name while the ring keeps turning.
    Registers window.FrontierHeroMotion["2"] = { start, stop }.
    ========================================================================== */
 (function () {
@@ -40,9 +42,8 @@
     return (n ^ (n >>> 16)) >>> 0;
   }
   function rand(n) { return hash(n) / 4294967296; } // 0..1
-  function cellId(col, row) { return (col + 1024) * 8192 + (row + 1024); }
-  function cellName(col, row) {
-    var h = hash(cellId(col, row) + 104729);
+  function pointName(i, j) {
+    var h = hash((i + 1024) * 8192 + (j + 1024) + 104729);
     if (h % 7 === 0) return FEATURED[(h >>> 8) % FEATURED.length];
     return NAMES[(h >>> 3) % NAMES.length] + TLDS[(h >>> 13) % TLDS.length];
   }
@@ -50,7 +51,8 @@
   /* ---------------- Layout ---------------- */
 
   var W = 0, H = 0, dpr = 1;
-  var cell = 16;            // grid pitch in CSS px
+  var cell = 9;             // pixel grid pitch in CSS px
+  var pitch = 20;           // spacing of the static hover points in CSS px
   var cx = 0, cy = 0;       // ring centre (just outside the bottom-right corner)
   var rIn = 0, rOut = 0;    // inner / outer radius of the band
   var avoid = [];
@@ -68,7 +70,8 @@
     canvas.style.height = H + "px";
 
     var mobile = W < 760;
-    cell = mobile ? 10 : W < 1200 ? 12 : 13;
+    cell = mobile ? 7 : W < 1200 ? 8 : 9;
+    pitch = mobile ? 18 : 20;
     // Centre just past the right edge and a little above the bottom, so the
     // ring's hollow and curve show above the card row (like the reference)
     rOut = mobile ? W * 0.8 : Math.min(W * 0.4, 620);
@@ -100,78 +103,103 @@
   function smooth(a, b, x) { var k = Math.min(1, Math.max(0, (x - a) / (b - a))); return k * k * (3 - 2 * k); }
 
   // t: 0 at the inner edge, 1 at the outer edge. s: 0 at the lower tail, 1 at the top.
-  // A band with defined edges, a little denser on the inside, that thins out and
-  // scatters toward the lower tail of the arc (the "dissolve").
+  // A dense band with defined edges that thins out toward the outer edge and
+  // toward the lower tail of the arc (the "dissolve"). Screen-fixed envelope.
   function density(t, s, time) {
-    var drift = 0.04 * Math.sin(s * 8 + time * 0.35);            // edges gently breathe
-    var band = smooth(-0.06, 0.08, t + drift) * (1 - smooth(0.78, 1.12, t - drift));
-    var body = 0.5 + 0.3 * (1 - Math.min(1, Math.max(0, t)));    // denser toward the inner edge
-    var tail = 0.25 + 0.75 * smooth(0.05, 0.75, s);              // dissolves toward the tail
-    return Math.min(0.92, band * body * tail);
-  }
-
-  function cellInfo(col, row) {
-    var x = (col + 0.5) * cell;
-    var y = (row + 0.5) * cell;
-    var dx = x - cx, dy = y - cy;
-    var r = Math.sqrt(dx * dx + dy * dy);
-    var t = (r - rIn) / (rOut - rIn);
-    if (t < -0.15 || t > 1.3) return null;
-    // angle: -PI (pointing left, lower tail) .. -PI/2 (pointing up, top of arc)
-    var ang = Math.atan2(dy, dx);
-    var s = (ang + Math.PI) / (Math.PI / 2);
-    return { x: x, y: y, t: t, s: s };
+    var drift = 0.035 * Math.sin(s * 8 + time * 0.35);           // edges gently breathe
+    var band = smooth(-0.05, 0.06, t + drift) * (1 - smooth(0.72, 1.12, t - drift));
+    var body = 0.66 + 0.3 * (1 - Math.min(1, Math.max(0, t)));   // denser toward the inner edge
+    var tail = 0.3 + 0.7 * smooth(0.04, 0.7, s);                 // dissolves toward the tail
+    return Math.min(0.94, band * body * tail);
   }
 
   /* ---------------- Rendering ---------------- */
 
-  var hover = null;
+  var hover = null;   // { i, j, x, y }
   var pointer = null;
+  var rot = 0;        // ring rotation in radians
+  var ROT_SPEED = reduceMotion ? 0 : 0.00005; // rad per ms (~3° a second)
   var startT = performance.now();
+  var lastT = 0;
+  var TWO_PI = Math.PI * 2;
+
+  // Tones: most pixels are full orange, some are lighter "shade" pixels
+  function toneFor(r) { return r < 0.64 ? 0 : r < 0.86 ? 1 : 2; }
+  var TONE_ALPHA = [0.95, 0.5, 0.24];
+
+  var buckets = [[], [], [], [], [], []]; // tone × (normal, dimmed)
 
   function draw(now) {
     if (!W) return;
     var time = reduceMotion ? 0 : (now - startT) / 1000;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = color;
+    for (var k = 0; k < buckets.length; k++) buckets[k].length = 0;
 
-    var size = Math.round(cell * 0.72);
-    var off = (cell - size) / 2;
-    var rowMin = Math.max(0, Math.floor((cy - rOut * 1.3) / cell));
+    var size = Math.max(3, Math.round(cell * 0.7));
+    var off = Math.round((cell - size) / 2);
+    var rBase = rIn * 0.9;
+    var reach = rOut * 1.15;
+    var rowMin = Math.max(0, Math.floor((cy - reach) / cell));
     var rowMax = Math.ceil(H / cell);
-    var colMin = Math.max(0, Math.floor((cx - rOut * 1.3) / cell));
-    var colMax = Math.ceil(W / cell);
 
     for (var row = rowMin; row < rowMax; row++) {
+      var y = (row + 0.5) * cell;
+      var dy = y - cy;
+      if (Math.abs(dy) > reach) continue;
+      var half = Math.sqrt(reach * reach - dy * dy);
+      var colMin = Math.max(0, Math.floor((cx - half) / cell));
+      var colMax = Math.min(Math.ceil(W / cell), Math.ceil((cx + half) / cell));
       for (var col = colMin; col < colMax; col++) {
-        var c = cellInfo(col, row);
-        if (!c) continue;
-        var d = density(c.t, c.s, time);
+        var x = (col + 0.5) * cell;
+        var dx = x - cx;
+        var r = Math.sqrt(dx * dx + dy * dy);
+        var t = (r - rIn) / (rOut - rIn);
+        if (t < -0.1 || t > 1.2) continue;
+        var ang = Math.atan2(dy, dx);
+        var s = (ang + Math.PI) / (Math.PI / 2);
+        var d = density(t, s, time);
         if (d < 0.01) continue;
-        var id = cellId(col, row);
-        // each pixel re-rolls on its own clock (1.2s–3.2s), offset by a random phase
-        var period = 1.2 + 2 * rand(id + 11);
+
+        // ring-space cell: radial bin + angular bin that rotates with the ring
+        var rb = Math.floor((r - rBase) / cell);
+        var rMid = rBase + (rb + 0.5) * cell;
+        var nb = Math.max(8, Math.floor(TWO_PI * rMid / cell));
+        var phi = ((ang - rot) % TWO_PI + TWO_PI) % TWO_PI;
+        var ab = Math.floor(phi / TWO_PI * nb);
+        var id = (rb + 64) * 65536 + ab;
+
+        // each ring pixel slowly drops out and returns (2.5s–6.5s clock)
+        var period = 2.5 + 4 * rand(id + 11);
         var epoch = Math.floor(time / period + rand(id + 23));
         if (rand(id * 31 + epoch) > d) continue;
-        var a = dimAt(c.x, c.y);
-        ctx.globalAlpha = a < 1 ? 0.22 : 0.92;
-        // a few pixels stretch into short bars, like the reference
-        var wide = rand(id + 57) < 0.08 ? cell : 0;
-        ctx.fillRect(Math.round(col * cell + off), Math.round(row * cell + off), size + wide, size);
+
+        var tone = toneFor(rand(id + 71));
+        var dim = dimAt(x, y) < 1 ? 1 : 0;
+        buckets[tone * 2 + dim].push(col * cell + off, row * cell + off);
       }
+    }
+
+    ctx.fillStyle = color;
+    for (var b = 0; b < buckets.length; b++) {
+      var list = buckets[b];
+      if (!list.length) continue;
+      var tone = b >> 1, dimmed = b & 1;
+      ctx.globalAlpha = TONE_ALPHA[tone] * (dimmed ? 0.24 : 1);
+      for (var i = 0; i < list.length; i += 2) ctx.fillRect(list[i], list[i + 1], size, size);
     }
     ctx.globalAlpha = 1;
 
+    // Hovered static point: a small marker that stays put while the ring turns
     if (hover) {
       ctx.strokeStyle = color;
       ctx.lineWidth = 1.5;
-      ctx.strokeRect(hover.col * cell - 2.5, hover.row * cell - 2.5, cell + 5, cell + 5);
-      ctx.fillRect(Math.round(hover.col * cell + off), Math.round(hover.row * cell + off), size, size);
+      ctx.strokeRect(Math.round(hover.x) - 8.5, Math.round(hover.y) - 8.5, 17, 17);
+      ctx.fillRect(Math.round(hover.x) - 3, Math.round(hover.y) - 3, 6, 6);
     }
   }
 
-  /* ---------------- Hover (one name per ring cell) ---------------- */
+  /* ---------------- Hover: static points over the ring band ---------------- */
 
   function renderName(name) {
     var dot = name.indexOf(".");
@@ -186,20 +214,24 @@
     tooltip.classList.add("is-swap");
   }
 
+  // Snap the cursor to the nearest static point. The name only changes when
+  // the cursor reaches a different point, so an idle cursor keeps its name.
   function updateHover() {
     if (!pointer) return clearHover();
-    // stick to the current cell until the cursor is clearly in another one
-    if (hover && Math.abs(pointer.x - (hover.col + 0.5) * cell) < cell * 0.75 &&
-        Math.abs(pointer.y - (hover.row + 0.5) * cell) < cell * 0.75) return;
-    var col = Math.floor(pointer.x / cell);
-    var row = Math.floor(pointer.y / cell);
-    var c = cellInfo(col, row);
-    if (!c || c.t < -0.05 || c.t > 1.1 || dimAt(c.x, c.y) < 1) return clearHover();
-    hover = { col: col, row: row };
-    renderName(cellName(col, row));
+    if (hover && Math.abs(pointer.x - hover.x) < pitch * 0.65 && Math.abs(pointer.y - hover.y) < pitch * 0.65) return;
+    var i = Math.round((pointer.x - cx) / pitch);
+    var j = Math.round((pointer.y - cy) / pitch);
+    var x = cx + i * pitch;
+    var y = cy + j * pitch;
+    var r = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
+    var t = (r - rIn) / (rOut - rIn);
+    if (t < -0.04 || t > 1.05 || x < 0 || x > W || y > H || dimAt(x, y) < 1) return clearHover();
+    if (hover && hover.i === i && hover.j === j) return;
+    hover = { i: i, j: j, x: x, y: y };
+    renderName(pointName(i, j));
     hero.classList.add("is-globe-hover");
     tooltip.classList.add("is-visible");
-    placeTooltip(c.x, c.y);
+    placeTooltip(x, y);
     if (!running) draw(performance.now());
   }
 
@@ -240,6 +272,9 @@
 
   function frame(now) {
     if (!running) return;
+    var dt = Math.min(64, now - (lastT || now));
+    lastT = now;
+    rot += ROT_SPEED * dt;
     draw(now);
     rafId = requestAnimationFrame(frame);
   }
@@ -248,6 +283,7 @@
     if (!W && !layout()) return;
     if (reduceMotion) { draw(performance.now()); return; }
     running = true;
+    lastT = 0;
     rafId = requestAnimationFrame(frame);
   }
   function stop() {
