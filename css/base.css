@@ -309,7 +309,7 @@ h1, h2, h3, p, dl, dd { margin: 0; }
 }
 /* Phones and small tablets: the tabs get their own full-width row under the logo
    and Sign up. --nav-h grows to match, and every hero offsets itself by --nav-h. */
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   :root { --nav-h: 94px; }
   .nav { inset-block-start: 12px; }
   .nav__inner {

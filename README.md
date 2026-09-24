@@ -10,10 +10,11 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 02b · Nucleus centred | Dark mode. The second Figma file's centred stack (headline sized to the domain field's width, field with Join Frontier inside, bonus line, subtitle) with a big particle sphere rising out of the bottom of the hero. | ✅ Done |
 | 03 · Horizon | Dark mode. The 02b centred stack over a pixel landscape along the bottom of the hero: rolling hills of square pixels in perspective, moving toward the viewer as if flying forward, with a glowing crest line. | ✅ Done |
 | 03b · Horizon light | Light mode of 03 · Horizon: the same hero (centred stack, moving pixel landscape, stat cards) in the light theme's colours: warm off-white page, lighter orange `#DA5A12` buttons and TLD, green `#1AC684` points, and orange `#E96E26` landscape pixels. | ✅ Done |
+| 03c · Horizon colour | 03 · Horizon with exactly the same layout, in the 01b / Figma colours: near-black plum, a dusk landscape (amber near, rose toward the horizon) with a blue crest line, orange accents and green points. | ✅ Done |
 
-The tabs are grouped in pairs: each variation (01, 02, 03) has a "b" version next to it. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (640px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
+The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 03, "c") versions next to it. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (720px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
 
-The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v1b`, `#v2`, `#v2b`, `#v3`, `#v3b`.
+The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v1b`, `#v2`, `#v2b`, `#v3`, `#v3b`, `#v3c`.
 
 ## Preview
 
@@ -40,16 +41,17 @@ css/
   hero-shared.css               # domain field, stat/CTA cards, hover name card (used by every hero)
   sections.css                  # How it works, Back the extensions, Steps, Applicants, Banner, Footer
   variation-1-pixel-globe.css   # Hero variation 1 (pixel globe, dark)
-  variation-1b-colour.css       # Variation 1b: colour theme over the variation 1 hero and page
+  variation-1b-colour.css       # Variation 1b: colour theme over the variation 1 hero and page (also used by 3c)
   variation-2-nucleus.css       # Hero variation 2 (nucleus particle sphere, dark)
   variation-2b-nucleus-centred.css # Hero variation 2b (centred copy, sphere rising from the bottom)
   variation-3-horizon.css       # Hero variation 3 (pixel landscape; layout from 2b)
   variation-3b-horizon-light.css # Variation 3b: the light theme for the whole page, applied to the variation 3 hero
+  variation-3c-horizon-colour.css # Variation 3c: landscape + hero colours over the variation 3 hero (page colours from 1b)
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-nucleus.js        # nucleus builder for 2 and 2b: rotating particle sphere + halo + static hover points; 2b headline fitting
-  variation-3-horizon.js        # horizon (tabs 03 and 03b): moving pixel landscape + static hover points; headline fitting
+  variation-3-horizon.js        # horizon (tabs 03, 03b and 03c): moving pixel landscape + static hover points; headline fitting
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -98,6 +100,12 @@ assets/
 - **Light theme colours (from the earlier Variation 2).** The whole page switches to the light theme while this tab is on. Every colour comes from theme tokens on `<body>`, and `css/variation-3b-horizon-light.css` redefines them under `body[data-variation="3b"]`. Buttons and the typed TLD use the lighter orange `#DA5A12` (white button text has 3.85:1 contrast), "+10,000 pts" is green `#1AC684`, and the name part of the domain is a light grey.
 - **Landscape.** The pixels are the brand orange `#E96E26` (the colour of the old dissolve ring), up to 72% opacity, with a soft orange light along the horizon and faint dark specks for stars. The script reads these from the `--horizon-pixel`, `--horizon-max`, `--horizon-glow`, `--horizon-star` and `--horizon-marker` variables, so tab 03 keeps its grey-on-black.
 - The earlier dissolve ring hero was replaced by this one; it's in the git history if it's needed again.
+
+## Variation 3c: Horizon colour
+
+- **Same hero as 03.** Tab 03c also reuses the Variation 3 hero (`data-hero="3 3b 3c"`), so the layout, copy, hierarchy and motion are identical.
+- **01b colours.** The page tokens and the section accents come from `css/variation-1b-colour.css`, whose rules cover both `1b` and `3c`: a near-black plum background, white headings and 64% body text, orange `#E96E26` buttons (`#FF7C31` for orange text such as the typed TLD), green `#4AFFBA` for points, and orange card icons. `css/variation-3c-horizon-colour.css` adds the hero: soft dusk light (a rose band at the horizon, warm light from below), a warm-tinted domain field and plum-tinted stat cards.
+- **Dusk landscape.** The ground shades from warm amber near the viewer to rose toward the horizon, the lit crest line is the Figma blue `#4AC6FF`, and the horizon glows rose. The script reads `--horizon-pixel`, `--horizon-pixel-far` and `--horizon-line` (and the other `--horizon-*` variables) and draws the ground in six depth bands for the gradient. Colour is used only in the landscape and the accents, so the copy stays first.
 
 ## Adding another variation
 

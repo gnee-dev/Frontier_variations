@@ -12,8 +12,8 @@
    - Names: an invisible layer of static points covers the landscape. Each
      point holds one name, shown until the cursor moves to another point,
      so an idle cursor keeps its name while the landscape keeps moving.
-   Colours are read from CSS variables (--horizon-*), so tab 03b reuses this
-   hero in the light theme (data-hero="3 3b").
+   Colours are read from CSS variables (--horizon-*), so tabs 03b (light) and
+   03c (colour) reuse this hero (data-hero="3 3b 3c").
    Registers window.FrontierHeroMotion["3"] = { start, stop } (it runs for both tabs).
    ========================================================================== */
 (function () {
@@ -88,13 +88,22 @@
   var seed = 20260924;
   function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
 
-  // Colours come from CSS variables, so the light tab (03b) can recolour the
-  // shared hero; the defaults are the dark tab's (03) white-on-black.
+  // Colours come from CSS variables, so the light tab (03b) and the colour tab
+  // (03c) can recolour the shared hero; the defaults are the dark tab's (03)
+  // white-on-black. The ground can shade from a near colour to a far one.
   var pal = {};
   function readPalette() {
     var cs = getComputedStyle(hero);
     function v(name, def) { var x = cs.getPropertyValue(name).trim(); return x || def; }
-    pal.pixel = v("--horizon-pixel", "255, 255, 255");
+    pal.pixel = v("--horizon-pixel", "255, 255, 255");         // near ground
+    pal.pixelFar = v("--horizon-pixel-far", pal.pixel);         // toward the horizon
+    pal.line = v("--horizon-line", pal.pixel);                  // the lit contour line
+    var a = pal.pixel.split(",").map(Number), b = pal.pixelFar.split(",").map(Number);
+    pal.bands = [];
+    for (var i = 0; i < BANDS; i++) {
+      var t = i / (BANDS - 1);
+      pal.bands.push(a.map(function (c, j) { return Math.round(c + (b[j] - c) * t); }).join(","));
+    }
     pal.max = parseFloat(v("--horizon-max", "0.58"));
     pal.glow = v("--horizon-glow", "255, 255, 255");
     pal.glowA = v("--horizon-glow", "") ? 0.09 : 0.045;
@@ -145,7 +154,8 @@
   /* ---------------- Draw ---------------- */
 
   var LEVELS = 12;
-  var paths = [];
+  var BANDS = 6;             // depth bands, for a colour gradient from near to far
+  var paths = [], linePaths = [];
   var MAXN = 4096;
   var rowX = new Float32Array(MAXN), rowY = new Float32Array(MAXN), rowA = new Float32Array(MAXN), rowS = new Uint8Array(MAXN);
 
@@ -172,7 +182,8 @@
     ctx.fillStyle = g;
     ctx.fillRect(0, horizon - 90, W, 150);
 
-    for (var l = 0; l < LEVELS; l++) paths[l] = new Path2D();
+    for (var l = 0; l < LEVELS * BANDS; l++) paths[l] = new Path2D();
+    for (l = 0; l < LEVELS; l++) linePaths[l] = new Path2D();
     var i;
     for (i = 0; i < W; i++) ybuf[i] = H + 50;
 
@@ -195,6 +206,7 @@
       var xmin = (-cx - 30) / k + sway, xmax = (W - cx + 30) / k + sway;
       var c0 = Math.floor(xmin / dx), c1 = Math.ceil(xmax / dx);
       var size = Math.max(1, Math.min(10, Math.round(8.5 / z)));
+      var band = Math.round(smooth(Z_NEAR + 0.5, Z_FAR * 0.7, z) * (BANDS - 1));
       var n = 0, hPrev = NaN;
       for (var c = c0; c <= c1 && n < MAXN; c++) {
         if (c % step) continue;
@@ -228,7 +240,7 @@
         alpha *= dimAt(px, py);
         var lv = Math.min(LEVELS - 1, Math.floor(alpha * LEVELS));
         if (lv <= 0) continue;
-        paths[lv].rect(Math.round(px - sz / 2), Math.round(py - sz / 2), sz, sz);
+        (rowS[i] ? linePaths[lv] : paths[band * LEVELS + lv]).rect(Math.round(px - sz / 2), Math.round(py - sz / 2), sz, sz);
       }
       // then this row becomes part of the skyline for the rows behind it
       for (i = 0; i + 1 < n; i++) {
@@ -243,10 +255,17 @@
     for (i = 0; i < W; i++) skyline[i] = ybuf[i];
 
     // grey, never solid white: on the dark tab (03) the brightest pixels top out at about 56% white
-    ctx.fillStyle = "rgb(" + pal.pixel + ")";
+    for (var bd = 0; bd < BANDS; bd++) {
+      ctx.fillStyle = "rgb(" + pal.bands[bd] + ")";
+      for (l = 1; l < LEVELS; l++) {
+        ctx.globalAlpha = (l + 0.5) / LEVELS * pal.max;
+        ctx.fill(paths[bd * LEVELS + l]);
+      }
+    }
+    ctx.fillStyle = "rgb(" + pal.line + ")";
     for (l = 1; l < LEVELS; l++) {
       ctx.globalAlpha = (l + 0.5) / LEVELS * pal.max;
-      ctx.fill(paths[l]);
+      ctx.fill(linePaths[l]);
     }
     ctx.globalAlpha = 1;
 

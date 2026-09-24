@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="css/variation-2b-nucleus-centred.css" />
   <link rel="stylesheet" href="css/variation-3-horizon.css" />
   <link rel="stylesheet" href="css/variation-3b-horizon-light.css" />
+  <link rel="stylesheet" href="css/variation-3c-horizon-colour.css" />
 </head>
 
 <body data-variation="1">
@@ -48,6 +49,9 @@
         </button>
         <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Horizon light" data-variation-tab="3b">
           <span class="variation-tabs__num">03b</span><span class="variation-tabs__name">Horizon light</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Horizon colour" data-variation-tab="3c">
+          <span class="variation-tabs__num">03c</span><span class="variation-tabs__name">Horizon colour</span>
         </button>
       </nav>
 
@@ -250,8 +254,9 @@
     </section>
 
     <!-- ======================= HERO · VARIATION 3 (HORIZON, dark) + 3b (HORIZON LIGHT) ======================= -->
-    <!-- data-hero="3 3b": the 03b tab reuses this hero with the light theme (css/variation-3b-horizon-light.css) -->
-    <section class="hero hero--v2b hero--v3" id="hero-v3" data-hero="3 3b" role="tabpanel" aria-label="Hero variation 3: Horizon" hidden>
+    <!-- data-hero="3 3b 3c": the 03b tab reuses this hero with the light theme (css/variation-3b-horizon-light.css),
+         and 03c with the 01b colours (css/variation-3c-horizon-colour.css) -->
+    <section class="hero hero--v2b hero--v3" id="hero-v3" data-hero="3 3b 3c" role="tabpanel" aria-label="Hero variation 3: Horizon" hidden>
       <!-- Pixel landscape along the bottom of the hero, moving toward the viewer (js/variation-3-horizon.js).
            The layout reuses the Variation 2b centred stack (hero-v2b__* classes). -->
       <canvas class="horizon-3" id="horizon-3" aria-hidden="true"></canvas>
