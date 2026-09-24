@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Hero · Variation 2 — "Dissolve ring" (light mode)
+   Layout: headline, domain field and subtitle left-aligned at the Figma
+   sizes; the same four cards pinned to the bottom; an orange pixel ring
+   that dissolves toward its edges sits in the bottom-right corner.
+   The light theme applies to the whole page while this variation is on.
+   ========================================================================== */
+
+/* ---------- Light theme (whole page) ---------- */
+body[data-variation="2"] {
+  color-scheme: light;
+  --ink: 17, 17, 19;                  /* #111113 */
+  --c-bg: #f4f4f2;
+  --c-bg-2: #f4f4f2;
+  /* Orange darkened for contrast on light: white button text 4.6:1 */
+  --c-accent: #c4531b;
+  --c-accent-hover: #b04814;
+  --c-accent-press: #9e3f10;
+  --c-accent-text: #c4531b;
+  --c-ring: #e96e26;                  /* ring pixels keep the brand orange */
+
+  --panel-bg: rgba(255, 255, 255, 0.55);
+  --panel-bg-solid: rgba(255, 255, 255, 0.72);
+  --panel-bd: rgba(17, 17, 19, 0.08);
+
+  --c-well-top: #fafaf9;
+  --c-well-bottom: #efefed;
+  --c-chip-solid: #dcdcd9;
+  --c-dot-off: #e2e2df;
+  --c-tabs-bg: rgba(17, 17, 19, 0.05);
+  --c-tip-bg: rgba(255, 255, 255, 0.94);
+  --shadow-tip: 0 18px 40px -16px rgba(17, 17, 19, 0.28);
+  --logo-filter: brightness(0);       /* white SVG logos -> near-black */
+  --icon-filter: brightness(0);
+}
+
+/* ---------- Hero shell (Figma: 968px tall, nav at 20px + 54px) ---------- */
+.hero--v2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max(720px, min(968px, 100svh));
+  padding: calc(20px + var(--nav-h) + 56px) 0 40px;
+  background: var(--c-bg-2);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero--v2.is-globe-hover { cursor: crosshair; }
+
+/* ---------- Dissolve ring (behind everything) ---------- */
+.dissolve-ring {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out) 0.3s;
+}
+.hero--v2.is-entered .dissolve-ring { opacity: 1; }
+
+/* ---------- Head: left-aligned, Figma type sizes ---------- */
+.hero-v2__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 56px; }
+.hero-v2__head {
+  display: grid;
+  justify-items: start;
+  gap: 24px;               /* Figma: 24px between headline, domain field and subtitle */
+  max-width: 674px;        /* Figma column width */
+}
+.hero-v2__title {
+  font-size: min(64px, 11vw);   /* Figma: 64px Medium */
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.0008em;    /* Figma: -0.08% */
+  width: fit-content;
+}
+@media (min-width: 760px) { .hero-v2__title { white-space: nowrap; } } /* one line, as in Figma */
+.hero-v2__domain {
+  width: 100%;
+  max-width: 674px;             /* Figma: 674 × 89 */
+  height: 89px;
+  padding: 9px 16px;            /* Figma: 9px × 16px */
+  border-radius: 16px;
+  font-size: min(56px, 10vw);   /* Figma: 56px Medium */
+  line-height: 1.2;
+  letter-spacing: -0.0008em;
+}
+.hero-v2__sub {
+  font-size: 18px;              /* Figma: 18px Medium */
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.0008em;
+  color: var(--c-text-64);
+  width: fit-content;
+}
+
+@media (max-width: 560px) {
+  .hero--v2 { min-height: 0; padding-top: calc(12px + var(--nav-h) + 40px); }
+  .hero-v2__domain { height: 68px; }
+  .hero-v2__sub { line-height: 1.4; }
+}

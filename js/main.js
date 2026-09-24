@@ -45,11 +45,15 @@
       }
     });
 
-    if (window.FrontierGlobe) {
-      if (id === "1") window.FrontierGlobe.start();
-      else window.FrontierGlobe.stop();
-    }
-    if (id === "1") typer.start(); else typer.stop();
+    // Each variation's motion script registers itself in window.FrontierHeroMotion
+    var motion = window.FrontierHeroMotion || {};
+    Object.keys(motion).forEach(function (key) {
+      if (key === id) motion[key].start();
+      else motion[key].stop();
+    });
+    typer.stop();
+    var active = heroes.filter(function (h) { return h.dataset.hero === id; })[0];
+    typer.start(active && active.querySelector(".domain-box__text"));
 
     if (!opts || !opts.silent) history.replaceState(null, "", "#v" + id);
   }
@@ -77,10 +81,10 @@
     });
   }
 
-  /* ---------------- Typing domain (hero v1) ---------------- */
+  /* ---------------- Typing domain (whichever hero is active) ---------------- */
 
   var typer = (function () {
-    var el = document.getElementById("hero-domain");
+    var el = null;
     var words = ["vault.crypto", "gen.wealth", "burner.wallet", "anon.agent", "satoshi.btc", "swarm.robot", "degen.sol"];
     var wordIdx = 0;
     var charIdx = words[0].length;
@@ -121,8 +125,10 @@
     }
 
     return {
-      start: function () {
-        if (!el || reduceMotion || active) return;
+      start: function (target) {
+        if (!target || active) return;
+        el = target;
+        if (reduceMotion) { render(words[0]); return; }
         active = true;
         wordIdx = 0;
         charIdx = words[0].length;

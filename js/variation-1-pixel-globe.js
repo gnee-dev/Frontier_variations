@@ -9,7 +9,7 @@
      globe disc. Each point holds one name. Hovering a point shows its
      name until the cursor moves to another point; the globe keeps
      rotating underneath.
-   Exposes window.FrontierGlobe = { start, stop }.
+   Registers window.FrontierHeroMotion["1"] = { start, stop }.
    ========================================================================== */
 (function () {
   "use strict";
@@ -21,7 +21,7 @@
   var tooltip = document.getElementById("pixel-globe-tooltip");
   if (!hero || !canvas || !tooltip) return;
 
-  var tipName = tooltip.querySelector(".pixel-globe__name");
+  var tipName = tooltip.querySelector(".hero-tip__name");
   var ctx = canvas.getContext("2d");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var DEG = Math.PI / 180;
@@ -342,19 +342,20 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
   setTimeout(relayout, 1600);
 
+  var enabled = true;
   var onScreen = true;
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) {
       onScreen = entries[0].isIntersecting;
-      if (onScreen && window.FrontierGlobe.enabled) start();
+      if (onScreen && enabled) start();
       else stop();
     }).observe(hero);
   }
 
-  window.FrontierGlobe = {
-    enabled: true,
-    start: function () { this.enabled = true; relayout(); if (onScreen) start(); },
-    stop: function () { this.enabled = false; stop(); }
+  window.FrontierHeroMotion = window.FrontierHeroMotion || {};
+  window.FrontierHeroMotion["1"] = {
+    start: function () { enabled = true; relayout(); if (onScreen) start(); },
+    stop: function () { enabled = false; stop(); clearHover(); }
   };
   relayout();
   start();

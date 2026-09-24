@@ -5,7 +5,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | Tab | Variation | Status |
 | --- | --- | --- |
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
-| 02 | Placeholder | ⏳ To design |
+| 02 · Dissolve ring | Light mode. Left-aligned headline and domain field at the Figma sizes, the same four cards, and an orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
 | 03 | Placeholder | ⏳ To design |
 
 The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`.
@@ -31,13 +31,16 @@ npx serve .
 ```
 index.html                      # markup for the nav, all hero variations, and the shared sections
 css/
-  base.css                      # tokens, reset, buttons, nav + variation tabs, motion primitives
+  base.css                      # tokens + theme, reset, buttons, nav + variation tabs, motion primitives
+  hero-shared.css               # domain field, stat/CTA cards, hover name card (used by every hero)
   sections.css                  # How it works, Back the extensions, Steps, Applicants, Banner, Footer
-  variation-1-pixel-globe.css   # Hero variation 1 (pixel globe)
-  variation-placeholder.css     # Temporary styles for variations 2 & 3
+  variation-1-pixel-globe.css   # Hero variation 1 (pixel globe, dark)
+  variation-2-dissolve-ring.css # Hero variation 2 (dissolve ring) + the light theme for the whole page
+  variation-placeholder.css     # Temporary styles for variation 3
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
-  variation-1-pixel-globe.js    # pixel globe: rotation, hover-to-pause, one name per pixel
+  variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
+  variation-2-dissolve-ring.js  # dissolve ring: shimmering pixel arc + one name per ring cell
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -53,9 +56,16 @@ assets/
 - **Hover names.** On top of the rotating globe sits an invisible layer of static points (28px apart) that covers exactly the globe disc. Each point holds one name. Hovering a point shows its name in a small 14px card, and it stays put until the cursor moves to another point. The globe keeps rotating underneath. The names from the brief (`vault.crypto`, `gen.wealth`, `burner.wallet`, `anon.agent`, …) come up more often than the generated ones. To change the names, edit `NAMES`, `TLDS` and `FEATURED` in `js/variation-1-pixel-globe.js`.
 - **Motion.** The hero has a staggered entrance, the typing domain field, stat counters and a light sweep across the button. Sections below the hero reveal on scroll. Motion is switched off when the visitor has `prefers-reduced-motion` turned on.
 
-## Adding variation 2 / 3
+## Variation 2: Dissolve ring
 
-1. Replace the `#hero-v2` (or `#hero-v3`) placeholder `<section>` in `index.html`. Keep `data-hero="2"`.
-2. Add `css/variation-2-<name>.css` (and `js/variation-2-<name>.js` if it needs script) and link it in `index.html`.
-3. Rename the tab label in the nav (`[data-variation-tab="2"]`).
-4. For theme changes that should reach the sections below the hero, scope the rules with `body[data-variation="2"] …`.
+- **Light mode.** The whole page switches to a light theme while this tab is on. Every colour comes from theme tokens on `<body>` in `base.css`, and `variation-2-dissolve-ring.css` redefines them under `body[data-variation="2"]`. The orange is deepened to `#C4531B` for buttons and the typed TLD, so white button text has 4.6:1 contrast. The ring pixels keep the brand `#E96E26`.
+- **Layout.** The headline, domain field and subtitle are left-aligned at the Figma sizes: 64px headline on one line, a 674 × 89px domain field with 56px text, an 18px subtitle, and 24px gaps. The four cards stay at the bottom, as in Variation 1.
+- **Dissolve ring.** A thick ring of square orange pixels on a fixed grid curls over the bottom-right corner. It's denser along the inner edge and dissolves toward the outer edge and the lower tail. Each pixel drops out and reappears on its own slow clock, so the ring shimmers. Pixels behind the text and cards are dimmed.
+- **Hover names.** Each cell in the ring holds one name, shown in the same small card as Variation 1 and kept until the cursor moves to another cell.
+
+## Adding variation 3
+
+1. Replace the `#hero-v3` placeholder `<section>` in `index.html`. Keep `data-hero="3"`.
+2. Add `css/variation-3-<name>.css` (and `js/variation-3-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["3"] = { start, stop }`, and the tabs start and stop it.
+3. Rename the tab label in the nav (`[data-variation-tab="3"]`).
+4. To theme the whole page, redefine the tokens under `body[data-variation="3"]`. `variation-2-dissolve-ring.css` shows how.

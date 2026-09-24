@@ -9,7 +9,7 @@
   place-items: center;
   padding: calc(var(--nav-h) + 80px) 0 80px;
   background:
-    radial-gradient(60% 50% at 50% 40%, rgba(255, 255, 255, 0.06), transparent 70%),
+    radial-gradient(60% 50% at 50% 40%, rgba(var(--ink), 0.06), transparent 70%),
     var(--c-bg);
   border-bottom: 1px solid var(--c-line-soft);
 }

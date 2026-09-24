@@ -12,7 +12,9 @@
 
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/hero-shared.css" />
   <link rel="stylesheet" href="css/variation-1-pixel-globe.css" />
+  <link rel="stylesheet" href="css/variation-2-dissolve-ring.css" />
   <link rel="stylesheet" href="css/variation-placeholder.css" />
 </head>
 
@@ -30,7 +32,7 @@
           <span class="variation-tabs__num">01</span> Pixel globe
         </button>
         <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2" data-variation-tab="2">
-          <span class="variation-tabs__num">02</span> Variation 2
+          <span class="variation-tabs__num">02</span> Dissolve ring
         </button>
         <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" data-variation-tab="3">
           <span class="variation-tabs__num">03</span> Variation 3
@@ -46,8 +48,8 @@
     <section class="hero hero--v1" id="hero-v1" data-hero="1" role="tabpanel" aria-label="Hero variation 1: Pixel globe">
       <!-- Pixel globe sits behind every hero element -->
       <canvas class="pixel-globe" id="pixel-globe" aria-hidden="true"></canvas>
-      <div class="pixel-globe__tooltip" id="pixel-globe-tooltip" aria-hidden="true">
-        <span class="pixel-globe__name"></span>
+      <div class="hero-tip" id="pixel-globe-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
       </div>
 
       <div class="container hero-v1__inner">
@@ -100,16 +102,64 @@
         </ul>
       </div>
 
-      <p class="pixel-globe__hint" aria-hidden="true">Hover a pixel to reveal its name</p>
+      <p class="hero-hint" aria-hidden="true">Hover a pixel to reveal its name</p>
     </section>
 
-    <!-- ======================= HERO · VARIATION 2 (placeholder) ======================= -->
-    <section class="hero hero--placeholder" id="hero-v2" data-hero="2" role="tabpanel" aria-label="Hero variation 2" hidden>
-      <div class="container hero-placeholder">
-        <span class="hero-placeholder__tag">Variation 02</span>
-        <h1 class="hero-placeholder__title">Be the first to ever own</h1>
-        <p class="hero-placeholder__sub">This hero variation is reserved and will be designed next.</p>
+    <!-- ======================= HERO · VARIATION 2 (DISSOLVE RING, light) ======================= -->
+    <section class="hero hero--v2" id="hero-v2" data-hero="2" role="tabpanel" aria-label="Hero variation 2: Dissolve ring" hidden>
+      <!-- Dissolve ring: orange pixel arc in the bottom-right corner, behind the content -->
+      <canvas class="dissolve-ring" id="dissolve-ring" aria-hidden="true"></canvas>
+      <div class="hero-tip" id="dissolve-ring-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
       </div>
+
+      <div class="container hero-v2__inner">
+        <div class="hero-v2__head">
+          <h1 class="hero-v2__title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
+          <div class="domain-box hero-v2__domain" data-anim="rise" data-globe-avoid style="--d: 0.22s" aria-live="polite">
+            <span class="domain-box__text">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span>
+          </div>
+          <p class="hero-v2__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. They work exactly like .com.</p>
+        </div>
+
+        <ul class="hero-cards">
+          <li class="panel stat-card" data-anim="rise" data-globe-avoid style="--d: 0.40s">
+            <div class="panel__label">
+              <span>Points rate</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="4" data-count-suffix="x">4x</div>
+            <div class="stat-card__note">Epoch 1 • ends Mar 21, 2027</div>
+          </li>
+          <li class="panel stat-card" data-anim="rise" data-globe-avoid style="--d: 0.48s">
+            <div class="panel__label">
+              <span>Members</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="17714">17,714</div>
+            <div class="stat-card__note">signed up</div>
+          </li>
+          <li class="panel stat-card" data-anim="rise" data-globe-avoid style="--d: 0.56s">
+            <div class="panel__label">
+              <span>Extensions live</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="35">35</div>
+            <div class="stat-card__note">more TLDs coming soon</div>
+          </li>
+          <li class="panel stat-card stat-card--cta" data-anim="rise" data-globe-avoid style="--d: 0.64s">
+            <div class="panel__label">
+              <span class="stat-card__bonus"><span class="pulse-dot" aria-hidden="true"></span>+10,000 pts bonus expires today</span>
+            </div>
+            <a class="btn btn--primary btn--lg btn--shine btn--block" href="#join">
+              Join Frontier
+              <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <p class="hero-hint" aria-hidden="true">Hover a pixel to reveal its name</p>
     </section>
 
     <!-- ======================= HERO · VARIATION 3 (placeholder) ======================= -->
@@ -357,6 +407,7 @@
   <script src="js/data/world-countries-50m.js"></script>
 
   <script src="js/variation-1-pixel-globe.js"></script>
+  <script src="js/variation-2-dissolve-ring.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
