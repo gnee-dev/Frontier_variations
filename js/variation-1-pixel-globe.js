@@ -7,8 +7,8 @@
      elements are dimmed so text and buttons stay readable.
    - On top sits an invisible layer of static points covering exactly the
      globe disc. Each point holds one name. Hovering a point shows its
-     name (and the coordinate under it at that moment) until the cursor
-     moves to another point; the globe keeps rotating underneath.
+     name until the cursor moves to another point; the globe keeps
+     rotating underneath.
    Exposes window.FrontierGlobe = { start, stop }.
    ========================================================================== */
 (function () {
@@ -22,7 +22,6 @@
   if (!hero || !canvas || !tooltip) return;
 
   var tipName = tooltip.querySelector(".pixel-globe__name");
-  var tipCoord = tooltip.querySelector(".pixel-globe__coord");
   var ctx = canvas.getContext("2d");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var DEG = Math.PI / 180;
@@ -233,10 +232,6 @@
 
   /* ---------------- Hover ---------------- */
 
-  function formatCoord(lat, lon) {
-    return Math.abs(lat).toFixed(1) + "°" + (lat >= 0 ? "N" : "S") + "  " + Math.abs(lon).toFixed(1) + "°" + (lon >= 0 ? "E" : "W");
-  }
-
   function renderName(name) {
     var dot = name.indexOf(".");
     tipName.textContent = "";
@@ -266,10 +261,8 @@
     if (hover && hover.i === i && hover.j === j) return;
 
     var name = pointName(i, j);
-    var p = project(x / cell - 0.5, y / cell - 0.5);
     hover = { i: i, j: j, x: x, y: y, name: name };
     renderName(name);
-    tipCoord.textContent = p ? formatCoord(p.lat, p.lon) : "";
     hero.classList.add("is-globe-hover");
     tooltip.classList.add("is-visible");
     placeTooltip();
