@@ -4,7 +4,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 
 | Tab | Variation | Status |
 | --- | --- | --- |
-| 01 · Globe | Black & white political globe on the right, copy on the left. Orange (`#E96E26`) buttons only. | ✅ Done |
+| 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white, orange (`#E96E26`) buttons only. | ✅ Done |
 | 02 | Placeholder | ⏳ To design |
 | 03 | Placeholder | ⏳ To design |
 
@@ -33,11 +33,11 @@ index.html                      # markup for the nav, all hero variations, and t
 css/
   base.css                      # tokens, reset, buttons, nav + variation tabs, motion primitives
   sections.css                  # How it works, Back the extensions, Steps, Applicants, Banner, Footer
-  variation-1-globe.css         # Hero variation 1 (globe)
+  variation-1-pixel-globe.css   # Hero variation 1 (pixel globe)
   variation-placeholder.css     # Temporary styles for variations 2 & 3
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals, parallax
-  variation-1-globe.js          # canvas globe: rotation, hover-to-pause, country/pin → name tooltip, drag
+  variation-1-pixel-globe.js    # pixel globe: rotation, hover-to-pause, one name per pixel
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -46,12 +46,13 @@ assets/
   img/banner-dunes.jpg          # banner background (desaturated in CSS for variation 1)
 ```
 
-## Variation 1: Globe
+## Variation 1: Pixel globe
 
-- **Globe.** An orthographic, politically mapped earth drawn on `<canvas>` with d3-geo. It rotates by default. While the cursor is over it, the rotation eases to a stop, and it picks up again when the cursor leaves. You can also drag to spin it.
-- **Hover names.** Every country maps to a Frontier name, and the name follows the cursor in a tooltip (for example Switzerland → `vault.crypto`, USA → `gen.wealth`, Singapore → `burner.wallet`, Iceland → `anon.agent`). Pulsing pins at specific coordinates, such as Zürich, New York and Singapore, have their own names. To edit the names, change `COUNTRY_NAMES`, `POOL` and `PINS` in `js/variation-1-globe.js`.
-- **Motion.** The hero has a staggered entrance, a typing domain field, a light sweep across the button, a pulsing bonus dot, stat counters, orbit rings and a drifting grid. Every section below the hero has a scroll reveal, and the cards and marquees have their own animations.
-- **Reduced motion.** Motion is switched off when the visitor has `prefers-reduced-motion` turned on.
+- **Layout.** A large two-line headline sits top-left with the typing domain field and the subtitle beside it. Below them is a row of four equal glass cards: Points rate, Members, Extensions live, and a Join Frontier card. Every section on the page uses the same card (`.panel` in `base.css`), with the same radius, border, padding and label row.
+- **Pixel globe.** The earth is drawn on a fixed screen grid of square pixels, like an LED wall, and it sits behind all the hero content. Land pixels are bright and ocean pixels are faint. It's zoomed in so the top part of the globe rises behind the cards, but both edges stay visible so it still reads as a globe.
+- **Readability.** Pixels under the headline, domain field, subtitle and cards are dimmed, and the cards are frosted glass.
+- **Hover names.** Each pixel is a name. Hovering one stops the rotation and shows the pixel's name and its coordinates next to the cursor. Names are tied to a 1.5° patch of earth, so the same spot always gives the same name. A few spots are fixed: Zürich → `vault.crypto`, New York → `gen.wealth`, Singapore → `burner.wallet`, Reykjavík → `anon.agent`. To change the names, edit `NAMES`, `TLDS` and the `fix(...)` calls in `js/variation-1-pixel-globe.js`.
+- **Motion.** The hero has a staggered entrance, the typing domain field, stat counters and a light sweep across the button. Sections below the hero reveal on scroll. Motion is switched off when the visitor has `prefers-reduced-motion` turned on.
 
 ## Adding variation 2 / 3
 

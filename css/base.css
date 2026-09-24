@@ -32,6 +32,15 @@
   --radius-lg: 24px;
   --nav-h: 54px;
 
+  /* Panels: one card system for the whole page */
+  --panel-bg: rgba(255, 255, 255, 0.04);
+  --panel-bg-solid: rgba(16, 16, 16, 0.62);
+  --panel-bd: rgba(255, 255, 255, 0.09);
+  --panel-radius: 20px;
+  --panel-pad: 28px;
+  --panel-gap: 20px;
+  --stat-h: 220px;
+
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -134,6 +143,46 @@ h1, h2, h3, p, dl, dd { margin: 0; }
 @keyframes btn-shine {
   0%, 70% { transform: translateX(-120%); }
   100% { transform: translateX(120%); }
+}
+
+/* Full-width button (used inside cards) */
+.btn--block { width: 100%; }
+
+/* ---------- Panels ---------- */
+.panel {
+  position: relative;
+  padding: var(--panel-pad);
+  border-radius: var(--panel-radius);
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-bd);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+}
+/* Label row: uppercase caption left, line icon right */
+.panel__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-64);
+}
+.panel__label svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (max-width: 560px) {
+  :root { --panel-pad: 20px; --panel-gap: 12px; --stat-h: 180px; }
 }
 
 /* ---------- Nav ---------- */
@@ -243,7 +292,7 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   animation: rise-in 1s var(--ease-out) var(--d, 0s) forwards;
 }
 @keyframes rise-in {
-  to { opacity: 1; transform: none; filter: blur(0); }
+  to { opacity: 1; transform: none; filter: none; }
 }
 
 /* Scroll reveal */
