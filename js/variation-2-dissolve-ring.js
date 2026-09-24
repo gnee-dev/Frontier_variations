@@ -88,13 +88,26 @@
 
     color = getComputedStyle(document.body).getPropertyValue("--c-ring").trim() || "#e96e26";
 
-    var hr = rect;
+    // Measure layout positions (offsetTop/Left), which ignore transforms, so the
+    // dimmed areas land on the text's resting place even while it is still
+    // sliding in from its entrance animation (tab switch, scroll back).
     avoid = Array.prototype.map.call(hero.querySelectorAll("[data-globe-avoid]"), function (el) {
-      var r = el.getBoundingClientRect();
+      var r = layoutRect(el);
       var pad = 16;
-      return { x0: r.left - hr.left - pad, y0: r.top - hr.top - pad, x1: r.right - hr.left + pad, y1: r.bottom - hr.top + pad };
+      return { x0: r.x - pad, y0: r.y - pad, x1: r.x + r.w + pad, y1: r.y + r.h + pad };
     });
     return true;
+  }
+
+  // Element box relative to the hero, from layout offsets (unaffected by transforms)
+  function layoutRect(el) {
+    var x = 0, y = 0, n = el;
+    while (n && n !== hero) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+    if (n !== hero) { // hero is not an offset ancestor: fall back to the visual box
+      var r = el.getBoundingClientRect(), hr = hero.getBoundingClientRect();
+      return { x: r.left - hr.left, y: r.top - hr.top, w: r.width, h: r.height };
+    }
+    return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
   }
 
   function dimAt(x, y) {
