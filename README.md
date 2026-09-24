@@ -6,7 +6,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | --- | --- | --- |
 | 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
 | 02 · Dissolve ring | Light mode. Left-aligned headline, domain field with Join Frontier inside it, a bonus line with a live countdown, three stat cards, and a rotating orange pixel ring dissolving in the bottom-right corner. | ✅ Done |
-| 03 | Placeholder | ⏳ To design |
+| 03 · Twin earth | Dark mode. Headline left, typed domain + Join Frontier right (equal heights), and a centred earth: the left half realistic, the right half its blinking pixel twin. Three compact stat cards at the bottom. | ✅ Done |
 | 04 | Placeholder | ⏳ To design |
 
 The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v2`, `#v3`, `#v4`.
@@ -37,11 +37,13 @@ css/
   sections.css                  # How it works, Back the extensions, Steps, Applicants, Banner, Footer
   variation-1-pixel-globe.css   # Hero variation 1 (pixel globe, dark)
   variation-2-dissolve-ring.css # Hero variation 2 (dissolve ring) + the light theme for the whole page
-  variation-placeholder.css     # Temporary styles for variations 3 and 4
+  variation-3-twin-earth.css    # Hero variation 3 (twin earth, dark)
+  variation-placeholder.css     # Temporary styles for variation 4
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-dissolve-ring.js  # dissolve ring: rotating pixel arc + static hover points with names
+  variation-3-twin-earth.js     # twin earth: rendered real half + blinking pixel half with names
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -65,11 +67,15 @@ assets/
 - **Dissolve ring.** A thick ring of small square orange pixels curls over the bottom-right corner, and the whole ring rotates. The pattern lives in the ring's own polar coordinates and is sampled on a fixed pixel grid, so it stays crisp. It's dense along the inner band and dissolves toward the outer edge and the lower tail. Some pixels are lighter "shade" tones, and each one slowly drops out and returns. A blurred orange glow sits behind the ring, and the whole layer fades out at the bottom of the hero into the page background.
 - **Hover names.** As in Variation 1, an invisible layer of static points (20px apart) covers the ring band. Each point holds one name, which stays put while the cursor is idle even though the ring keeps turning.
 
-## Adding variation 3 or 4
+## Variation 3: Twin earth
 
-The steps below use variation 3; variation 4 works the same way with `4` in place of `3`.
+- **Layout.** Dark mode with orange buttons. "Be the first to ever own" and the subtitle sit on the left. The typed domain, Join Frontier button and bonus line (with the live countdown) sit on the right. The earth is in the middle. Both side columns share one grid row, so they're always the same height, with their tops and bottoms aligned. Three compact stat cards sit at the bottom, and the page uses −0.08% letter-spacing, as in Variation 2.
+- **Twin earth.** One earth split down the middle, and it doesn't rotate. The left half is rendered once on a canvas: continents and ocean from the map data, a light from the left that falls into night toward the split, a blue atmosphere on the lit rim, and faint cloud wisps. The right half is its digital twin: the same continents as small, dense square cream pixels at a few opacity levels (ocean pixels sparse and faint). Each pixel blinks gently and at random, once every 5–14 seconds.
+- **Hover names.** Each pixel on the pixel half is a name. The name stays put until the cursor moves to another pixel.
 
-1. Replace the `#hero-v3` placeholder `<section>` in `index.html`. Keep `data-hero="3"`.
-2. Add `css/variation-3-<name>.css` (and `js/variation-3-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["3"] = { start, stop }`, and the tabs start and stop it.
-3. Rename the tab label in the nav (`[data-variation-tab="3"]`).
-4. To theme the whole page, redefine the tokens under `body[data-variation="3"]`. `variation-2-dissolve-ring.css` shows how.
+## Adding variation 4
+
+1. Replace the `#hero-v4` placeholder `<section>` in `index.html`. Keep `data-hero="4"`.
+2. Add `css/variation-4-<name>.css` (and `js/variation-4-<name>.js` if it needs script) and link it in `index.html`. A motion script registers itself as `window.FrontierHeroMotion["4"] = { start, stop }`, and the tabs start and stop it.
+3. Rename the tab label in the nav (`[data-variation-tab="4"]`).
+4. To theme the whole page, redefine the tokens under `body[data-variation="4"]`. `variation-2-dissolve-ring.css` shows how.
