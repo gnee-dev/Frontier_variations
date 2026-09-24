@@ -4,7 +4,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 
 | Tab | Variation | Status |
 | --- | --- | --- |
-| 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white, orange (`#E96E26`) buttons only. | ✅ Done |
+| 01 · Pixel globe | Large headline, a row of four equal glass cards, and a pixel globe behind everything. Black & white; orange (`#E96E26`) for buttons and the typed TLD + caret. | ✅ Done |
 | 02 | Placeholder | ⏳ To design |
 | 03 | Placeholder | ⏳ To design |
 
