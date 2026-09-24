@@ -62,7 +62,7 @@ body[data-variation="3b"] :is(
 .hero-v3b__title {
   display: inline-block;              /* natural width is measured on narrow screens */
   white-space: nowrap;
-  font-size: 62px;                    /* Figma 64px, 2px smaller; line-height 1.2, 674px frame */
+  font-size: 56px;                    /* Figma 64px, 8px smaller; line-height 1.2, 674px frame */
   line-height: 1.2;
   font-weight: 500;
 }
@@ -75,18 +75,29 @@ body[data-variation="3b"] :is(
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-  height: 88px;
-  padding: 0 18px;
+  height: auto;
+  padding: 17.5px 16px 17.5px 18px;   /* around the 40px button: 2px tighter top, right and bottom */
   border-radius: 16px;
   background: rgba(var(--ink), 0.06);
   border-color: rgba(var(--ink), 0.12);
-  font-size: min(54px, 9vw);          /* Figma 56px, 2px smaller */
+  font-size: min(48px, 9vw);          /* Figma 56px, 8px smaller */
   line-height: 1.2;
   max-width: 674px;
 }
-.hero-v3b__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; line-height: 1; }
+.hero-v3b__typed { display: inline-flex; align-items: center; min-width: 0; height: 40px; line-height: 40px; }   /* same height as the button */
 .hero-v3b__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." white, "crypto" orange */
-.hero-v3b__join { flex: none; font-size: 18px; }   /* label 2px smaller than the 20px large button */
+.hero-v3b__join { flex: none; }
+
+/* One button everywhere on this tab: 40px tall, 16px label, 10.5px × 16px padding */
+body[data-variation="3b"] .btn {
+  height: 40px;
+  padding: 10.5px 16px;
+  font-size: 16px;
+  line-height: 19px;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+}
+body[data-variation="3b"] .btn .btn__arrow { width: 16px; height: 16px; }
 
 /* Bonus line (Figma highlight usage) */
 .hero-v3b__bonus { font-size: 16px; line-height: 1.2; font-weight: 500; color: var(--c-text); }   /* Figma 18px, 2px smaller */

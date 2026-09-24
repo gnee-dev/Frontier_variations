@@ -310,17 +310,17 @@
   var title3b = document.getElementById("hero-v3b-title");
   var field3b = hero3b && hero3b.querySelector(".hero-v3b__domain");
 
-  // 62px (Figma 64px, 2px smaller) in a 674px frame, the width of the domain field.
+  // 56px in a 674px frame, the width of the domain field.
   // Only on screens too narrow for the 674px field is the headline scaled
   // down, so it keeps matching the (narrower) field instead of overflowing.
   function fitTitle() {
     if (!title3b || !field3b || !field3b.offsetWidth) return;
     title3b.style.fontSize = "";
     if (field3b.offsetWidth >= 674) return;           // desktop: exact Figma 64px
-    title3b.style.fontSize = "62px";
+    title3b.style.fontSize = "56px";
     var natural = title3b.scrollWidth;
     if (!natural) return;
-    var size = Math.min(62, 62 * field3b.offsetWidth / natural);
+    var size = Math.min(56, 56 * field3b.offsetWidth / natural);
     title3b.style.fontSize = Math.max(26, size).toFixed(2) + "px";
   }
 
@@ -336,10 +336,11 @@
       beforeLayout: fitTitle,
       geometry: function (W, H) {
         var mobile = W < 760;
-        var r = mobile ? W * 0.42 : Math.min(W * 0.2, 300);
-        // centre near the bottom edge: the top dome rises between the copy and the cards,
-        // the rest disappears behind the cards and out of the bottom of the hero
-        return { cx: W / 2, cy: mobile ? H + r * 0.1 : H - r * 0.2, rCore: r, pitch: mobile ? 20 : 24 };
+        var r = (mobile ? W * 0.42 : Math.min(W * 0.2, 300)) * 1.2;   // 20% bigger
+        // centre near the bottom edge, pushed down by 20% of the nucleus diameter:
+        // the top dome rises between the copy and the cards, the rest disappears
+        // behind the cards and out of the bottom of the hero
+        return { cx: W / 2, cy: (mobile ? H + r * 0.1 : H - r * 0.2) + r * 0.4, rCore: r, pitch: mobile ? 20 : 24 };
       }
     });
     window.addEventListener("resize", function () { if (ctl3b) ctl3b.relayout(); else fitTitle(); });
