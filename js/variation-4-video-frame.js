@@ -1,8 +1,8 @@
 /* ==========================================================================
    Hero · Variations 4 and 4b — "Video frame" / "Video full bleed"
-   Hover names over the video, like the other variations: an invisible
-   layer of static points (28px apart, 22px on small areas) covers the
-   video. Each point holds one name, shown in the name card with a small
+   Hover names over the video, like the other variations: a layer of static
+   points (28px apart, 22px on small areas) covers the video, shown as a
+   faint pixel grid of the marker's boxes. Each point holds one name, shown in the name card with a small
    square marker until the cursor moves clearly nearer another point.
    Labels, buttons, the copy and the cards are kept clear. No canvas is
    needed: a marker element sits on the point.
@@ -33,7 +33,8 @@
   }
 
   // opts: area (element the points cover), tooltip, markerClass, hoverEl + hoverClass,
-  //       clear (selector of elements whose boxes stay free of names)
+  //       clear (selector of elements whose boxes stay free of names),
+  //       gridParent + gridClass (a faint pixel grid of the same boxes, on the same points)
   function makeHover(opts) {
     var area = opts.area, tooltip = opts.tooltip;
     if (!area || !tooltip) return;
@@ -42,6 +43,32 @@
     marker.className = opts.markerClass;
     marker.setAttribute("aria-hidden", "true");
     area.appendChild(marker);
+
+    // Faint pixel grid: one 17px box (the marker's size) centred on every point,
+    // drawn as a repeating tile so it lines up exactly with the hover marker.
+    var grid = null;
+    if (opts.gridParent) {
+      grid = document.createElement("span");
+      grid.className = opts.gridClass;
+      grid.setAttribute("aria-hidden", "true");
+      opts.gridParent.appendChild(grid);
+    }
+    function pitchFor(width) { return width < 520 ? 22 : 28; }
+    function layoutGrid() {
+      if (!grid || !area.clientWidth) return;
+      var pitch = pitchFor(area.clientWidth);
+      var ox = Math.round(area.clientWidth / 2), oy = Math.round(area.clientHeight / 2);
+      var o = pitch / 2 - 8;   // the box spans point-8 .. point+9, like the marker
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + pitch + "' height='" + pitch + "'>" +
+        "<path fill='white' fill-rule='evenodd' d='M" + o + " " + o + "h17v17h-17z M" + (o + 1) + " " + (o + 1) + "v15h15v-15z'/></svg>";
+      grid.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+      grid.style.backgroundSize = pitch + "px " + pitch + "px";
+      // tile origin = point - pitch/2, so each box is centred on a point
+      grid.style.backgroundPosition = (((ox - pitch / 2) % pitch) + pitch) % pitch + "px " + (((oy - pitch / 2) % pitch) + pitch) % pitch + "px";
+    }
+    if ("ResizeObserver" in window) new ResizeObserver(layoutGrid).observe(area);
+    window.addEventListener("resize", layoutGrid);
+    layoutGrid();
 
     function renderName(name) {
       var dot = name.indexOf(".");
@@ -70,11 +97,11 @@
     function onMove(e) {
       if (e.target.closest && e.target.closest("a, button")) return clearHover();
       var ar = area.getBoundingClientRect();
-      var pitch = ar.width < 520 ? 22 : 28;
+      var pitch = pitchFor(ar.width);
       var x = e.clientX - ar.left, y = e.clientY - ar.top;
       // keep the current point until the cursor is clearly nearer another one
       if (hover && Math.abs(x - hover.x) < pitch * 0.65 && Math.abs(y - hover.y) < pitch * 0.65) return;
-      var ox = ar.width / 2, oy = ar.height / 2;
+      var ox = Math.round(ar.width / 2), oy = Math.round(ar.height / 2);   // whole pixels, as the grid
       var i = Math.round((x - ox) / pitch), j = Math.round((y - oy) / pitch);
       var px = ox + i * pitch, py = oy + j * pitch;
       if (px < 12 || py < 12 || px > ar.width - 12 || py > ar.height - 12 || inClear(px, py, ar)) return clearHover();
@@ -112,7 +139,8 @@
     tooltip: document.getElementById("hero-v4-tooltip"),
     markerClass: "hero-v4__marker",
     hoverEl: frame, hoverClass: "is-hover",
-    clear: ".hero-v4__hud-tl, .hero-v4__hud-bl, .hero-v4__play"
+    clear: ".hero-v4__hud-tl, .hero-v4__hud-bl, .hero-v4__play",
+    gridParent: frame, gridClass: "hero-v4__grid"
   });
   // If the frame holds a <video id="hero-v4-video">, it plays only while tab 04 is
   // on (and stays on its poster for visitors who prefer reduced motion). With the
@@ -138,7 +166,8 @@
     tooltip: document.getElementById("hero-v4b-tooltip"),
     markerClass: "hero-v4b__marker",
     hoverEl: hero4b, hoverClass: "is-globe-hover",
-    clear: "[data-globe-avoid], .hero-v2b__claim"
+    clear: "[data-globe-avoid], .hero-v2b__claim",
+    gridParent: document.getElementById("hero-v4b-bg"), gridClass: "hero-v4b__grid"
   });
 
   // The domain field is always exactly as wide as the headline's text (as in

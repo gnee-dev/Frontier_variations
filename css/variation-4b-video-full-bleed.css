@@ -61,6 +61,25 @@
     linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
   mask-composite: intersect;
 }
+/* faint pixel grid: the hover marker's 17px boxes on the same points (tile set in script) */
+.hero-v4b__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+  opacity: 0.035;
+  /* clear behind the headline and domain field, and faded toward the top (under
+     the nav) and the bottom, so it only lightly textures the video */
+  -webkit-mask-image:
+    radial-gradient(46% 26% at 50% 31%, transparent 45%, #000 100%),
+    linear-gradient(to bottom, transparent 8%, #000 30%, #000 72%, transparent 92%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(46% 26% at 50% 31%, transparent 45%, #000 100%),
+    linear-gradient(to bottom, transparent 8%, #000 30%, #000 72%, transparent 92%);
+  mask-composite: intersect;
+}
+
 /* scrim: a soft oval behind the copy keeps the white text legible */
 .hero-v4b__bg::after {
   content: "";
@@ -75,7 +94,7 @@
   z-index: 1;
   width: 17px;
   height: 17px;
-  margin: -8.5px 0 0 -8.5px;
+  margin: -8px 0 0 -8px;              /* spans point-8 .. point+9, like the grid boxes */
   border: 1px solid rgba(255, 255, 255, 0.75);
   pointer-events: none;
   opacity: 0;

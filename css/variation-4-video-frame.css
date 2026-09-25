@@ -136,7 +136,7 @@
   z-index: 2;
   width: 17px;
   height: 17px;
-  margin: -8.5px 0 0 -8.5px;
+  margin: -8px 0 0 -8px;              /* spans point-8 .. point+9, like the grid boxes */
   border: 1px solid rgba(255, 255, 255, 0.75);
   pointer-events: none;
   opacity: 0;
@@ -145,6 +145,19 @@
 .hero-v4__marker::after { content: ""; position: absolute; inset: 5.5px; background: #fff; }
 .hero-v4__frame.is-hover .hero-v4__marker { opacity: 1; }
 .hero-v4__frame .hero-tip { z-index: 4; }
+/* faint pixel grid: the hover marker's 17px boxes on the same points (tile set in script) */
+.hero-v4__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+  opacity: 0.04;
+  z-index: 1;
+  /* a little lighter toward the edges of the frame */
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 50%, #000 55%, rgba(0, 0, 0, 0.4));
+  mask-image: radial-gradient(120% 100% at 50% 50%, #000 55%, rgba(0, 0, 0, 0.4));
+}
+
 
 /* ---------- Copy (40%), left-aligned ---------- */
 .hero-v4__copy {
