@@ -7,8 +7,8 @@
    Labels, buttons, the copy and the cards are kept clear. No canvas is
    needed: a marker element sits on the point.
      4  : points over the contained frame (plays a <video id="hero-v4-video"> there, if one is added)
-     4b : points over the full-bleed hero; the domain field is sized to the
-          headline's width, as in Variation 3
+     4b : points over the full-bleed hero, which plays the same video; the domain
+          field is sized to the headline's width, as in Variation 3
    ========================================================================== */
 (function () {
   "use strict";
@@ -119,11 +119,12 @@
   // placeholder image there is nothing to play.
   var video4 = document.getElementById("hero-v4-video");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function play4() {
-    if (!video4 || reduceMotion) return;
-    var p = video4.play();
+  function playVideo(v) {
+    if (!v || reduceMotion) return;
+    var p = v.play();
     if (p && p.catch) p.catch(function () {});   // autoplay blocked: the poster stays
   }
+  function play4() { playVideo(video4); }
   if (clear4) window.FrontierHeroMotion["4"] = {
     start: play4,
     stop: function () { clear4(); if (video4) video4.pause(); }
@@ -160,9 +161,10 @@
   if (hero4b) {
     window.addEventListener("resize", fitTitle);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+    var video4b = document.getElementById("hero-v4b-video");
     window.FrontierHeroMotion["4b"] = {
-      start: function () { requestAnimationFrame(fitTitle); },
-      stop: function () { if (clear4b) clear4b(); }
+      start: function () { requestAnimationFrame(fitTitle); playVideo(video4b); },
+      stop: function () { if (clear4b) clear4b(); if (video4b) video4b.pause(); }
     };
   }
 })();

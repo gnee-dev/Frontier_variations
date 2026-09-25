@@ -1,6 +1,6 @@
 /* ==========================================================================
    Hero · Variation 4b — "Video full bleed" (dark mode)
-   The Variation 4 video (a placeholder image for now) filling the whole
+   The Variation 4 video (the ocean loop) filling the whole
    hero edge to edge, behind the Variation 3 centred stack: headline,
    domain field with Join Frontier inside, bonus line and subtitle, with
    three compact stat cards at the bottom. The layout classes (hero-v2b__*)
@@ -29,13 +29,9 @@
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: 50% 58%;          /* the lit horizon sits just under the copy */
-  transform-origin: 50% 60%;
+  object-position: 50% 40%;          /* wide screens crop top and bottom: keep the top of the ring in view */
 }
-/* a slow push-in while there is no video yet */
-.hero--v4b.is-entered .hero-v4b__media { animation: v4b-drift 32s ease-in-out infinite alternate; }
-@keyframes v4b-drift { from { transform: scale(1.03); } to { transform: scale(1.1) translateY(-0.8%); } }
-/* scrim: darker behind the nav and the copy, lighter over the islands,
+/* scrim: darker behind the nav and the copy, lighter over the ring and the water,
    then a fade into the page background under the stat cards */
 .hero-v4b__bg::after {
   content: "";

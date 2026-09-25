@@ -12,7 +12,7 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 03b · Horizon light | Light mode of 03 · Horizon: the same hero (centred stack, moving pixel landscape, stat cards) in the light theme's colours: warm off-white page, lighter orange `#DA5A12` buttons and TLD, green `#1AC684` points, and orange `#E96E26` landscape pixels. | ✅ Done |
 | 03c · Horizon colour | 03 · Horizon with exactly the same layout, in the 01b / Figma colours: near-black plum, a dusk landscape (amber near, rose toward the horizon), orange accents and green points. | ✅ Done |
 | 04 · Video frame | Dark mode, after the split-screen reference: a contained video frame on the left (60% of the container, lined up with the nav and the stat cards) with corner labels and a Watch brief button, and the Variation 3 elements on the right, left-aligned. Plays a silent looping video (an ocean at dusk under a glowing ring). | ✅ Done |
-| 04b · Video full bleed | The Variation 4 video filling the whole hero edge to edge, behind the Variation 3 centred stack and stat cards, with a scrim for legibility. | ✅ Done |
+| 04b · Video full bleed | The Variation 4 video (the ocean loop) filling the whole hero edge to edge, behind the Variation 3 centred stack and stat cards, with a scrim for legibility. | ✅ Done |
 
 The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 03, "c") versions next to it; 04 has 04b. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (820px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
 
@@ -56,15 +56,14 @@ js/
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-nucleus.js        # nucleus builder for 2 and 2b: rotating particle sphere + halo + static hover points; 2b headline fitting
   variation-3-horizon.js        # horizon (tabs 03, 03b and 03c): moving pixel landscape + static hover points; headline fitting
-  variation-4-video-frame.js    # hover names over the video (4 and 4b), plays/pauses the 04 video; 4b headline fitting
+  variation-4-video-frame.js    # hover names over the video (4 and 4b), plays/pauses both videos; 4b headline fitting
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
   logos/                        # Frontier wordmark + partner logos (exported from the Figma file)
   icons/                        # chain icons used in the "Deposit" card
-  media/hero-04.mp4 / .webm     # Variation 4 video: 12s silent ocean loop (H.264, with a small VP9 WebM fallback)
+  media/hero-04.mp4 / .webm     # Variation 4 / 4b video: 12s silent ocean loop (H.264, with a small VP9 WebM fallback)
   media/hero-04-poster.jpg      # its first frame, shown until the video plays
-  media/video-placeholder.webp  # placeholder for the Variation 4b video
 ```
 
 ## Variation 1: Pixel globe
@@ -124,9 +123,9 @@ assets/
 
 ## Variation 4b: Video full bleed
 
-- **Layout.** The same video as Variation 4 (the placeholder image for now), full bleed: it fills the whole hero edge to edge, behind the nav. On top sits the Variation 3 centred stack, with the same markup and classes (`hero-v2b__*`): the 48px headline, the domain field (sized in script to the headline's width) with Join Frontier inside, the bonus line with the live countdown and the subtitle, raised above centre between the nav and the three stat cards.
-- **Legibility.** A scrim darkens the top behind the nav and a soft oval behind the copy, stays light over the islands, and fades into the page background under the cards. The domain field and the stat cards are frosted glass over the video, and the subtitle is a little brighter (74%) than elsewhere.
-- **Video.** Replace the `<img class="hero-v4b__media">` in `index.html` with `<video class="hero-v4b__media" autoplay muted loop playsinline poster="…"><source src="…"></video>`. Until then the image slowly pushes in.
+- **Layout.** The same video as Variation 4 (the ocean loop, the same files), full bleed: it fills the whole hero edge to edge, behind the nav. On top sits the Variation 3 centred stack, with the same markup and classes (`hero-v2b__*`): the 48px headline, the domain field (sized in script to the headline's width) with Join Frontier inside, the bonus line with the live countdown and the subtitle, raised above centre between the nav and the three stat cards.
+- **Legibility.** A scrim darkens the top behind the nav and a soft oval behind the copy, stays light over the ring and the water, and fades into the page background under the cards. The domain field and the stat cards are frosted glass over the video, and the subtitle is a little brighter (74%) than elsewhere.
+- **Video.** It plays the Variation 4 files (`hero-04.mp4`, with the WebM fallback and the poster), so the browser fetches them once for both tabs. It's cropped to cover the hero with the top of the ring in view, plays only while tab 04b is on, pauses on other tabs and stays on the poster for reduced motion.
 - **Hover names.** Static points cover the hero, outside the copy and the cards, with the same marker and name card as Variation 4.
 
 ## Adding another variation

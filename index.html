@@ -409,10 +409,13 @@
 
     <!-- ======================= HERO · VARIATION 4b (VIDEO FULL BLEED, dark) ======================= -->
     <section class="hero hero--v2b hero--v4b" id="hero-v4b" data-hero="4b" role="tabpanel" aria-label="Hero variation 4b: Video full bleed" hidden>
-      <!-- Full-bleed video behind the hero. The image is a placeholder: swap it for
-           <video class="hero-v4b__media" autoplay muted loop playsinline poster="..."><source src="..."></video> -->
+      <!-- Full-bleed video behind the hero: the same ocean loop as Variation 4 (same files).
+           js/variation-4-video-frame.js plays it only while this tab is on. -->
       <div class="hero-v4b__bg" id="hero-v4b-bg" aria-hidden="true">
-        <img class="hero-v4b__media" src="assets/media/video-placeholder.webp" alt="" width="2000" height="1611" />
+        <video class="hero-v4b__media" id="hero-v4b-video" muted loop playsinline preload="auto" poster="assets/media/hero-04-poster.jpg" tabindex="-1">
+          <source src="assets/media/hero-04.mp4" type="video/mp4" />
+          <source src="assets/media/hero-04.webm" type="video/webm" />
+        </video>
       </div>
       <div class="hero-tip" id="hero-v4b-tooltip" aria-hidden="true">
         <span class="hero-tip__name"></span>
