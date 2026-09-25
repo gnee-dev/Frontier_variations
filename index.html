@@ -333,9 +333,10 @@
         <div class="hero-v4__top">
           <!-- Video frame (60%): a silent 12s ocean loop (H.264 MP4, with a VP9 WebM for browsers
                without H.264), with its first frame as the poster. js/variation-4-video-frame.js
-               plays it only while this tab is on (paused on other tabs, poster only for reduced motion). -->
+               plays it only while this tab is on (paused on other tabs, poster only for reduced motion),
+               and swaps in the tablet or phone cut on smaller screens (preload stays off until then). -->
           <figure class="hero-v4__frame" id="hero-v4-frame" data-anim="rise" style="--d: 0.05s">
-            <video class="hero-v4__media" id="hero-v4-video" muted loop playsinline preload="auto" poster="assets/media/hero-04-poster.jpg" aria-hidden="true" tabindex="-1">
+            <video class="hero-v4__media" id="hero-v4-video" muted loop playsinline preload="none" poster="assets/media/hero-04-poster.jpg" aria-hidden="true" tabindex="-1">
               <source src="assets/media/hero-04.mp4" type="video/mp4" />
               <source src="assets/media/hero-04.webm" type="video/webm" />
             </video>
@@ -410,9 +411,10 @@
     <!-- ======================= HERO · VARIATION 4b (VIDEO FULL BLEED, dark) ======================= -->
     <section class="hero hero--v2b hero--v4b" id="hero-v4b" data-hero="4b" role="tabpanel" aria-label="Hero variation 4b: Video full bleed" hidden>
       <!-- Full-bleed video behind the hero: the same ocean loop as Variation 4 (same files).
-           js/variation-4-video-frame.js plays it only while this tab is on. -->
+           js/variation-4-video-frame.js plays it only while this tab is on, picks the full, tablet or
+           phone cut for the hero's shape, and places it (preload stays off until then). -->
       <div class="hero-v4b__bg" id="hero-v4b-bg" aria-hidden="true">
-        <video class="hero-v4b__media" id="hero-v4b-video" muted loop playsinline preload="auto" poster="assets/media/hero-04-poster.jpg" tabindex="-1">
+        <video class="hero-v4b__media" id="hero-v4b-video" muted loop playsinline preload="none" poster="assets/media/hero-04-poster.jpg" tabindex="-1">
           <source src="assets/media/hero-04.mp4" type="video/mp4" />
           <source src="assets/media/hero-04.webm" type="video/webm" />
         </video>

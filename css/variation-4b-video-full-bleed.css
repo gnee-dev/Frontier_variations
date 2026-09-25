@@ -43,21 +43,22 @@
   object-fit: cover;
   object-position: 78% 30%;
 }
-/* placed by the script: exact box, soft top edge (fully visible by 9%, before the ring at 12%) */
+/* placed by the script: exact box, soft top edge (fully visible by 9%, before the ring at 12%)
+   and soft bottom edge (the water fades out, e.g. behind the stacked cards on phones) */
 .hero-v4b__media.is-placed {
   inset: auto;
   object-fit: fill;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%);
-  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
 }
 /* narrower than the screen: fade the sides as well */
 .hero-v4b__media.is-placed.is-narrow {
   -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%),
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%),
     linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%),
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%),
     linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
   mask-composite: intersect;
 }

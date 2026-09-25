@@ -1,6 +1,7 @@
 /* ==========================================================================
    Hero · Variations 4 and 4b — "Video frame" / "Video full bleed"
-   Hover names over the video, like the other variations: a layer of static
+   Each screen size loads the video file cut for it (desktop, tablet or
+   phone rendition). Hover names over the video, like the other variations: a layer of static
    points (28px apart, 22px on small areas) covers the video, shown as a
    faint pixel grid of the marker's boxes. Each point holds one name, shown in the name card with a small
    square marker until the cursor moves clearly nearer another point.
@@ -153,6 +154,34 @@
     if (p && p.catch) p.catch(function () {});   // autoplay blocked: the poster stays
   }
   function play4() { playVideo(video4); }
+
+  // Renditions: each screen size loads only the file cut for it (see assets/media).
+  // The ring and horizon positions are fractions of each file (x across, y down).
+  var MEDIA = "assets/media/";
+  var mp4ok = (function () {
+    var v = document.createElement("video");
+    return !!(v.canPlayType && v.canPlayType('video/mp4; codecs="avc1.640028"'));
+  })();
+  function setRendition(v, r) {
+    if (!v || v.dataset.rendition === r.name) return false;
+    var wasPlaying = !v.paused;
+    v.dataset.rendition = r.name;
+    v.preload = "auto";   // the markup says "none", so nothing loads before the right file is chosen
+    v.poster = MEDIA + r.name + "-poster.jpg";
+    v.src = MEDIA + r.name + (mp4ok ? ".mp4" : ".webm");   // a src attribute wins over the <source> tags
+    if (wasPlaying) playVideo(v);
+    return true;
+  }
+  var R4 = {
+    desktop: { name: "hero-04" },          // 1440x1076, frame 961px and wider
+    tablet:  { name: "hero-04-tablet" },   // 1440x990 (16:11), 561-960px
+    phone:   { name: "hero-04-phone" }     // 720x610, 560px and narrower
+  };
+  function pick4() {
+    var w = window.innerWidth;
+    setRendition(video4, w <= 560 ? R4.phone : w <= 960 ? R4.tablet : R4.desktop);
+  }
+  if (video4) { pick4(); window.addEventListener("resize", pick4); }
   if (clear4) window.FrontierHeroMotion["4"] = {
     start: play4,
     stop: function () { clear4(); if (video4) video4.pause(); }
@@ -187,12 +216,17 @@
     }
     field4b.style.width = Math.min(natural, avail) + "px";
   }
-  // Size and place the full-bleed video: the horizon (50% down the video) just
-  // above the stat cards, the ring (12-50% down, 54-91% across) clear below
-  // the nav and fully on screen, and as large as that allows (filling the
-  // width whenever it can; if it can't, it is centred and its sides fade).
+  // Size and place the full-bleed video: the horizon just above the stat cards,
+  // the ring clear below the nav and fully on screen, and as large as that
+  // allows (filling the width whenever it can; if it can't, it is centred and
+  // its sides fade). Each rendition knows where its ring and horizon are.
   var video4b = document.getElementById("hero-v4b-video");
-  var VIDEO_RATIO = 1440 / 1076;
+  var R4B = {
+    //                        size        ring across      ring top  horizon
+    full:   { name: "hero-04",         ratio: 1440 / 1076, ringL: 0.54,  ringR: 0.91,  ringT: 0.12, hz: 0.5 },
+    tablet: { name: "hero-04b-tablet", ratio: 800 / 1076,  ringL: 0.173, ringR: 0.838, ringT: 0.12, hz: 0.5 },
+    phone:  { name: "hero-04b-phone",  ratio: 612 / 1076,  ringL: 0.065, ringR: 0.935, ringT: 0.12, hz: 0.5 }
+  };
   function offsetIn(el, root) {
     var y = 0, x = 0, n = el;
     while (n && n !== root) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
@@ -201,38 +235,43 @@
   function fitVideo() {
     var cards = hero4b.querySelector(".hero-v2b__cards");
     var nav = document.querySelector(".nav__inner");
-    var W = hero4b.clientWidth;
+    var W = hero4b.clientWidth, H = hero4b.clientHeight;
     if (!video4b || !cards || !nav || !W) return;
+    // the file cut for this shape of hero: full on landscape screens, crops on tall ones
+    var aspect = W / H;
+    var g = aspect >= 1.1 ? R4B.full : aspect >= 0.6 ? R4B.tablet : R4B.phone;
+    setRendition(video4b, g);
     var navBottom = nav.getBoundingClientRect().bottom - hero4b.getBoundingClientRect().top;
     var cardsTop = offsetIn(cards, hero4b).y;
     var horizon = cardsTop - (W < 760 ? 28 : 40);        // just above the cards
-    // the ring takes the 38% of the video's height above the horizon
-    var hMax = (horizon - navBottom - 28) / 0.38;         // largest size with the ring 28px under the nav
-    var hFitRing = (W - 32) / (0.37 * VIDEO_RATIO);       // the whole ring across the screen
-    var hCover = W / VIDEO_RATIO;                         // exactly fills the width
+    var above = g.hz - g.ringT;                           // share of the height the ring takes above the horizon
+    var hMax = (horizon - navBottom - 28) / above;        // largest size with the ring 28px under the nav
+    var hFitRing = (W - 32) / ((g.ringR - g.ringL) * g.ratio);   // the whole ring across the screen
+    var hCover = W / g.ratio;                             // exactly fills the width
     // Fill the width (smaller and centred if the ring would reach the nav). If that
-    // would leave a tall empty sky above the ring (tall screens: tablets, phones),
-    // grow the video until the ring sits about 48px under the nav instead; the
-    // sides are then cropped, never the ring.
+    // would leave a tall empty sky above the ring, grow the video until the ring
+    // sits about 48px under the nav instead; the sides are then cropped, never the ring.
     var h = Math.min(hMax, hCover);
-    var skyGap = horizon - 0.38 * h - navBottom;
+    var skyGap = horizon - above * h - navBottom;
     if (skyGap > (W > 820 ? 240 : 120)) {
-      var hTarget = (horizon - navBottom - 48) / 0.38;
+      var hTarget = (horizon - navBottom - 48) / above;
       h = Math.max(h, Math.min(hTarget, hFitRing));
     }
     h = Math.max(160, h);
-    var w = h * VIDEO_RATIO;
+    var w = h * g.ratio;
     var left;
     if (w >= W) {
-      // wider than the screen: centred, nudged left if needed to keep the ring's right edge 16px in
-      left = Math.max(W - w, Math.min((W - w) / 2, W - 16 - 0.91 * w));
+      // wider than the screen: centred, then nudged so both edges of the ring stay
+      // 16px inside the screen, without ever showing past the video's own edges
+      left = Math.min(Math.max((W - w) / 2, 16 - g.ringL * w), W - 16 - g.ringR * w);
+      left = Math.max(W - w, Math.min(0, left));
     } else {
       left = (W - w) / 2;
     }
     video4b.style.width = Math.round(w) + "px";
     video4b.style.height = Math.round(h) + "px";
     video4b.style.left = Math.round(left) + "px";
-    video4b.style.top = Math.round(horizon - h / 2) + "px";
+    video4b.style.top = Math.round(horizon - h * g.hz) + "px";
     video4b.classList.add("is-placed");
     video4b.classList.toggle("is-narrow", w < W - 1);
   }
