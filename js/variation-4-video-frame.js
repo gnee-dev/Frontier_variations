@@ -6,7 +6,7 @@
    square marker until the cursor moves clearly nearer another point.
    Labels, buttons, the copy and the cards are kept clear. No canvas is
    needed: a marker element sits on the point.
-     4  : points over the contained frame, which plays the looping video
+     4  : points over the contained frame (plays a <video id="hero-v4-video"> there, if one is added)
      4b : points over the full-bleed hero; the domain field is sized to the
           headline's width, as in Variation 3
    ========================================================================== */
@@ -114,8 +114,9 @@
     hoverEl: frame, hoverClass: "is-hover",
     clear: ".hero-v4__hud-tl, .hero-v4__hud-bl, .hero-v4__play"
   });
-  // The video plays only while tab 04 is on (and stays on its poster frame for
-  // visitors who prefer reduced motion).
+  // If the frame holds a <video id="hero-v4-video">, it plays only while tab 04 is
+  // on (and stays on its poster for visitors who prefer reduced motion). With the
+  // placeholder image there is nothing to play.
   var video4 = document.getElementById("hero-v4-video");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function play4() {
