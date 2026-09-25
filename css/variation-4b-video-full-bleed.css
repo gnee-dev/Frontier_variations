@@ -13,26 +13,25 @@
 .hero--v4b.is-globe-hover { cursor: crosshair; }
 
 /* ---------- Full-bleed media ----------
-   The video layer starts halfway down the nav bar (not at the very top), and
-   its top edge fades in softly under the nav, so the nav never sits on the
-   ring. On wide screens the video fits the width and is anchored to its top:
-   only the bottom is trimmed, so the ring (12-50% down the video, 54-91%
-   across) always sits clear below the nav. On tablets and phones the layer
-   is shorter and the video is shifted to keep the ring in view. */
-.hero--v4b {
-  --v4b-top: calc(20px + var(--nav-h) * 0.5);   /* halfway down the nav (nav: 20px from the top) */
-  --v4b-fade: calc(var(--nav-h) * 0.5 + 40px);  /* fully visible 40px under the nav */
-}
+   js/variation-4-video-frame.js sizes and places the video (fitVideo) so that
+   at every size:
+   - the horizon (50% down the video) sits just above the stat cards,
+   - the ring (12-50% down, 54-91% across) sits clear below the nav bar and
+     fully on screen,
+   - it is as large as that allows, filling the width whenever it can.
+   The video's own top edge fades in softly (well above the ring). When it
+   can't fill the width (very wide or short screens), its sides fade into the
+   page too. Without the script it simply covers the hero. */
 .hero-v4b__bg {
   position: absolute;
-  inset: var(--v4b-top) 0 0;
+  inset: 0;
   z-index: -1;
   overflow: hidden;
   opacity: 0;
   transition: opacity 1.4s var(--ease-out) 0.1s;
-  /* soft top edge under the nav, soft bottom edge into the page */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.35) calc(var(--v4b-fade) * 0.45), #000 var(--v4b-fade), #000 76%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.35) calc(var(--v4b-fade) * 0.45), #000 var(--v4b-fade), #000 76%, transparent 100%);
+  /* soft bottom edge into the page */
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
 }
 .hero--v4b.is-entered .hero-v4b__bg { opacity: 1; }
 .hero-v4b__media {
@@ -42,32 +41,32 @@
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: 78% 0;            /* top-anchored; if the sides are cropped, keep the ring (on the right) in view */
+  object-position: 78% 30%;
 }
-/* scrim: a soft oval behind the copy keeps the white text legible; the top
-   and bottom edges are handled by the mask above */
+/* placed by the script: exact box, soft top edge (fully visible by 9%, before the ring at 12%) */
+.hero-v4b__media.is-placed {
+  inset: auto;
+  object-fit: fill;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%);
+}
+/* narrower than the screen: fade the sides as well */
+.hero-v4b__media.is-placed.is-narrow {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%),
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%),
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+}
+/* scrim: a soft oval behind the copy keeps the white text legible */
 .hero-v4b__bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(50% 30% at 50% 30%, rgba(6, 6, 10, 0.42), transparent 72%),
-    linear-gradient(180deg, rgba(6, 6, 10, 0.12), rgba(6, 6, 10, 0.04) 50%, rgba(6, 6, 10, 0.3));
-}
-
-/* tablets and phones (two-row nav, 12px from the top): the layer starts just
-   under the nav with a shorter fade, and is shorter so the ring keeps its size */
-@media (max-width: 820px) {
-  .hero--v4b {
-    --v4b-top: calc(12px + var(--nav-h) - 14px);
-    --v4b-fade: 56px;
-  }
-  .hero-v4b__bg { bottom: auto; height: min(calc(100% - var(--v4b-top)), 112vw); }
-}
-/* phones: a little smaller, shifted right, so the whole ring fits across */
-@media (max-width: 560px) {
-  .hero-v4b__bg { height: min(calc(100% - var(--v4b-top)), 128vw); }
-  .hero-v4b__media { object-position: 86% 0; }
+  background: radial-gradient(50% 30% at 50% 30%, rgba(6, 6, 10, 0.42), transparent 72%);
 }
 
 /* hover marker (names on a static grid of points, as in the other variations) */

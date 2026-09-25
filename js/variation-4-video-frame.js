@@ -7,8 +7,8 @@
    Labels, buttons, the copy and the cards are kept clear. No canvas is
    needed: a marker element sits on the point.
      4  : points over the contained frame (plays a <video id="hero-v4-video"> there, if one is added)
-     4b : points over the full-bleed hero, which plays the same video; the domain
-          field is sized to the headline's width, as in Variation 3
+     4b : points over the full-bleed hero, which plays the same video (sized and
+          placed by fitVideo); the domain field is sized to the headline's width
    ========================================================================== */
 (function () {
   "use strict";
@@ -158,12 +158,62 @@
     }
     field4b.style.width = Math.min(natural, avail) + "px";
   }
+  // Size and place the full-bleed video: the horizon (50% down the video) just
+  // above the stat cards, the ring (12-50% down, 54-91% across) clear below
+  // the nav and fully on screen, and as large as that allows (filling the
+  // width whenever it can; if it can't, it is centred and its sides fade).
+  var video4b = document.getElementById("hero-v4b-video");
+  var VIDEO_RATIO = 1440 / 1076;
+  function offsetIn(el, root) {
+    var y = 0, x = 0, n = el;
+    while (n && n !== root) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+    return { x: x, y: y };
+  }
+  function fitVideo() {
+    var cards = hero4b.querySelector(".hero-v2b__cards");
+    var nav = document.querySelector(".nav__inner");
+    var W = hero4b.clientWidth;
+    if (!video4b || !cards || !nav || !W) return;
+    var navBottom = nav.getBoundingClientRect().bottom - hero4b.getBoundingClientRect().top;
+    var cardsTop = offsetIn(cards, hero4b).y;
+    var horizon = cardsTop - (W < 760 ? 28 : 40);        // just above the cards
+    // the ring takes the 38% of the video's height above the horizon
+    var hMax = (horizon - navBottom - 28) / 0.38;         // largest size with the ring 28px under the nav
+    var hFitRing = (W - 32) / (0.37 * VIDEO_RATIO);       // the whole ring across the screen
+    var hCover = W / VIDEO_RATIO;                         // exactly fills the width
+    // Fill the width (smaller and centred if the ring would reach the nav). If that
+    // would leave a tall empty sky above the ring (tall screens: tablets, phones),
+    // grow the video until the ring sits about 48px under the nav instead; the
+    // sides are then cropped, never the ring.
+    var h = Math.min(hMax, hCover);
+    var skyGap = horizon - 0.38 * h - navBottom;
+    if (skyGap > (W > 820 ? 240 : 120)) {
+      var hTarget = (horizon - navBottom - 48) / 0.38;
+      h = Math.max(h, Math.min(hTarget, hFitRing));
+    }
+    h = Math.max(160, h);
+    var w = h * VIDEO_RATIO;
+    var left;
+    if (w >= W) {
+      // wider than the screen: centred, nudged left if needed to keep the ring's right edge 16px in
+      left = Math.max(W - w, Math.min((W - w) / 2, W - 16 - 0.91 * w));
+    } else {
+      left = (W - w) / 2;
+    }
+    video4b.style.width = Math.round(w) + "px";
+    video4b.style.height = Math.round(h) + "px";
+    video4b.style.left = Math.round(left) + "px";
+    video4b.style.top = Math.round(horizon - h / 2) + "px";
+    video4b.classList.add("is-placed");
+    video4b.classList.toggle("is-narrow", w < W - 1);
+  }
+  function layout4b() { fitTitle(); fitVideo(); }
+
   if (hero4b) {
-    window.addEventListener("resize", fitTitle);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
-    var video4b = document.getElementById("hero-v4b-video");
+    window.addEventListener("resize", layout4b);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout4b);
     window.FrontierHeroMotion["4b"] = {
-      start: function () { requestAnimationFrame(fitTitle); playVideo(video4b); },
+      start: function () { requestAnimationFrame(layout4b); playVideo(video4b); },
       stop: function () { if (clear4b) clear4b(); if (video4b) video4b.pause(); }
     };
   }

@@ -56,7 +56,7 @@ js/
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-nucleus.js        # nucleus builder for 2 and 2b: rotating particle sphere + halo + static hover points; 2b headline fitting
   variation-3-horizon.js        # horizon (tabs 03, 03b and 03c): moving pixel landscape + static hover points; headline fitting
-  variation-4-video-frame.js    # hover names over the video (4 and 4b), plays/pauses both videos; 4b headline fitting
+  variation-4-video-frame.js    # hover names over the video (4 and 4b), plays/pauses both videos; 4b headline fitting + video placement
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
@@ -125,7 +125,7 @@ assets/
 
 - **Layout.** The same video as Variation 4 (the ocean loop, the same files), full bleed: it fills the whole hero edge to edge, behind the nav. On top sits the Variation 3 centred stack, with the same markup and classes (`hero-v2b__*`): the 48px headline, the domain field (sized in script to the headline's width) with Join Frontier inside, the bonus line with the live countdown and the subtitle, raised above centre between the nav and the three stat cards.
 - **Legibility.** A soft oval scrim behind the copy keeps the white text legible over the video; the top and bottom edges of the video are faded with a mask. The domain field and the stat cards are frosted glass over the video, and the subtitle is a little brighter (74%) than elsewhere.
-- **Video.** It plays the Variation 4 files (`hero-04.mp4`, with the WebM fallback and the poster), so the browser fetches them once for both tabs. The video layer starts halfway down the nav bar and fades in softly under it, so the nav never covers the ring: on wider screens the video fits the width and is anchored to its top (only the bottom is trimmed), and on tablets and phones the layer starts just under the two-row nav, is a little shorter, and is shifted so the whole ring fits across. The ring clears the nav by at least 40px at every size from 360px to 2560px wide. The bottom fades into the page. It plays only while tab 04b is on, pauses on other tabs and stays on the poster for reduced motion.
+- **Video.** It plays the Variation 4 files (`hero-04.mp4`, with the WebM fallback and the poster), so the browser fetches them once for both tabs. `fitVideo()` in `js/variation-4-video-frame.js` sizes and places it on every layout change so that the horizon sits just above the stat cards (about 40px; 28px on phones), the ring sits clear below the nav bar (at least 28px) and fully on screen, and the video is as large as that allows. On laptops and desktops it fills the width; on very wide or short screens it's a little narrower, centred, with its sides fading into the page. On tall screens (tablets, phones) it grows until the ring sits about 48px under the nav, cropping the sides but never the ring. Its top edge fades in softly, and the bottom fades into the page. Checked at 17 sizes from 360×640 to 2560×1080. It plays only while tab 04b is on, pauses on other tabs and stays on the poster for reduced motion.
 - **Hover names.** Static points cover the hero, outside the copy and the cards, with the same marker and name card as Variation 4.
 
 ## Adding another variation
