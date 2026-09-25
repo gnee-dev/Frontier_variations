@@ -12,14 +12,27 @@
 .hero--v4b { background: var(--c-bg); }
 .hero--v4b.is-globe-hover { cursor: crosshair; }
 
-/* ---------- Full-bleed media ---------- */
+/* ---------- Full-bleed media ----------
+   The video layer starts halfway down the nav bar (not at the very top), and
+   its top edge fades in softly under the nav, so the nav never sits on the
+   ring. On wide screens the video fits the width and is anchored to its top:
+   only the bottom is trimmed, so the ring (12-50% down the video, 54-91%
+   across) always sits clear below the nav. On tablets and phones the layer
+   is shorter and the video is shifted to keep the ring in view. */
+.hero--v4b {
+  --v4b-top: calc(20px + var(--nav-h) * 0.5);   /* halfway down the nav (nav: 20px from the top) */
+  --v4b-fade: calc(var(--nav-h) * 0.5 + 40px);  /* fully visible 40px under the nav */
+}
 .hero-v4b__bg {
   position: absolute;
-  inset: 0;
+  inset: var(--v4b-top) 0 0;
   z-index: -1;
   overflow: hidden;
   opacity: 0;
   transition: opacity 1.4s var(--ease-out) 0.1s;
+  /* soft top edge under the nav, soft bottom edge into the page */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.35) calc(var(--v4b-fade) * 0.45), #000 var(--v4b-fade), #000 76%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.35) calc(var(--v4b-fade) * 0.45), #000 var(--v4b-fade), #000 76%, transparent 100%);
 }
 .hero--v4b.is-entered .hero-v4b__bg { opacity: 1; }
 .hero-v4b__media {
@@ -29,22 +42,32 @@
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: 50% 40%;          /* wide screens crop top and bottom: keep the top of the ring in view */
+  object-position: 78% 0;            /* top-anchored; if the sides are cropped, keep the ring (on the right) in view */
 }
-/* scrim: darker behind the nav and the copy, lighter over the ring and the water,
-   then a fade into the page background under the stat cards */
+/* scrim: a soft oval behind the copy keeps the white text legible; the top
+   and bottom edges are handled by the mask above */
 .hero-v4b__bg::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(52% 34% at 50% 38%, rgba(6, 6, 10, 0.5), transparent 72%),
-    linear-gradient(180deg,
-      rgba(6, 6, 10, 0.55) 0%,
-      rgba(6, 6, 10, 0.18) 24%,
-      rgba(6, 6, 10, 0.08) 55%,
-      rgba(6, 6, 10, 0.35) 78%,
-      var(--c-bg) 100%);
+    radial-gradient(50% 30% at 50% 30%, rgba(6, 6, 10, 0.42), transparent 72%),
+    linear-gradient(180deg, rgba(6, 6, 10, 0.12), rgba(6, 6, 10, 0.04) 50%, rgba(6, 6, 10, 0.3));
+}
+
+/* tablets and phones (two-row nav, 12px from the top): the layer starts just
+   under the nav with a shorter fade, and is shorter so the ring keeps its size */
+@media (max-width: 820px) {
+  .hero--v4b {
+    --v4b-top: calc(12px + var(--nav-h) - 14px);
+    --v4b-fade: 56px;
+  }
+  .hero-v4b__bg { bottom: auto; height: min(calc(100% - var(--v4b-top)), 112vw); }
+}
+/* phones: a little smaller, shifted right, so the whole ring fits across */
+@media (max-width: 560px) {
+  .hero-v4b__bg { height: min(calc(100% - var(--v4b-top)), 128vw); }
+  .hero-v4b__media { object-position: 86% 0; }
 }
 
 /* hover marker (names on a static grid of points, as in the other variations) */
