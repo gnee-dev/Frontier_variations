@@ -1,0 +1,82 @@
+/* ==========================================================================
+   Hero · Variation 4b — "Video full bleed" (dark mode)
+   The Variation 4 video (a placeholder image for now) filling the whole
+   hero edge to edge, behind the Variation 3 centred stack: headline,
+   domain field with Join Frontier inside, bonus line and subtitle, with
+   three compact stat cards at the bottom. The layout classes (hero-v2b__*)
+   come from variation-2b-nucleus-centred.css.
+   A scrim keeps the white copy legible over the bright horizon band, and
+   the bottom edge fades into the page.
+   ========================================================================== */
+
+.hero--v4b { background: var(--c-bg); }
+.hero--v4b.is-globe-hover { cursor: crosshair; }
+
+/* ---------- Full-bleed media ---------- */
+.hero-v4b__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out) 0.1s;
+}
+.hero--v4b.is-entered .hero-v4b__bg { opacity: 1; }
+.hero-v4b__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 58%;          /* the lit horizon sits just under the copy */
+  transform-origin: 50% 60%;
+}
+/* a slow push-in while there is no video yet */
+.hero--v4b.is-entered .hero-v4b__media { animation: v4b-drift 32s ease-in-out infinite alternate; }
+@keyframes v4b-drift { from { transform: scale(1.03); } to { transform: scale(1.1) translateY(-0.8%); } }
+/* scrim: darker behind the nav and the copy, lighter over the islands,
+   then a fade into the page background under the stat cards */
+.hero-v4b__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(52% 34% at 50% 38%, rgba(6, 6, 10, 0.5), transparent 72%),
+    linear-gradient(180deg,
+      rgba(6, 6, 10, 0.55) 0%,
+      rgba(6, 6, 10, 0.18) 24%,
+      rgba(6, 6, 10, 0.08) 55%,
+      rgba(6, 6, 10, 0.35) 78%,
+      var(--c-bg) 100%);
+}
+
+/* hover marker (names on a static grid of points, as in the other variations) */
+.hero-v4b__marker {
+  position: absolute;
+  z-index: 1;
+  width: 17px;
+  height: 17px;
+  margin: -8.5px 0 0 -8.5px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.hero-v4b__marker::after { content: ""; position: absolute; inset: 5.5px; background: #fff; }
+.hero--v4b.is-globe-hover .hero-v4b__marker { opacity: 1; }
+
+/* ---------- Copy and cards over the video ---------- */
+.hero--v4b .hero-v2b__domain {
+  background: rgba(10, 10, 16, 0.42);
+  border-color: rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.hero--v4b .hero-v2b__sub { color: rgba(var(--ink), 0.74); }   /* a touch brighter than 64% over the image */
+.hero--v4b .hero-v2b__cards .stat-card {
+  background: rgba(10, 10, 16, 0.48);
+  border-color: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}

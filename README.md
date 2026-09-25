@@ -12,10 +12,11 @@ A static landing page for Frontier (plain HTML, CSS and JS, with no build step) 
 | 03b · Horizon light | Light mode of 03 · Horizon: the same hero (centred stack, moving pixel landscape, stat cards) in the light theme's colours: warm off-white page, lighter orange `#DA5A12` buttons and TLD, green `#1AC684` points, and orange `#E96E26` landscape pixels. | ✅ Done |
 | 03c · Horizon colour | 03 · Horizon with exactly the same layout, in the 01b / Figma colours: near-black plum, a dusk landscape (amber near, rose toward the horizon), orange accents and green points. | ✅ Done |
 | 04 · Video frame | Dark mode, after the split-screen reference: a contained video frame on the left (60% of the container, lined up with the nav and the stat cards) with corner labels and a Watch brief button, and the Variation 3 elements on the right, left-aligned. Placeholder image until the video exists. | ✅ Done |
+| 04b · Video full bleed | The Variation 4 video filling the whole hero edge to edge, behind the Variation 3 centred stack and stat cards, with a scrim for legibility. | ✅ Done |
 
-The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 03, "c") versions next to it. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (760px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
+The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 03, "c") versions next to it; 04 has 04b. To fit them all, inactive tabs show only their number, and only the active tab's name slides open (hover a tab for its full name). On phones and small tablets (820px and below), the tabs get their own full-width row under the logo and Sign up, with numbers only.
 
-The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v1b`, `#v2`, `#v2b`, `#v3`, `#v3b`, `#v3c`, `#v4`.
+The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v1b`, `#v2`, `#v2b`, `#v3`, `#v3b`, `#v3c`, `#v4`, `#v4b`.
 
 ## Preview
 
@@ -49,18 +50,19 @@ css/
   variation-3b-horizon-light.css # Variation 3b: the light theme for the whole page, applied to the variation 3 hero
   variation-3c-horizon-colour.css # Variation 3c: landscape + hero colours over the variation 3 hero (page colours from 1b)
   variation-4-video-frame.css   # Hero variation 4 (video frame left, copy right)
+  variation-4b-video-full-bleed.css # Hero variation 4b (full-bleed video, centred copy from 3)
 js/
   main.js                       # tab switching, typing domain, counters, scroll reveals
   variation-1-pixel-globe.js    # pixel globe: rotation + static hover points with names
   variation-2-nucleus.js        # nucleus builder for 2 and 2b: rotating particle sphere + halo + static hover points; 2b headline fitting
   variation-3-horizon.js        # horizon (tabs 03, 03b and 03c): moving pixel landscape + static hover points; headline fitting
-  variation-4-video-frame.js    # hover names over the video frame
+  variation-4-video-frame.js    # hover names over the video (4 and 4b); 4b headline fitting
   data/world-countries-50m.js   # Natural Earth 1:50m countries (world-atlas, public domain)
   vendor/                       # d3-array, d3-geo, topojson-client (ISC), vendored so the page works offline
 assets/
   logos/                        # Frontier wordmark + partner logos (exported from the Figma file)
   icons/                        # chain icons used in the "Deposit" card
-  media/video-placeholder.webp  # placeholder for the Variation 4 video
+  media/video-placeholder.webp  # placeholder for the Variation 4 / 4b video
 ```
 
 ## Variation 1: Pixel globe
@@ -117,6 +119,13 @@ assets/
 - **Frame.** For now it shows `assets/media/video-placeholder.webp`, with a slow push-in so it doesn't feel static. To use a video, replace the `<img class="hero-v4__media">` in `index.html` with `<video class="hero-v4__media" autoplay muted loop playsinline poster="…"><source src="…"></video>`; the styles already cover it. Corner labels, from the reference: a "Live feed" chip with a green live dot at the top left, three small uppercase lines at the bottom left (hidden on phones), and a Watch brief button at the bottom right. Soft darkening at the top and bottom edges keeps them legible.
 - **Colours.** The dark theme: orange `#E96E26` buttons and TLD, green `#4AFFBA` for "+10,000 pts" and the live dot. Type sizes and the −0.08% letter-spacing come from the shared centred-layout rules.
 - **Hover names.** As in the other variations, an invisible layer of static points (28px apart, 22px on phones) covers the frame. Each point holds one name, shown with a small square marker until the cursor moves to another point. The labels and the button are kept clear.
+
+## Variation 4b: Video full bleed
+
+- **Layout.** The same video as Variation 4 (the placeholder image for now), full bleed: it fills the whole hero edge to edge, behind the nav. On top sits the Variation 3 centred stack, with the same markup and classes (`hero-v2b__*`): the 48px headline, the domain field (sized in script to the headline's width) with Join Frontier inside, the bonus line with the live countdown and the subtitle, raised above centre between the nav and the three stat cards.
+- **Legibility.** A scrim darkens the top behind the nav and a soft oval behind the copy, stays light over the islands, and fades into the page background under the cards. The domain field and the stat cards are frosted glass over the video, and the subtitle is a little brighter (74%) than elsewhere.
+- **Video.** Replace the `<img class="hero-v4b__media">` in `index.html` with `<video class="hero-v4b__media" autoplay muted loop playsinline poster="…"><source src="…"></video>`. Until then the image slowly pushes in.
+- **Hover names.** Static points cover the hero, outside the copy and the cards, with the same marker and name card as Variation 4.
 
 ## Adding another variation
 
