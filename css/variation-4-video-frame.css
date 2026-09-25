@@ -5,7 +5,7 @@
    rounded border) and the Variation 3 elements on the right, left-aligned:
    headline, typed domain field with Join Frontier inside, bonus line with
    the live countdown and the subtitle. Three compact stat cards run along
-   the bottom. The frame holds a placeholder image until the video exists.
+   the bottom. The frame plays a silent looping video.
    Colours: the dark theme with orange #E96E26 buttons and green points.
    Tab-wide type and button rules come from variation-2b-nucleus-centred.css.
    ========================================================================== */
@@ -50,12 +50,8 @@
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: 50% 62%;          /* keep the islands and the lit horizon in view */
-  transform-origin: 55% 60%;
+  object-position: 60% 50%;          /* the frame is narrower than 16:9: keep the ring and its reflection in view */
 }
-/* a slow push-in while there is no video yet, so the frame still feels alive */
-.hero--v4.is-entered .hero-v4__media { animation: v4-drift 28s ease-in-out infinite alternate; }
-@keyframes v4-drift { from { transform: scale(1.02); } to { transform: scale(1.09) translate(-1%, -0.6%); } }
 /* legibility for the labels: soft darkening at the top and bottom edges */
 .hero-v4__frame::after {
   content: "";

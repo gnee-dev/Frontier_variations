@@ -6,7 +6,7 @@
    square marker until the cursor moves clearly nearer another point.
    Labels, buttons, the copy and the cards are kept clear. No canvas is
    needed: a marker element sits on the point.
-     4  : points over the contained frame
+     4  : points over the contained frame, which plays the looping video
      4b : points over the full-bleed hero; the domain field is sized to the
           headline's width, as in Variation 3
    ========================================================================== */
@@ -114,7 +114,19 @@
     hoverEl: frame, hoverClass: "is-hover",
     clear: ".hero-v4__hud-tl, .hero-v4__hud-bl, .hero-v4__play"
   });
-  if (clear4) window.FrontierHeroMotion["4"] = { start: function () {}, stop: clear4 };
+  // The video plays only while tab 04 is on (and stays on its poster frame for
+  // visitors who prefer reduced motion).
+  var video4 = document.getElementById("hero-v4-video");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function play4() {
+    if (!video4 || reduceMotion) return;
+    var p = video4.play();
+    if (p && p.catch) p.catch(function () {});   // autoplay blocked: the poster stays
+  }
+  if (clear4) window.FrontierHeroMotion["4"] = {
+    start: play4,
+    stop: function () { clear4(); if (video4) video4.pause(); }
+  };
 
   /* ---------------- Variation 4b: full bleed ---------------- */
 

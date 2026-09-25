@@ -331,11 +331,14 @@
     <section class="hero hero--v4" id="hero-v4" data-hero="4" role="tabpanel" aria-label="Hero variation 4: Video frame" hidden>
       <div class="container hero-v4__inner">
         <div class="hero-v4__top">
-          <!-- Video frame (60%). The image is a placeholder: swap it for
-               <video autoplay muted loop playsinline poster="..."><source src="..."></video>
-               and keep the .hero-v4__media class. -->
+          <!-- Video frame (60%): a silent 12s loop (H.264 MP4, with a VP9 WebM for browsers
+               without H.264), with its first frame as the poster.
+               js/variation-4-video-frame.js plays it only while this tab is on (paused for reduced motion). -->
           <figure class="hero-v4__frame" id="hero-v4-frame" data-anim="rise" style="--d: 0.05s">
-            <img class="hero-v4__media" src="assets/media/video-placeholder.webp" alt="" width="2000" height="1611" />
+            <video class="hero-v4__media" id="hero-v4-video" muted loop playsinline preload="auto" poster="assets/media/hero-04-poster.jpg" aria-hidden="true" tabindex="-1">
+              <source src="assets/media/hero-04.mp4" type="video/mp4" />
+              <source src="assets/media/hero-04.webm" type="video/webm" />
+            </video>
             <div class="hero-v4__hud" aria-hidden="true">
               <span class="hero-v4__hud-tl"><span class="pulse-dot"></span>Live feed<span class="hero-v4__hud-dim"> · Frontier 01</span></span>
               <span class="hero-v4__hud-bl">
