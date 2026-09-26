@@ -89,21 +89,31 @@
   background: radial-gradient(50% 30% at 50% 30%, rgba(6, 6, 10, 0.42), transparent 72%);
 }
 
-/* hover marker: outlines the grid cell under the cursor (placed and sized in script,
-   its borders on the grid lines), with a faint fill and a small centre pixel */
+/* hover marker: the grid cell under the cursor, in the accent orange (placed and
+   sized in script, its borders on the grid lines), with a small centre pixel */
 .hero-v4b__marker {
   position: absolute;
   z-index: 1;
-  width: 29px;
-  height: 29px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.06);
+  width: 21px;
+  height: 21px;
+  border: 1px solid rgba(233, 110, 38, 0.95);
+  background: rgba(233, 110, 38, 0.22);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.15s;
 }
-.hero-v4b__marker::after { content: ""; position: absolute; left: 50%; top: 50%; width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; background: #fff; }
+.hero-v4b__marker::after { content: ""; position: absolute; left: 50%; top: 50%; width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; background: #ff9a5c; }
 .hero--v4b.is-globe-hover .hero-v4b__marker { opacity: 1; }
+/* trail: the last cells the cursor crossed, orange at falling opacity (set in script);
+   it fades out as soon as the cursor stops */
+.hero-v4b__trail {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid rgba(233, 110, 38, 0.8);
+  background: rgba(233, 110, 38, 0.3);
+  pointer-events: none;
+  opacity: 0;
+}
 
 /* ---------- Copy and cards over the video ---------- */
 .hero--v4b .hero-v2b__domain {

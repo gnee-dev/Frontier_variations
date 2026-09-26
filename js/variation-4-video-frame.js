@@ -37,7 +37,10 @@
   //       clear (selector of elements whose boxes stay free of names),
   //       gridParent + gridClass (a faint pixel grid on the same points),
   //       gridLines (true: a continuous grid of lines with one cell per point, and
-  //       the marker outlines that cell; otherwise separate 17px boxes like the marker)
+  //       the marker outlines that cell; otherwise separate 17px boxes like the marker),
+  //       pitch (optional: function(width) -> point spacing; default 28px, 22px on small areas),
+  //       trail + trailClass (grid mode: that many fading cells follow the cursor while it
+  //       moves and fade out as soon as it stops)
   function makeHover(opts) {
     var area = opts.area, tooltip = opts.tooltip;
     if (!area || !tooltip) return;
@@ -56,7 +59,55 @@
       grid.setAttribute("aria-hidden", "true");
       opts.gridParent.appendChild(grid);
     }
-    function pitchFor(width) { return width < 520 ? 22 : 28; }
+    var pitchFor = opts.pitch || function (width) { return width < 520 ? 22 : 28; };
+
+    // Trail: the last few cells the cursor crossed, each a little fainter
+    var TRAIL_ALPHA = [0.55, 0.32, 0.16];
+    var trail = [], trailCells = [], stopTimer = 0;
+    for (var t = 0; opts.trail && t < opts.trail; t++) {
+      var el = document.createElement("span");
+      el.className = opts.trailClass;
+      el.setAttribute("aria-hidden", "true");
+      area.insertBefore(el, marker);   // under the highlighted cell
+      trail.push(el);
+    }
+    function placeCell(el, c, pitch) {
+      el.style.left = (c.x - pitch / 2) + "px";
+      el.style.top = (c.y - pitch / 2) + "px";
+      el.style.width = el.style.height = (pitch + 1) + "px";
+    }
+    function showTrail(pitch) {
+      for (var k = 0; k < trail.length; k++) {
+        var c = trailCells[k];
+        if (!c) { trail[k].style.opacity = 0; continue; }
+        placeCell(trail[k], c, pitch);
+        trail[k].style.transition = "opacity 0.08s linear";
+        trail[k].style.opacity = TRAIL_ALPHA[k] || 0.1;
+      }
+    }
+    function fadeTrail(slow) {
+      for (var k = 0; k < trail.length; k++) {
+        trail[k].style.transition = slow ? "opacity 0.38s ease-out" : "none";
+        trail[k].style.opacity = 0;
+      }
+      trailCells = [];
+    }
+    // the cursor counts as stopped after a short pause without movement
+    function armStop() {
+      if (!trail.length) return;
+      clearTimeout(stopTimer);
+      stopTimer = setTimeout(function () { fadeTrail(true); }, 110);
+    }
+    // cells between two cells (inclusive of from, exclusive of to), so a fast
+    // move still leaves a continuous trail
+    function cellsBetween(a, b, pitch, ox, oy) {
+      var out = [], di = b.i - a.i, dj = b.j - a.j, n = Math.max(Math.abs(di), Math.abs(dj));
+      for (var s = n - 1; s >= 0 && out.length < trail.length; s--) {
+        var ci = a.i + Math.round(di * s / n), cj = a.j + Math.round(dj * s / n);
+        out.push({ i: ci, j: cj, x: ox + ci * pitch, y: oy + cj * pitch });
+      }
+      return out;   // nearest to b first
+    }
     function layoutGrid() {
       if (!grid || !area.clientWidth) return;
       var pitch = pitchFor(area.clientWidth);
@@ -110,14 +161,22 @@
       var ar = area.getBoundingClientRect();
       var pitch = pitchFor(ar.width);
       var x = e.clientX - ar.left, y = e.clientY - ar.top;
+      armStop();
       // keep the current point until the cursor is clearly nearer another one
-      if (hover && Math.abs(x - hover.x) < pitch * 0.65 && Math.abs(y - hover.y) < pitch * 0.65) return;
+      // (in grid mode: until it leaves the cell)
+      var keep = opts.gridLines ? 0.5 : 0.65;
+      if (hover && Math.abs(x - hover.x) < pitch * keep && Math.abs(y - hover.y) < pitch * keep) return;
       var ox = Math.round(ar.width / 2), oy = Math.round(ar.height / 2);   // whole pixels, as the grid
       var i = Math.round((x - ox) / pitch), j = Math.round((y - oy) / pitch);
       var px = ox + i * pitch, py = oy + j * pitch;
       if (px < 12 || py < 12 || px > ar.width - 12 || py > ar.height - 12 || inClear(px, py, ar)) return clearHover();
       if (hover && hover.i === i && hover.j === j) return;
-      hover = { i: i, j: j, x: px, y: py };
+      var next = { i: i, j: j, x: px, y: py };
+      if (trail.length && hover) {
+        trailCells = cellsBetween(hover, next, pitch, ox, oy).concat(trailCells).slice(0, trail.length);
+        showTrail(pitch);
+      }
+      hover = next;
       renderName(pointName(i, j));
       if (opts.gridLines) {
         // outline exactly the cell around the point: its borders sit on the grid lines
@@ -140,6 +199,7 @@
     function clearHover() {
       if (hover) { hover = null; tooltip.classList.remove("is-visible"); }
       opts.hoverEl.classList.remove(opts.hoverClass);
+      if (trail.length) { clearTimeout(stopTimer); fadeTrail(true); }
     }
     area.addEventListener("pointermove", onMove);
     area.addEventListener("pointerdown", function (e) { if (e.pointerType === "touch") onMove(e); });
@@ -214,7 +274,9 @@
     hoverEl: hero4b, hoverClass: "is-globe-hover",
     clear: "[data-globe-avoid], .hero-v2b__claim",
     gridParent: document.getElementById("hero-v4b-bg"), gridClass: "hero-v4b__grid",
-    gridLines: true
+    gridLines: true,
+    pitch: function (width) { return width < 520 ? 16 : 20; },   // a finer grid than Variation 4
+    trail: 3, trailClass: "hero-v4b__trail"
   });
 
   // The domain field is always exactly as wide as the headline's text (as in
