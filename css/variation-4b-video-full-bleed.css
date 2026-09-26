@@ -1,0 +1,131 @@
+/* ==========================================================================
+   Hero · Variation 4b — "Video full bleed" (dark mode)
+   The Variation 4 video (the ocean loop) filling the whole
+   hero edge to edge, behind the Variation 3 centred stack: headline,
+   domain field with Join Frontier inside, bonus line and subtitle, with
+   three compact stat cards at the bottom. The layout classes (hero-v2b__*)
+   come from variation-2b-nucleus-centred.css.
+   A scrim keeps the white copy legible over the bright horizon band, and
+   the bottom edge fades into the page.
+   ========================================================================== */
+
+.hero--v4b { background: var(--c-bg); }
+.hero--v4b.is-globe-hover { cursor: crosshair; }
+
+/* ---------- Full-bleed media ----------
+   js/variation-4-video-frame.js sizes and places the video (fitVideo) so that
+   at every size:
+   - the horizon (50% down the video) sits just above the stat cards,
+   - the ring (12-50% down, 54-91% across) sits clear below the nav bar and
+     fully on screen,
+   - it is as large as that allows, filling the width whenever it can.
+   The video's own top edge fades in softly (well above the ring). When it
+   can't fill the width (very wide or short screens), its sides fade into the
+   page too. Without the script it simply covers the hero. */
+.hero-v4b__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out) 0.1s;
+  /* soft bottom edge into the page */
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+}
+.hero--v4b.is-entered .hero-v4b__bg { opacity: 1; }
+.hero-v4b__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 78% 30%;
+}
+/* placed by the script: exact box, soft top edge (fully visible by 9%, before the ring at 12%)
+   and soft bottom edge (the water fades out, e.g. behind the stacked cards on phones) */
+.hero-v4b__media.is-placed {
+  inset: auto;
+  object-fit: fill;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
+}
+/* narrower than the screen: fade the sides as well */
+.hero-v4b__media.is-placed.is-narrow {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%),
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%),
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+}
+/* faint grid: continuous 1px lines, one cell per hover point (tile set in script) */
+.hero-v4b__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+  opacity: 0.045;
+  /* clear behind the headline and domain field, and faded toward the top (under
+     the nav) and the bottom, so it only lightly textures the video */
+  -webkit-mask-image:
+    radial-gradient(46% 26% at 50% 31%, transparent 45%, #000 100%),
+    linear-gradient(to bottom, transparent 8%, #000 30%, #000 72%, transparent 92%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(46% 26% at 50% 31%, transparent 45%, #000 100%),
+    linear-gradient(to bottom, transparent 8%, #000 30%, #000 72%, transparent 92%);
+  mask-composite: intersect;
+}
+
+/* scrim: a soft oval behind the copy keeps the white text legible */
+.hero-v4b__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(50% 30% at 50% 30%, rgba(6, 6, 10, 0.42), transparent 72%);
+}
+
+/* hover marker: the grid cell under the cursor, in the accent orange (placed and
+   sized in script, its borders on the grid lines), with a small centre pixel */
+.hero-v4b__marker {
+  position: absolute;
+  z-index: 1;
+  width: 21px;
+  height: 21px;
+  border: 1px solid rgba(233, 110, 38, 0.95);
+  background: rgba(233, 110, 38, 0.22);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.hero-v4b__marker::after { content: ""; position: absolute; left: 50%; top: 50%; width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; background: #ff9a5c; }
+.hero--v4b.is-globe-hover .hero-v4b__marker { opacity: 1; }
+/* trail: the last cells the cursor crossed, orange at falling opacity (set in script);
+   it fades out as soon as the cursor stops */
+.hero-v4b__trail {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid rgba(233, 110, 38, 0.8);
+  background: rgba(233, 110, 38, 0.3);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ---------- Copy and cards over the video ---------- */
+.hero--v4b .hero-v2b__domain {
+  background: rgba(10, 10, 16, 0.42);
+  border-color: rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.hero--v4b .hero-v2b__sub { color: rgba(var(--ink), 0.74); }   /* a touch brighter than 64% over the image */
+.hero--v4b .hero-v2b__cards .stat-card {
+  background: rgba(10, 10, 16, 0.48);
+  border-color: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}

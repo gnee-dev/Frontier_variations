@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Hero · Variation 3c — "Horizon colour"
+   The Variation 3 hero (the 2b centred stack over the moving pixel
+   landscape), unchanged in layout, in the Figma colours used by 01b.
+   The page tokens and the section accents come from variation-1b-colour.css,
+   which covers both 1b and 3c: near-black plum, white headings and 64% body
+   text, orange #E96E26 buttons, green #4AFFBA points, a touch of blue #4AC6FF.
+   The landscape is a dusk: warm amber in the foreground fading to rose
+   toward the horizon.
+   The hero markup is shared with tabs 03 and 03b (data-hero="3 3b 3c").
+   ========================================================================== */
+
+body[data-variation="3c"] {
+  /* landscape palette (read by js/variation-3-horizon.js) */
+  --horizon-pixel: 255, 150, 72;       /* warm amber (01b globe) near the viewer */
+  --horizon-pixel-far: 226, 112, 170;  /* rose (01b globe) toward the horizon */
+  --horizon-line: none;                /* no lit crest line: every pixel follows the amber-to-rose ground */
+  --horizon-max: 0.8;                  /* colour needs more presence than grey to read as amber, not brown */
+  --horizon-glow: 214, 96, 150;        /* rose light along the horizon */
+  --horizon-star: 248, 253, 255;
+  --horizon-marker: 248, 253, 255;
+}
+
+/* soft dusk light: a rose band at the horizon and warm light from below */
+body[data-variation="3c"] .hero--v3 {
+  background:
+    radial-gradient(60% 32% at 50% 58%, rgba(170, 70, 140, 0.12), transparent 70%),
+    radial-gradient(70% 40% at 50% 100%, rgba(233, 110, 38, 0.14), transparent 72%),
+    radial-gradient(45% 30% at 50% 22%, rgba(110, 80, 170, 0.06), transparent 70%),
+    var(--c-bg-2);
+}
+body[data-variation="3c"] .hero--v3 .hero-v2b__pts { color: var(--c-points); }
+body[data-variation="3c"] .hero--v3 .hero-v2b__domain {
+  background: rgba(255, 214, 190, 0.05);
+  border-color: rgba(255, 214, 190, 0.12);
+}
+body[data-variation="3c"] .hero--v3 .hero-v2b__cards .stat-card {
+  background: rgba(18, 13, 20, 0.6);
+  border-color: rgba(255, 214, 190, 0.1);
+}

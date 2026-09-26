@@ -1,0 +1,228 @@
+/* ==========================================================================
+   Hero · Variation 4 — "Video frame" (dark mode)
+   Split hero: a contained video frame on the left (60% of the container,
+   aligned with the nav bar and the stat cards, with its own padding and
+   rounded border) and the Variation 3 elements on the right, left-aligned:
+   headline, typed domain field with Join Frontier inside, bonus line with
+   the live countdown and the subtitle. Three compact stat cards run along
+   the bottom. The frame plays a silent looping video.
+   Colours: the dark theme with orange #E96E26 buttons and green points.
+   Tab-wide type and button rules come from variation-2b-nucleus-centred.css.
+   ========================================================================== */
+
+/* ---------- Hero shell ---------- */
+.hero--v4 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max(760px, min(968px, 100svh));
+  /* the frame starts 20px under the nav */
+  padding: calc(20px + var(--nav-h) + 20px) 0 40px;
+  background: var(--c-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-v4__inner { flex: 1; display: flex; flex-direction: column; gap: var(--panel-gap); }
+.hero-v4__top {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 60% minmax(0, 1fr);   /* frame: 60% of the container */
+  gap: clamp(32px, 4vw, 64px);
+  min-height: 0;
+}
+
+/* ---------- Video frame ---------- */
+.hero-v4__frame {
+  position: relative;
+  margin: 0;
+  min-height: 420px;
+  border-radius: var(--panel-radius);
+  border: 1px solid var(--panel-bd);
+  background: #0c0c10;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-v4__frame.is-hover { cursor: crosshair; }
+.hero-v4__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 72% 50%;          /* keep the ring in view when the frame is narrower than the image */
+  transform-origin: 70% 45%;
+}
+/* a slow push-in while the frame shows a still image (a <video> doesn't get it) */
+.hero--v4.is-entered img.hero-v4__media { animation: v4-drift 28s ease-in-out infinite alternate; }
+@keyframes v4-drift { from { transform: scale(1.02); } to { transform: scale(1.08) translate(-0.8%, 0.4%); } }
+/* legibility for the labels: soft darkening at the top and bottom edges */
+.hero-v4__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6, 6, 10, 0.45), transparent 22%, transparent 72%, rgba(6, 6, 10, 0.55)),
+    radial-gradient(120% 90% at 50% 50%, transparent 60%, rgba(6, 6, 10, 0.35));
+}
+
+/* HUD labels (from the reference): small uppercase lines in the corners */
+.hero-v4__hud {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 24px;
+  pointer-events: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.86);
+}
+.hero-v4__hud-dim { color: rgba(255, 255, 255, 0.55); }
+.hero-v4__hud-tl {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(10, 10, 14, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.hero-v4__hud-tl .pulse-dot,
+.hero-v4__hud-tl .pulse-dot::after { background: var(--c-points, #4affba); }
+.hero-v4__hud-bl {
+  position: absolute;
+  left: 24px;
+  bottom: 22px;
+  display: grid;
+  gap: 6px;
+}
+.hero-v4__play {
+  position: absolute;
+  z-index: 3;
+  right: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 16px 0 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(10, 10, 14, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.25s, border-color 0.25s;
+}
+.hero-v4__play svg { width: 16px; height: 16px; color: var(--c-accent-text); }
+.hero-v4__play:hover { background: rgba(10, 10, 14, 0.6); border-color: rgba(255, 255, 255, 0.26); }
+
+/* hover names: a marker on a static grid of points over the frame */
+.hero-v4__marker {
+  position: absolute;
+  z-index: 2;
+  width: 17px;
+  height: 17px;
+  margin: -8px 0 0 -8px;              /* spans point-8 .. point+9, like the grid boxes */
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.hero-v4__marker::after { content: ""; position: absolute; inset: 5.5px; background: #fff; }
+.hero-v4__frame.is-hover .hero-v4__marker { opacity: 1; }
+.hero-v4__frame .hero-tip { z-index: 4; }
+/* faint pixel grid: the hover marker's 17px boxes on the same points (tile set in script) */
+.hero-v4__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+  opacity: 0.04;
+  z-index: 1;
+  /* a little lighter toward the edges of the frame */
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 50%, #000 55%, rgba(0, 0, 0, 0.4));
+  mask-image: radial-gradient(120% 100% at 50% 50%, #000 55%, rgba(0, 0, 0, 0.4));
+}
+
+
+/* ---------- Copy (40%), left-aligned ---------- */
+.hero-v4__copy {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 24px;
+  min-width: 0;
+  padding-block: 24px;
+}
+.hero-v4__title {
+  font-size: 48px;                   /* same size as Variation 3 */
+  line-height: 1.12;
+  font-weight: 500;
+  text-wrap: balance;
+}
+.hero-v4__claim { display: grid; gap: 20px; width: 100%; }
+.hero-v4__domain {
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  padding: 12px 12px 12px 18px;
+  border-radius: 16px;
+  background: rgba(var(--ink), 0.06);
+  border-color: rgba(var(--ink), 0.12);
+  font-size: clamp(28px, 2.5vw, 36px);   /* fits the longest names next to the button */
+  line-height: 1.2;
+}
+.hero-v4__typed { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; height: 40px; }
+.hero-v4__domain .domain-box__text { color: var(--c-text); }
+.hero-v4__join { flex: none; }
+
+.hero-v4__bonus { font-size: 16px; line-height: 1.4; font-weight: 500; color: var(--c-text); }
+.hero-v4__pts { color: var(--c-points, #4affba); font-weight: 600; }
+.hero-v4__muted { color: var(--c-text-64); }
+.hero-v4__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
+.hero-v4__sub { font-size: 14px; line-height: 1.45; font-weight: 500; color: var(--c-text-64); max-width: 420px; }
+
+.hero-v4__cards .stat-card { background: rgba(12, 12, 12, 0.55); }
+
+/* ---------- Responsive ---------- */
+/* small laptops: the copy column gets narrow, so the button goes under the typed name, still inside the field */
+@media (max-width: 1180px) {
+  .hero-v4__domain { flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 10px 10px 16px; }
+  .hero-v4__typed { height: 44px; }
+  .hero-v4__title { font-size: 44px; }
+}
+/* tablets and phones: the frame on top, the copy under it, then the cards */
+@media (max-width: 960px) {
+  .hero--v4 { min-height: 0; }
+  .hero-v4__top { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .hero-v4__frame { min-height: 0; aspect-ratio: 16 / 11; }
+  .hero-v4__copy { padding-block: 0 8px; }
+  .hero-v4__domain { flex-direction: row; align-items: center; padding: 12px 12px 12px 18px; }
+  .hero-v4__sub { max-width: 560px; }
+}
+@media (max-width: 560px) {
+  .hero--v4 { padding-top: calc(12px + var(--nav-h) + 16px); }
+  .hero-v4__frame { aspect-ratio: 4 / 3.4; }
+  .hero-v4__hud { font-size: 10px; }
+  .hero-v4__hud-bl { display: none; }   /* no room next to Watch brief */
+  .hero-v4__play { right: 14px; bottom: 14px; height: 36px; font-size: 11px; }
+  .hero-v4__title { font-size: 40px; }
+  .hero-v4__domain { flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 8px 8px 14px; }
+  .hero-v4__typed { height: 48px; font-size: 36px; }
+  .hero-v4__bonus { font-size: 15px; }
+}

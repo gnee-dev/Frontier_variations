@@ -1,0 +1,137 @@
+/* ==========================================================================
+   Hero · Variation 2 — "Nucleus" (dark mode)
+   Layout: headline + subtitle on the left, a particle sphere in the middle
+   (rotating nucleus inside a sparse particle halo), domain field + Join
+   Frontier + bonus line on the right, three compact stat cards at the
+   bottom. The two side columns share one grid row so they are the same
+   height, top and bottom aligned.
+   Uses the default dark theme from base.css; orange buttons.
+   ========================================================================== */
+
+/* -0.08% letter-spacing across the page on this tab (as in the other centred and light variations) */
+body[data-variation="2"],
+body[data-variation="2"] :is(
+  .hero-v2__title, .domain-box, .stat-card__value, .btn,
+  .section-head__title, .card__title, .points__value, .tld-grid li,
+  .timeline__title, .banner__title
+) {
+  letter-spacing: -0.0008em;
+}
+
+/* ---------- Hero shell (Figma: 968px tall, nav at 20px + 54px) ---------- */
+.hero--v2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max(720px, min(968px, 100svh));
+  padding: calc(20px + var(--nav-h) + 40px) 0 40px;
+  background:
+    radial-gradient(34% 40% at 50% 44%, rgba(255, 255, 255, 0.045), transparent 70%),
+    var(--c-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero--v2.is-globe-hover .nucleus { cursor: crosshair; }
+
+.hero-v2__inner { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+
+/* ---------- Stage: left copy · globe · right claim ----------
+   Rows 1fr / auto / 1fr: the globe spans all three, the side columns sit in
+   the middle (auto) row and stretch to its height, so both sides always
+   match the taller one; space-between pins their tops and bottoms. */
+.hero-v2__stage {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-rows: 1fr auto 1fr;
+  align-items: stretch;
+  column-gap: clamp(24px, 3vw, 48px);
+}
+.hero-v2__left,
+.hero-v2__right {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+.hero-v2__left,
+.hero-v2__right { position: relative; z-index: 1; }   /* above the sphere's spill-over */
+.hero-v2__left { grid-column: 1; align-items: flex-start; }
+.hero-v2__right { grid-column: 3; align-items: flex-end; text-align: right; }
+
+.hero-v2__title {
+  font-size: clamp(40px, 3.6vw, 52px);
+  line-height: 1.08;
+  font-weight: 500;
+}
+.hero-v2__sub { font-size: 16px; line-height: 1.45; font-weight: 500; color: var(--c-text-64); max-width: 320px; }
+
+.hero-v2__domain {
+  width: 100%;
+  max-width: 340px;
+  height: 64px;
+  padding: 0 18px;
+  border-radius: 16px;
+  font-size: clamp(28px, 2.4vw, 34px);
+  line-height: 1.2;
+}
+/* typed domain + button stay together; the button is ~15% smaller than the 45px large button */
+.hero-v2__claim { display: grid; justify-items: end; gap: 12px; width: 100%; }
+.hero-v2__join { height: 38px; padding: 9px 14px; font-size: 17px; line-height: 20px; gap: 8px; }
+.hero-v2__join .btn__arrow { width: 17px; height: 17px; }
+.hero-v2__cta { display: grid; justify-items: end; gap: 14px; }
+.hero-v2__bonus { font-size: 15px; line-height: 1.4; font-weight: 500; color: var(--c-text); max-width: 340px; }
+.hero-v2__pts { color: #4affba; font-weight: 600; }          /* Figma highlight green on dark */
+.hero-v2__muted { color: var(--c-text-64); }
+.hero-v2__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* ---------- Nucleus (particle sphere) ----------
+   The canvas spills past its square box so the halo can drift wider than
+   the nucleus without pushing the side columns apart. */
+.hero-v2__globe {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  position: relative;
+  width: min(35.2vw, 550px, calc((100svh - 380px) * 1.1));   /* 10% bigger */
+  min-width: 330px;
+  aspect-ratio: 1;
+}
+.nucleus {
+  position: absolute;
+  inset: -18%;
+  width: 136%;
+  height: 136%;
+  max-width: none;          /* the reset caps canvases at 100%, which pushed the sphere left */
+  opacity: 0.82;            /* muted, like the globe in Variation 1 */
+  /* soft fade toward the edge of the halo */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 34%, rgba(0, 0, 0, 0.55) 52%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 34%, rgba(0, 0, 0, 0.55) 52%, transparent 70%);
+}
+[data-anim="globe-fade"] { opacity: 0; transform: scale(0.96); }
+.is-entered [data-anim="globe-fade"] { animation: globe-fade 1.6s var(--ease-out) 0.15s forwards; }
+@keyframes globe-fade { to { opacity: 1; transform: none; } }
+
+/* ---------- Compact stat cards ---------- */
+.hero-v2__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hero-v2__cards .stat-card { min-height: 0; gap: 8px; padding: 18px 22px; }
+.hero-v2__cards .stat-card__value { font-size: clamp(28px, 2.4vw, 36px); }
+.hero-v2__cards .stat-card__note { margin-top: 2px; font-size: 13px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .hero-v2__stage { grid-template-columns: 1fr; grid-template-rows: auto; row-gap: 28px; }
+  .hero-v2__left, .hero-v2__right, .hero-v2__globe { grid-column: 1; grid-row: auto; }
+  .hero-v2__left { align-items: center; text-align: center; }
+  .hero-v2__right { align-items: center; text-align: center; }
+  .hero-v2__claim, .hero-v2__cta { justify-items: center; }
+  .hero-v2__sub, .hero-v2__bonus { max-width: 480px; }
+  .hero-v2__globe { justify-self: center; width: min(78vw, 500px); min-width: 0; }
+}
+@media (max-width: 760px) {
+  .hero-v2__cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .hero--v2 { min-height: 0; padding-top: calc(12px + var(--nav-h) + 36px); }
+}

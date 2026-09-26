@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frontier — Be the first to ever own</title>
+  <meta name="description" content="Frontier is a buyer membership program for the upcoming ICANN round. Claim the next internet frontier." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..800&display=swap" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/hero-shared.css" />
+  <link rel="stylesheet" href="css/variation-1-pixel-globe.css" />
+  <link rel="stylesheet" href="css/variation-1b-colour.css" />
+  <link rel="stylesheet" href="css/variation-2-nucleus.css" />
+  <link rel="stylesheet" href="css/variation-2b-nucleus-centred.css" />
+  <link rel="stylesheet" href="css/variation-3-horizon.css" />
+  <link rel="stylesheet" href="css/variation-3b-horizon-light.css" />
+  <link rel="stylesheet" href="css/variation-3c-horizon-colour.css" />
+  <link rel="stylesheet" href="css/variation-4-video-frame.css" />
+  <link rel="stylesheet" href="css/variation-4b-video-full-bleed.css" />
+</head>
+
+<body data-variation="1">
+  <!-- ============================== NAV ============================== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="#top" aria-label="Frontier home">
+        <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="128" height="13" />
+      </a>
+
+      <nav class="variation-tabs" role="tablist" aria-label="Hero variations">
+        <span class="variation-tabs__indicator" aria-hidden="true"></span>
+        <button class="variation-tabs__tab is-active" role="tab" aria-selected="true" aria-controls="hero-v1" title="Pixel globe" data-variation-tab="1">
+          <span class="variation-tabs__num">01</span><span class="variation-tabs__name">Pixel globe</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v1" title="Globe colour" data-variation-tab="1b">
+          <span class="variation-tabs__num">01b</span><span class="variation-tabs__name">Globe colour</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2" title="Nucleus" data-variation-tab="2">
+          <span class="variation-tabs__num">02</span><span class="variation-tabs__name">Nucleus</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v2b" title="Nucleus centred" data-variation-tab="2b">
+          <span class="variation-tabs__num">02b</span><span class="variation-tabs__name">Nucleus centred</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Horizon" data-variation-tab="3">
+          <span class="variation-tabs__num">03</span><span class="variation-tabs__name">Horizon</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Horizon light" data-variation-tab="3b">
+          <span class="variation-tabs__num">03b</span><span class="variation-tabs__name">Horizon light</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v3" title="Horizon colour" data-variation-tab="3c">
+          <span class="variation-tabs__num">03c</span><span class="variation-tabs__name">Horizon colour</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v4" title="Video frame" data-variation-tab="4">
+          <span class="variation-tabs__num">04</span><span class="variation-tabs__name">Video frame</span>
+        </button>
+        <button class="variation-tabs__tab" role="tab" aria-selected="false" aria-controls="hero-v4b" title="Video full bleed" data-variation-tab="4b">
+          <span class="variation-tabs__num">04b</span><span class="variation-tabs__name">Video full bleed</span>
+        </button>
+      </nav>
+
+      <a class="btn btn--primary btn--sm" href="#join">Sign up</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ======================= HERO · VARIATION 1 (PIXEL GLOBE) ======================= -->
+    <!-- data-hero="1 1b": the 01b tab reuses this hero with the colour theme (css/variation-1b-colour.css) -->
+    <section class="hero hero--v1" id="hero-v1" data-hero="1 1b" role="tabpanel" aria-label="Hero variation 1: Pixel globe">
+      <!-- Pixel globe sits behind every hero element -->
+      <canvas class="pixel-globe" id="pixel-globe" aria-hidden="true"></canvas>
+      <div class="hero-tip" id="pixel-globe-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
+      </div>
+
+      <div class="container hero-v1__inner">
+        <div class="hero-v1__head">
+          <h1 class="hero-v1__title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first<br /> to ever own</h1>
+
+          <div class="hero-v1__claim" data-anim="rise" style="--d: 0.25s">
+            <div class="domain-box" data-globe-avoid aria-live="polite">
+              <span class="domain-box__text" id="hero-domain">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span>
+            </div>
+            <p class="hero-v1__sub" data-globe-avoid>1,600+ applications filed for new extensions arriving in 2026. They work exactly like .com.</p>
+          </div>
+        </div>
+
+        <!-- Stat + CTA cards (layout after "Trusted across borders") -->
+        <ul class="hero-cards">
+          <li class="panel stat-card" data-anim="rise" data-globe-avoid style="--d: 0.40s">
+            <div class="panel__label">
+              <span>Points rate</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="4" data-count-suffix="x">4x</div>
+            <div class="stat-card__note">Epoch 1 • ends Mar 21, 2027</div>
+          </li>
+          <li class="panel stat-card" data-anim="rise" data-globe-avoid style="--d: 0.48s">
+            <div class="panel__label">
+              <span>Members</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="17714">17,714</div>
+            <div class="stat-card__note">signed up</div>
+          </li>
+          <li class="panel stat-card" data-anim="rise" data-globe-avoid style="--d: 0.56s">
+            <div class="panel__label">
+              <span>Extensions live</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="35">35</div>
+            <div class="stat-card__note">more TLDs coming soon</div>
+          </li>
+          <li class="panel stat-card stat-card--cta" data-anim="rise" data-globe-avoid style="--d: 0.64s">
+            <div class="panel__label">
+              <span class="stat-card__bonus"><span class="pulse-dot" aria-hidden="true"></span><span><span class="pts-highlight">+10,000 pts</span> bonus expires today</span></span>
+            </div>
+            <a class="btn btn--primary btn--lg btn--shine btn--block" id="join" href="#join">
+              Join Frontier
+              <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <p class="hero-hint" aria-hidden="true">Hover a pixel to reveal its name</p>
+    </section>
+
+    <!-- ======================= HERO · VARIATION 2 (NUCLEUS, dark) ======================= -->
+    <section class="hero hero--v2" id="hero-v2" data-hero="2" role="tabpanel" aria-label="Hero variation 2: Nucleus" hidden>
+      <div class="container hero-v2__inner">
+        <!-- Left copy · particle sphere · right claim. Both sides share one grid row, so they are the same height. -->
+        <div class="hero-v2__stage">
+          <div class="hero-v2__left">
+            <h1 class="hero-v2__title" data-anim="rise" style="--d: 0.10s">Be the first<br /> to ever own</h1>
+            <p class="hero-v2__sub" data-anim="rise" style="--d: 0.22s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+          </div>
+
+          <div class="hero-v2__globe" data-anim="globe-fade">
+            <canvas class="nucleus" id="nucleus" role="img" aria-label="A rotating sphere of particles inside a cloud of drifting particles. Hover it to reveal a name."></canvas>
+            <div class="hero-tip" id="nucleus-tooltip" aria-hidden="true">
+              <span class="hero-tip__name"></span>
+            </div>
+          </div>
+
+          <div class="hero-v2__right">
+            <!-- typed domain + Join Frontier grouped at the top; bonus line pinned to the bottom -->
+            <div class="hero-v2__claim" data-anim="rise" style="--d: 0.16s">
+              <div class="domain-box hero-v2__domain" aria-live="polite">
+                <span class="domain-box__text">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span>
+              </div>
+              <a class="btn btn--primary btn--shine hero-v2__join" href="#join">
+                Join Frontier
+                <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <div class="hero-v2__cta" data-anim="rise" style="--d: 0.28s">
+              <p class="hero-v2__bonus">
+                <span class="hero-v2__pts">+10,000 pts bonus</span>
+                <span class="hero-v2__muted">on signup · deposit</span>
+                opens in
+                <strong class="hero-v2__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2__muted">, Sep 28</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <ul class="hero-cards hero-v2__cards">
+          <li class="panel stat-card" data-anim="rise" style="--d: 0.44s">
+            <div class="panel__label">
+              <span>Points rate</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="4" data-count-suffix="x">4x</div>
+            <div class="stat-card__note">Epoch 1 • ends Mar 21, 2027</div>
+          </li>
+          <li class="panel stat-card" data-anim="rise" style="--d: 0.52s">
+            <div class="panel__label">
+              <span>Members</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="17714">17,714</div>
+            <div class="stat-card__note">signed up</div>
+          </li>
+          <li class="panel stat-card" data-anim="rise" style="--d: 0.60s">
+            <div class="panel__label">
+              <span>Extensions live</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="35">35</div>
+            <div class="stat-card__note">more TLDs coming soon</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= HERO · VARIATION 2b (NUCLEUS CENTRED, dark) ======================= -->
+    <section class="hero hero--v2b" id="hero-v2b" data-hero="2b" role="tabpanel" aria-label="Hero variation 2b: Nucleus centred" hidden>
+      <!-- Big particle sphere rising out of the bottom of the hero, behind the copy -->
+      <canvas class="nucleus-2b" id="nucleus-2b" aria-hidden="true"></canvas>
+      <div class="hero-tip" id="nucleus-2b-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
+      </div>
+
+      <div class="container hero-v2b__inner">
+        <!-- Centred stack, as in the second Figma file. The headline is sized to the domain field's width. -->
+        <div class="hero-v2b__center">
+        <div class="hero-v2b__stack">
+          <h1 class="hero-v2b__title" id="hero-v2b-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
+
+          <div class="hero-v2b__claim" data-anim="rise" style="--d: 0.22s">
+            <div class="domain-box hero-v2b__domain" data-globe-avoid>
+              <span class="hero-v2b__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+              <a class="btn btn--primary btn--lg btn--shine hero-v2b__join" href="#join">
+                Join Frontier
+                <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <p class="hero-v2b__bonus" data-globe-avoid>
+              <span class="hero-v2b__pts">+10,000 pts bonus</span>
+              <span class="hero-v2b__muted">on signup · deposit</span>
+              opens in
+              <strong class="hero-v2b__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2b__muted">, Sep 28</span>
+            </p>
+          </div>
+
+          <p class="hero-v2b__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+        </div>
+        </div>
+
+        <ul class="hero-cards hero-v2__cards hero-v2b__cards">
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.44s">
+            <div class="panel__label">
+              <span>Points rate</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="4" data-count-suffix="x">4x</div>
+            <div class="stat-card__note">Epoch 1 • ends Mar 21, 2027</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.52s">
+            <div class="panel__label">
+              <span>Members</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="17714">17,714</div>
+            <div class="stat-card__note">signed up</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.60s">
+            <div class="panel__label">
+              <span>Extensions live</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="35">35</div>
+            <div class="stat-card__note">more TLDs coming soon</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= HERO · VARIATION 3 (HORIZON, dark) + 3b (HORIZON LIGHT) ======================= -->
+    <!-- data-hero="3 3b 3c": the 03b tab reuses this hero with the light theme (css/variation-3b-horizon-light.css),
+         and 03c with the 01b colours (css/variation-3c-horizon-colour.css) -->
+    <section class="hero hero--v2b hero--v3" id="hero-v3" data-hero="3 3b 3c" role="tabpanel" aria-label="Hero variation 3: Horizon" hidden>
+      <!-- Pixel landscape along the bottom of the hero, moving toward the viewer (js/variation-3-horizon.js).
+           The layout reuses the Variation 2b centred stack (hero-v2b__* classes). -->
+      <canvas class="horizon-3" id="horizon-3" aria-hidden="true"></canvas>
+      <div class="hero-tip" id="horizon-3-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
+      </div>
+
+      <div class="container hero-v2b__inner">
+        <!-- Centred stack, as in Variation 2b -->
+        <div class="hero-v2b__center">
+        <div class="hero-v2b__stack">
+          <h1 class="hero-v2b__title" id="hero-v3-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
+
+          <div class="hero-v2b__claim" data-anim="rise" style="--d: 0.22s">
+            <div class="domain-box hero-v2b__domain" data-globe-avoid>
+              <span class="hero-v2b__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+              <a class="btn btn--primary btn--lg btn--shine hero-v2b__join" href="#join">
+                Join Frontier
+                <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <p class="hero-v2b__bonus" data-globe-avoid>
+              <span class="hero-v2b__pts">+10,000 pts bonus</span>
+              <span class="hero-v2b__muted">on signup · deposit</span>
+              opens in
+              <strong class="hero-v2b__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2b__muted">, Sep 28</span>
+            </p>
+          </div>
+
+          <p class="hero-v2b__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+        </div>
+        </div>
+
+        <ul class="hero-cards hero-v2__cards hero-v2b__cards">
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.44s">
+            <div class="panel__label">
+              <span>Points rate</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="4" data-count-suffix="x">4x</div>
+            <div class="stat-card__note">Epoch 1 • ends Mar 21, 2027</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.52s">
+            <div class="panel__label">
+              <span>Members</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="17714">17,714</div>
+            <div class="stat-card__note">signed up</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.60s">
+            <div class="panel__label">
+              <span>Extensions live</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="35">35</div>
+            <div class="stat-card__note">more TLDs coming soon</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= HERO · VARIATION 4 (VIDEO FRAME, dark) ======================= -->
+    <section class="hero hero--v4" id="hero-v4" data-hero="4" role="tabpanel" aria-label="Hero variation 4: Video frame" hidden>
+      <div class="container hero-v4__inner">
+        <div class="hero-v4__top">
+          <!-- Video frame (60%): a silent 12s ocean loop (H.264 MP4, with a VP9 WebM for browsers
+               without H.264), with its first frame as the poster. js/variation-4-video-frame.js
+               plays it only while this tab is on (paused on other tabs, poster only for reduced motion),
+               and swaps in the tablet or phone cut on smaller screens (preload stays off until then). -->
+          <figure class="hero-v4__frame" id="hero-v4-frame" data-anim="rise" style="--d: 0.05s">
+            <video class="hero-v4__media" id="hero-v4-video" muted loop playsinline preload="none" poster="assets/media/hero-04-poster.jpg" aria-hidden="true" tabindex="-1">
+              <source src="assets/media/hero-04.mp4" type="video/mp4" />
+              <source src="assets/media/hero-04.webm" type="video/webm" />
+            </video>
+            <div class="hero-v4__hud" aria-hidden="true">
+              <span class="hero-v4__hud-tl"><span class="pulse-dot"></span>Live feed<span class="hero-v4__hud-dim"> · Frontier 01</span></span>
+              <span class="hero-v4__hud-bl">
+                <span>New extensions</span>
+                <span>Arriving 2026</span>
+                <span class="hero-v4__hud-dim">1,600+ applications filed</span>
+              </span>
+            </div>
+            <a class="hero-v4__play" href="#how-it-works" data-globe-avoid>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5.5v9l7.5-4.5L7 5.5Z" fill="currentColor"/></svg>
+              Watch brief
+            </a>
+            <div class="hero-tip" id="hero-v4-tooltip" aria-hidden="true">
+              <span class="hero-tip__name"></span>
+            </div>
+          </figure>
+
+          <!-- Copy (40%), left-aligned: the same elements as Variation 3 -->
+          <div class="hero-v4__copy">
+            <h1 class="hero-v4__title" data-anim="rise" style="--d: 0.12s">Be the first to ever own</h1>
+            <div class="hero-v4__claim" data-anim="rise" style="--d: 0.22s">
+              <div class="domain-box hero-v4__domain">
+                <span class="hero-v4__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+                <a class="btn btn--primary btn--lg btn--shine hero-v4__join" href="#join">
+                  Join Frontier
+                  <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+              <p class="hero-v4__bonus">
+                <span class="hero-v4__pts">+10,000 pts bonus</span>
+                <span class="hero-v4__muted">on signup · deposit</span>
+                opens in
+                <strong class="hero-v4__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v4__muted">, Sep 28</span>
+              </p>
+            </div>
+            <p class="hero-v4__sub" data-anim="rise" style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+          </div>
+        </div>
+
+        <ul class="hero-cards hero-v2__cards hero-v4__cards">
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.44s">
+            <div class="panel__label">
+              <span>Points rate</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="4" data-count-suffix="x">4x</div>
+            <div class="stat-card__note">Epoch 1 • ends Mar 21, 2027</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.52s">
+            <div class="panel__label">
+              <span>Members</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="17714">17,714</div>
+            <div class="stat-card__note">signed up</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.60s">
+            <div class="panel__label">
+              <span>Extensions live</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="35">35</div>
+            <div class="stat-card__note">more TLDs coming soon</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= HERO · VARIATION 4b (VIDEO FULL BLEED, dark) ======================= -->
+    <section class="hero hero--v2b hero--v4b" id="hero-v4b" data-hero="4b" role="tabpanel" aria-label="Hero variation 4b: Video full bleed" hidden>
+      <!-- Full-bleed video behind the hero: the same ocean loop as Variation 4 (same files).
+           js/variation-4-video-frame.js plays it only while this tab is on, picks the full, tablet or
+           phone cut for the hero's shape, and places it (preload stays off until then). -->
+      <div class="hero-v4b__bg" id="hero-v4b-bg" aria-hidden="true">
+        <video class="hero-v4b__media" id="hero-v4b-video" muted loop playsinline preload="none" poster="assets/media/hero-04-poster.jpg" tabindex="-1">
+          <source src="assets/media/hero-04.mp4" type="video/mp4" />
+          <source src="assets/media/hero-04.webm" type="video/webm" />
+        </video>
+      </div>
+      <div class="hero-tip" id="hero-v4b-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
+      </div>
+
+      <div class="container hero-v2b__inner">
+        <!-- Centred stack, as in Variation 3 -->
+        <div class="hero-v2b__center">
+        <div class="hero-v2b__stack">
+          <h1 class="hero-v2b__title" id="hero-v4b-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
+
+          <div class="hero-v2b__claim" data-anim="rise" style="--d: 0.22s">
+            <div class="domain-box hero-v2b__domain" data-globe-avoid>
+              <span class="hero-v2b__typed" aria-live="polite"><span class="domain-box__text" data-dot="name">vault.crypto</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+              <a class="btn btn--primary btn--lg btn--shine hero-v2b__join" href="#join">
+                Join Frontier
+                <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <p class="hero-v2b__bonus" data-globe-avoid>
+              <span class="hero-v2b__pts">+10,000 pts bonus</span>
+              <span class="hero-v2b__muted">on signup · deposit</span>
+              opens in
+              <strong class="hero-v2b__countdown" data-countdown-to="2026-09-28T19:00:00Z">4d 09h 44m</strong><span class="hero-v2b__muted">, Sep 28</span>
+            </p>
+          </div>
+
+          <p class="hero-v2b__sub" data-anim="rise" data-globe-avoid style="--d: 0.34s">1,600+ applications filed for new extensions arriving in 2026. Working exactly like .com.</p>
+        </div>
+        </div>
+
+        <ul class="hero-cards hero-v2__cards hero-v2b__cards">
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.44s">
+            <div class="panel__label">
+              <span>Points rate</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="4" data-count-suffix="x">4x</div>
+            <div class="stat-card__note">Epoch 1 • ends Mar 21, 2027</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.52s">
+            <div class="panel__label">
+              <span>Members</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="17714">17,714</div>
+            <div class="stat-card__note">signed up</div>
+          </li>
+          <li class="panel stat-card" data-globe-avoid data-anim="rise" style="--d: 0.60s">
+            <div class="panel__label">
+              <span>Extensions live</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+            </div>
+            <div class="stat-card__value" data-count-to="35">35</div>
+            <div class="stat-card__note">more TLDs coming soon</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================== HOW IT WORKS ============================== -->
+    <section class="section how" id="how-it-works">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <div class="section-head__text">
+            <h2 class="section-head__title">How Frontier works</h2>
+            <p class="section-head__desc">Frontier is a buyer membership program for the upcoming ICANN round.  Frontier Members get early access to new top-level domains, before the mass market.</p>
+          </div>
+          <a class="btn btn--ghost" href="#join">Save my spot</a>
+        </header>
+
+        <div class="cards">
+          <!-- Deposit -->
+          <article class="panel card" data-reveal style="--d: 0s">
+            <div class="panel__label">
+              <span>Step 01</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M7 3h10"/><circle cx="16" cy="15" r="1.2"/></svg>
+            </div>
+            <div class="card__visual card__visual--deposit" aria-hidden="true">
+              <div class="chip-rail chip-rail--a">
+                <div class="chip-rail__track">
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-hyperliquid.svg" alt="" /></span>
+                  <span class="chip"><img src="assets/icons/chain-ethereum.svg" alt="" /></span>
+                  <span class="chip"></span>
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-hyperliquid.svg" alt="" /></span>
+                  <span class="chip"><img src="assets/icons/chain-ethereum.svg" alt="" /></span>
+                  <span class="chip"></span>
+                </div>
+              </div>
+              <div class="chip-rail chip-rail--b">
+                <div class="chip-rail__track">
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-solana.svg" alt="" /></span>
+                  <span class="chip"></span>
+                  <span class="chip chip--solid"></span>
+                  <span class="chip"></span>
+                  <span class="chip"><img src="assets/icons/chain-solana.svg" alt="" /></span>
+                  <span class="chip"></span>
+                  <span class="chip chip--solid"></span>
+                </div>
+              </div>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Deposit</h3>
+              <p class="card__text">Deposit into a protected vault account. Withdraw anytime.</p>
+            </div>
+          </article>
+
+          <!-- Earn -->
+          <article class="panel card" data-reveal style="--d: 0.1s">
+            <div class="panel__label">
+              <span>Step 02</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 10 12l4 4 6-8"/><path d="M15 8h5v5"/></svg>
+            </div>
+            <div class="card__visual card__visual--earn" aria-hidden="true">
+              <span class="pts-pill" style="--x: 5%;  --y: 9%;  --t: 0s">+2,000 pts</span>
+              <span class="pts-pill" style="--x: 70%; --y: 7%;  --t: 1.1s">+2,000 pts </span>
+              <span class="pts-pill" style="--x: 72%; --y: 80%; --t: 2.2s">+2,000 pts</span>
+              <span class="pts-pill" style="--x: 4%;  --y: 80%; --t: 0.6s">+2,000 pts</span>
+              <span class="pts-pill" style="--x: 38%; --y: 85%; --t: 1.7s">+2,000 pts</span>
+              <div class="points">
+                <span class="points__label">My points</span>
+                <span class="points__value"><span data-count-to="55000">55,000</span><small>points</small></span>
+              </div>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Earn</h3>
+              <p class="card__text">Earn interest and points towards your choice of TLD namespaces.</p>
+            </div>
+          </article>
+
+          <!-- Claim -->
+          <article class="panel card" data-reveal style="--d: 0.2s">
+            <div class="panel__label">
+              <span>Step 03</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h11l-2 4 2 4H5"/></svg>
+            </div>
+            <div class="card__visual card__visual--claim" aria-hidden="true">
+              <span class="claim__label">Extensions</span>
+              <ul class="backers">
+                <li class="backers__row"><span class="backers__tld">.btc</span><span class="backers__bar"><i style="--w: 100%"></i></span><span class="backers__count">5 backers</span></li>
+                <li class="backers__row"><span class="backers__tld">.crypto</span><span class="backers__bar"><i style="--w: 63%"></i></span><span class="backers__count">3 backers</span></li>
+                <li class="backers__row"><span class="backers__tld">.robot</span><span class="backers__bar"><i style="--w: 45%"></i></span><span class="backers__count">2 backers</span></li>
+              </ul>
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">Claim</h3>
+              <p class="card__text">Use points to set priority across TLD strings. Always before general sale.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== BACK THE EXTENSIONS ============================== -->
+    <section class="section backing" id="backing">
+      <div class="container">
+        <div class="panel panel--wide" data-reveal>
+          <header class="section-head section-head--inset">
+            <div class="section-head__text">
+              <h2 class="section-head__title">Back the extensions you want</h2>
+              <p class="section-head__desc">Allocate points towards namespaces starting reveal day to lock-in your position.</p>
+            </div>
+          </header>
+          <ul class="tld-grid">
+            <li>.hype</li>
+            <li>.human</li>
+            <li>.agent</li>
+            <li class="is-hot">.robot</li>
+            <li>.btc</li>
+            <li>.sol</li>
+            <li>.gate</li>
+            <li>.nft</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== STEPS ============================== -->
+    <section class="section steps" id="steps">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <div class="section-head__text">
+            <h2 class="section-head__title">Get ready for the next internet land rush</h2>
+            <p class="section-head__desc">The internet rarely expands. The last time was 2012. This time may be the last</p>
+          </div>
+        </header>
+
+        <div class="panel panel--wide" data-reveal>
+          <ol class="timeline" data-timeline>
+            <li class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></li>
+            <li class="timeline__step is-done">
+              <span class="timeline__dot"></span>
+              <span class="timeline__label">Step 01</span>
+              <span class="timeline__title">Sign up <em class="timeline__pts">+10,000 pts</em></span>
+            </li>
+            <li class="timeline__step is-current">
+              <span class="timeline__dot"></span>
+              <span class="timeline__label">Step 02</span>
+              <span class="timeline__title">Stake on vaults</span>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__dot"></span>
+              <span class="timeline__label">Step 03</span>
+              <span class="timeline__title">Back TLDs</span>
+            </li>
+            <li class="timeline__step">
+              <span class="timeline__dot"></span>
+              <span class="timeline__label">Step 04</span>
+              <span class="timeline__title">Claim your names</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== APPLICANTS ============================== -->
+    <section class="section applicants" id="applicants">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <div class="section-head__text">
+            <h2 class="section-head__title">Over 20 TLD applicants and registries are part of Frontier</h2>
+            <p class="section-head__desc">If you are a TLD applicant, Frontier shows which of your strings have real money behind them before you spend a dollar on launch.</p>
+          </div>
+          <a class="btn btn--primary" href="#partner">Become a Frontier TLD partner</a>
+        </header>
+
+        <div class="panel panel--flush" data-reveal>
+          <div class="marquee marquee--logos">
+            <div class="marquee__track">
+              <ul class="marquee__group">
+                <li><img src="assets/logos/partner-base.svg" alt="Base" height="32" /></li>
+                <li><img src="assets/logos/partner-solana.svg" alt="Solana" height="32" /></li>
+                <li><img src="assets/logos/partner-avalanche.svg" alt="Avalanche" height="32" /></li>
+                <li><img src="assets/logos/partner-internetx.svg" alt="InterNetX" height="44" /></li>
+                <li><img src="assets/logos/partner-identity-digital.svg" alt="Identity Digital" height="43" /></li>
+                <li><img src="assets/logos/partner-namecheap.svg" alt="Namecheap" height="33" /></li>
+              </ul>
+              <ul class="marquee__group" aria-hidden="true">
+                <li><img src="assets/logos/partner-base.svg" alt="" height="32" /></li>
+                <li><img src="assets/logos/partner-solana.svg" alt="" height="32" /></li>
+                <li><img src="assets/logos/partner-avalanche.svg" alt="" height="32" /></li>
+                <li><img src="assets/logos/partner-internetx.svg" alt="" height="44" /></li>
+                <li><img src="assets/logos/partner-identity-digital.svg" alt="" height="43" /></li>
+                <li><img src="assets/logos/partner-namecheap.svg" alt="" height="33" /></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== BANNER ============================== -->
+    <section class="section banner-wrap">
+      <div class="container">
+        <div class="panel banner" data-reveal>
+          <h2 class="banner__title">Be first to the new internet frontier.</h2>
+          <a class="btn btn--primary btn--lg btn--shine" href="#join">Join Frontier</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__links">
+        <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="110" height="11" />
+        <span>2026</span>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Terms of Service</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Privacy Policy</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Brand kit</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Docs</a>
+      </div>
+      <div class="footer__social">
+        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78L17.75 3Zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45Z"/></svg></a>
+        <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.5 4.1 18.4 19.3c-.2 1-.9 1.3-1.8.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-7.9c.4-.3-.1-.5-.6-.2L6.2 13.2l-4.7-1.5c-1-.3-1-1 .2-1.5L20.1 3c.9-.3 1.6.2 1.4 1.1Z"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+        <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.3 5.3A17 17 0 0 0 15.1 4l-.5 1a15.7 15.7 0 0 0-5.2 0l-.5-1a17 17 0 0 0-4.2 1.3C2 9.2 1.3 13 1.6 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 10.8 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.2-3.1-11.5ZM8.5 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm7 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vendored libraries (d3-geo + topojson) and map data: work offline / from file:// -->
+  <script src="js/vendor/d3-array.min.js"></script>
+  <script src="js/vendor/d3-geo.min.js"></script>
+  <script src="js/vendor/topojson-client.min.js"></script>
+  <script src="js/data/world-countries-50m.js"></script>
+
+  <script src="js/variation-1-pixel-globe.js"></script>
+  <script src="js/variation-2-nucleus.js"></script>
+  <script src="js/variation-3-horizon.js"></script>
+  <script src="js/variation-4-video-frame.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
