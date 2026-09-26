@@ -35,7 +35,9 @@
 
   // opts: area (element the points cover), tooltip, markerClass, hoverEl + hoverClass,
   //       clear (selector of elements whose boxes stay free of names),
-  //       gridParent + gridClass (a faint pixel grid of the same boxes, on the same points)
+  //       gridParent + gridClass (a faint pixel grid on the same points),
+  //       gridLines (true: a continuous grid of lines with one cell per point, and
+  //       the marker outlines that cell; otherwise separate 17px boxes like the marker)
   function makeHover(opts) {
     var area = opts.area, tooltip = opts.tooltip;
     if (!area || !tooltip) return;
@@ -59,9 +61,17 @@
       if (!grid || !area.clientWidth) return;
       var pitch = pitchFor(area.clientWidth);
       var ox = Math.round(area.clientWidth / 2), oy = Math.round(area.clientHeight / 2);
-      var o = pitch / 2 - 8;   // the box spans point-8 .. point+9, like the marker
-      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + pitch + "' height='" + pitch + "'>" +
-        "<path fill='white' fill-rule='evenodd' d='M" + o + " " + o + "h17v17h-17z M" + (o + 1) + " " + (o + 1) + "v15h15v-15z'/></svg>";
+      var svg;
+      if (opts.gridLines) {
+        // 1px lines along the tile's top and left edges: a continuous grid whose
+        // cells (pitch x pitch) are each centred on a point
+        svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + pitch + "' height='" + pitch + "'>" +
+          "<path fill='white' d='M0 0h" + pitch + "v1h-" + pitch + "z M0 1h1v" + (pitch - 1) + "h-1z'/></svg>";
+      } else {
+        var o = pitch / 2 - 8;   // the box spans point-8 .. point+9, like the marker
+        svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + pitch + "' height='" + pitch + "'>" +
+          "<path fill='white' fill-rule='evenodd' d='M" + o + " " + o + "h17v17h-17z M" + (o + 1) + " " + (o + 1) + "v15h15v-15z'/></svg>";
+      }
       grid.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
       grid.style.backgroundSize = pitch + "px " + pitch + "px";
       // tile origin = point - pitch/2, so each box is centred on a point
@@ -109,8 +119,15 @@
       if (hover && hover.i === i && hover.j === j) return;
       hover = { i: i, j: j, x: px, y: py };
       renderName(pointName(i, j));
-      marker.style.left = px + "px";
-      marker.style.top = py + "px";
+      if (opts.gridLines) {
+        // outline exactly the cell around the point: its borders sit on the grid lines
+        marker.style.left = (px - pitch / 2) + "px";
+        marker.style.top = (py - pitch / 2) + "px";
+        marker.style.width = marker.style.height = (pitch + 1) + "px";
+      } else {
+        marker.style.left = px + "px";
+        marker.style.top = py + "px";
+      }
       opts.hoverEl.classList.add(opts.hoverClass);
       tooltip.classList.add("is-visible");
       var w = tooltip.offsetWidth, h = tooltip.offsetHeight;
@@ -196,7 +213,8 @@
     markerClass: "hero-v4b__marker",
     hoverEl: hero4b, hoverClass: "is-globe-hover",
     clear: "[data-globe-avoid], .hero-v2b__claim",
-    gridParent: document.getElementById("hero-v4b-bg"), gridClass: "hero-v4b__grid"
+    gridParent: document.getElementById("hero-v4b-bg"), gridClass: "hero-v4b__grid",
+    gridLines: true
   });
 
   // The domain field is always exactly as wide as the headline's text (as in
