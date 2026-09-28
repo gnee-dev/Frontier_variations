@@ -271,12 +271,15 @@
   // allows (filling the width whenever it can; if it can't, it is centred and
   // its sides fade). Each rendition knows where its ring and horizon are.
   var video4b = document.getElementById("hero-v4b-video");
+  // (Ocean B: the ring rises from the horizon, holds, and sets; ringT is its highest point.
+  // The tablet and phone files are crops of the full frame, cropX pixels in.)
   var R4B = {
-    //                        size        ring across      ring top  horizon   (measured from the video)
-    full:   { name: "hero-04b",        ratio: 1440 / 1076, ringL: 0.465, ringR: 0.79,  ringT: 0.155, hz: 0.445 },
-    tablet: { name: "hero-04b-tablet", ratio: 800 / 1076,  ringL: 0.21,  ringR: 0.79,  ringT: 0.155, hz: 0.445 },
-    phone:  { name: "hero-04b-phone",  ratio: 612 / 1076,  ringL: 0.12,  ringR: 0.875, ringT: 0.155, hz: 0.445 }
+    //                        size        ring across      ring top  horizon   crop   (measured from the video)
+    full:   { name: "hero-04b",        ratio: 1440 / 1076, ringL: 0.465, ringR: 0.79,  ringT: 0.155, hz: 0.442, cropX: 0 },
+    tablet: { name: "hero-04b-tablet", ratio: 800 / 1076,  ringL: 0.21,  ringR: 0.79,  ringT: 0.155, hz: 0.442, cropX: 503 },
+    phone:  { name: "hero-04b-phone",  ratio: 612 / 1076,  ringL: 0.12,  ringR: 0.875, ringT: 0.155, hz: 0.442, cropX: 597 }
   };
+  var vignette4b = document.getElementById("hero-v4b-vignette");
   function offsetIn(el, root) {
     var y = 0, x = 0, n = el;
     while (n && n !== root) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
@@ -336,6 +339,14 @@
     var top = horizon - h * g.hz;
     var lift = Math.min(H * 0.15, Math.max(0, top + g.ringT * h - (navBottom + 28)));
     video4b.style.top = Math.round(top - lift) + "px";
+    // the design's vignette sits on the full frame (1440 × 1076), wherever the crop is
+    if (vignette4b) {
+      var k = h / 1076;
+      vignette4b.style.width = Math.round(1440 * k) + "px";
+      vignette4b.style.height = Math.round(h) + "px";
+      vignette4b.style.left = Math.round(left - g.cropX * k) + "px";
+      vignette4b.style.top = Math.round(top - lift) + "px";
+    }
     video4b.classList.add("is-placed");
     video4b.classList.toggle("is-narrow", w < W - 1);
   }

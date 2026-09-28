@@ -51,6 +51,16 @@
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
 }
+/* Ocean B vignette (from the design): clear in the middle, darkening to the frame's
+   edges; sized to the full frame by the script, and given the video's own edge fades */
+.hero-v4b__vignette {
+  position: absolute;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 52% 45%, rgba(13, 11, 31, 0) 55%, rgba(13, 11, 31, 0.45) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
+}
+.hero-v4b__vignette:not([style]) { display: none; }   /* until the script places it */
 /* narrower than the screen: fade the sides as well */
 .hero-v4b__media.is-placed.is-narrow {
   -webkit-mask-image:
