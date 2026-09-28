@@ -335,9 +335,12 @@
     video4b.style.left = Math.round(left) + "px";
     // Raise the whole video by 15% of the hero's height (the horizon then sits
     // well above the cards), but never so far that the ring would come closer
-    // than 28px to the nav.
+    // than 28px to the nav; then lower it by 5% of the hero's height, so the top
+    // of the hero is less crowded. The horizon always stays at least 12px above
+    // the cards.
     var top = horizon - h * g.hz;
     var lift = Math.min(H * 0.15, Math.max(0, top + g.ringT * h - (navBottom + 28)));
+    lift -= Math.min(H * 0.05, lift + (W < 760 ? 28 : 40) - 12);
     video4b.style.top = Math.round(top - lift) + "px";
     // the design's vignette sits on the full frame (1440 × 1076), wherever the crop is
     if (vignette4b) {
