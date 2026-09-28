@@ -18,6 +18,8 @@ The tabs are grouped in pairs: each variation (01, 02, 03) has its "b" (and for 
 
 The active tab is kept in the URL hash, so you can link straight to a variation: `index.html#v1`, `#v1b`, `#v2`, `#v2b`, `#v3`, `#v3b`, `#v3c`, `#v4`, `#v4b`.
 
+**Standalone 04b page.** Variation 04b also has its own self-contained page in [`variation-04b/`](variation-04b/README.md), with the ocean horizon loop. It's being worked on separately; the 04b tab here keeps the earlier video.
+
 ## Preview
 
 **Locally.** No install is needed:

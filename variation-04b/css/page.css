@@ -1,0 +1,29 @@
+/* ==========================================================================
+   Standalone 04b page
+   The shared styles (base, sections, hero-shared) are copies from the main
+   variations page. This page has no variation tabs, so the nav is just the
+   logo and Sign up, in a single row at every size.
+   ========================================================================== */
+
+.nav__inner { grid-template-columns: 1fr auto; }
+
+/* the main page switches to a taller two-row nav (for the tabs) below 820px;
+   here the nav stays one row, so the heroes keep the standard offset */
+@media (max-width: 820px) {
+  :root { --nav-h: 54px; }
+  .nav__inner {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: none;
+    padding: 0 7px 0 12px;
+  }
+  .nav__logo, .nav .btn { grid-row: auto; grid-column: auto; }
+}
+
+/* compact stat cards (from the main page's variation-2-nucleus.css, which this page doesn't load) */
+.hero-v2__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hero-v2__cards .stat-card { min-height: 0; gap: 8px; padding: 18px 22px; }
+.hero-v2__cards .stat-card__value { font-size: clamp(28px, 2.4vw, 36px); }
+.hero-v2__cards .stat-card__note { margin-top: 2px; font-size: 13px; }
+@media (max-width: 760px) {
+  .hero-v2__cards { grid-template-columns: 1fr; }
+}
