@@ -51,6 +51,11 @@
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.45) 4%, #000 9%, #000 86%, transparent 100%);
 }
+/* the intro dissolves into the loop underneath it (timing in the script: XF) */
+#hero-v4b-video { transition: opacity 1.2s ease-in-out; }
+#hero-v4b-video.is-out { opacity: 0; }
+.hero-v4b__media--loop:not(.is-placed) { visibility: hidden; }   /* nothing shows until placed */
+
 /* Ocean B vignette (from the design): clear in the middle, darkening to the frame's
    edges; sized to the full frame by the script, and given the video's own edge fades */
 .hero-v4b__vignette {

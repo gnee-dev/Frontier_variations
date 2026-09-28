@@ -57,6 +57,8 @@
            js/variation-4-video-frame.js plays it only while this tab is on, picks the full, tablet or
            phone cut for the hero's shape, and places it (preload stays off until then). -->
       <div class="hero-v4b__bg" id="hero-v4b-bg" aria-hidden="true">
+        <!-- the loop (hero-04b*-loop), underneath: takes over from the intro and repeats -->
+        <video class="hero-v4b__media hero-v4b__media--loop" id="hero-v4b-loop" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
         <video class="hero-v4b__media" id="hero-v4b-video" muted playsinline preload="none" poster="assets/media/hero-04b-poster.jpg" tabindex="-1">
           <source src="assets/media/hero-04b.mp4" type="video/mp4" />
           <source src="assets/media/hero-04b.webm" type="video/webm" />

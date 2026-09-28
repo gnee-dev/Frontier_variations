@@ -222,16 +222,16 @@
     var v = document.createElement("video");
     return !!(v.canPlayType && v.canPlayType('video/mp4; codecs="avc1.640028"'));
   })();
-  function setRendition(v, r) {
-    if (!v || v.dataset.rendition === r.name) return false;
+  function setRendition(v, name) {
+    if (!v || v.dataset.rendition === name) return false;
     var wasPlaying = !v.paused;
-    // the video plays once (fading in from black, the ring rising) and then holds its last
-    // frame: switching files on a resize carries on from the same moment, never from the start
+    // switching files on a resize carries on from the same moment, never from the start
+    // (the intro would otherwise fade in from black again)
     var at = v.ended ? Infinity : v.currentTime || 0;
-    v.dataset.rendition = r.name;
+    v.dataset.rendition = name;
     v.preload = "auto";   // the markup says "none", so nothing loads before the right file is chosen
-    v.poster = MEDIA + r.name + "-poster.jpg";
-    v.src = MEDIA + r.name + (mp4ok ? ".mp4" : ".webm");   // a src attribute wins over the <source> tags
+    v.poster = MEDIA + name + "-poster.jpg";
+    v.src = MEDIA + name + (mp4ok ? ".mp4" : ".webm");   // a src attribute wins over the <source> tags
     if (at > 0) v.addEventListener("loadedmetadata", function () {
       v.currentTime = Math.min(at, v.duration - 0.05);
     }, { once: true });
@@ -277,8 +277,10 @@
   // allows (filling the width whenever it can; if it can't, it is centred and
   // its sides fade). Each rendition knows where its ring and horizon are.
   var video4b = document.getElementById("hero-v4b-video");
-  // (Ocean B: fades in from black, the ring rises from the horizon and holds, with a sun
-  // flaring low on the right edge; ringT is the ring's highest point.
+  // (Ocean B: the intro fades in from black and the ring rises from the horizon, with a
+  // sun flaring low on the right edge; the loop (<name>-loop files) holds that scene with
+  // light travelling along the rim. The ring sits in the same place in both; ringT is its
+  // highest point.
   // The tablet and phone files are crops of the full frame, cropX pixels in.)
   var R4B = {
     //                        size        ring across      ring top  horizon   crop   (measured from the video)
@@ -302,7 +304,8 @@
     // the file cut for this shape of hero: full on landscape screens, crops on tall ones
     var aspect = W / H;
     var g = aspect >= 1.1 ? R4B.full : aspect >= 0.6 ? R4B.tablet : R4B.phone;
-    setRendition(video4b, g);
+    setRendition(video4b, g.name);
+    setRendition(loop4b, g.name + "-loop");
     // where the nav ends once it has settled (from layout, not its box: the nav slides
     // in from 16px higher on load, and measuring mid-animation would put it too high)
     var navBar = document.querySelector(".nav");
@@ -337,9 +340,12 @@
     } else {
       left = (W - w) / 2;
     }
-    video4b.style.width = Math.round(w) + "px";
-    video4b.style.height = Math.round(h) + "px";
-    video4b.style.left = Math.round(left) + "px";
+    var vids = [video4b, loop4b].filter(Boolean);   // the intro and the loop share one box
+    vids.forEach(function (v) {
+      v.style.width = Math.round(w) + "px";
+      v.style.height = Math.round(h) + "px";
+      v.style.left = Math.round(left) + "px";
+    });
     // Raise the whole video by 15% of the hero's height (the horizon then sits
     // well above the cards), but never so far that the ring would come closer
     // than 28px to the nav; then lower it by 5% of the hero's height, so the top
@@ -348,7 +354,7 @@
     var top = horizon - h * g.hz;
     var lift = Math.min(H * 0.15, Math.max(0, top + g.ringT * h - (navBottom + 28)));
     lift -= Math.min(H * 0.05, lift + (W < 760 ? 28 : 40) - 12);
-    video4b.style.top = Math.round(top - lift) + "px";
+    vids.forEach(function (v) { v.style.top = Math.round(top - lift) + "px"; });
     // the design's vignette sits on the full frame (1440 × 1076), wherever the crop is
     if (vignette4b) {
       var k = h / 1076;
@@ -357,17 +363,52 @@
       vignette4b.style.left = Math.round(left - g.cropX * k) + "px";
       vignette4b.style.top = Math.round(top - lift) + "px";
     }
-    video4b.classList.add("is-placed");
-    video4b.classList.toggle("is-narrow", w < W - 1);
+    vids.forEach(function (v) {
+      v.classList.add("is-placed");
+      v.classList.toggle("is-narrow", w < W - 1);
+    });
   }
   function layout4b() { fitTitle(); fitVideo(); }
+
+  // Two clips, one scene: on every page load the intro plays first (fading in from black,
+  // the ring rising), then the loop takes over and repeats. The loop sits underneath, in
+  // the same box, already loaded; XF seconds before the intro ends it starts, and the
+  // intro dissolves into it (the ring is in the same place in both, so only the light on
+  // its rim and the water blend: no visible cut). If the loop isn't ready in time, the
+  // intro holds its last frame until it is.
+  var loop4b = document.getElementById("hero-v4b-loop");
+  var XF = 1.2;
+  var phase = "intro", watchId = 0;
+  function watchIntro() {
+    cancelAnimationFrame(watchId);
+    if (phase !== "intro" || !loop4b) return;
+    var d = video4b.duration;
+    if (d && (video4b.ended || video4b.currentTime >= d - XF) && loop4b.readyState >= 3) {
+      phase = "blend";
+      loop4b.currentTime = 0;
+      playVideo(loop4b);
+      video4b.classList.add("is-out");   // opacity to 0 over XF (CSS)
+      setTimeout(function () { phase = "loop"; video4b.pause(); }, XF * 1000 + 150);
+      return;
+    }
+    watchId = requestAnimationFrame(watchIntro);
+  }
 
   if (hero4b) {
     window.addEventListener("resize", layout4b);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout4b);
     window.FrontierHeroMotion["4b"] = {
-      start: function () { requestAnimationFrame(layout4b); playVideo(video4b); },
-      stop: function () { if (clear4b) clear4b(); if (video4b) video4b.pause(); }
+      start: function () {
+        requestAnimationFrame(layout4b);
+        if (phase === "intro") { playVideo(video4b); if (!reduceMotion) watchIntro(); }
+        else playVideo(loop4b);
+      },
+      stop: function () {
+        if (clear4b) clear4b();
+        cancelAnimationFrame(watchId);
+        if (video4b) video4b.pause();
+        if (loop4b) loop4b.pause();
+      }
     };
   }
 })();

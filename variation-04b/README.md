@@ -9,7 +9,7 @@ Open `variation-04b/index.html` directly, or serve the folder (`python3 -m http.
 The content follows the live site, frontier.d3.com, in this page's design, with the variation orange (`#E96E26`) for accents.
 
 - **Nav**: logo, Discover and Extensions links (hidden on narrow phones), a **Vaults** dropdown (Solana, Hyperliquid) and Sign in.
-- **Hero**: "Be the first to ever own" with the typed domain (starting with `zero.sync`) and Join Frontier inside the field; "1,000+ new internet extensions are coming. They work exactly like .com."; "+10,000 pts on sign-up" (the points in green, `#4AFFBA`). Four stat cards: Points rate 4× (Epoch 1 · ends Mar 21, 2027), Program TVL $113K, Members 34,434, Extensions live 55. The Ocean B background plays full bleed behind it, once (see Video placement).
+- **Hero**: "Be the first to ever own" with the typed domain (starting with `zero.sync`) and Join Frontier inside the field; "1,000+ new internet extensions are coming. They work exactly like .com."; "+10,000 pts on sign-up" (the points in green, `#4AFFBA`). Four stat cards: Points rate 4× (Epoch 1 · ends Mar 21, 2027), Program TVL $113K, Members 34,434, Extensions live 55. The Ocean B background plays full bleed behind it: the intro, then the loop (see Video placement).
 - **How Frontier works**: Deposit and earn, Build points (55,000 points), Get priority (.agent 84 · .crypto 57 · .robot 31 backers), with a "How it works" link.
 - **Back the extensions you want**: .hype, .human, .agent, .robot, .btc, .sol (highlighted), .gate, .nft.
 - **Get ready for the next internet land rush**: a five-point timeline, from 1985 (the first six) and 2012 (~1,200 more) to Aug 2026 (1,600+ applications, the current point), Oct 2026 (reveal day) and 2027 (first extensions go live), with a "Program timeline" link.
@@ -29,17 +29,22 @@ Links point to sections on this page or `#` placeholders until the real URLs are
 - the video fills the width, and grows until its top reaches up under the nav when it would otherwise leave a band of plain background (tall screens), without the ring getting closer than about 48px to the nav.
 - then the whole video is raised by up to 15% of the hero's height, but never so far that the ring would come within 28px of the nav, and after that lowered by 5% of the hero's height, so the top of the hero is less crowded (the horizon always stays at least 12px above the stat cards). The result: the horizon sits about 95–135px above the stat cards on desktops and tablets (60–95px on phones), and the ring 65–115px under the nav. The nav's position is read from layout, so its slide-in animation doesn't skew the measurement.
 
-The background is **Ocean B** (from the design export `OceanB.dc.html`): a 16-second clip, 1440 × 1076, that fades in from black as the ring rises from behind the horizon, with a sun flaring low on the right edge. As in the design it plays **once** and then holds its last frame (no loop). If the screen changes size mid-play, the new file carries on from the same moment. The design's vignette sits over it (`radial-gradient(ellipse at 52% 45%, transparent 55%, rgba(13, 11, 31, 0.45))`, `.hero-v4b__vignette`, sized by the script to the full frame even on the tablet and phone cuts). The poster (also the frame shown with reduced motion) is that final frame. The design's React runtime (`support.js`, `vendor/react*.js`) only rendered the mockup, so the page uses the video, its poster and the vignette directly; its Replay button isn't used.
+The background is **Ocean B** (from the design exports `OceanB.dc.html` and `Main.dc.html`), in two clips at 1440 × 1076 that share one scene:
+
+- **Intro** (`hero-04b*`, 16s): fades in from black as the ring rises from behind the horizon, with a sun flaring low on the right edge. It plays first on every page load.
+- **Loop** (`hero-04b*-loop`, 12s): the same scene, holding, with light travelling along the ring's rim. It repeats for as long as the page is open.
+
+The two videos are stacked in the same box. The loop waits underneath, already loaded. 1.2s before the intro ends it starts, and the intro dissolves into it (`#hero-v4b-video.is-out`, timing `XF` in the script). The ring sits in the same place in both clips, so only the rim light and the water blend, with no visible cut. If the loop isn't ready in time, the intro holds its last frame until it is. If the screen changes size mid-play, the new files carry on from the same moment. With reduced motion, the intro's poster (its final frame) shows and nothing plays. The design's vignette sits over both (`radial-gradient(ellipse at 52% 45%, transparent 55%, rgba(13, 11, 31, 0.45))`, `.hero-v4b__vignette`, sized by the script to the full frame even on the tablet and phone cuts). The design's React runtime (`support.js`, `vendor/react*.js`) only rendered the mockups, so the page uses the videos, posters and vignette directly.
 
 Where the ring and horizon sit in each file (measured from the footage, at the ring's highest point, which it holds at the end): ring 46.5–79% across and from 15.5% down, horizon 44.2% down (tablet and phone cuts: see `R4B` in the script). The same rules place it on the vault pages.
 
 | File | Size | Used when |
 |---|---|---|
-| `assets/media/hero-04b.mp4` / `.webm` | 1440×1076 | the hero is landscape (wider than 1.1:1) |
-| `assets/media/hero-04b-tablet.*` | 800×1076, cut around the ring | tall tablet screens (0.6–1.1:1) |
-| `assets/media/hero-04b-phone.*` | 612×1076, cut around the ring | phones (narrower than 0.6:1) |
+| `assets/media/hero-04b.mp4` / `.webm` (+ `hero-04b-loop.*`) | 1440×1076 | the hero is landscape (wider than 1.1:1) |
+| `assets/media/hero-04b-tablet.*` (+ `-tablet-loop.*`) | 800×1076, cut around the ring | tall tablet screens (0.6–1.1:1) |
+| `assets/media/hero-04b-phone.*` (+ `-phone-loop.*`) | 612×1076, cut around the ring | phones (narrower than 0.6:1) |
 
-Each has a first-frame poster (`*-poster.jpg`). H.264 MP4 plays where supported, VP9 WebM otherwise; `preload="none"` in the markup means only the chosen file downloads. The video plays only while the hero is on screen and stays on the poster for reduced motion.
+Each has a poster (`*-poster.jpg`: the intro's final frame, the loop's first). H.264 MP4 plays where supported, VP9 WebM otherwise; `preload="none"` in the markup means only the chosen files (intro and loop for that shape) download. The video plays only while the hero is on screen and stays on the poster for reduced motion.
 
 ## Vaults
 
