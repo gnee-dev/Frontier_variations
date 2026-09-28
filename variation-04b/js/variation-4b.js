@@ -324,7 +324,12 @@
     video4b.style.width = Math.round(w) + "px";
     video4b.style.height = Math.round(h) + "px";
     video4b.style.left = Math.round(left) + "px";
-    video4b.style.top = Math.round(horizon - h * g.hz) + "px";
+    // Raise the whole video by 5% of the hero's height (the horizon then sits a
+    // little higher above the cards), but never so far that the ring would come
+    // closer than 28px to the nav.
+    var top = horizon - h * g.hz;
+    var lift = Math.min(H * 0.05, Math.max(0, top + g.ringT * h - (navBottom + 28)));
+    video4b.style.top = Math.round(top - lift) + "px";
     video4b.classList.add("is-placed");
     video4b.classList.toggle("is-narrow", w < W - 1);
   }
