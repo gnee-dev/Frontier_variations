@@ -27,7 +27,7 @@ Links point to sections on this page or `#` placeholders until the real URLs are
 - the **horizon** is first placed just above the stat cards (about 40px; 28px on phones),
 - the **celestial ring** sits clear below the nav bar (at least 28px) and fully on screen,
 - the video fills the width, and grows until its top reaches up under the nav when it would otherwise leave a band of plain background (tall screens), without the ring getting closer than about 48px to the nav.
-- then the whole video is raised by up to 15% of the hero's height, but never so far that the ring would come within 28px of the nav, and after that lowered by 5% of the hero's height, so the top of the hero is less crowded (the horizon always stays at least 12px above the stat cards). The result: the horizon sits about 95–135px above the stat cards on desktops and tablets (60–95px on phones), and the ring 65–115px under the nav. The nav's position is read from layout, so its slide-in animation doesn't skew the measurement.
+- then the whole video is raised by up to 15% of the hero's height, but never so far that the ring would come within 28px of the nav, and after that lowered by 3% of the hero's height, so the top of the hero is less crowded (the horizon always stays at least 12px above the stat cards). The result: the horizon sits about 130–155px above the stat cards on desktops and tablets (75–115px on phones), and the ring 50–100px under the nav. The nav's position is read from layout, so its slide-in animation doesn't skew the measurement.
 
 The background is **Ocean B** (from the design exports `OceanB.dc.html` and `Main.dc.html`), in two clips at 1440 × 1076 that share one scene:
 
