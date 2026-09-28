@@ -291,7 +291,11 @@
     var aspect = W / H;
     var g = aspect >= 1.1 ? R4B.full : aspect >= 0.6 ? R4B.tablet : R4B.phone;
     setRendition(video4b, g);
-    var navBottom = nav.getBoundingClientRect().bottom - hero4b.getBoundingClientRect().top;
+    // where the nav ends once it has settled (from layout, not its box: the nav slides
+    // in from 16px higher on load, and measuring mid-animation would put it too high)
+    var navBar = document.querySelector(".nav");
+    var navBottom = (parseFloat(getComputedStyle(navBar).top) || 0) + nav.offsetTop + nav.offsetHeight
+      - (hero4b.getBoundingClientRect().top + window.scrollY);
     var cardsTop = offsetIn(cards, hero4b).y;
     var horizon = cardsTop - (W < 760 ? 28 : 40);        // just above the cards
     var above = g.hz - g.ringT;                           // share of the height the ring takes above the horizon
@@ -324,11 +328,11 @@
     video4b.style.width = Math.round(w) + "px";
     video4b.style.height = Math.round(h) + "px";
     video4b.style.left = Math.round(left) + "px";
-    // Raise the whole video by 5% of the hero's height (the horizon then sits a
-    // little higher above the cards), but never so far that the ring would come
-    // closer than 28px to the nav.
+    // Raise the whole video by 20% of the hero's height (the horizon then sits
+    // well above the cards), but never so far that the ring would come closer
+    // than 28px to the nav.
     var top = horizon - h * g.hz;
-    var lift = Math.min(H * 0.05, Math.max(0, top + g.ringT * h - (navBottom + 28)));
+    var lift = Math.min(H * 0.2, Math.max(0, top + g.ringT * h - (navBottom + 28)));
     video4b.style.top = Math.round(top - lift) + "px";
     video4b.classList.add("is-placed");
     video4b.classList.toggle("is-narrow", w < W - 1);

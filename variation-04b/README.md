@@ -17,7 +17,7 @@ Open `variation-04b/index.html` directly, or serve the folder (`python3 -m http.
 - the **horizon** is first placed just above the stat cards (about 40px; 28px on phones),
 - the **celestial ring** sits clear below the nav bar (at least 28px) and fully on screen,
 - the video fills the width, and grows until its top reaches up under the nav when it would otherwise leave a band of plain background (tall screens), without the ring getting closer than about 48px to the nav.
-- then the whole video is raised by 5% of the hero's height (never so far that the ring would come within 28px of the nav), so the horizon sits about 72–89px above the stat cards.
+- then the whole video is raised by up to 20% of the hero's height, but never so far that the ring would come within 28px of the nav. That limit is what stops it at every size: the lift is about 17–19% on desktops and tablets and about 10% on phones, and the horizon sits about 155–225px above the stat cards (about 110px on phones). The nav's position is read from layout, so its slide-in animation doesn't skew the measurement.
 
 Where the ring and horizon sit in each file (measured from the footage): ring 46.5–79% across and from 15.5% down, horizon 44.5% down (tablet and phone cuts: see `R4B` in the script).
 
