@@ -27,3 +27,140 @@
 @media (max-width: 760px) {
   .hero-v2__cards { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   Content from frontier.d3.com, in this page's design. Accents use the
+   variation orange (--c-accent #E96E26).
+   ========================================================================== */
+
+/* ---------- Nav: logo, Discover / Extensions, Sign in ---------- */
+.nav__inner { grid-template-columns: auto 1fr auto; }
+.nav__links { display: flex; gap: 22px; margin-left: 28px; font-size: 14px; color: var(--c-text-64); }
+.nav__links a { transition: color 0.2s; }
+.nav__links a:hover { color: var(--c-text); }
+@media (max-width: 820px) { .nav__inner { grid-template-columns: auto 1fr auto; } }
+@media (max-width: 480px) { .nav__links { display: none; } }
+
+/* ---------- Hero ---------- */
+.hero--v4b .hero-v2b__pts { color: var(--c-accent-text); }
+.hero--v4b .hero-v2b__claim .hero-v2b__sub { margin-top: 2px; }
+/* four stat cards, as on the site */
+.hero-v4b__cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stat-card__value--accent { color: var(--c-accent-text); }
+@media (max-width: 900px) { .hero-v4b__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- Arrow links ("How it works →") ---------- */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 3px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--c-accent-text);
+  border-bottom: 1px solid rgba(233, 110, 38, 0.35);
+  transition: border-color 0.2s, gap 0.25s var(--ease-out);
+  white-space: nowrap;
+}
+.link-arrow svg { width: 15px; height: 15px; }
+.link-arrow:hover { border-color: var(--c-accent-text); gap: 9px; }
+.section-head__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+
+/* ---------- How Frontier works: orange accents in the card visuals ---------- */
+.chip:has(img) { background: var(--c-accent); border-color: var(--c-accent); }
+.chip:has(img) img { filter: brightness(0); opacity: 0.85; }
+.points__value > span { color: var(--c-accent-text); }
+.backers__bar i { background: var(--c-accent); }
+.card__text sup, .disclaimer sup { color: var(--c-accent-text); }
+
+/* ---------- Back the extensions: .sol highlighted ---------- */
+.tld-grid li.is-hot { color: var(--c-accent-text); }
+.tld-grid li.is-hot::before { background: var(--c-accent); border-color: var(--c-accent); box-shadow: 0 0 0 5px rgba(233, 110, 38, 0.2); }
+
+/* ---------- Program timeline: five milestones ---------- */
+.timeline--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: start; }
+.timeline--5 .timeline__step { align-content: start; }
+.timeline__text { margin-top: 4px; font-size: 14px; line-height: 1.45; color: var(--c-text-64); max-width: 220px; }
+.timeline--5 .timeline__title { font-size: 20px; }
+.timeline--5 .timeline__fill { background: linear-gradient(90deg, rgba(233, 110, 38, 0.45), var(--c-accent)); }
+.is-visible .timeline--5 .timeline__fill { transform: scaleX(0.5); }   /* up to Aug 2026 */
+.is-visible .timeline--5 .is-done .timeline__dot { background: rgba(var(--ink), 0.7); border-color: rgba(var(--ink), 0.7); }
+.is-visible .timeline--5 .is-current .timeline__dot {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 6px rgba(233, 110, 38, 0.2);
+  animation-name: step-pulse-accent;
+}
+@keyframes step-pulse-accent {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(233, 110, 38, 0.22); }
+  50% { box-shadow: 0 0 0 12px rgba(233, 110, 38, 0.05); }
+}
+@media (max-width: 1000px) and (min-width: 821px) {
+  .timeline--5 { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 36px; }
+  .timeline--5 .timeline__rail { display: none; }
+}
+@media (max-width: 820px) {
+  .timeline--5 { grid-template-columns: 1fr; }
+  .is-visible .timeline--5 .timeline__fill { transform: scaleY(0.5); }
+}
+
+/* ---------- FAQ: collapsible ---------- */
+.faq__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 32px 64px;
+  align-items: start;
+}
+.faq__head { display: grid; gap: 16px; justify-items: start; position: sticky; top: calc(20px + var(--nav-h) + 24px); }
+.faq__head .btn { margin-top: 8px; }
+.faq__list { border-top: 1px solid var(--c-line-soft); }
+.faq__item { border-bottom: 1px solid var(--c-line-soft); }
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s;
+}
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q:hover { color: var(--c-text); }
+.faq__q:focus-visible { outline-offset: 4px; }
+/* a plus that turns into a cross when the answer is open */
+.faq__icon { position: relative; flex: none; width: 14px; height: 14px; transition: transform 0.3s var(--ease-out); }
+.faq__icon::before, .faq__icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--c-accent-text);
+}
+.faq__icon::after { transform: rotate(90deg); }
+.faq__item[open] .faq__icon { transform: rotate(45deg); }
+.faq__a { display: grid; gap: 14px; padding: 0 40px 24px 0; font-size: 15px; line-height: 1.6; color: var(--c-text-64); }
+.faq__item[open] .faq__a { animation: faq-open 0.35s var(--ease-out); }
+@keyframes faq-open { from { opacity: 0; transform: translateY(-6px); } }
+@media (max-width: 900px) {
+  .faq__inner { grid-template-columns: 1fr; }
+  .faq__head { position: static; }
+  .faq__a { padding-right: 0; }
+}
+
+/* ---------- Disclaimer ---------- */
+.disclaimer { margin-top: 40px; font-size: 12px; line-height: 1.6; color: var(--c-text-40); max-width: 1100px; }
+.disclaimer a { color: var(--c-text-64); text-decoration: underline; text-underline-offset: 2px; }
+/* narrow phones: two stat cards per row, so the labels drop their icons to stay on one line */
+@media (max-width: 480px) {
+  .hero-v4b__cards .panel__label svg { display: none; }
+  .hero-v4b__cards .stat-card { padding: 16px 16px; }
+  .hero-v4b__cards .stat-card__note { font-size: 12px; }
+  .hero-v4b__cards .stat-card__value { margin-top: 10px; }   /* right under the label, so values line up whatever the note length */
+}

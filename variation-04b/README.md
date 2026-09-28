@@ -6,9 +6,19 @@ Open `variation-04b/index.html` directly, or serve the folder (`python3 -m http.
 
 ## What's on the page
 
-- **Nav** with the logo and Sign up only (no variation tabs), one row at every size.
-- **Hero**: the ocean horizon loop full bleed behind the centred stack (48px headline, domain field sized to the headline's width with Join Frontier inside, bonus line with the live countdown, subtitle) and three compact stat cards.
-- **The rest of the page** (How it works, Back the extensions, Steps, Applicants, Banner, Footer), the same as on the main page.
+The content follows the live site, frontier.d3.com, in this page's design, with the variation orange (`#E96E26`) for accents.
+
+- **Nav**: logo, Discover and Extensions links (hidden on narrow phones), and Sign in.
+- **Hero**: "Be the first to ever own" with the typed domain (starting with `zero.sync`) and Join Frontier inside the field; "1,000+ new internet extensions are coming. They work exactly like .com."; "+10,000 pts on sign-up". Four stat cards: Points rate 4× (Epoch 1 · ends Mar 21, 2027), Program TVL $113K, Members 34,434, Extensions live 55. The ocean horizon loop plays full bleed behind it.
+- **How Frontier works**: Deposit and earn, Build points (55,000 points), Get priority (.agent 84 · .crypto 57 · .robot 31 backers), with a "How it works" link.
+- **Back the extensions you want**: .hype, .human, .agent, .robot, .btc, .sol (highlighted), .gate, .nft.
+- **Get ready for the next internet land rush**: a five-point timeline, from 1985 (the first six) and 2012 (~1,200 more) to Aug 2026 (1,600+ applications, the current point), Oct 2026 (reveal day) and 2027 (first extensions go live), with a "Program timeline" link.
+- **Over 20 TLD applicants and registries are part of Frontier**: Become a Frontier Partner, and "How Frontier works for registries".
+- **A few things to know.**: a collapsible FAQ (native `<details>`: click a question to open or close it; the first starts open) with the four questions from the site, and View all FAQs.
+- **Banner**: "Be first to the new internet frontier." with Join Frontier, then the site's disclaimer note.
+- **Footer**: How it works · For registries · FAQ · Terms of Service · Frontier Terms · Privacy Policy · Brand kit, with X, Discord and LinkedIn.
+
+Links point to sections on this page or `#` placeholders until the real URLs are wired up.
 
 ## Video placement
 
@@ -41,7 +51,7 @@ css/
   base.css, sections.css, hero-shared.css   # copies from the main page
   variation-2b-nucleus-centred.css          # the centred-stack layout (hero-v2b__* classes)
   variation-4b-video-full-bleed.css         # video, grid, hover, copy over the video
-  page.css                                  # this page only: nav without tabs, compact stat cards
+  page.css                                  # this page only: nav, four stat cards, orange accents, timeline, FAQ, disclaimer
 js/
   variation-4b.js                           # video renditions + placement, hover grid + trail, headline fitting
   main.js                                   # copy of the page script (typing domain, counters, reveals, countdown)

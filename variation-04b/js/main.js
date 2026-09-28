@@ -110,7 +110,7 @@
 
   var typer = (function () {
     var el = null;
-    var words = ["vault.crypto", "gen.wealth", "burner.wallet", "anon.agent", "satoshi.btc", "swarm.robot", "degen.sol"];
+    var words = ["zero.sync", "vault.crypto", "gen.wealth", "burner.wallet", "anon.agent", "satoshi.btc", "swarm.robot", "degen.sol"];
     var wordIdx = 0;
     var charIdx = words[0].length;
     var deleting = false;
