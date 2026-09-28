@@ -156,6 +156,8 @@
       start: function (target) {
         if (!target || active) return;
         el = target;
+        // a page can set its own names: data-words="alpha.agent, ..." on the field text
+        if (el.dataset.words) words = el.dataset.words.split(/\s*,\s*/);
         if (reduceMotion) { render(words[0]); return; }
         active = true;
         wordIdx = 0;

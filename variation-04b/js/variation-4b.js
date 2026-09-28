@@ -283,7 +283,9 @@
     return { x: x, y: y };
   }
   function fitVideo() {
-    var cards = hero4b.querySelector(".hero-v2b__cards");
+    // the horizon sits just above the stat cards (or, on the vault pages, above the
+    // line that marks it: [data-horizon])
+    var cards = hero4b.querySelector("[data-horizon], .hero-v2b__cards");
     var nav = document.querySelector(".nav__inner");
     var W = hero4b.clientWidth, H = hero4b.clientHeight;
     if (!video4b || !cards || !nav || !W) return;
