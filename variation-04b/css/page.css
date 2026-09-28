@@ -42,7 +42,7 @@
 @media (max-width: 480px) { .nav__links { display: none; } }
 
 /* ---------- Hero ---------- */
-.hero--v4b .hero-v2b__pts { color: var(--c-accent-text); }
+.hero--v4b .hero-v2b__pts { color: #4affba; }
 .hero--v4b .hero-v2b__claim .hero-v2b__sub { margin-top: 2px; }
 /* four stat cards, as on the site */
 .hero-v4b__cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }

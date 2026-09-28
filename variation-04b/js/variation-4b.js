@@ -283,9 +283,9 @@
     return { x: x, y: y };
   }
   function fitVideo() {
-    // the horizon sits just above the stat cards (or, on the vault pages, above the
-    // line that marks it: [data-horizon])
-    var cards = hero4b.querySelector("[data-horizon], .hero-v2b__cards");
+    // the horizon sits just above the stat cards (on the vault pages, an invisible
+    // copy of them, so the video sits exactly as on the main page)
+    var cards = hero4b.querySelector(".hero-v2b__cards");
     var nav = document.querySelector(".nav__inner");
     var W = hero4b.clientWidth, H = hero4b.clientHeight;
     if (!video4b || !cards || !nav || !W) return;
@@ -330,11 +330,11 @@
     video4b.style.width = Math.round(w) + "px";
     video4b.style.height = Math.round(h) + "px";
     video4b.style.left = Math.round(left) + "px";
-    // Raise the whole video by 20% of the hero's height (the horizon then sits
+    // Raise the whole video by 15% of the hero's height (the horizon then sits
     // well above the cards), but never so far that the ring would come closer
     // than 28px to the nav.
     var top = horizon - h * g.hz;
-    var lift = Math.min(H * 0.2, Math.max(0, top + g.ringT * h - (navBottom + 28)));
+    var lift = Math.min(H * 0.15, Math.max(0, top + g.ringT * h - (navBottom + 28)));
     video4b.style.top = Math.round(top - lift) + "px";
     video4b.classList.add("is-placed");
     video4b.classList.toggle("is-narrow", w < W - 1);

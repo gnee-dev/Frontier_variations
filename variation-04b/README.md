@@ -9,7 +9,7 @@ Open `variation-04b/index.html` directly, or serve the folder (`python3 -m http.
 The content follows the live site, frontier.d3.com, in this page's design, with the variation orange (`#E96E26`) for accents.
 
 - **Nav**: logo, Discover and Extensions links (hidden on narrow phones), a **Vaults** dropdown (Solana, Hyperliquid) and Sign in.
-- **Hero**: "Be the first to ever own" with the typed domain (starting with `zero.sync`) and Join Frontier inside the field; "1,000+ new internet extensions are coming. They work exactly like .com."; "+10,000 pts on sign-up". Four stat cards: Points rate 4× (Epoch 1 · ends Mar 21, 2027), Program TVL $113K, Members 34,434, Extensions live 55. The ocean horizon loop plays full bleed behind it.
+- **Hero**: "Be the first to ever own" with the typed domain (starting with `zero.sync`) and Join Frontier inside the field; "1,000+ new internet extensions are coming. They work exactly like .com."; "+10,000 pts on sign-up" (the points in green, `#4AFFBA`). Four stat cards: Points rate 4× (Epoch 1 · ends Mar 21, 2027), Program TVL $113K, Members 34,434, Extensions live 55. The ocean horizon loop plays full bleed behind it.
 - **How Frontier works**: Deposit and earn, Build points (55,000 points), Get priority (.agent 84 · .crypto 57 · .robot 31 backers), with a "How it works" link.
 - **Back the extensions you want**: .hype, .human, .agent, .robot, .btc, .sol (highlighted), .gate, .nft.
 - **Get ready for the next internet land rush**: a five-point timeline, from 1985 (the first six) and 2012 (~1,200 more) to Aug 2026 (1,600+ applications, the current point), Oct 2026 (reveal day) and 2027 (first extensions go live), with a "Program timeline" link.
@@ -27,7 +27,7 @@ Links point to sections on this page or `#` placeholders until the real URLs are
 - the **horizon** is first placed just above the stat cards (about 40px; 28px on phones),
 - the **celestial ring** sits clear below the nav bar (at least 28px) and fully on screen,
 - the video fills the width, and grows until its top reaches up under the nav when it would otherwise leave a band of plain background (tall screens), without the ring getting closer than about 48px to the nav.
-- then the whole video is raised by up to 20% of the hero's height, but never so far that the ring would come within 28px of the nav. That limit is what stops it at every size: the lift is about 17–19% on desktops and tablets and about 10% on phones, and the horizon sits about 155–225px above the stat cards (about 110px on phones). The nav's position is read from layout, so its slide-in animation doesn't skew the measurement.
+- then the whole video is raised by up to 15% of the hero's height, but never so far that the ring would come within 28px of the nav. On large screens the full 15% applies (the ring then sits about 55–70px under the nav); on smaller desktops, tablets and phones the 28px limit stops it sooner. The nav's position is read from layout, so its slide-in animation doesn't skew the measurement.
 
 Where the ring and horizon sit in each file (measured from the footage): ring 46.5–79% across and from 15.5% down, horizon 44.5% down (tablet and phone cuts: see `R4B` in the script).
 
@@ -48,8 +48,8 @@ The **Vaults** tab in the nav opens a small menu of the two vault pages. It open
 
 The two pages share one layout, from the Figma vault designs, in this page's design with orange accents. Only the content and the chain visuals change between them:
 
-- **Nav**: Frontier × the chain, with 1,600+ applications · One name · What to do · Twice before (links to the sections), Vaults and Sign in.
-- **Hero**: the same full-bleed video. "Be the first to ever own" with the typed name (starting with `alpha.agent`), the 1,600+ applications line, a Stake button, and ".sol/.hype · .agent · .human · .robot lead the round for …". The video uses the same placement rules, with the horizon measured from that last line (`data-horizon`) in place of the stat cards.
+- **Nav**: Frontier × the chain logo (mark and name as tall as the Frontier wordmark, at each nav size, without stretching the marks), Vaults and Sign in. On narrow phones only the chain mark shows.
+- **Hero**: the same full-bleed video. "Be the first to ever own" with the typed name (starting with `alpha.agent`), the 1,600+ applications line, a Stake button, and ".sol/.hype · .agent · .human · .robot lead the round for …". The hero keeps the main page's stat-card row as an invisible copy, with that last line centred over it, so the hero and the video are exactly as on the main page at every size (on phones the Stake button sits a little lower, to make up for the Join button the main page's field holds).
 - **Backed by**: the chain, then the partner names (Solana: sunrise, Meteora, Raydium, Jupiter, Kamino, Superteam, + more; Hyperliquid: Hyperion DeFi, Upshift, Kinetiq, Veda), set in type.
 - **Web. Mail. Wallet.**: browser, email and wallet mock-ups for maker.sol / trader.hype, with the address it resolves to and a 2,500 SOL/HYPE send.
 - **… community goes first.**: Stake, Earn, Go first, then a Stake button.

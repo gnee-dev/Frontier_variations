@@ -28,13 +28,9 @@
           <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="128" height="13" />
         </a>
         <span class="nav__x" aria-hidden="true">×</span>
-        <span class="nav__chain"><svg class="nav__chain-mark" viewBox="5.5 10 37 28" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg><span>Hyperliquid</span></span>
+        <span class="nav__chain"><svg class="nav__chain-mark" viewBox="5.97 10.69 36.06 26.5" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg><span>Hyperliquid</span></span>
       </div>
       <nav class="nav__links" aria-label="Main">
-        <a href="#top" class="is-current">1,600+ applications</a>
-        <a href="#one-name">One name</a>
-        <a href="#what-to-do">What to do</a>
-        <a href="#twice-before">Twice before</a>
         <div class="nav__drop is-active" data-dropdown>
           <button class="nav__drop-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="vaults-menu">Vaults <svg class="nav__drop-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div class="nav__menu" id="vaults-menu" role="menu" aria-label="Vaults">
@@ -45,7 +41,7 @@
               <svg class="nav__menu-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <a class="nav__menu-item is-current" aria-current="page" href="vault-hyperliquid.html" role="menuitem">
-              <span class="nav__menu-icon"><svg class="nav__menu-mark" viewBox="5.5 10 37 28" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg></span>
+              <span class="nav__menu-icon"><svg class="nav__menu-mark" viewBox="5.97 10.69 36.06 26.5" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg></span>
               <span class="nav__menu-text"><strong>Hyperliquid</strong><small>Stake HYPE · Upshift vault</small></span>
               <svg class="nav__menu-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -85,17 +81,55 @@
         </div>
         </div>
 
-        <p class="vault-hero__lead" data-horizon data-globe-avoid data-anim="rise" style="--d: 0.46s">
-          <span class="vault-hero__tlds"><b>.hype</b><i aria-hidden="true">·</i><b>.agent</b><i aria-hidden="true">·</i><b>.human</b><i aria-hidden="true">·</i><b>.robot</b></span>
-          <span>lead the round for Hyperliquid</span>
-        </p>
+        <!-- The bottom of the hero keeps the main page's stat-card row, invisible, so the hero, the
+             copy and the video sit exactly as on the main page; the line sits over that row. -->
+        <div class="vault-hero__foot">
+          <ul class="hero-cards hero-v2__cards hero-v2b__cards hero-v4b__cards vault-hero__ghost" aria-hidden="true">
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Points rate</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+              </div>
+              <div class="stat-card__value stat-card__value--accent">4×</div>
+              <div class="stat-card__note">Epoch 1 · ends Mar 21, 2027</div>
+            </li>
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Program TVL</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M7 3h10"/><circle cx="16" cy="15" r="1.2"/></svg>
+              </div>
+              <div class="stat-card__value">$113K</div>
+              <div class="stat-card__note" aria-hidden="true">&nbsp;</div>
+            </li>
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Members</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+              </div>
+              <div class="stat-card__value">34,434</div>
+              <div class="stat-card__note" aria-hidden="true">&nbsp;</div>
+            </li>
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Extensions live</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+              </div>
+              <div class="stat-card__value">55</div>
+              <div class="stat-card__note" aria-hidden="true">&nbsp;</div>
+            </li>
+          </ul>
+          <p class="vault-hero__lead" data-globe-avoid data-anim="rise" style="--d: 0.46s">
+            <span class="vault-hero__tlds"><b>.hype</b><i aria-hidden="true">·</i><b>.agent</b><i aria-hidden="true">·</i><b>.human</b><i aria-hidden="true">·</i><b>.robot</b></span>
+            <span>lead the round for Hyperliquid</span>
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- ============================== BACKED BY ============================== -->
     <section class="vault-strip" aria-label="Backed by">
       <div class="container vault-strip__inner" data-reveal>
-        <span class="vault-strip__chain"><svg class="vault-strip__mark" viewBox="5.5 10 37 28" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg><span>Hyperliquid</span></span>
+        <span class="vault-strip__chain"><svg class="vault-strip__mark" viewBox="5.97 10.69 36.06 26.5" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg><span>Hyperliquid</span></span>
         <span class="vault-strip__sep" aria-hidden="true"></span>
         <span class="vault-kicker">Backed by</span>
         <ul class="vault-strip__logos">
@@ -151,7 +185,7 @@
           <!-- Wallet -->
           <article class="panel vault-use" data-reveal style="--d: 0.2s">
             <div class="vault-use__bar vault-use__bar--title">
-              <span class="vault-use__coin"><svg class="vault-use__coin-mark" viewBox="5.5 10 37 28" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg>Send HYPE</span>
+              <span class="vault-use__coin"><svg class="vault-use__coin-mark" viewBox="5.97 10.69 36.06 26.5" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg>Send HYPE</span>
             </div>
             <div class="vault-use__body">
               <div class="vault-wallet">

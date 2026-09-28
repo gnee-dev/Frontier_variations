@@ -81,33 +81,43 @@
   .nav__menu { left: auto; right: -86px; width: min(300px, calc(100vw - 32px)); }
 }
 
-/* ---------- Vault pages: nav brand (Frontier × chain) ---------- */
-.nav__brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.nav__x { font-size: 13px; color: var(--c-text-40); }
-.nav__chain { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--c-text-88); white-space: nowrap; }
-.nav__chain-mark { width: 15px; height: 15px; }
+/* ---------- Vault pages: nav brand (Frontier × chain) ----------
+   The chain logo is as tall as the Frontier wordmark (--logo-h, its height at each
+   nav size): the mark is that tall, and the name's capitals are too (Google Sans
+   caps are 0.72em). The marks keep their own proportions (aspect-ratio). */
+.nav__inner { --logo-h: 13px; }                                         /* wordmark 128 × 13 */
+@media (max-width: 1000px) { .nav__inner { --logo-h: 9.75px; } }        /* 96px wide */
+@media (max-width: 820px) { .nav__inner { --logo-h: 8.94px; } }         /* 88px wide */
+.nav__brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.nav__x { font-size: 13px; line-height: 1; color: var(--c-text-40); }
+.nav__chain { display: inline-flex; align-items: center; gap: calc(var(--logo-h) * 0.55); font-size: calc(var(--logo-h) / 0.72); line-height: 1; font-weight: 500; letter-spacing: -0.01em; color: var(--c-text); white-space: nowrap; }
+.nav__chain-mark { flex: none; height: var(--logo-h); width: auto; }
+.vault-page--solana .nav__chain-mark { aspect-ratio: 29 / 26; }
+.vault-page--hyperliquid .nav__chain-mark { aspect-ratio: 36.06 / 26.5; }
 .vault-page .nav__links { margin-left: 20px; }
-@media (max-width: 1000px) {
-  .vault-page .nav__links > a:not(.is-current) { display: none; }
-}
-@media (max-width: 760px) {
-  .vault-page .nav__links > a { display: none; }
-  .vault-page .nav__links { justify-content: flex-end; }
-}
 @media (max-width: 480px) {
   .vault-page .nav__chain > span { display: none; }
-  .vault-page .nav__brand { gap: 7px; }
-  .vault-page .nav__menu { right: -86px; }
+  .vault-page .nav__brand { gap: 8px; }
 }
 
 /* ---------- Vault hero ---------- */
 .vault-hero__domain { justify-content: flex-start; }
 .vault-hero__sub { max-width: 520px; line-height: 1.4; }
 @media (min-width: 760px) { .hero--v4b .vault-hero__sub { white-space: normal; } }
+/* the bottom row: the main page's stat cards, invisible (same hero and video placement),
+   with the "lead the round" line centred over it */
 .vault-hero__cta { margin-top: 12px; }
+/* phones: the main page's field is taller (Join Frontier goes under the name), so the button
+   sits lower here to keep the hero exactly as tall */
+@media (max-width: 560px) { .vault-hero__cta { margin-top: 28px; } }
+.vault-hero__foot { position: relative; }
+.vault-hero__ghost { visibility: hidden; }
 .vault-hero__lead {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-wrap: wrap;
+  align-content: center;
   justify-content: center;
   gap: 4px 10px;
   font-size: 14px;
