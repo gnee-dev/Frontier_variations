@@ -225,10 +225,16 @@
   function setRendition(v, r) {
     if (!v || v.dataset.rendition === r.name) return false;
     var wasPlaying = !v.paused;
+    // the video plays once (fading in from black, the ring rising) and then holds its last
+    // frame: switching files on a resize carries on from the same moment, never from the start
+    var at = v.ended ? Infinity : v.currentTime || 0;
     v.dataset.rendition = r.name;
     v.preload = "auto";   // the markup says "none", so nothing loads before the right file is chosen
     v.poster = MEDIA + r.name + "-poster.jpg";
     v.src = MEDIA + r.name + (mp4ok ? ".mp4" : ".webm");   // a src attribute wins over the <source> tags
+    if (at > 0) v.addEventListener("loadedmetadata", function () {
+      v.currentTime = Math.min(at, v.duration - 0.05);
+    }, { once: true });
     if (wasPlaying) playVideo(v);
     return true;
   }
@@ -271,7 +277,8 @@
   // allows (filling the width whenever it can; if it can't, it is centred and
   // its sides fade). Each rendition knows where its ring and horizon are.
   var video4b = document.getElementById("hero-v4b-video");
-  // (Ocean B: the ring rises from the horizon, holds, and sets; ringT is its highest point.
+  // (Ocean B: fades in from black, the ring rises from the horizon and holds, with a sun
+  // flaring low on the right edge; ringT is the ring's highest point.
   // The tablet and phone files are crops of the full frame, cropX pixels in.)
   var R4B = {
     //                        size        ring across      ring top  horizon   crop   (measured from the video)
