@@ -34,7 +34,11 @@ The background is **Ocean B** (from the design exports `OceanB.dc.html` and `Mai
 - **Intro** (`hero-04b*`, 16s): fades in from black as the ring rises from behind the horizon, with a sun flaring low on the right edge. It plays first on every page load.
 - **Loop** (`hero-04b*-loop`, 12s): the same scene, holding, with light travelling along the ring's rim. It repeats for as long as the page is open.
 
-The **Solana vault** has its own footage in Solana's violet and green, from the design exports `OceanBSolana.dc.html` (rise, `hero-04b-sol*`) and `OceanSolana.dc.html` (loop, `hero-04b-sol*-loop`). It has the same framing: the ring and horizon sit exactly where they do in Ocean B, so it uses the same placement values. The hero picks its footage with `data-media` (`hero-04b-sol` on the Solana page; the main page and the Hyperliquid page use the default `hero-04b`). The Solana page's banner uses its own poster too.
+Each **vault** has its own footage with the same framing (the ring and horizon sit exactly where they do in Ocean B, so the same placement values apply):
+- **Solana**, in violet and green: `OceanBSolana.dc.html` (rise, `hero-04b-sol*`) and `OceanSolana.dc.html` (loop, `hero-04b-sol*-loop`).
+- **Hyperliquid**, in deep blue and mint: `OceanBHyperliquid.dc.html` (rise, `hero-04b-hype*`) and `OceanHyperliquid.dc.html` (loop, `hero-04b-hype*-loop`).
+
+The hero picks its footage with `data-media` (`hero-04b-sol`, `hero-04b-hype`; the main page uses the default `hero-04b`), and each vault's banner uses its own poster.
 
 The two videos are stacked in the same box. The loop waits underneath, already loaded. 1.2s before the intro ends it starts, and the intro dissolves into it (`#hero-v4b-video.is-out`, timing `XF` in the script). The ring sits in the same place in both clips, so only the rim light and the water blend, with no visible cut. If the loop isn't ready in time, the intro holds its last frame until it is. If the screen changes size mid-play, the new files carry on from the same moment. With reduced motion, the intro's poster (its final frame) shows and nothing plays. The design's vignette sits over both (`radial-gradient(ellipse at 52% 45%, transparent 55%, rgba(13, 11, 31, 0.45))`, `.hero-v4b__vignette`, sized by the script to the full frame even on the tablet and phone cuts). The design's React runtime (`support.js`, `vendor/react*.js`) only rendered the mockups, so the page uses the videos, posters and vignette directly.
 
