@@ -111,21 +111,21 @@
   z-index: 1;
   width: 21px;
   height: 21px;
-  border: 1px solid rgba(233, 110, 38, 0.95);
-  background: rgba(233, 110, 38, 0.22);
+  border: 1px solid rgba(var(--accent-rgb), 0.95);
+  background: rgba(var(--accent-rgb), 0.22);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.15s;
 }
-.hero-v4b__marker::after { content: ""; position: absolute; left: 50%; top: 50%; width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; background: #ff9a5c; }
+.hero-v4b__marker::after { content: ""; position: absolute; left: 50%; top: 50%; width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; background: var(--c-accent-hover); }
 .hero--v4b.is-globe-hover .hero-v4b__marker { opacity: 1; }
 /* trail: the last cells the cursor crossed, orange at falling opacity (set in script);
    it fades out as soon as the cursor stops */
 .hero-v4b__trail {
   position: absolute;
   z-index: 1;
-  border: 1px solid rgba(233, 110, 38, 0.8);
-  background: rgba(233, 110, 38, 0.3);
+  border: 1px solid rgba(var(--accent-rgb), 0.8);
+  background: rgba(var(--accent-rgb), 0.3);
   pointer-events: none;
   opacity: 0;
 }

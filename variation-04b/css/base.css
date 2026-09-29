@@ -50,6 +50,8 @@ body {
   --c-accent-hover: #f27d37;
   --c-accent-press: #d45f1a;
   --c-accent-text: var(--c-accent);   /* orange used for text (e.g. the typed TLD) */
+  --accent-rgb: 233, 110, 38;         /* the accent as "r, g, b", for tints (marker, glows, borders) */
+  --c-on-accent: #fff;                /* text on accent buttons */
 
   --panel-bg: rgba(var(--ink), 0.04);
   --panel-bg-solid: rgba(16, 16, 16, 0.62);
@@ -134,13 +136,13 @@ h1, h2, h3, p, dl, dd { margin: 0; }
 .btn--primary {
   --btn-bg: var(--c-accent);
   --btn-bd: var(--c-accent);
-  --btn-fg: #fff;
-  box-shadow: 0 0 0 0 rgba(233, 110, 38, 0);
+  --btn-fg: var(--c-on-accent);
+  box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0);
 }
 .btn--primary:hover {
   --btn-bg: var(--c-accent-hover);
   --btn-bd: var(--c-accent-hover);
-  box-shadow: 0 10px 32px -8px rgba(233, 110, 38, 0.6);
+  box-shadow: 0 10px 32px -8px rgba(var(--accent-rgb), 0.6);
 }
 .btn--primary:active { --btn-bg: var(--c-accent-press); }
 
