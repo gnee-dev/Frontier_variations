@@ -43,6 +43,9 @@
 
 /* ---------- Hero ---------- */
 .hero--v4b .hero-v2b__pts { color: #4affba; }
+/* typed name (every 04b page): the name part at 64%, the extension at full strength in the accent */
+.hero--v4b .hero-v2b__domain .domain-box__text { color: var(--c-text-64); }
+.hero--v4b .hero-v2b__domain .domain-box__text .tld { color: var(--c-accent-text); }
 .hero--v4b .hero-v2b__claim .hero-v2b__sub { margin-top: 2px; }
 /* four stat cards, as on the site */
 .hero-v4b__cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
