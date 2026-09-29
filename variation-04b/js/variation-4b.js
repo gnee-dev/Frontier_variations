@@ -26,8 +26,12 @@
     n = Math.imul(n ^ (n >>> 16), 0x45d9f3b);
     return (n ^ (n >>> 16)) >>> 0;
   }
+  // A vault page keeps every name on its own extension: data-tld on the hero (".sol", ".hype")
+  var heroEl = document.getElementById("hero-v4b");
+  var ONLY_TLD = heroEl && heroEl.dataset.tld;
   function pointName(i, j) {
     var h = hash((i + 1024) * 8192 + (j + 1024) + 7919);
+    if (ONLY_TLD) return NAMES[(h >>> 3) % NAMES.length] + ONLY_TLD;
     if (h % 7 === 0) return FEATURED[(h >>> 8) % FEATURED.length];
     return NAMES[(h >>> 3) % NAMES.length] + TLDS[(h >>> 13) % TLDS.length];
   }

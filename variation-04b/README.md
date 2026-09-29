@@ -62,7 +62,7 @@ The **Vaults** tab in the nav opens a small menu of the two vault pages. It open
 The two pages share one layout, from the Figma vault designs, in this page's design with orange accents. Only the content and the chain visuals change between them:
 
 - **Nav**: Frontier × the chain logo (mark and name as tall as the Frontier wordmark, at each nav size, without stretching the marks), Vaults and Sign in. On narrow phones only the chain mark shows.
-- **Hero**: the same full-bleed video. "Be the first to ever own" with the typed name (starting with `alpha.agent`), the 1,600+ applications line, a Stake button, and ".sol/.hype · .agent · .human · .robot lead the round for …". The hero keeps the main page's stat-card row as an invisible copy, with that last line centred over it, so the hero and the video are exactly as on the main page at every size (on phones the Stake button sits a little lower, to make up for the Join button the main page's field holds).
+- **Hero**: the same full-bleed video. "Be the first to ever own" with the typed name (only the vault's own extension: alpha.sol, maker.sol, degen.sol, stake.sol, gm.sol, validator.sol, mint.sol on Solana; alpha.hype, trader.hype, perp.hype, whale.hype, gm.hype, liquid.hype, vault.hype on Hyperliquid), the 1,600+ applications line, a Stake button, and ".sol/.hype · .agent · .human · .robot lead the round for …". The hero keeps the main page's stat-card row as an invisible copy, with that last line centred over it, so the hero and the video are exactly as on the main page at every size (on phones the Stake button sits a little lower, to make up for the Join button the main page's field holds).
 - **Backed by**: the chain, then the partner names (Solana: sunrise, Meteora, Raydium, Jupiter, Kamino, Superteam, + more; Hyperliquid: Hyperion DeFi, Upshift, Kinetiq, Veda), set in type.
 - **Web. Mail. Wallet.**: browser, email and wallet mock-ups for maker.sol / trader.hype, with the address it resolves to and a 2,500 SOL/HYPE send.
 - **… community goes first.**: Stake, Earn, Go first, then a Stake button.
@@ -72,6 +72,8 @@ The two pages share one layout, from the Figma vault designs, in this page's des
 - **Banner** over the horizon image, then the footer with the logos (Solana Foundation on the Solana page), the ICANN and points notes, and the usual links.
 
 ## Hover grid
+
+On the vault pages every hover name uses the vault's extension (`data-tld` on the hero: `.sol`, `.hype`); the main page mixes all of them.
 
 A faint grid of 20px cells (16px on phones) covers the hero outside the copy and the cards. The cell under the cursor is highlighted in orange and shows a name; while the cursor moves, the last three cells trail behind it in orange at falling opacity and fade as soon as it stops.
 
