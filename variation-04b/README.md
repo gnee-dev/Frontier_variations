@@ -71,6 +71,8 @@ The two pages share one layout, from the Figma vault designs, in this page's des
 - **8× in month one.**: a step chart (8× month one, 4× to month 6, 2× to month 12, 1× after) that grows in when it scrolls into view, the legend, and "More points, higher priority."
 - **Banner** over the horizon image, then the footer with the logos (Solana Foundation on the Solana page), the ICANN and points notes, and the usual links.
 
+**Typed name on the vault pages**: the name part is at 64% white and the extension is at full strength in the vault colour (alpha at 64%, then .sol or .hype).
+
 **Vault colours**: each vault swaps the orange accent for its own colour, for its buttons (black labels) and its highlights: the typed extension, the hover cell and trail, the section accents, the 2026 tag, the chart's month-one bar. Solana is white; Hyperliquid is `#97FCE4`. The accent is one set of tokens in `css/base.css` (`--c-accent`, `-hover`, `-press`, `--accent-rgb` for tints, `--c-on-accent` for button text), redefined per vault at the end of `css/vaults.css`. The main page keeps the orange with white labels.
 
 ## Hover grid

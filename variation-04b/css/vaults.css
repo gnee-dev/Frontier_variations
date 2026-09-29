@@ -345,3 +345,7 @@ body.vault-page--hyperliquid {            /* Hyperliquid mint, black text on but
   --c-on-accent: #000;
 }
 .vault-page .vault-era__hot { color: var(--c-on-accent); }
+
+/* typed name: the name part at 64%, the extension at full strength in the vault colour */
+.vault-page .hero-v2b__domain .domain-box__text { color: var(--c-text-64); }
+.vault-page .hero-v2b__domain .domain-box__text .tld { color: var(--c-accent-text); }
