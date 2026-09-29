@@ -8,7 +8,7 @@ Open `variation-04b/index.html` directly, or serve the folder (`python3 -m http.
 
 The content follows the live site, frontier.d3.com, in this page's design, with the variation orange (`#E96E26`) for accents.
 
-- **Nav**: logo, Discover and Extensions links (hidden on narrow phones), a **Vaults** dropdown (Solana, Hyperliquid) and Sign in.
+- **Nav**: logo, a **Vaults** dropdown (Solana, Hyperliquid) and Sign in.
 - **Hero**: "Be the first to ever own" with the typed domain (starting with `zero.sync`) and Join Frontier inside the field; "1,000+ new internet extensions are coming. They work exactly like .com."; "+10,000 pts on sign-up" (the points in green, `#4AFFBA`). Four stat cards: Points rate 4× (Epoch 1 · ends Mar 21, 2027), Program TVL $113K, Members 34,434, Extensions live 55. The Ocean B background plays full bleed behind it: the intro, then the loop (see Video placement).
 - **How Frontier works**: Deposit and earn, Build points (55,000 points), Get priority (.agent 84 · .crypto 57 · .robot 31 backers), with a "How it works" link.
 - **Back the extensions you want**: .hype, .human, .agent, .robot, .btc, .sol (highlighted), .gate, .nft.
