@@ -282,11 +282,14 @@
   // light travelling along the rim. The ring sits in the same place in both; ringT is its
   // highest point.
   // The tablet and phone files are crops of the full frame, cropX pixels in.)
+  // A page can use its own footage with the same framing: data-media on the hero names
+  // the files (the Solana vault: "hero-04b-sol"); the default is Ocean B ("hero-04b").
+  var M4B = (hero4b && hero4b.dataset.media) || "hero-04b";
   var R4B = {
     //                        size        ring across      ring top  horizon   crop   (measured from the video)
-    full:   { name: "hero-04b",        ratio: 1440 / 1076, ringL: 0.465, ringR: 0.79,  ringT: 0.155, hz: 0.442, cropX: 0 },
-    tablet: { name: "hero-04b-tablet", ratio: 800 / 1076,  ringL: 0.21,  ringR: 0.79,  ringT: 0.155, hz: 0.442, cropX: 503 },
-    phone:  { name: "hero-04b-phone",  ratio: 612 / 1076,  ringL: 0.12,  ringR: 0.875, ringT: 0.155, hz: 0.442, cropX: 597 }
+    full:   { name: M4B,               ratio: 1440 / 1076, ringL: 0.465, ringR: 0.79,  ringT: 0.155, hz: 0.442, cropX: 0 },
+    tablet: { name: M4B + "-tablet",   ratio: 800 / 1076,  ringL: 0.21,  ringR: 0.79,  ringT: 0.155, hz: 0.442, cropX: 503 },
+    phone:  { name: M4B + "-phone",    ratio: 612 / 1076,  ringL: 0.12,  ringR: 0.875, ringT: 0.155, hz: 0.442, cropX: 597 }
   };
   var vignette4b = document.getElementById("hero-v4b-vignette");
   function offsetIn(el, root) {

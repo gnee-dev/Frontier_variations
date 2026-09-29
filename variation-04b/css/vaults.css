@@ -309,7 +309,7 @@
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(10, 10, 12, 0.96) 30%, rgba(10, 10, 12, 0.55) 70%, rgba(10, 10, 12, 0.2)),
-    url("../assets/media/hero-04b-poster.jpg") right 42% / cover no-repeat;
+    var(--banner-img, url("../assets/media/hero-04b-poster.jpg")) right 42% / cover no-repeat;
 }
 .vault-banner__text { display: grid; gap: 10px; }
 .vault-banner .banner__title { max-width: 760px; }
