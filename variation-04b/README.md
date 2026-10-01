@@ -183,6 +183,10 @@ On the vault pages every hover name uses the vault's extension (`data-tld` on th
 
 A faint grid of 20px cells (16px on phones) covers the hero outside the copy and the cards. The cell under the cursor is highlighted in orange and shows a name; while the cursor moves, the last three cells trail behind it in orange at falling opacity and fade as soon as it stops.
 
+## Title reveal (every 04b page)
+
+`js/title-reveal.js` (+ `.t-rise` in `css/base.css`): every section title and subtitle below the hero fades in from 24px below as it scrolls into view (0.8s, ease-out), the subtitle 0.12s after its title. It covers `.section-head__title` / `__desc`, `.banner__title`, `.hiw-title` / `.hiw-desc`, `.hiw-registries__title`, `.vault-lede` and v2's `.v2-sh__title` / `__subtitle`. The heroes keep their own rise on load. With reduced motion, or without IntersectionObserver, nothing is hidden.
+
 ## Files
 
 ```
@@ -204,6 +208,7 @@ js/
   v2-config.js                              # v2: program constants and shared lists (epoch, assets, extensions, estimator)
   v2-how.js                                 # v2: How it works cards and the points estimator
   v2-leaderboard.js                         # v2: the leaderboard (search, filters, selected) and the partner preview
+  title-reveal.js                           # every page: section titles and subtitles fade in from the bottom
   how-it-works.js                           # How it works: swarm/queue, chart, Back buttons, priority card, section pill
   variation-4b.js                           # video renditions + placement, hover grid + trail, headline fitting
   main.js                                   # copy of the page script (typing domain, counters, reveals, countdown)
