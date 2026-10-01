@@ -304,7 +304,9 @@
   function fitVideo() {
     // the horizon sits just above the stat cards (on the vault pages, an invisible
     // copy of them, so the video sits exactly as on the main page)
-    var cards = hero4b.querySelector(".hero-v2b__cards");
+    // ([data-horizon] instead marks the element to sit the horizon above, e.g. the
+    // How it works comparison panel)
+    var cards = hero4b.querySelector("[data-horizon]") || hero4b.querySelector(".hero-v2b__cards");
     var nav = document.querySelector(".nav__inner");
     var W = hero4b.clientWidth, H = hero4b.clientHeight;
     if (!video4b || !cards || !nav || !W) return;

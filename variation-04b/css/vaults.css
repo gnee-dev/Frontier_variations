@@ -345,3 +345,13 @@ body.vault-page--hyperliquid {            /* Hyperliquid mint, black text on but
   --c-on-accent: #000;
 }
 .vault-page .vault-era__hot { color: var(--c-on-accent); }
+
+/* "How it works": a nav link from 481px up (it stays when the other text links hide);
+   on phones it moves into the top of the Vaults menu, where there's room */
+.nav__links > a.nav__hiw { display: inline-flex; }
+.nav__menu-item--hiw, .nav__menu-sep { display: none; }
+@media (max-width: 480px) {
+  .nav__links > a.nav__hiw { display: none; }
+  .nav__links .nav__menu-item--hiw { display: grid; }
+  .nav__menu-sep { display: block; height: 1px; margin: 4px 8px; background: var(--c-line-soft); }
+}

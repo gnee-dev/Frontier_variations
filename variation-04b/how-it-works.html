@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frontier — How it works</title>
+  <meta name="description" content="Be first in line, not first to click. How Frontier points put you in line for new internet extensions before the public sale." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..800&display=swap" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/hero-shared.css" />
+  <link rel="stylesheet" href="css/variation-2b-nucleus-centred.css" />
+  <link rel="stylesheet" href="css/variation-4b-video-full-bleed.css" />
+  <link rel="stylesheet" href="css/page.css" />
+  <link rel="stylesheet" href="css/vaults.css" />
+  <link rel="stylesheet" href="css/how-it-works.css" />
+</head>
+
+<!--
+  HOW IT WORKS page. Every section has a name (data-section, and the same name on
+  its CSS block in css/how-it-works.css and its JS block in js/how-it-works.js),
+  so each one can be changed on its own:
+
+    hiw-hero          "Be first in line, not first to click" over the Ocean B background
+    hiw-compare       Without Frontier (swarm) vs With Frontier (queue)          #why
+    hiw-steps         the three-step strip: Start early / Back extensions / Get in line
+    hiw-earn          Step 1: Day one beats month six by 3x (deposit + chart)      #deposit
+    hiw-back          Step 2: Back extensions (live most-backed list)             #back
+    hiw-timeline      Build priority now to use later (milestones + phases)       #timeline
+    hiw-priority      Step 3: How Frontier priority works (sticky alex.agent card) #get-in-line
+    hiw-cta           Ready to be first in line?
+    hiw-registries    For registries and applicants band
+    hiw-disclaimer    the small print
+    hiw-section-nav   the floating pill nav (Why / Earn points / Back TLDs / Timeline / Get in line)
+-->
+<body data-variation="4b" class="hiw-page">
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Frontier home">
+        <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="128" height="13" />
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="how-it-works.html" class="nav__hiw is-current" aria-current="page">How it works</a>
+        <div class="nav__drop" data-dropdown>
+          <button class="nav__drop-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="vaults-menu">Vaults <svg class="nav__drop-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__menu" id="vaults-menu" role="menu" aria-label="Vaults">
+            <a class="nav__menu-item nav__menu-item--hiw" href="how-it-works.html" role="menuitem">
+              <span class="nav__menu-icon"><svg class="nav__menu-mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h12M4 10h8M4 14h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+              <span class="nav__menu-text"><strong>How it works</strong><small>Points, priority, timeline</small></span>
+              <svg class="nav__menu-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="nav__menu-sep" aria-hidden="true"></span>
+            <span class="nav__menu-label">Frontier vaults</span>
+            <a class="nav__menu-item" href="vault-solana.html" role="menuitem">
+              <span class="nav__menu-icon"><svg class="nav__menu-mark" viewBox="0 0 29 26" aria-hidden="true"><defs><linearGradient id="solg-nav__menu-mark" x1="0" y1="26" x2="29" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><path fill="url(#solg-nav__menu-mark)" d="M28.85 20.5L24.06 25.65C23.96 25.76 23.83 25.85 23.69 25.91C23.55 25.97 23.4 26 23.25 26L0.56 26C0.45 26 0.34 25.97 0.25 25.91C0.16 25.85 0.09 25.76 0.05 25.66C0 25.57 -0.01 25.46 0.01 25.35C0.03 25.24 0.08 25.14 0.15 25.06L4.94 19.92C5.04 19.8 5.17 19.72 5.31 19.65C5.45 19.59 5.6 19.56 5.75 19.56L28.44 19.56C28.55 19.56 28.66 19.59 28.75 19.65C28.84 19.71 28.91 19.8 28.95 19.9C29 20 29.01 20.11 28.99 20.21C28.97 20.32 28.92 20.42 28.85 20.5ZM24.06 10.14C23.96 10.02 23.83 9.93 23.69 9.87C23.55 9.81 23.4 9.78 23.25 9.78L0.56 9.78C0.45 9.78 0.34 9.81 0.25 9.87C0.16 9.93 0.09 10.02 0.05 10.12C0 10.22 -0.01 10.33 0.01 10.43C0.03 10.54 0.08 10.64 0.15 10.72L4.94 15.86C5.04 15.98 5.17 16.07 5.31 16.13C5.45 16.19 5.6 16.22 5.75 16.22L28.44 16.22C28.55 16.22 28.66 16.19 28.75 16.13C28.84 16.07 28.91 15.98 28.95 15.88C29 15.78 29.01 15.67 28.99 15.57C28.97 15.46 28.92 15.36 28.85 15.28L24.06 10.14ZM0.56 6.44L23.25 6.44C23.4 6.44 23.55 6.41 23.69 6.35C23.83 6.28 23.96 6.2 24.06 6.08L28.85 0.94C28.92 0.86 28.97 0.76 28.99 0.65C29.01 0.54 29 0.43 28.95 0.34C28.91 0.24 28.84 0.15 28.75 0.09C28.66 0.03 28.55 0 28.44 0L5.75 0C5.6 0 5.45 0.03 5.31 0.09C5.17 0.15 5.04 0.24 4.94 0.35L0.15 5.5C0.08 5.58 0.03 5.68 0.01 5.79C-0.01 5.89 0 6 0.05 6.1C0.09 6.2 0.16 6.29 0.25 6.35C0.34 6.41 0.45 6.44 0.56 6.44Z"/></svg></span>
+              <span class="nav__menu-text"><strong>Solana</strong><small>Stake SOL · Loopscale vault</small></span>
+              <svg class="nav__menu-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="nav__menu-item" href="vault-hyperliquid.html" role="menuitem">
+              <span class="nav__menu-icon"><svg class="nav__menu-mark" viewBox="5.97 10.69 36.06 26.5" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg></span>
+              <span class="nav__menu-text"><strong>Hyperliquid</strong><small>Stake HYPE · Upshift vault</small></span>
+              <svg class="nav__menu-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <a class="btn btn--primary btn--sm" href="#join">Sign in</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================== hiw-hero ============================== -->
+    <section class="hero hero--v4b hiw-hero" id="hero-v4b" data-hero="4b" data-section="hiw-hero" aria-label="How Frontier works">
+      <div class="hero-v4b__bg" id="hero-v4b-bg" aria-hidden="true">
+        <!-- the Ocean B rise, then its loop (same files and placement rules as the main 04b page) -->
+        <video class="hero-v4b__media hero-v4b__media--loop" id="hero-v4b-loop" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+        <video class="hero-v4b__media" id="hero-v4b-video" muted playsinline preload="none" poster="assets/media/hero-04b-poster.jpg" tabindex="-1">
+          <source src="assets/media/hero-04b.mp4" type="video/mp4" />
+          <source src="assets/media/hero-04b.webm" type="video/webm" />
+        </video>
+        <div class="hero-v4b__vignette" id="hero-v4b-vignette"></div>
+      </div>
+      <div class="hero-tip" id="hero-v4b-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
+      </div>
+
+      <div class="container hiw-hero__inner">
+        <div class="hiw-hero__copy" data-globe-avoid>
+          <h1 class="hiw-hero__title" data-anim="rise" style="--d: 0.10s">Be first in line,<br />not first to click</h1>
+          <p class="hiw-hero__sub" data-anim="rise" style="--d: 0.20s">New extensions like .agent are coming. The best names go in seconds.<br />Frontier puts you in line before the public sale.</p>
+          <div class="hiw-hero__actions" data-anim="rise" style="--d: 0.30s">
+            <a class="btn btn--primary btn--shine" href="#join">Join Frontier</a>
+            <a class="btn btn--ghost hiw-btn-dark" href="#deposit">How it works <svg class="hiw-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v11m-5-4 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <p class="hiw-hero__live" data-anim="rise" style="--d: 0.36s">4× points live now.</p>
+        </div>
+
+        <!-- ============================== hiw-compare ============================== -->
+        <div class="hiw-compare" id="why" data-section="hiw-compare" data-horizon data-globe-avoid data-anim="rise" style="--d: 0.44s">
+          <div class="hiw-compare__col">
+            <span class="hiw-compare__label">Without Frontier</span>
+            <div class="hiw-compare__stage hiw-swarm" data-swarm aria-hidden="true">
+              <span class="hiw-pill hiw-pill--taken">alex.agent <em>Taken</em></span>
+            </div>
+            <p class="hiw-compare__foot">Public sale opens. Everyone clicks at once. The fastest bot wins.</p>
+          </div>
+          <div class="hiw-compare__col">
+            <span class="hiw-compare__label hiw-compare__label--accent">With Frontier</span>
+            <div class="hiw-compare__stage hiw-queue" data-queue aria-hidden="true">
+              <span class="hiw-pill">alex.agent</span>
+              <ol class="hiw-queue__line"></ol>
+            </div>
+            <p class="hiw-compare__foot">Earn and commit points before launch. Points set your place in line.</p>
+          </div>
+        </div>
+
+        <!-- ============================== hiw-steps ============================== -->
+        <ol class="hiw-steps" data-section="hiw-steps" data-globe-avoid data-anim="rise" style="--d: 0.52s">
+          <li><a href="#deposit"><span class="hiw-steps__n">1</span><span><b>Start early</b><small>Deposit and build points</small></span></a></li>
+          <li><a href="#back"><span class="hiw-steps__n">2</span><span><b>Back extensions</b><small>Pick extensions like .agent</small></span></a></li>
+          <li><a href="#get-in-line"><span class="hiw-steps__n">3</span><span><b>Get in line</b><small>Commit points to set priority</small></span></a></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== hiw-earn (Step 1) ============================== -->
+    <section class="section hiw-section hiw-earn" id="deposit" data-section="hiw-earn">
+      <div class="container">
+        <header class="hiw-head" data-reveal>
+          <span class="hiw-kicker">Step 1 · Start earning points</span>
+          <h2 class="hiw-title">Day one beats month six by 3×.</h2>
+          <p class="hiw-desc">Deposit into a supported third-party vault. Each eligible $1 of vault value earns 1 Frontier Point per day, times the live rate. Request a withdrawal at any time.</p>
+          <ul class="hiw-chips">
+            <li>D3 doesn’t hold deposits</li>
+            <li>Withdraw per vault terms</li>
+            <li>Points are non-cash, not a return</li>
+          </ul>
+        </header>
+
+        <div class="hiw-earn__deposit" data-reveal>
+          <span class="hiw-kicker hiw-kicker--dim">Deposit</span>
+          <div class="hiw-seg" role="radiogroup" aria-label="Deposit amount">
+            <button type="button" role="radio" aria-checked="true" class="is-on" data-deposit="100">$100</button>
+            <button type="button" role="radio" aria-checked="false" data-deposit="1000">$1,000</button>
+            <button type="button" role="radio" aria-checked="false" data-deposit="10000">$10,000</button>
+          </div>
+        </div>
+
+        <figure class="hiw-chart" data-chart data-reveal>
+          <div class="hiw-chart__plot">
+            <span class="hiw-chart__y" style="--y: 0">120K</span>
+            <span class="hiw-chart__y" style="--y: 50">60K</span>
+            <svg class="hiw-chart__svg" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="hiw-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="rgb(var(--accent-rgb))" stop-opacity="0.2" />
+                  <stop offset="1" stop-color="rgb(var(--accent-rgb))" stop-opacity="0.04" />
+                </linearGradient>
+              </defs>
+              <line class="hiw-chart__grid" x1="0" y1="0" x2="1000" y2="0" />
+              <line class="hiw-chart__grid" x1="0" y1="150" x2="1000" y2="150" />
+              <line class="hiw-chart__grid" x1="500" y1="0" x2="500" y2="300" />
+              <path class="hiw-chart__area" d="M0 300 L500 118 L1000 27 L1000 300 Z" />
+              <path class="hiw-chart__line hiw-chart__line--open" d="M0 300 L500 118 L1000 27" />
+              <path class="hiw-chart__line hiw-chart__line--3m" d="M0 300 L250 300 L500 209 L1000 118" />
+              <path class="hiw-chart__line hiw-chart__line--6m" d="M0 300 L500 300 L1000 208" />
+              <line class="hiw-chart__base" x1="0" y1="300" x2="1000" y2="300" />
+            </svg>
+            <div class="hiw-chart__x">
+              <span>Epoch 1 · <b>4×</b><small>Sep 2026 to Mar 2027</small></span>
+              <span>Epoch 2 · <b>2×</b><small>Mar 2027 to Sep 2027</small></span>
+            </div>
+          </div>
+          <ul class="hiw-chart__ends">
+            <li class="is-open" style="--y: 9"><b data-value="109200">109,200</b><small>Start at opening</small></li>
+            <li style="--y: 39"><b data-value="72800">72,800</b> <i>(−33%)</i><small>Start 3 months in</small></li>
+            <li class="is-dim" style="--y: 69"><b data-value="36800">36,800</b> <i>(−66%)</i><small>Start 6 months in</small></li>
+          </ul>
+          <figcaption class="hiw-chart__note">
+            <span>Estimated points after one year, by start date. Excludes boosts, referrals and sign-up points.</span>
+            <span class="hiw-accent">Live rate: 4× · Epoch 1</span>
+          </figcaption>
+        </figure>
+
+        <p class="hiw-invite" data-reveal>Invite friends. Build more points. <a class="link-arrow" href="#">Get your link <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+      </div>
+    </section>
+
+    <!-- ============================== hiw-back (Step 2) ============================== -->
+    <section class="section hiw-section hiw-back" id="back" data-section="hiw-back">
+      <div class="container hiw-back__inner">
+        <header class="hiw-head" data-reveal>
+          <span class="hiw-kicker">Step 2 · Back extensions</span>
+          <h2 class="hiw-title">Back extensions<br />like .agent before<br />public sale</h2>
+          <p class="hiw-desc">Put points behind any extension. Member demand shapes which registries D3 partners with. Reallocate anytime.</p>
+          <a class="link-arrow" href="#">See all extensions <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </header>
+        <div class="panel hiw-backed" data-reveal>
+          <span class="hiw-kicker hiw-kicker--dim">Live · Most backed</span>
+          <ol class="hiw-backed__list">
+            <li class="is-top" style="--w: 100%"><span class="hiw-backed__n">1</span><span class="hiw-backed__tld">.agent</span><span class="hiw-backed__bar"><i></i></span><span class="hiw-backed__count" data-count="5632">5,632 backers</span><button type="button" class="hiw-backed__btn">Back</button></li>
+            <li style="--w: 15.6%"><span class="hiw-backed__n">2</span><span class="hiw-backed__tld">.sol</span><span class="hiw-backed__bar"><i></i></span><span class="hiw-backed__count" data-count="876">876 backers</span><button type="button" class="hiw-backed__btn">Back</button></li>
+            <li style="--w: 4.6%"><span class="hiw-backed__n">3</span><span class="hiw-backed__tld">.labs</span><span class="hiw-backed__bar"><i></i></span><span class="hiw-backed__count" data-count="259">259 backers</span><button type="button" class="hiw-backed__btn">Back</button></li>
+            <li style="--w: 1.9%"><span class="hiw-backed__n">4</span><span class="hiw-backed__tld">.hype</span><span class="hiw-backed__bar"><i></i></span><span class="hiw-backed__count" data-count="104">104 backers</span><button type="button" class="hiw-backed__btn">Back</button></li>
+            <li style="--w: 1.8%"><span class="hiw-backed__n">5</span><span class="hiw-backed__tld">.sui</span><span class="hiw-backed__bar"><i></i></span><span class="hiw-backed__count" data-count="102">102 backers</span><button type="button" class="hiw-backed__btn">Back</button></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== hiw-timeline ============================== -->
+    <section class="section hiw-section hiw-timeline" id="timeline" data-section="hiw-timeline">
+      <div class="container">
+        <header class="hiw-head" data-reveal>
+          <h2 class="hiw-title">Build priority now to use later</h2>
+          <p class="hiw-desc">While ICANN reviews new extensions, Frontier members earn points and back the ones they want. For participating extensions, those points determine priority among eligible orders during Frontier, before the public sale begins.</p>
+        </header>
+
+        <div class="hiw-mile" data-reveal>
+          <ol class="hiw-mile__steps">
+            <li class="is-now"><span class="hiw-mile__dot"></span><b>Deposits open</b><small>September 28, 2026 · Start earning points</small></li>
+            <li><span class="hiw-mile__dot"></span><b>ICANN review</b><small>New extension applications are evaluated</small></li>
+            <li><span class="hiw-mile__dot"></span><b>Participating extensions launch</b><small>Timing varies by extension</small></li>
+          </ol>
+          <div class="hiw-mile__bar"><i></i></div>
+          <p class="hiw-mile__label">Earn points and back extensions while ICANN reviews applications</p>
+        </div>
+
+        <div class="hiw-phases" data-reveal>
+          <svg class="hiw-phases__fan" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 L800 0 L1000 40 Z" /></svg>
+          <ol class="hiw-phases__row">
+            <li><b>Trademark holders</b><span class="hiw-kicker hiw-kicker--dim">Sunrise</span><small>Eligible trademark owners first.</small></li>
+            <li class="is-frontier"><b>Frontier, 7+ days</b><span class="hiw-kicker hiw-kicker--dim">Limited registration period</span><small>First phase open to the public. Points set priority.</small></li>
+            <li><b>Public sale</b><span class="hiw-kicker hiw-kicker--dim">EAP and general registration</span><small>Open to all. Frontier priority ends.</small></li>
+          </ol>
+          <p class="hiw-phases__note">Some registries may first conduct private or eligibility-restricted phases. For participating extensions, Frontier is the first registration phase open to the general public. Once the public sale begins, Frontier priority no longer applies.</p>
+        </div>
+
+        <div class="hiw-links" data-reveal>
+          <a class="link-arrow" href="index.html#faq">Read the FAQ <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="link-arrow" href="index.html#registries">Registry or applicant? Become a Frontier partner <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== hiw-priority (Step 3) ============================== -->
+    <section class="section hiw-section hiw-priority" id="get-in-line" data-section="hiw-priority">
+      <div class="container">
+        <header class="hiw-head" data-reveal>
+          <span class="hiw-kicker">Step 3 · Get in line</span>
+          <h2 class="hiw-title">How Frontier priority works before public sale</h2>
+          <p class="hiw-desc">Illustrative. Imagine five members want alex.agent.</p>
+        </header>
+
+        <div class="hiw-priority__grid">
+          <ol class="hiw-priority__steps">
+            <li data-step="1" class="is-active"><span class="hiw-kicker">01</span><h3>Registry locks price</h3><p>The registry for .agent sets the first-year price before seeing any member max prices.</p></li>
+            <li data-step="2"><span class="hiw-kicker">02</span><h3>Members commit points<br />and set max price</h3><p>Points determine order. Members set their max first-year price and reserve funds. All hidden from registry and other members.</p></li>
+            <li data-step="3"><span class="hiw-kicker">03</span><h3>Points determine priority order</h3><p>Eligible orders ranked by points committed.</p></li>
+            <li data-step="4"><span class="hiw-kicker">04</span><h3>Top qualifying member gets the name</h3><p>Frontier privately compares the registry’s locked price and each member’s max price, starting with the highest-ranked eligible order. Orders qualify when the max covers the price and funds are authorized. In this example, orbiter’s max fell short. You register alex.agent and never pay above your max, plus disclosed fees.<sup>*</sup></p></li>
+          </ol>
+
+          <div class="hiw-priority__sticky">
+            <div class="panel hiw-card" data-card data-state="1" aria-live="polite">
+              <header class="hiw-card__head">
+                <span class="hiw-card__name">alex.agent <em class="hiw-card__yours">Yours</em></span>
+                <span class="hiw-card__lock">
+                  <svg class="hiw-card__lock-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path class="hiw-card__shackle" d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+                  <span class="hiw-card__lock-a">Price locked</span><span class="hiw-card__lock-b">$80 first year · the registry’s price</span>
+                </span>
+              </header>
+              <div class="hiw-card__cols"><span>Member</span><span><span class="hiw-card__sealed">Points · Max price (sealed)</span><span class="hiw-card__open">Points · Max price</span></span></div>
+              <ul class="hiw-card__rows">
+                <li data-m="lark"><span class="hiw-card__rank"></span><span class="hiw-card__who">lark</span><span class="hiw-card__pts">3,100</span><span class="hiw-card__max">$200</span></li>
+                <li data-m="kestrel"><span class="hiw-card__rank"></span><span class="hiw-card__who">kestrel</span><span class="hiw-card__pts">12,900</span><span class="hiw-card__max">$150</span></li>
+                <li data-m="you" class="is-you"><span class="hiw-card__rank"></span><span class="hiw-card__who">You <em class="hiw-card__gets">Gets alex.agent</em></span><span class="hiw-card__pts">41,000</span><span class="hiw-card__max">$120</span></li>
+                <li data-m="nomad"><span class="hiw-card__rank"></span><span class="hiw-card__who">nomad</span><span class="hiw-card__pts">9,400</span><span class="hiw-card__max">$90</span></li>
+                <li data-m="orbiter"><span class="hiw-card__rank"></span><span class="hiw-card__who">orbiter</span><span class="hiw-card__pts">48,200</span><span class="hiw-card__max">$60</span></li>
+              </ul>
+              <span class="hiw-card__wait">Price locked. Waiting for orders</span>
+              <p class="hiw-card__foot">Sealed. Nobody sees anyone’s points or max.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== hiw-cta ============================== -->
+    <section class="section hiw-cta" data-section="hiw-cta">
+      <div class="container" data-reveal>
+        <h2 class="hiw-title">Ready to be first in line?</h2>
+        <div class="hiw-hero__actions">
+          <a class="btn btn--primary btn--shine" href="#join">Join Frontier</a>
+          <a class="btn btn--ghost hiw-btn-dark" href="index.html#faq">Read the FAQ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== hiw-registries ============================== -->
+    <section class="hiw-registries" data-section="hiw-registries">
+      <div class="container hiw-registries__inner" data-reveal>
+        <div>
+          <span class="hiw-kicker hiw-kicker--dim">For registries and applicants</span>
+          <h2 class="hiw-registries__title">Applied for a TLD? Meet<br />your buyers before launch.</h2>
+          <p class="hiw-desc">Frontier delivers points-ranked, funded orders at launch. You keep control of pricing, inventory and policy.</p>
+        </div>
+        <div class="hiw-links">
+          <a class="link-arrow" href="index.html#registries">How Frontier works for registries <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="link-arrow" href="#">Book a call</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== hiw-disclaimer ============================== -->
+    <section class="hiw-disclaimer" data-section="hiw-disclaimer">
+      <div class="container">
+        <p class="disclaimer"><sup>*</sup>Name registration is not guaranteed. Participation in the Frontier program does not reserve, allocate or promise any domain name before the applicable participating registry launch process. Supported vaults are operated by independent, third-party providers, not D3. D3 does not custody or manage deposited assets. Deposits are subject to the applicable provider’s terms, risks, fees and withdrawal conditions. Frontier Points are non-cash program points and do not purchase a domain. See <a href="#">Frontier Terms</a> for details.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== hiw-section-nav ============================== -->
+  <nav class="hiw-section-nav" data-section="hiw-section-nav" aria-label="On this page">
+    <a href="#why" data-spy="why">Why</a>
+    <a href="#deposit" data-spy="deposit">Earn points</a>
+    <a href="#back" data-spy="back">Back TLDs</a>
+    <a href="#timeline" data-spy="timeline">Timeline</a>
+    <a href="#get-in-line" data-spy="get-in-line">Get in line</a>
+  </nav>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__links">
+        <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="110" height="11" />
+        <span>2026</span>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="how-it-works.html">How it works</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="index.html#registries">For registries</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="index.html#faq">FAQ</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Terms of Service</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Frontier Terms</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Privacy Policy</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Brand kit</a>
+      </div>
+      <div class="footer__social">
+        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78L17.75 3Zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45Z"/></svg></a>
+        <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.3 5.3A17 17 0 0 0 15.1 4l-.5 1a15.7 15.7 0 0 0-5.2 0l-.5-1a17 17 0 0 0-4.2 1.3C2 9.2 1.3 13 1.6 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 10.8 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.2-3.1-11.5ZM8.5 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm7 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75V21h-4V9.5Z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vaults.js"></script>
+  <script src="js/variation-4b.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/how-it-works.js"></script>
+</body>
+</html>

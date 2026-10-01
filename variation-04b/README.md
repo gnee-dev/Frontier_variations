@@ -52,6 +52,26 @@ Where the ring and horizon sit in each file (measured from the footage, at the r
 
 Each has a poster (`*-poster.jpg`: the intro's final frame, the loop's first). H.264 MP4 plays where supported, VP9 WebM otherwise; `preload="none"` in the markup means only the chosen files (intro and loop for that shape) download. The video plays only while the hero is on screen and stays on the poster for reduced motion.
 
+## How it works page
+
+`how-it-works.html` recreates frontier.d3.com/how-it-works (layout, copy and interactions, from the screenshots and screen recording) in the 04b design: black page, Google Sans Flex, the orange accent, and the Ocean B hero background (rise, then loop) with the same placement rules. It's linked from the nav on every 04b page: a "How it works" link, or on phones the first item in the Vaults menu.
+
+Each section has a name, used on its markup (`data-section`), its CSS block (`css/how-it-works.css`) and its JS block (`js/how-it-works.js`), so it can be changed on its own:
+
+| Section | What it is | Anchor |
+|---|---|---|
+| `hiw-hero` | "Be first in line, not first to click", Join Frontier / How it works, "4× points live now." | |
+| `hiw-compare` | Without Frontier (dots swarm the taken name, You among them) vs With Frontier (an orderly queue, You 2nd in line) | `#why` |
+| `hiw-steps` | Start early / Back extensions / Get in line, linking to the steps | |
+| `hiw-earn` | Step 1: "Day one beats month six by 3×", deposit toggle ($100 / $1,000 / $10,000), the points chart (start at opening / 3 months in / 6 months in), invite link | `#deposit` |
+| `hiw-back` | Step 2: "Back extensions like .agent before public sale" and the live most-backed list (Back buttons toggle your backing) | `#back` |
+| `hiw-timeline` | "Build priority now to use later": milestones, then Sunrise / Frontier 7+ days / Public sale | `#timeline` |
+| `hiw-priority` | Step 3: four steps on the left; the alex.agent card on the right stays in view and changes with them (price locked → members commit → ranked by points → You get alex.agent) | `#get-in-line` |
+| `hiw-cta` | "Ready to be first in line?" | |
+| `hiw-registries` | "Applied for a TLD? Meet your buyers before launch." | |
+| `hiw-disclaimer` | the small print | |
+| `hiw-section-nav` | the floating pill (Why · Earn points · Back TLDs · Timeline · Get in line); it appears after the hero and follows the section on screen | |
+
 ## Vaults
 
 The **Vaults** tab in the nav opens a small menu of the two vault pages. It opens on hover with a mouse and on tap or Enter otherwise, and closes on a click outside, Escape, or when the pointer leaves it (`js/vaults.js`). Both vault pages have the same tab, with the current vault marked.
@@ -85,6 +105,7 @@ A faint grid of 20px cells (16px on phones) covers the hero outside the copy and
 
 ```
 index.html
+how-it-works.html                           # the How it works page (sections named hiw-*)
 vault-solana.html, vault-hyperliquid.html   # the vault pages (one layout, different content)
 css/
   base.css, sections.css, hero-shared.css   # copies from the main page
@@ -92,8 +113,10 @@ css/
   variation-4b-video-full-bleed.css         # video, grid, hover, copy over the video
   page.css                                  # this page only: nav, four stat cards, orange accents, timeline, FAQ, disclaimer
   vaults.css                                # the Vaults dropdown and the vault pages
+  how-it-works.css                          # the How it works page, one block per section
 js/
   vaults.js                                 # the Vaults dropdown
+  how-it-works.js                           # How it works: swarm/queue, chart, Back buttons, priority card, section pill
   variation-4b.js                           # video renditions + placement, hover grid + trail, headline fitting
   main.js                                   # copy of the page script (typing domain, counters, reveals, countdown)
 assets/
