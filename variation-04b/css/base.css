@@ -26,7 +26,47 @@
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---------- v2 (v2.html: the redesigned sections below the hero) ----------
+     Namespaced --v2-* so they never collide with the tokens above. Components
+     (css/v2.css) read only these; nothing is hardcoded in a component. Type
+     keeps --font: v2 sets sizes and weights only. */
+  /* colour */
+  --v2-bg: #0a0a0a;
+  --v2-surface: #121212;
+  --v2-surface-sunken: #0f0f0f;
+  --v2-surface-warm: #161514;          /* only the registries section */
+  --v2-border: #262626;
+  --v2-border-strong: #333333;
+  --v2-border-warm: #2e2b28;
+  --v2-text: #ededed;
+  --v2-text-secondary: #d4d4d4;
+  --v2-text-muted: #a3a3a3;
+  --v2-text-subtle: #8a8a8a;
+  --v2-accent: #f26a21;                /* primary actions, links, "you/your" states only */
+  --v2-accent-hover: #ff8a4c;
+  --v2-accent-tint: rgba(242, 106, 33, 0.14);
+  --v2-accent-tint-weak: rgba(242, 106, 33, 0.08);
+  --v2-accent-on-tint: #ffb184;
+  --v2-success: #4ade9b;
+  /* radii */
+  --v2-r-sm: 6px;
+  --v2-r-md: 10px;                     /* buttons, chips, inputs */
+  --v2-r-lg: 12px;
+  --v2-r-xl: 16px;                     /* cards */
+  --v2-r-2xl: 20px;                    /* large panels */
+  --v2-r-3xl: 24px;                    /* feature cards */
+  /* layout. Breakpoints (media queries can't read custom properties, so these are
+     written out in css/v2.css): mobile < 768, tablet 768-1023, desktop >= 1024;
+     the container's side padding steps at 768 and 1280. */
+  --v2-container: 1200px;              /* content width, centred */
+  --v2-gutter: 120px;                  /* >= 1280px; 48px at 768-1279; 20px below 768 */
+  --v2-section-pad: 96px;              /* desktop; 64px tablet; 48px mobile */
+  --v2-target: 44px;                   /* minimum height of anything you can press */
 }
+@media (max-width: 1279px) { :root { --v2-gutter: 48px; } }
+@media (max-width: 1023px) { :root { --v2-section-pad: 64px; } }
+@media (max-width: 767px)  { :root { --v2-gutter: 20px; --v2-section-pad: 48px; } }
 
 /* ---------- Theme ----------
    Colour tokens live on <body> so a variation can flip the whole page

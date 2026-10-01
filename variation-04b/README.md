@@ -52,6 +52,52 @@ Where the ring and horizon sit in each file (measured from the footage, at the r
 
 Each has a poster (`*-poster.jpg`: the intro's final frame, the loop's first). H.264 MP4 plays where supported, VP9 WebM otherwise; `preload="none"` in the markup means only the chosen files (intro and loop for that shape) download. The video plays only while the hero is on screen and stays on the poster for reduced motion.
 
+## v2 (v2.html): redesigned sections below the hero
+
+Linked as "v2" in the nav of every 04b page. It has the 04b hero; the sections below it are being rebuilt on shared foundations (no sections yet).
+
+**Tokens** (`css/base.css`, all `--v2-*` so they never collide with the current page's tokens):
+
+| Group | Tokens |
+|---|---|
+| Surfaces | `--v2-bg` #0A0A0A, `--v2-surface` #121212, `--v2-surface-sunken` #0F0F0F, `--v2-surface-warm` #161514 (registries only) |
+| Borders | `--v2-border` #262626, `--v2-border-strong` #333333, `--v2-border-warm` #2E2B28 |
+| Text | `--v2-text` #EDEDED, `--v2-text-secondary` #D4D4D4, `--v2-text-muted` #A3A3A3, `--v2-text-subtle` #8A8A8A |
+| Accent | `--v2-accent` #F26A21, `--v2-accent-hover` #FF8A4C, `--v2-accent-tint` 14%, `--v2-accent-tint-weak` 8%, `--v2-accent-on-tint` #FFB184 |
+| Status | `--v2-success` #4ADE9B |
+| Radii | `--v2-r-sm` 6, `--v2-r-md` 10 (buttons, chips, inputs), `--v2-r-lg` 12, `--v2-r-xl` 16 (cards), `--v2-r-2xl` 20 (large panels), `--v2-r-3xl` 24 (feature cards) |
+| Layout | `--v2-container` 1200px; `--v2-gutter` 120px ≥1280, 48px 768–1279, 20px <768; `--v2-section-pad` 96px desktop, 64px tablet, 48px mobile; `--v2-target` 44px |
+
+Breakpoints: mobile <768, tablet 768–1023, desktop ≥1024. Fonts are untouched: everything uses `--font`, with only sizes and weights set.
+
+**Rules**: orange is for primary actions, links and "you/your" states only; numbers are tabular; no background grid textures below the hero; anything you can press is at least 44px tall and a real `<button>`, `<a>`, `<input>` or `<label>`.
+
+**Layout** (`css/v2.css`): `.v2-section` (the v2 background, section padding, tabular numbers, no texture) and `.v2-container` (1200px centred, with the gutter).
+
+**SectionHeader** (`<f-section-header>`, `js/v2.js` + `css/v2.css`):
+
+```html
+<f-section-header eyebrow="How it works"
+                  title="Deposit, earn points, back the names you want"
+                  subtitle="Frontier gives you priority access to new top-level domains from ICANN's 2026 round."
+                  link-label="Full walkthrough" link-href="how-it-works.html"></f-section-header>
+<!-- rightSlot: a child with slot="right" replaces the link -->
+<f-section-header eyebrow="Points estimator" title="See what you'd earn"><div slot="right">…</div></f-section-header>
+```
+
+It renders a plain `header.v2-sh` with an `h2` in place. Eyebrow 12px uppercase 0.12em muted; title 44px/600/-0.02em/1.1 (32px on mobile); subtitle 17px muted 1.5; link 14px/600 accent with "→", on the bottom line of the left column (max 680px). On mobile it stacks, with the link 16px under the subtitle. `FrontierV2.sectionHeader({ eyebrow, title, subtitle, link: { label, href }, rightSlot })` builds the same element in script.
+
+**Chip** (`.v2-chip`, a toggle `<button>` with `aria-pressed`):
+
+```html
+<div class="v2-chip-group" data-chip-group="single" role="group" aria-label="Deposit">
+  <button type="button" class="v2-chip" aria-pressed="false" value="500">$500</button>
+  <button type="button" class="v2-chip" aria-pressed="true" value="2000">$2,000</button>
+</div>
+```
+
+44px min height, 0 18px padding, radius md, 15px. Unselected: 1px border-strong, text-secondary, 500, filled with bg (on a card, `.v2-card`) or surface (on a bg section, `.v2-section`). Selected: 1px accent border, accent-tint fill, accent-on-tint text, 600. `data-chip-group="single"` keeps one pressed; `"multi"` toggles each. The group fires `chipchange` with `{ value, values, chip }`; `FrontierV2.chip({ label, value, pressed })` builds one.
+
 ## How it works page
 
 `how-it-works.html` recreates frontier.d3.com/how-it-works (layout, copy and interactions, from the screenshots and screen recording) in the 04b design: black page, Google Sans Flex, the orange accent, and the Ocean B hero background (rise, then loop) with the same placement rules. The hero has `data-fill`: the video always fills the full width (no side fades), moving down when it needs to so the ring stays at least 28px under the nav. It's linked from the nav on every 04b page ("How it works", next to Vaults); on phones, where the nav has no room for it, it's in the footer links.
@@ -108,6 +154,7 @@ A faint grid of 20px cells (16px on phones) covers the hero outside the copy and
 
 ```
 index.html
+v2.html                                     # v2: the 04b hero, then the redesigned sections (foundations only so far)
 how-it-works.html                           # the How it works page (sections named hiw-*)
 vault-solana.html, vault-hyperliquid.html   # the vault pages (one layout, different content)
 css/
@@ -117,8 +164,10 @@ css/
   page.css                                  # this page only: nav, four stat cards, orange accents, timeline, FAQ, disclaimer
   vaults.css                                # the Vaults dropdown and the vault pages
   how-it-works.css                          # the How it works page, one block per section
+  v2.css                                    # v2: layout, SectionHeader, Chip (tokens in base.css)
 js/
   vaults.js                                 # the Vaults dropdown
+  v2.js                                     # v2: <f-section-header>, chip groups
   how-it-works.js                           # How it works: swarm/queue, chart, Back buttons, priority card, section pill
   variation-4b.js                           # video renditions + placement, hover grid + trail, headline fitting
   main.js                                   # copy of the page script (typing domain, counters, reveals, countdown)
