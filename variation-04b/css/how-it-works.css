@@ -11,8 +11,8 @@
 /* type scale: body copy (= the hero subtitle) 16px, info on cards 14px,
    animation labels 16px (the name) / 14px (tags), corner status tags 14px */
 .hiw-page { --hiw-line: rgba(var(--ink), 0.08); --hiw-bad: #ff4d6d; --hiw-fs-body: 16px; --hiw-fs-card: 14px; }
-/* the six sections after the hero (earn, back, timeline, priority, cta, registries): 80px top and bottom */
-.hiw-section { scroll-margin-top: calc(20px + var(--nav-h) + 16px); padding-block: 80px; }
+/* the six sections after the hero (earn, back, timeline, priority, cta, registries): 120px top and bottom */
+.hiw-section { scroll-margin-top: calc(20px + var(--nav-h) + 16px); padding-block: 120px; }
 .hiw-kicker { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-accent-text); }
 .hiw-kicker--dim { color: var(--c-text-40); font-weight: 500; }
 .hiw-accent { color: var(--c-accent-text); }
@@ -282,12 +282,12 @@
 .hiw-card[data-state="4"] li[data-m="orbiter"] .hiw-card__who { text-decoration: line-through; }
 
 /* ---------- hiw-cta ---------- */
-.hiw-cta { padding-block: 80px; }
+.hiw-cta { padding-block: 120px; }
 .hiw-cta .hiw-title { margin-bottom: 28px; }
 
 /* ---------- hiw-registries ---------- */
 .hiw-registries { background: rgba(var(--ink), 0.025); border-block: 1px solid var(--hiw-line); }
-.hiw-registries__inner { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; padding-block: 80px; }
+.hiw-registries__inner { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; padding-block: 120px; }
 .hiw-registries__inner > div:first-child { display: grid; gap: 12px; }
 .hiw-registries__title { font-size: clamp(24px, 2.2vw, 30px); line-height: 1.2; font-weight: 500; letter-spacing: -0.01em; }
 

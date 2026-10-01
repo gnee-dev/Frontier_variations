@@ -56,7 +56,7 @@ Each has a poster (`*-poster.jpg`: the intro's final frame, the loop's first). H
 
 `how-it-works.html` recreates frontier.d3.com/how-it-works (layout, copy and interactions, from the screenshots and screen recording) in the 04b design: black page, Google Sans Flex, the orange accent, and the Ocean B hero background (rise, then loop) with the same placement rules. The hero has `data-fill`: the video always fills the full width (no side fades), moving down when it needs to so the ring stays at least 28px under the nav. It's linked from the nav on every 04b page: a "How it works" link, or on phones the first item in the Vaults menu.
 
-Spacing and buttons: the six sections after the hero have 80px top and bottom padding. Secondary actions (Get your link, See all extensions, Read the FAQ, Become a Frontier partner, How Frontier works for registries, Book a call) are outlined buttons: the orange buttons' size and padding, a 2px orange border, orange text, black fill.
+Spacing and buttons: the six sections after the hero have 120px top and bottom padding. Secondary actions (Get your link, See all extensions, Read the FAQ, Become a Frontier partner, How Frontier works for registries, Book a call) are outlined buttons: the orange buttons' size and padding, a 2px orange border, orange text, black fill.
 
 Type scale on this page: body copy 16px (the hero subtitle's size: section descriptions, the compare labels and footers, step text, and the step eyebrows like "Step 1 · Start earning points"), info on cards 14px, animation labels 16px (the name) and 14px (tags), corner status tags 14px (`--hiw-fs-body`, `--hiw-fs-card` in `css/how-it-works.css`).
 
