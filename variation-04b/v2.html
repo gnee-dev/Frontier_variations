@@ -262,25 +262,20 @@
             <p class="v2-tl__when">2027</p>
             <h3 class="v2-tl__title">First extensions go live</h3>
             <p class="v2-tl__body">Approved extensions are added to the internet.</p>
-            <p class="v2-tag v2-tag--yours">Your priority window opens</p>
+            <p class="v2-tag">Your priority window opens</p>
           </li>
         </ol>
       </div>
     </section>
 
     <!-- ============================== v2-back: Back the extensions you want ==============================
-         SectionHeader with the List / Map chips on the right; search and the category
-         chips; the leaderboard (a table, or a map of tiles) and the selected extension.
+         SectionHeader; search and the category chips; the leaderboard table and the
+         selected extension.
          Rows come from EXTENSIONS in js/v2-config.js (rendered by js/v2-leaderboard.js). -->
     <section class="v2-section v2-back" id="v2-back" data-section="v2-back" aria-labelledby="v2-back-title" data-leaderboard>
       <div class="v2-container v2-stack v2-stack--tight">
         <f-section-header eyebrow="Back the extensions you want" title="See where demand is forming" title-id="v2-back-title"
-                          subtitle="1,600+ applications filed. Commit points to the ones you want and track your place in line.">
-          <div slot="right" class="v2-chip-group" data-chip-group="single" role="group" aria-label="View" data-lb="view">
-            <button type="button" class="v2-chip" aria-pressed="true" value="list">List</button>
-            <button type="button" class="v2-chip" aria-pressed="false" value="map">Map</button>
-          </div>
-        </f-section-header>
+                          subtitle="1,600+ applications filed. Commit points to the ones you want and track your place in line."></f-section-header>
 
         <div class="v2-lb__tools">
           <label class="v2-search">
@@ -304,7 +299,6 @@
               </thead>
               <tbody data-lb="rows"></tbody>
             </table>
-            <ul class="v2-lb__map" data-lb="map" hidden></ul>
             <p class="v2-lb__empty" data-lb="empty" hidden></p>
           </div>
 
@@ -338,7 +332,7 @@
             <svg class="v2-trust__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.2 2.9 8 7 9.5 4.1-1.5 7-5.3 7-9.5V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <h3 class="v2-trust__title">D3 never holds your deposit</h3>
             <p class="v2-trust__body">Vaults are operated by independent, third-party providers. D3 doesn’t custody or manage deposited assets.</p>
-            <ul class="v2-placeholders" aria-label="Vault providers"><li>[Vault logo]</li><li>[Vault logo]</li></ul>
+            <ul class="v2-vaults" aria-label="Vaults"><li><svg class="v2-vaults__mark" viewBox="0 0 29 26" aria-hidden="true"><defs><linearGradient id="solg-v2-trust" x1="0" y1="26" x2="29" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><path fill="url(#solg-v2-trust)" d="M28.85 20.5L24.06 25.65C23.96 25.76 23.83 25.85 23.69 25.91C23.55 25.97 23.4 26 23.25 26L0.56 26C0.45 26 0.34 25.97 0.25 25.91C0.16 25.85 0.09 25.76 0.05 25.66C0 25.57 -0.01 25.46 0.01 25.35C0.03 25.24 0.08 25.14 0.15 25.06L4.94 19.92C5.04 19.8 5.17 19.72 5.31 19.65C5.45 19.59 5.6 19.56 5.75 19.56L28.44 19.56C28.55 19.56 28.66 19.59 28.75 19.65C28.84 19.71 28.91 19.8 28.95 19.9C29 20 29.01 20.11 28.99 20.21C28.97 20.32 28.92 20.42 28.85 20.5ZM24.06 10.14C23.96 10.02 23.83 9.93 23.69 9.87C23.55 9.81 23.4 9.78 23.25 9.78L0.56 9.78C0.45 9.78 0.34 9.81 0.25 9.87C0.16 9.93 0.09 10.02 0.05 10.12C0 10.22 -0.01 10.33 0.01 10.43C0.03 10.54 0.08 10.64 0.15 10.72L4.94 15.86C5.04 15.98 5.17 16.07 5.31 16.13C5.45 16.19 5.6 16.22 5.75 16.22L28.44 16.22C28.55 16.22 28.66 16.19 28.75 16.13C28.84 16.07 28.91 15.98 28.95 15.88C29 15.78 29.01 15.67 28.99 15.57C28.97 15.46 28.92 15.36 28.85 15.28L24.06 10.14ZM0.56 6.44L23.25 6.44C23.4 6.44 23.55 6.41 23.69 6.35C23.83 6.28 23.96 6.2 24.06 6.08L28.85 0.94C28.92 0.86 28.97 0.76 28.99 0.65C29.01 0.54 29 0.43 28.95 0.34C28.91 0.24 28.84 0.15 28.75 0.09C28.66 0.03 28.55 0 28.44 0L5.75 0C5.6 0 5.45 0.03 5.31 0.09C5.17 0.15 5.04 0.24 4.94 0.35L0.15 5.5C0.08 5.58 0.03 5.68 0.01 5.79C-0.01 5.89 0 6 0.05 6.1C0.09 6.2 0.16 6.29 0.25 6.35C0.34 6.41 0.45 6.44 0.56 6.44Z"/></svg>Solana</li><li><svg class="v2-vaults__mark" viewBox="5.97 10.69 36.06 26.5" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg>Hyperliquid</li></ul>
           </li>
           <li class="v2-trust__col">
             <svg class="v2-trust__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h13m-5-5 5 5-5 5M20 5v14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -368,13 +362,13 @@
         </div>
         <div class="v2-faq__list">
           <details class="v2-faq__item" open>
-            <summary class="v2-faq__q"><span class="v2-tag">Trust</span><span class="v2-faq__text">Does D3 hold my deposit or guarantee a return?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
+            <summary class="v2-faq__q"><span class="v2-faq__text">Does D3 hold my deposit or guarantee a return?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
             <div class="v2-faq__a">
               <p>No. Supported vaults are operated by independent, third-party providers, not D3. D3 does not custody or manage deposited assets. Deposits are subject to the provider’s terms, risks, fees and withdrawal conditions.</p>
             </div>
           </details>
           <details class="v2-faq__item">
-            <summary class="v2-faq__q"><span class="v2-tag">Trust</span><span class="v2-faq__text">What are Frontier Points, and can I cash them out?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
+            <summary class="v2-faq__q"><span class="v2-faq__text">What are Frontier Points, and can I cash them out?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
             <div class="v2-faq__a">
               <p>Frontier Points turn participation into priority. Use them now to support the TLDs you want to see in Frontier. When name-level selection opens, commit them to the names you want. If several members want the same name, the number of points committed determines who ranks first.</p>
               <p>Frontier Points are program points, not cash: they cannot be sold, withdrawn or traded, and they do not pay the domain’s registration price. Current earning rates and any multipliers will appear in the Frontier interface or Program Rules.</p>

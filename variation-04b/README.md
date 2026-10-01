@@ -113,19 +113,19 @@ It renders a plain `header.v2-sh` with an `h2` in place. Eyebrow 14px uppercase 
 - **Maths** (`js/v2-how.js`): perDay = deposit × `EPOCH_MULTIPLIER`; total = perDay × days; en-US formatting. The result is `aria-live="polite"`; the total counts up over 300ms (`aria-busy` while counting, so it's announced once), and jumps straight there with reduced motion.
 - **Responsive**: ≤1023px the cards stack, the rail hides and each card shows its number circle; ≤767px the estimator stacks (the form's divider moves to its bottom), the total drops to 48px so the largest value fits, and the chips wrap.
 
-**Why now** (`#v2-why`): SectionHeader ("Program timeline" → `how-it-works.html#timeline`), then the timeline in one card: five milestones on a rail (done: grey with a check; you are here: filled accent with a halo, its eyebrow "You are here" in accent; upcoming: outlined; the last one outlined in accent, as it's your window). Each has a date (14px uppercase), an h3 (22/600), the text (15px muted) and a tag: `.v2-tag--you` (tint) for "You: deposit & earn", neutral for "You: back extensions" / "You: keep backing", `.v2-tag--yours` (filled) for "Your priority window opens". Below 1024px it runs vertically, the rail down the left.
+**Why now** (`#v2-why`): SectionHeader ("Program timeline" → `how-it-works.html#timeline`), then the timeline in one card: five milestones on a rail (done: grey with a check; you are here: filled accent with a halo, its eyebrow "You are here" in accent; upcoming: outlined; the last one outlined in accent, as it's your window). Each has a date (14px uppercase), an h3 (22/600), the text (15px muted) and a tag: `.v2-tag--you` (tint) for "You: deposit & earn", neutral for "You: back extensions", "You: keep backing" and "Your priority window opens". Below 1024px it runs vertically, the rail down the left.
 
-**Back the extensions you want** (`#v2-back`, `js/v2-leaderboard.js`): SectionHeader with the List / Map chips as its right slot; a search field and the category chips (from `CATEGORIES`); the leaderboard and the Selected panel (340px). Rows come from `EXTENSIONS`: rank, the extension (the row's button), applicant, backers (a neutral bar against the most backed; [##] when not published), status and "Back →". Choosing a row (or a map tile) fills the panel and its button ("Back .agent with points"); search and the chips filter both views, with an empty message when nothing matches. Map shows the same extensions as tiles that grow with backers. Below 1024px the panel goes under the board; on phones the applicant and status columns hide.
+**Back the extensions you want** (`#v2-back`, `js/v2-leaderboard.js`): SectionHeader; a search field and the category chips (from `CATEGORIES`); the leaderboard and the Selected panel (340px). Rows come from `EXTENSIONS`: rank, the extension (the row's button), applicant, backers (a neutral bar against the most backed; [##] when not published), status and "Back →". Choosing a row fills the panel and its button ("Back .agent with points"); search and the chips filter the table, with an empty message when nothing matches. Below 1024px the panel goes under the board; on phones the applicant and status columns hide.
 
-**Where your money goes** (`#v2-trust`): SectionHeader, then three columns with dividers (stacked below 1024px): icon, h3, text, and the vault logo placeholders / "How vaults work →" / "Frontier Terms →".
+**Where your money goes** (`#v2-trust`): SectionHeader, then three columns with dividers (stacked below 1024px): icon, h3, text, and the vaults (Solana and Hyperliquid, with their marks from the Vaults menu) / "How vaults work →" / "Frontier Terms →".
 
-**FAQ** (`#faq`): the SectionHeader and "View all FAQs" (secondary button) on the left, sticky on desktop; five `<details>` on the right, the first open, the first two tagged Trust. Answers 2–4 are the site's existing answers; the fifth ("What if an extension I backed isn't approved?") has no answer yet and shows [Answer].
+**FAQ** (`#faq`): the SectionHeader and "View all FAQs" (secondary button) on the left, sticky on desktop; five `<details>` on the right, the first open. Answers 2–4 are the site's existing answers; the fifth ("What if an extension I backed isn't approved?") has no answer yet and shows [Answer].
 
 **For registries** (`#registries`): one warm panel (`--v2-surface-warm`, `--v2-border-warm`): SectionHeader, "Become a Frontier Partner" (primary) and "How it works for registries" (secondary), the logo placeholders, and the partner dashboard preview (the most backed extension from the config, a Live status, the chart, and the two placeholder stats).
 
 **Stake your claim** (`#join`, the closing panel; every "Join" / "Sign in" / "Back" link on v2 lands here): surface panel (radius 2xl) with faint wave lines and a low orange glow; a pill "Epoch 1 · 4× points · N days left" (N worked out live from `EPOCH_END`); a centred SectionHeader; the hero's domain field at section size: a real input ("yourname" at 64%, letters, digits and hyphens only, growing with its text so ".agent" follows it) and the hero's Join Frontier button; and the hero's sign-up line ("+10,000 pts" in #4AFFBA). On phones the button drops under the name.
 
-Colour: per the v2 rules, orange is kept for buttons, links, the selected state and "you/your"; the bars, the chart line, the trust icons, the FAQ tags and the +/− are neutral.
+Colour: per the v2 rules, orange is kept for buttons, links, the selected state and "you/your"; the bars, the chart line, the trust icons and the +/− are neutral.
 
 **Secondary button** (`.btn--secondary`, `css/base.css`): the primary `.btn`'s size and padding with a 1.4px accent stroke at 64%, accent text and a black fill (the How it works page's secondary look).
 
@@ -203,7 +203,7 @@ js/
   v2.js                                     # v2: <f-section-header>, chip groups
   v2-config.js                              # v2: program constants and shared lists (epoch, assets, extensions, estimator)
   v2-how.js                                 # v2: How it works cards and the points estimator
-  v2-leaderboard.js                         # v2: the leaderboard (list/map, search, filters, selected) and the partner preview
+  v2-leaderboard.js                         # v2: the leaderboard (search, filters, selected) and the partner preview
   how-it-works.js                           # How it works: swarm/queue, chart, Back buttons, priority card, section pill
   variation-4b.js                           # video renditions + placement, hover grid + trail, headline fitting
   main.js                                   # copy of the page script (typing domain, counters, reveals, countdown)

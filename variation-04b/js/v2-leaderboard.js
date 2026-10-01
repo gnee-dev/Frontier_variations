@@ -1,9 +1,8 @@
 /* ==========================================================================
    v2-leaderboard: "See where demand is forming" and the partner preview (v2.html)
    Reads EXTENSIONS and CATEGORIES from js/v2-config.js.
-   - List / Map: the same extensions as table rows or as tiles (sized by backers).
-   - Search and the category chips filter both views.
-   - Choosing a row or a tile fills the Selected panel.
+   - Search and the category chips filter the table.
+   - Choosing a row fills the Selected panel.
    - Backers bars are against the most backed extension; an extension without a
      published count shows [##] and an empty bar.
    ========================================================================== */
@@ -28,8 +27,8 @@
   var root = document.querySelector("[data-leaderboard]");
   if (!root) return;
   var q = function (k) { return root.querySelector('[data-lb="' + k + '"]'); };
-  var rows = q("rows"), map = q("map"), list = q("list"), empty = q("empty"), search = q("search");
-  var state = { view: "list", category: "All", text: "", selected: X[0].tld };
+  var rows = q("rows"), list = q("list"), empty = q("empty"), search = q("search");
+  var state = { category: "All", text: "", selected: X[0].tld };
 
   // the category chips, from the config
   var cats = q("category");
@@ -59,15 +58,13 @@
     root.querySelectorAll("[data-tld]").forEach(function (n) {
       var on = n.getAttribute("data-tld") === tld;
       n.classList.toggle("is-selected", on);
-      var b = n.querySelector(".v2-lb__pick") || (n.matches("button") ? n : null);
-      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+      n.querySelector(".v2-lb__pick").setAttribute("aria-pressed", on ? "true" : "false");
     });
   }
 
   function render() {
     var items = visible();
     rows.replaceChildren();
-    map.replaceChildren();
     items.forEach(function (e) {
       var rank = X.indexOf(e) + 1;
       // a table row: the extension is the row's button (keyboard), the whole row is clickable
@@ -96,33 +93,20 @@
       tr.appendChild(tdA);
       rows.appendChild(tr);
 
-      // a map tile: grows with its backers
-      var li = make("li");
-      var tile = make("button", "v2-lb__tile");
-      tile.type = "button";
-      tile.setAttribute("data-tld", e.tld);
-      tile.style.setProperty("--g", String(Math.max(1, Math.round((e.backers || 0) / max * 6))));
-      tile.appendChild(make("span", "v2-lb__tile-tld", e.tld));
-      tile.appendChild(make("span", "v2-lb__tile-n", fmt(e.backers) + " backers"));
-      li.style.flexGrow = tile.style.getPropertyValue("--g");
-      li.appendChild(tile);
-      map.appendChild(li);
     });
     var none = !items.length;
     empty.hidden = !none;
     if (none) empty.textContent = "No extensions match “" + state.text.trim() + "”" + (state.category !== "All" ? " in " + state.category : "") + ".";
-    list.hidden = none || state.view !== "list";
-    map.hidden = none || state.view !== "map";
+    list.hidden = none;
     // keep the selection if it's still listed, else select the first one shown
     if (items.length && !items.some(function (e) { return e.tld === state.selected; })) state.selected = items[0].tld;
     select(state.selected);
   }
 
   root.addEventListener("click", function (ev) {
-    var row = ev.target.closest("[data-tld]");   // a row or a tile ("Back →" selects its row too)
+    var row = ev.target.closest("[data-tld]");   // "Back →" selects its row too
     if (row) select(row.getAttribute("data-tld"));
   });
-  q("view").addEventListener("chipchange", function (ev) { state.view = ev.detail.value; render(); });
   cats.addEventListener("chipchange", function (ev) { state.category = ev.detail.value; render(); });
   search.addEventListener("input", function () { state.text = search.value; render(); });
 
