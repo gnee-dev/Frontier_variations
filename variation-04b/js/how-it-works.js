@@ -17,7 +17,7 @@
       { threshold: threshold || 0 }).observe(el);
   }
 
-  /* ---------------- hiw-compare + its hiw-rail timelines: one story on one clock ----------------
+  /* ---------------- hiw-compare + hiw-steps: one story on one clock ----------------
      T seconds, looping. Both sides share the clock, so the same moment plays out
      two ways:
        Without Frontier  0-5 waiting for the public sale (countdown)
@@ -28,15 +28,11 @@
                          5.5-8  LINE: they line up by points; You land 2nd
                          8-11   LAUNCH: the line is served in order; #1's max falls
                                 short, so the name goes to You
-     Each card's rail (hiw-rail) lights the step that's playing; a click on a With
-     Frontier step jumps the animation to it. */
+     The hiw-steps strip follows the With Frontier phases; a click jumps to one. */
   var compare = document.querySelector("[data-compare]");
   if (compare) (function () {
     var T = 13;
-    var PH = {                                                         // the rails' steps, in seconds
-      wait: [0, 5], click: [5, 5.4], taken: [5.4, 13],                 // without: the public sale
-      earn: [0, 3.5], back: [3.5, 5.5], line: [5.5, 13]                // with: Frontier (LINE includes the launch)
-    };
+    var PH = { earn: [0, 3.5], back: [3.5, 5.5], line: [5.5, 13] };   // strip steps (LINE includes the launch)
     var clamp = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
     var ease = function (x) { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
     var out = function (x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
@@ -80,7 +76,8 @@
 
     /* ---- status chips, strip ---- */
     var stWithout = compare.querySelector('[data-status="without"]'), stWith = compare.querySelector('[data-status="with"]');
-    var stepEls = compare.querySelectorAll(".hiw-rail [data-phase]");
+    var strip = document.querySelector("[data-steps]");
+    var stepEls = strip ? strip.querySelectorAll("[data-phase]") : [];
     var setText = function (el, txt) { if (el && el.textContent !== txt) el.textContent = txt; };
     // place a label that follows a dot, kept inside its stage
     var tagAt = function (tag, x, y, W) {
@@ -175,7 +172,7 @@
       lineEl.style.opacity = fade.toFixed(2);
       crowd.style.opacity = fade.toFixed(2);
 
-      /* the rails */
+      /* the strip */
       stepEls.forEach(function (li) {
         var ph = PH[li.dataset.phase], on = t >= ph[0] && t < ph[1];
         li.classList.toggle("is-active", on);
@@ -235,8 +232,13 @@
         ends.forEach(function (b) { b.textContent = fmt(+b.dataset.value * m); });
         if (t < 1) anim = requestAnimationFrame(step);
       })(t0);
-      // redraw the lines briefly so the change reads as a recalculation
-      chart.classList.remove("is-visible"); void chart.offsetWidth; chart.classList.add("is-visible");
+      // redraw the lines from the left on every change: reset without a transition, then play it
+      var svg = chart.querySelector(".hiw-chart__svg");
+      svg.style.transition = "none";
+      chart.classList.remove("is-visible");
+      void svg.getBoundingClientRect();
+      svg.style.transition = "";
+      requestAnimationFrame(function () { chart.classList.add("is-visible"); });
     };
     seg.forEach(function (b) {
       b.addEventListener("click", function () {

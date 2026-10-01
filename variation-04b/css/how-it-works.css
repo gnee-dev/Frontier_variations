@@ -3,7 +3,7 @@
    The live page's layout and copy, in the 04b design: black page, Google Sans
    Flex, the orange accent (--c-accent, tints via --accent-rgb) and the Ocean B
    hero background. Blocks are named after the page's sections (data-section):
-   hiw-hero, hiw-compare (with its hiw-rail timelines), hiw-earn, hiw-back, hiw-timeline,
+   hiw-hero, hiw-compare, hiw-steps, hiw-earn, hiw-back, hiw-timeline,
    hiw-priority, hiw-cta, hiw-registries, hiw-disclaimer, hiw-section-nav.
    ========================================================================== */
 
@@ -16,6 +16,8 @@
 .hiw-kicker--dim { color: var(--c-text-40); font-weight: 500; }
 .hiw-accent { color: var(--c-accent-text); }
 .hiw-head { display: grid; justify-items: start; gap: 14px; margin-bottom: 36px; }
+/* the step eyebrows ("Step 1 · Start earning points") at the subtitle size */
+.hiw-head > .hiw-kicker { font-size: var(--hiw-fs-body); letter-spacing: 0.06em; }
 .hiw-title { font-size: clamp(32px, 3.4vw, 48px); line-height: 1.12; font-weight: 500; letter-spacing: -0.02em; text-wrap: balance; }
 .hiw-desc { max-width: 620px; font-size: var(--hiw-fs-body); line-height: 1.6; color: var(--c-text-64); }
 .hiw-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
@@ -68,6 +70,7 @@
 .hiw-compare__status.is-bad { color: var(--hiw-bad); border-color: rgba(255, 77, 109, 0.4); }
 .hiw-compare__status--accent { color: var(--c-accent-text); border-color: rgba(var(--accent-rgb), 0.35); }
 .hiw-compare__stage { position: relative; height: 210px; overflow: hidden; transition: opacity 0.2s; }
+.hiw-compare__foot { padding: 14px 20px; border-top: 1px solid var(--panel-bd); font-size: var(--hiw-fs-body); color: var(--c-text-88); }
 .hiw-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 /* the name */
 .hiw-pill { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--c-line); background: rgba(8, 8, 12, 0.92); font-size: 16px; white-space: nowrap; transition: border-color 0.3s, box-shadow 0.3s, color 0.3s; }
@@ -99,43 +102,41 @@
 .hiw-tag--miss { color: var(--c-text-64); }
 .hiw-tag.is-on { opacity: 1; }
 
-/* ---------- hiw-rail: each compare card's three-step timeline ----------
-   In sync with its animation: the step playing is lit, with its progress on top;
-   the Without rail ends in red (the bot wins), the With rail in the accent. */
-.hiw-rail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--panel-bd); }
-.hiw-rail li { position: relative; display: flex; gap: 10px; min-width: 0; padding: 14px 14px 16px; }
-.hiw-rail li + li { border-left: 1px solid var(--panel-bd); }
-.hiw-rail li:has(> a) { padding: 0; }
-.hiw-rail a { flex: 1; display: flex; gap: 10px; min-width: 0; padding: 14px 14px 16px; transition: background-color 0.2s; }
-.hiw-rail a:hover { background: rgba(var(--ink), 0.04); }
-.hiw-rail__n { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--c-line); font-size: 12px; color: var(--c-text-40); transition: color 0.3s, border-color 0.3s, background-color 0.3s; }
-.hiw-rail b { display: block; font-size: var(--hiw-fs-card); font-weight: 500; line-height: 1.35; color: var(--c-text-64); transition: color 0.3s; }
-.hiw-rail small { display: block; margin-top: 3px; font-size: var(--hiw-fs-card); line-height: 1.35; color: var(--c-text-40); }
-.hiw-rail__bar { position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--c-accent); transform: scaleX(var(--p, 0)); transform-origin: left; opacity: 0; transition: opacity 0.3s; }
-.hiw-rail li.is-active .hiw-rail__bar { opacity: 1; }
-.hiw-rail li.is-done .hiw-rail__bar { opacity: 0.3; }
-.hiw-rail li.is-active b { color: var(--c-text); }
-.hiw-rail li.is-active .hiw-rail__n { color: #000; border-color: var(--c-accent); background: var(--c-accent); }
-.hiw-rail li.is-done .hiw-rail__n { color: var(--c-accent-text); border-color: rgba(var(--accent-rgb), 0.5); }
-.hiw-rail li.is-done b { color: var(--c-text-88); }
-/* the Without rail: neutral, and red where the bot wins */
-[data-rail="without"] .hiw-rail__bar { background: rgba(var(--ink), 0.6); }
-[data-rail="without"] li.is-active .hiw-rail__n { color: #000; border-color: rgba(var(--ink), 0.8); background: rgba(var(--ink), 0.8); }
-[data-rail="without"] li.is-done .hiw-rail__n { color: var(--c-text-64); border-color: var(--c-line); }
-[data-rail="without"] li.is-bad.is-active .hiw-rail__n { border-color: var(--hiw-bad); background: var(--hiw-bad); }
-[data-rail="without"] li.is-bad.is-active .hiw-rail__bar { background: var(--hiw-bad); }
-[data-rail="without"] li.is-bad.is-active b, [data-rail="without"] li.is-bad.is-active small { color: var(--hiw-bad); }
-[data-rail="with"] li.is-active small { color: var(--c-text-64); }
+/* ---------- hiw-steps (also the timeline of the With Frontier animation) ---------- */
+.hiw-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-radius: 14px; border: 1px solid var(--panel-bd); background: rgba(10, 10, 14, 0.5); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); overflow: hidden; }
+.hiw-steps li + li { border-left: 1px solid var(--panel-bd); }
+.hiw-steps a { position: relative; display: flex; gap: 12px; padding: 14px 16px; transition: background-color 0.2s; }
+.hiw-steps a:hover { background: rgba(var(--ink), 0.04); }
+.hiw-steps__n { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--c-line); font-size: 11px; color: var(--c-text-40); transition: color 0.3s, border-color 0.3s, background-color 0.3s; }
+.hiw-steps b { display: block; font-size: var(--hiw-fs-card); font-weight: 500; transition: color 0.3s; }
+.hiw-steps small { display: block; margin-top: 2px; font-size: var(--hiw-fs-card); color: var(--c-text-40); }
+/* progress of the step that's playing */
+.hiw-steps__bar { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--c-accent); transform: scaleX(var(--p, 0)); transform-origin: left; opacity: 0; transition: opacity 0.3s; }
+.hiw-steps li.is-active .hiw-steps__bar, .hiw-steps li.is-done .hiw-steps__bar { opacity: 1; }
+.hiw-steps li.is-done .hiw-steps__bar { opacity: 0.35; }
+.hiw-steps li.is-active .hiw-steps__n { color: #000; border-color: var(--c-accent); background: var(--c-accent); }
+.hiw-steps li.is-done .hiw-steps__n { color: var(--c-accent-text); border-color: rgba(var(--accent-rgb), 0.5); }
+.hiw-steps li.is-active b { color: var(--c-accent-text); }
 
-/* ---------- hiw-earn ---------- */
-.hiw-earn__deposit { display: grid; justify-items: start; gap: 10px; margin-bottom: 28px; }
-.hiw-seg { display: flex; gap: 6px; }
-.hiw-seg button { padding: 8px 12px; border-radius: 8px; border: 1px solid transparent; font-size: 14px; color: var(--c-text-64); transition: color 0.2s, border-color 0.2s, background-color 0.2s; }
+/* ---------- hiw-earn ----------
+   Two columns: text (and the invite link) left, the calculator right. */
+.hiw-earn__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px clamp(48px, 7vw, 112px); align-items: start; }
+.hiw-earn__text { display: grid; align-content: start; gap: 8px; }
+.hiw-earn__text .hiw-head { margin-bottom: 0; }
+.hiw-invite { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; font-size: var(--hiw-fs-body); }
+.hiw-invite .link-arrow { font-size: var(--hiw-fs-body); }
+.hiw-chart { display: grid; gap: 22px; margin: 0; padding: clamp(20px, 2.2vw, 28px); }
+/* top row: Deposit + its tabs, and the live rate */
+.hiw-chart__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+.hiw-chart__deposit { display: flex; align-items: center; gap: 14px; }
+.hiw-seg { display: flex; gap: 4px; padding: 3px; border-radius: 10px; border: 1px solid var(--c-line-soft); background: rgba(var(--ink), 0.02); }
+.hiw-seg button { padding: 6px 12px; border-radius: 7px; border: 1px solid transparent; font-size: var(--hiw-fs-card); color: var(--c-text-64); transition: color 0.2s, border-color 0.2s, background-color 0.2s; }
 .hiw-seg button:hover { color: var(--c-text); }
-.hiw-seg button.is-on { color: var(--c-text); border-color: rgba(var(--accent-rgb), 0.6); background: rgba(var(--accent-rgb), 0.06); }
-.hiw-chart { display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 0 18px; margin: 0; }
-.hiw-chart__plot { position: relative; padding-left: 44px; }
-.hiw-chart__plot { --h: 300px; }
+.hiw-seg button.is-on { color: var(--c-text); border-color: rgba(var(--accent-rgb), 0.6); background: rgba(var(--accent-rgb), 0.08); }
+.hiw-chart__rate { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(var(--accent-rgb), 0.35); font-size: var(--hiw-fs-card); color: var(--c-accent-text); white-space: nowrap; }
+.hiw-chart__rate i { width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2); }
+/* the plot */
+.hiw-chart__plot { position: relative; --h: 260px; padding-left: 44px; }
 .hiw-chart__y { position: absolute; left: 0; top: calc(var(--h) * var(--y) / 100); transform: translateY(-50%); font-size: var(--hiw-fs-card); color: var(--c-text-40); }
 .hiw-chart__svg { display: block; width: 100%; height: var(--h); overflow: visible; }
 .hiw-chart__grid { stroke: var(--hiw-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -143,27 +144,30 @@
 .hiw-chart__area { fill: url(#hiw-fill); }
 .hiw-chart__line { fill: none; stroke-width: 2.2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
 .hiw-chart__line--open { stroke: var(--c-accent); }
-/* the lines draw in from the left (a clip over the plot) */
-.hiw-chart__svg { clip-path: inset(-4px 100% -4px 0); transition: clip-path 1.6s var(--ease-out); }
-.hiw-chart.is-visible .hiw-chart__svg { clip-path: inset(-4px 0 -4px 0); }
 .hiw-chart__line--3m, .hiw-chart__line--6m { stroke: rgba(var(--ink), 0.6); }
 .hiw-chart__line--3m { stroke-dasharray: 7 6; }
 .hiw-chart__line--6m { stroke: rgba(var(--ink), 0.4); stroke-dasharray: 2 5; }
+/* the lines draw in from the left: on reveal and on every deposit change (the script replays it) */
+.hiw-chart__svg { clip-path: inset(-4px 100% -4px 0); transition: clip-path 1.6s var(--ease-out); }
+.hiw-chart.is-visible .hiw-chart__svg { clip-path: inset(-4px 0 -4px 0); }
 .hiw-chart__x { position: relative; display: flex; margin-top: 10px; font-size: var(--hiw-fs-card); color: var(--c-text-64); }
 .hiw-chart__x span { flex: 1; }
-.hiw-chart__x span + span { padding-left: 4px; border-left: 1px solid var(--hiw-line); }
+.hiw-chart__x span + span { padding-left: 6px; border-left: 1px solid var(--hiw-line); }
 .hiw-chart__x b { font-weight: 600; color: var(--c-text); }
 .hiw-chart__x small { display: block; margin-top: 2px; font-size: var(--hiw-fs-card); color: var(--c-text-40); }
-.hiw-chart__ends { position: relative; height: 300px; }
-.hiw-chart__ends li { position: absolute; left: 0; top: calc(var(--y) * 1%); transform: translateY(-30%); white-space: nowrap; }
-.hiw-chart__ends b { font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
-.hiw-chart__ends i { font-style: normal; font-size: var(--hiw-fs-card); color: var(--c-text-64); }
-.hiw-chart__ends small { display: block; font-size: var(--hiw-fs-card); color: var(--c-text-40); }
+/* the legend */
+.hiw-chart__ends { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 18px; border-top: 1px solid var(--hiw-line); }
+.hiw-chart__ends li { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.hiw-chart__key { flex: none; width: 18px; height: 0; margin-top: 11px; border-top: 2px solid rgba(var(--ink), 0.6); }
+.hiw-chart__key--open { border-top-color: var(--c-accent); }
+.hiw-chart__key--3m { border-top-style: dashed; }
+.hiw-chart__key--6m { border-top: 2px dotted rgba(var(--ink), 0.45); }
+.hiw-chart__ends b { font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.hiw-chart__ends em { font-style: normal; font-size: var(--hiw-fs-card); color: var(--c-text-64); }
+.hiw-chart__ends small { display: block; margin-top: 2px; font-size: var(--hiw-fs-card); color: var(--c-text-40); }
 .hiw-chart__ends li.is-open b { color: var(--c-accent-text); }
 .hiw-chart__ends li.is-dim b { color: var(--c-text-64); }
-.hiw-chart__note { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 22px; font-size: var(--hiw-fs-body); color: var(--c-text-64); }
-.hiw-invite { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 44px; font-size: var(--hiw-fs-body); }
-.hiw-invite .link-arrow { font-size: var(--hiw-fs-body); }
+.hiw-chart__note { font-size: var(--hiw-fs-card); line-height: 1.5; color: var(--c-text-40); }
 
 /* ---------- hiw-back ---------- */
 .hiw-back__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 5fr); gap: 40px 64px; align-items: start; }
@@ -315,19 +319,15 @@
   .hiw-card__cols { margin: 12px 10px 4px; }
   .hiw-card__foot { display: none; }
   .hiw-priority__steps li { min-height: 52vh; }
-  .hiw-chart { grid-template-columns: 1fr; }
-  .hiw-chart__ends { display: flex; flex-wrap: wrap; gap: 12px 24px; height: auto; margin-top: 18px; }
-  .hiw-chart__ends li { position: static; transform: none; }
+  .hiw-earn__inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
-  .hiw-compare { grid-template-columns: 1fr; }
+  .hiw-compare, .hiw-steps { grid-template-columns: 1fr; }
   .hiw-compare__col + .hiw-compare__col { border-left: 0; border-top: 1px solid var(--panel-bd); }
-  /* phones: the rails stay three across, titles only */
-  .hiw-rail small { display: none; }
-  .hiw-rail li, .hiw-rail a { flex-direction: column; gap: 8px; padding: 12px 10px; }
-  .hiw-rail li:has(> a) { padding: 0; }
+  .hiw-steps li + li { border-left: 0; border-top: 1px solid var(--panel-bd); }
   .hiw-compare__stage { height: 190px; }
-  .hiw-chart__plot { --h: 220px; padding-left: 36px; }
+  .hiw-chart__plot { --h: 200px; padding-left: 40px; }
+  .hiw-chart__ends { grid-template-columns: 1fr; }
   .hiw-mile__steps { grid-template-columns: 1fr; gap: 18px; }
   .hiw-mile__steps::before { left: 5px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; background: rgba(var(--ink), 0.2); }
   .hiw-mile__steps li { padding: 0 0 0 26px; }

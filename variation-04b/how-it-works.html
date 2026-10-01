@@ -27,7 +27,7 @@
 
     hiw-hero          "Be first in line, not first to click" over the Ocean B background
     hiw-compare       Without Frontier (swarm) vs With Frontier (queue)          #why
-    hiw-rail          inside hiw-compare: each card's three-step timeline, in sync with its animation
+    hiw-steps         the three-step strip, also the timeline of the With Frontier animation
     hiw-earn          Step 1: Day one beats month six by 3x (deposit + chart)      #deposit
     hiw-back          Step 2: Back extensions (live most-backed list)             #back
     hiw-timeline      Build priority now to use later (milestones + phases)       #timeline
@@ -105,8 +105,7 @@
              alex.agent. Without Frontier they wait for the public sale, rush it at once and a
              bot takes it in 0.4s. With Frontier they earn points, back .agent, line up by
              points, and the line is served in order before the public sale: #1's max falls
-             short, so You get it. Under each stage, its timeline (hiw-rail) lights the step
-             that's playing; the two rails run in sync, so the cards compare step by step. -->
+             short, so You get it. The hiw-steps strip below follows the With Frontier side. -->
         <div class="hiw-compare" id="why" data-section="hiw-compare" data-compare data-horizon data-globe-avoid data-anim="rise" style="--d: 0.44s">
           <div class="hiw-compare__col">
             <header class="hiw-compare__top">
@@ -116,12 +115,7 @@
             <div class="hiw-compare__stage hiw-crowd" data-crowd aria-hidden="true">
               <span class="hiw-pill hiw-pill--name" data-chip><span class="hiw-pill__name">alex.agent</span><em data-chip-note></em></span>
             </div>
-            <!-- hiw-rail (without): the public sale, in three beats, on the same clock -->
-            <ol class="hiw-rail" data-rail="without">
-              <li data-phase="wait"><span class="hiw-rail__n">1</span><span><b>Wait for the public sale</b><small>No way to get ahead</small></span><i class="hiw-rail__bar"></i></li>
-              <li data-phase="click"><span class="hiw-rail__n">2</span><span><b>Everyone clicks at once</b><small>People and bots, same second</small></span><i class="hiw-rail__bar"></i></li>
-              <li data-phase="taken" class="is-bad"><span class="hiw-rail__n">3</span><span><b>The fastest bot wins</b><small>Taken in 0.4s</small></span><i class="hiw-rail__bar"></i></li>
-            </ol>
+            <p class="hiw-compare__foot">Public sale opens. Everyone clicks at once. The fastest bot wins.</p>
           </div>
           <div class="hiw-compare__col">
             <header class="hiw-compare__top">
@@ -132,43 +126,55 @@
               <svg class="hiw-line__links" data-links></svg>
               <span class="hiw-pill hiw-pill--name" data-chip><span class="hiw-pill__name">alex.agent</span><em data-chip-note></em></span>
             </div>
-            <!-- hiw-rail (with): the three steps of Frontier; each links to its section below -->
-            <ol class="hiw-rail" data-rail="with">
-              <li data-phase="earn"><a href="#deposit"><span class="hiw-rail__n">1</span><span><b>Deposit, earn points</b><small>Every $1 earns daily, from day one</small></span><i class="hiw-rail__bar"></i></a></li>
-              <li data-phase="back"><a href="#back"><span class="hiw-rail__n">2</span><span><b>Back .agent</b><small>Show registries the demand</small></span><i class="hiw-rail__bar"></i></a></li>
-              <li data-phase="line"><a href="#get-in-line"><span class="hiw-rail__n">3</span><span><b>Points set your place</b><small>Served in order, before the sale</small></span><i class="hiw-rail__bar"></i></a></li>
-            </ol>
+            <p class="hiw-compare__foot">Earn and commit points before launch. Points set your place in line.</p>
           </div>
           <p class="hiw-sr">Without Frontier, everyone rushes the public sale and a bot takes alex.agent in 0.4 seconds. With Frontier, members earn points, back .agent and line up by points; the line is served in order before the public sale, and you register alex.agent.</p>
         </div>
 
+        <!-- ============================== hiw-steps ==============================
+             The three steps, and the timeline of the With Frontier animation: the current
+             step lights up (with its progress), and a click jumps the animation to it. -->
+        <ol class="hiw-steps" data-section="hiw-steps" data-steps data-globe-avoid data-anim="rise" style="--d: 0.52s">
+          <li data-phase="earn"><a href="#deposit"><span class="hiw-steps__n">1</span><span><b>Deposit, earn points</b><small>Every $1 earns points daily, from day one</small></span><i class="hiw-steps__bar"></i></a></li>
+          <li data-phase="back"><a href="#back"><span class="hiw-steps__n">2</span><span><b>Back .agent</b><small>Show registries which extensions you want</small></span><i class="hiw-steps__bar"></i></a></li>
+          <li data-phase="line"><a href="#get-in-line"><span class="hiw-steps__n">3</span><span><b>Points set your place</b><small>The line is served before the public sale</small></span><i class="hiw-steps__bar"></i></a></li>
+        </ol>
+
       </div>
     </section>
 
-    <!-- ============================== hiw-earn (Step 1) ============================== -->
+    <!-- ============================== hiw-earn (Step 1) ==============================
+         Two columns: the story on the left (with the invite link under it), the
+         calculator on the right (deposit tabs + live rate, the chart, its legend). -->
     <section class="section hiw-section hiw-earn" id="deposit" data-section="hiw-earn">
-      <div class="container">
-        <header class="hiw-head" data-reveal>
-          <span class="hiw-kicker">Step 1 · Start earning points</span>
-          <h2 class="hiw-title">Day one beats month six by 3×.</h2>
-          <p class="hiw-desc">Deposit into a supported third-party vault. Each eligible $1 of vault value earns 1 Frontier Point per day, times the live rate. Request a withdrawal at any time.</p>
-          <ul class="hiw-chips">
-            <li>D3 doesn’t hold deposits</li>
-            <li>Withdraw per vault terms</li>
-            <li>Points are non-cash, not a return</li>
-          </ul>
-        </header>
-
-        <div class="hiw-earn__deposit" data-reveal>
-          <span class="hiw-kicker hiw-kicker--dim">Deposit</span>
-          <div class="hiw-seg" role="radiogroup" aria-label="Deposit amount">
-            <button type="button" role="radio" aria-checked="true" class="is-on" data-deposit="100">$100</button>
-            <button type="button" role="radio" aria-checked="false" data-deposit="1000">$1,000</button>
-            <button type="button" role="radio" aria-checked="false" data-deposit="10000">$10,000</button>
-          </div>
+      <div class="container hiw-earn__inner">
+        <div class="hiw-earn__text">
+          <header class="hiw-head" data-reveal>
+            <span class="hiw-kicker">Step 1 · Start earning points</span>
+            <h2 class="hiw-title">Day one beats month six by 3×.</h2>
+            <p class="hiw-desc">Deposit into a supported third-party vault. Each eligible $1 of vault value earns 1 Frontier Point per day, times the live rate. Request a withdrawal at any time.</p>
+            <ul class="hiw-chips">
+              <li>D3 doesn’t hold deposits</li>
+              <li>Withdraw per vault terms</li>
+              <li>Points are non-cash, not a return</li>
+            </ul>
+          </header>
+          <p class="hiw-invite" data-reveal>Invite friends. Build more points. <a class="link-arrow" href="#">Get your link <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
         </div>
 
-        <figure class="hiw-chart" data-chart data-reveal>
+        <figure class="panel hiw-chart" data-chart data-reveal>
+          <div class="hiw-chart__bar">
+            <div class="hiw-chart__deposit">
+              <span class="hiw-kicker hiw-kicker--dim">Deposit</span>
+              <div class="hiw-seg" role="radiogroup" aria-label="Deposit amount">
+                <button type="button" role="radio" aria-checked="true" class="is-on" data-deposit="100">$100</button>
+                <button type="button" role="radio" aria-checked="false" data-deposit="1000">$1,000</button>
+                <button type="button" role="radio" aria-checked="false" data-deposit="10000">$10,000</button>
+              </div>
+            </div>
+            <span class="hiw-chart__rate"><i></i>Live rate: 4× · Epoch 1</span>
+          </div>
+
           <div class="hiw-chart__plot">
             <span class="hiw-chart__y" style="--y: 0">120K</span>
             <span class="hiw-chart__y" style="--y: 50">60K</span>
@@ -193,18 +199,15 @@
               <span>Epoch 2 · <b>2×</b><small>Mar 2027 to Sep 2027</small></span>
             </div>
           </div>
-          <ul class="hiw-chart__ends">
-            <li class="is-open" style="--y: 9"><b data-value="109200">109,200</b><small>Start at opening</small></li>
-            <li style="--y: 39"><b data-value="72800">72,800</b> <i>(−33%)</i><small>Start 3 months in</small></li>
-            <li class="is-dim" style="--y: 69"><b data-value="36800">36,800</b> <i>(−66%)</i><small>Start 6 months in</small></li>
-          </ul>
-          <figcaption class="hiw-chart__note">
-            <span>Estimated points after one year, by start date. Excludes boosts, referrals and sign-up points.</span>
-            <span class="hiw-accent">Live rate: 4× · Epoch 1</span>
-          </figcaption>
-        </figure>
 
-        <p class="hiw-invite" data-reveal>Invite friends. Build more points. <a class="link-arrow" href="#">Get your link <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+          <!-- the legend: each line's style, its points after a year, and when it started -->
+          <ul class="hiw-chart__ends">
+            <li class="is-open"><i class="hiw-chart__key hiw-chart__key--open"></i><span><b data-value="109200">109,200</b><small>Start at opening</small></span></li>
+            <li><i class="hiw-chart__key hiw-chart__key--3m"></i><span><b data-value="72800">72,800</b> <em>−33%</em><small>Start 3 months in</small></span></li>
+            <li class="is-dim"><i class="hiw-chart__key hiw-chart__key--6m"></i><span><b data-value="36800">36,800</b> <em>−66%</em><small>Start 6 months in</small></span></li>
+          </ul>
+          <figcaption class="hiw-chart__note">Estimated points after one year, by start date. Excludes boosts, referrals and sign-up points.</figcaption>
+        </figure>
       </div>
     </section>
 
