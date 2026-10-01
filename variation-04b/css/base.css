@@ -26,7 +26,47 @@
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---------- v2 tokens (v2.html: the redesigned sections below the hero) ----------
+     Prefixed --v2- so they sit beside the tokens above without changing them.
+     Used by css/v2.css. Type stays on --font.
+     Breakpoints (media queries can't read custom properties, so they're written out):
+       mobile < 768px · tablet 768–1023px · desktop ≥ 1024px */
+  --v2-bg: #0a0a0a;
+  --v2-surface: #121212;
+  --v2-surface-sunken: #0f0f0f;
+  --v2-surface-warm: #161514;           /* registries section only */
+  --v2-border: #262626;
+  --v2-border-strong: #333333;
+  --v2-border-warm: #2e2b28;
+  --v2-text: #ededed;
+  --v2-text-secondary: #d4d4d4;
+  --v2-text-muted: #a3a3a3;
+  --v2-text-subtle: #8a8a8a;
+  /* accent: primary actions, links and "you / your" states only, never decoration */
+  --v2-accent: #f26a21;
+  --v2-accent-hover: #ff8a4c;
+  --v2-accent-tint: rgba(242, 106, 33, 0.14);
+  --v2-accent-tint-weak: rgba(242, 106, 33, 0.08);
+  --v2-accent-on-tint: #ffb184;
+  --v2-success: #4ade9b;
+
+  --v2-radius-sm: 6px;
+  --v2-radius-md: 10px;                 /* buttons, chips, inputs */
+  --v2-radius-lg: 12px;
+  --v2-radius-xl: 16px;                 /* cards */
+  --v2-radius-2xl: 20px;                /* large panels */
+  --v2-radius-3xl: 24px;                /* feature cards */
+
+  /* layout: 1200px content, side padding and section padding per breakpoint (below) */
+  --v2-container: 1200px;
+  --v2-pad-x: 120px;                    /* ≥ 1280px */
+  --v2-section-y: 96px;                 /* desktop */
+  --v2-tap: 44px;                       /* minimum height of anything you can press */
 }
+@media (max-width: 1279px) { :root { --v2-pad-x: 48px; } }
+@media (max-width: 1023px) { :root { --v2-section-y: 64px; } }
+@media (max-width: 767px)  { :root { --v2-pad-x: 20px; --v2-section-y: 48px; } }
 
 /* ---------- Theme ----------
    Colour tokens live on <body> so a variation can flip the whole page

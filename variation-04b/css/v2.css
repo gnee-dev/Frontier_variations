@@ -1,0 +1,143 @@
+/* ==========================================================================
+   v2 — foundations for the redesigned sections below the hero (v2.html)
+   Tokens live in base.css (--v2-*). Type is the page font (--font) at every
+   size given here. Rules for everything below the hero:
+   - orange (--v2-accent) only for primary actions, links and "you / your" states
+   - every number is tabular (tabular-nums is set on .v2-section)
+   - no background grid textures
+   - anything you can press is at least 44px tall (--v2-tap), and a real
+     <button>, <a>, <input> or <label>
+   ========================================================================== */
+
+/* ---------- Layout: container + section ---------- */
+/* 1200px of content, centred; side padding 120 / 48 / 20px (see base.css) */
+.v2-container {
+  width: 100%;
+  max-width: calc(var(--v2-container) + var(--v2-pad-x) * 2);
+  margin-inline: auto;
+  padding-inline: var(--v2-pad-x);
+}
+
+/* A section below the hero: 96 / 64 / 48px top and bottom. Flat fills only.
+   Modifiers pick the surface; --warm is for the registries section only. */
+.v2-section {
+  position: relative;
+  padding-block: var(--v2-section-y);
+  background: var(--v2-bg);
+  color: var(--v2-text);
+  font-variant-numeric: tabular-nums;
+}
+.v2-section--surface { background: var(--v2-surface); }
+.v2-section--sunken { background: var(--v2-surface-sunken); }
+.v2-section--warm { background: var(--v2-surface-warm); }
+
+/* ---------- <SectionHeader> ----------
+   Props: eyebrow, title, subtitle?, link { label, href }?, rightSlot? (replaces link).
+   Markup (or build it with FrontierV2.SectionHeader(props), js/v2.js):
+
+   <header class="v2-section-header">
+     <div class="v2-section-header__main">
+       <p class="v2-section-header__eyebrow">Eyebrow</p>
+       <h2 class="v2-section-header__title">Title</h2>
+       <p class="v2-section-header__subtitle">Optional subtitle</p>
+     </div>
+     <a class="v2-section-header__link" href="#">Link label <span aria-hidden="true">→</span></a>
+     -- or, in place of the link --
+     <div class="v2-section-header__slot">…</div>
+   </header>
+
+   The eyebrow uses the page's label treatment (uppercase caption, as .panel__label)
+   at the v2 size and tracking; there's no mono face on this page. */
+.v2-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px 48px;
+}
+.v2-section-header__main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  max-width: 680px;
+}
+.v2-section-header__eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--v2-text-muted);
+}
+.v2-section-header__title {
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--v2-text);
+  text-wrap: balance;
+}
+.v2-section-header__subtitle {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--v2-text-muted);
+  text-wrap: pretty;
+}
+.v2-section-header__link {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--v2-tap);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--v2-accent);
+  white-space: nowrap;
+  transition: color 0.2s, gap 0.25s var(--ease-out);
+}
+.v2-section-header__link:hover { color: var(--v2-accent-hover); gap: 9px; }
+.v2-section-header__link:focus-visible { outline-color: var(--v2-accent); }
+.v2-section-header__slot { flex: none; }
+
+@media (max-width: 767px) {
+  .v2-section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .v2-section-header__title { font-size: 32px; }
+}
+
+/* ---------- <Chip> toggle ----------
+   <button class="v2-chip" type="button" aria-pressed="false">Label</button>
+   js/v2.js flips aria-pressed on click (or build one with FrontierV2.Chip(props)).
+   Unselected fill is the surface on the default (bg) section and the bg on the
+   surface / sunken / warm sections, so a chip always reads against what's behind it. */
+.v2-chip {
+  --chip-bg: var(--v2-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--v2-tap);
+  padding: 0 18px;
+  border: 1px solid var(--v2-border-strong);
+  border-radius: var(--v2-radius-md);
+  background: var(--chip-bg);
+  color: var(--v2-text-secondary);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+.v2-section--surface .v2-chip,
+.v2-section--sunken .v2-chip,
+.v2-section--warm .v2-chip { --chip-bg: var(--v2-bg); }
+.v2-chip:hover { border-color: var(--v2-text-subtle); color: var(--v2-text); }
+.v2-chip[aria-pressed="true"] {
+  border-color: var(--v2-accent);
+  background: var(--v2-accent-tint);
+  color: var(--v2-accent-on-tint);
+  font-weight: 600;
+}
+.v2-chip:focus-visible { outline: 2px solid var(--v2-accent); outline-offset: 2px; border-radius: var(--v2-radius-md); }
+.v2-chip:disabled { opacity: 0.5; cursor: not-allowed; }

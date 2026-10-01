@@ -350,8 +350,12 @@ body.vault-page--hyperliquid {            /* Hyperliquid mint, black text on but
    on phones it moves into the top of the Vaults menu, where there's room */
 .nav__links > a.nav__hiw { display: inline-flex; }
 .nav__menu-item--hiw, .nav__menu-sep { display: none; }
+/* "v2" (v2.html, the redesigned sections): same treatment as How it works */
+.nav__links > a.nav__v2 { display: inline-flex; color: var(--c-text-64); transition: color 0.2s; }
+.nav__links > a.nav__v2:hover, .nav__links > a.nav__v2.is-current { color: var(--c-text); }
+.nav__menu-item--v2 { display: none; }
 @media (max-width: 480px) {
-  .nav__links > a.nav__hiw { display: none; }
-  .nav__links .nav__menu-item--hiw { display: grid; }
+  .nav__links > a.nav__hiw, .nav__links > a.nav__v2 { display: none; }
+  .nav__links .nav__menu-item--hiw, .nav__links .nav__menu-item--v2 { display: grid; }
   .nav__menu-sep { display: block; height: 1px; margin: 4px 8px; background: var(--c-line-soft); }
 }
