@@ -47,7 +47,7 @@
 }
 .hiw-page main .link-arrow:hover { background: rgba(var(--accent-rgb), 0.12); box-shadow: inset 0 0 0 1.4px rgba(var(--accent-rgb), 0.85); transform: translateY(-2px); gap: 8px; }
 .hiw-page main .link-arrow:active { transform: translateY(0) scale(0.98); }
-.hiw-page main .link-arrow svg { width: 16px; height: 16px; }
+.hiw-page main .link-arrow svg { flex: none; width: 16px; height: 16px; }
 .hiw-page main .link-arrow:hover .btn__arrow { transform: translateX(3px); }
 @media (max-width: 400px) { .hiw-page main .link-arrow { font-size: 16px; padding-inline: 14px; } }
 /* phones: long labels wrap inside the button instead of running off the screen */
@@ -206,32 +206,94 @@
 .hiw-backed__btn:hover { background: rgba(var(--ink), 0.14); }
 .hiw-backed__btn.is-backed { background: rgba(var(--accent-rgb), 0.16); color: var(--c-accent-text); }
 
-/* ---------- hiw-timeline ---------- */
-.hiw-mile { position: relative; margin-top: 8px; }
-.hiw-mile__steps { position: relative; display: grid; grid-template-columns: 40% 40% 20%; }
-.hiw-mile__steps::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: linear-gradient(90deg, rgba(var(--ink), 0.22) 85%, transparent); }
-.hiw-mile__steps li { position: relative; display: grid; gap: 4px; padding-top: 22px; padding-right: 16px; }
-.hiw-mile__dot { position: absolute; left: 0; top: 0; width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid rgba(var(--ink), 0.5); background: var(--c-bg-2); }
-.hiw-mile__steps li.is-now .hiw-mile__dot { border-color: var(--c-accent); background: var(--c-accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.18); }
-.hiw-mile__steps b { font-size: var(--hiw-fs-body); font-weight: 500; }
-.hiw-mile__steps li.is-now b { color: var(--c-accent-text); }
-.hiw-mile__steps small { font-size: var(--hiw-fs-card); color: var(--c-text-40); }
-.hiw-mile__bar { position: relative; width: 80%; height: 3px; margin-top: 26px; border-radius: 2px; background: rgba(var(--accent-rgb), 0.14); overflow: hidden; }
-.hiw-mile__bar i { position: absolute; inset: 0; background: var(--c-accent); transform: scaleX(0); transform-origin: left; transition: transform 1.4s var(--ease-out) 0.2s; }
-.hiw-mile.is-visible .hiw-mile__bar i { transform: none; }
-.hiw-mile__label { margin-top: 12px; font-size: var(--hiw-fs-body); color: var(--c-text-88); }
-.hiw-phases { margin-top: 20px; }
-.hiw-phases__fan { display: block; width: 100%; height: 40px; }
-.hiw-phases__fan path { fill: rgba(var(--ink), 0.025); stroke: rgba(var(--ink), 0.1); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.hiw-phases__row { display: grid; grid-template-columns: 28% 44% 28%; border-radius: 0 0 12px 12px; border: 1px solid var(--panel-bd); border-top: 0; overflow: hidden; }
-.hiw-phases__row li { display: grid; align-content: start; gap: 4px; padding: 14px 14px 16px; border-top: 2px solid rgba(var(--ink), 0.1); }
-.hiw-phases__row li + li { border-left: 1px solid var(--panel-bd); }
-.hiw-phases__row b { font-size: var(--hiw-fs-card); font-weight: 500; }
-.hiw-phases__row small { font-size: var(--hiw-fs-card); color: var(--c-text-64); }
-.hiw-phases__row .hiw-kicker { font-size: 11px; }
-.hiw-phases__row li.is-frontier { border-top-color: var(--c-accent); background: rgba(var(--accent-rgb), 0.06); }
-.hiw-phases__row li.is-frontier b { color: var(--c-accent-text); }
-.hiw-phases__note { max-width: 520px; margin-top: 14px; font-size: var(--hiw-fs-card); line-height: 1.55; color: var(--c-text-40); }
+/* ---------- hiw-timeline: the road ----------
+   One grid, three columns (21% / 21% / the rest): the milestones on top, the rail
+   under them, then "Now" under the first two and the launch's phases under the third.
+   On the rail: done (orange) → review (orange fading, then dashes) → launch (grey,
+   with an orange stretch over the Frontier phase). Small text is 14px. */
+.hiw-road {
+  --c1: 20.6%;
+  --c2: 20.6%;
+  display: grid;
+  grid-template-columns: var(--c1) var(--c2) minmax(0, 1fr);
+  grid-template-areas: "s s s" "r r r" "n n p";
+  margin-top: 8px;
+}
+.hiw-road__steps { grid-area: s; display: grid; grid-template-columns: subgrid; }
+.hiw-road__steps li { display: grid; align-content: start; gap: 4px; padding-right: 24px; }
+.hiw-road__steps b { font-size: var(--hiw-fs-body); font-weight: 500; color: var(--c-text); }
+.hiw-road__steps li.is-now b { color: var(--c-accent-text); }
+.hiw-road__steps small { font-size: var(--hiw-fs-card); line-height: 1.4; color: var(--c-text-40); }
+
+.hiw-road__rail { grid-area: r; display: grid; grid-template-columns: subgrid; height: 14px; margin: 20px 0 22px; }
+.hiw-road__seg { position: relative; display: flex; align-items: center; }
+.hiw-road__dot { position: relative; z-index: 1; flex: none; width: 12px; height: 12px; margin-left: -1px; border-radius: 50%; border: 1.5px solid rgba(var(--ink), 0.88); background: var(--c-bg-2); }
+.hiw-road__seg--launch .hiw-road__dot { width: 15px; height: 15px; }
+.hiw-road__dot.is-now { width: 16px; height: 16px; border-color: var(--c-accent); background: var(--c-accent); box-shadow: 0 0 0 5px rgba(var(--accent-rgb), 0.18); }
+.hiw-road__line { flex: 1; height: 3px; border-radius: 2px; background: rgba(var(--ink), 0.14); transform-origin: left; }
+.hiw-road__seg--done .hiw-road__line { background: var(--c-accent); }
+.hiw-road__seg--review .hiw-road__line { flex: 0 0 72%; background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.85), rgba(var(--accent-rgb), 0.35)); }
+.hiw-road__dash { flex: 1; height: 3px; margin: 0 8px 0 4px; background: repeating-linear-gradient(90deg, rgba(var(--accent-rgb), 0.35) 0 5px, transparent 5px 10px); }
+/* the orange stretch over the Frontier phase (the row's 28% / 44% / 28%) */
+.hiw-road__frontier { position: absolute; left: 28%; width: 44%; top: 50%; height: 9px; margin-top: -4.5px; border-radius: 2px; background: var(--c-accent); box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.5); transform-origin: left; }
+/* reveal: the lines draw from the left, one after the other */
+.hiw-road .hiw-road__line, .hiw-road .hiw-road__frontier { transform: scaleX(0); transition: transform 0.9s var(--ease-out); }
+.hiw-road .hiw-road__seg--review .hiw-road__line { transition-delay: 0.5s; }
+.hiw-road .hiw-road__seg--launch .hiw-road__line { transition-delay: 0.9s; }
+.hiw-road .hiw-road__frontier { transition-delay: 1.3s; }
+.hiw-road.is-visible .hiw-road__line, .hiw-road.is-visible .hiw-road__frontier { transform: none; }
+
+.hiw-road__now { grid-area: n; display: grid; align-content: start; gap: 10px; max-width: 280px; }
+.hiw-road__now .hiw-kicker { font-size: var(--hiw-fs-card); letter-spacing: 0.08em; }
+.hiw-road__now p { font-size: var(--hiw-fs-body); line-height: 1.55; color: var(--c-text); }
+
+.hiw-road__phases { grid-area: p; min-width: 0; }
+.hiw-road__row { display: grid; grid-template-columns: 28% 44% 28%; }
+.hiw-road__row li { position: relative; display: grid; align-content: start; gap: 4px; padding: 20px 18px; border: 1px solid var(--c-line-soft); background: rgba(var(--ink), 0.015); }
+.hiw-road__row li:first-child { border-right: 0; border-radius: 12px 0 0 12px; }
+.hiw-road__row li:last-child { border-left: 0; border-radius: 0 12px 12px 0; }
+.hiw-road__row b { font-size: var(--hiw-fs-body); font-weight: 500; color: var(--c-text); }
+.hiw-road__row .hiw-kicker { font-size: var(--hiw-fs-card); letter-spacing: 0.08em; }
+.hiw-road__row small { margin-top: 6px; font-size: var(--hiw-fs-card); line-height: 1.5; color: var(--c-text-64); }
+/* the Frontier phase: raised, outlined in orange, with a glow */
+.hiw-road__row li.is-frontier {
+  z-index: 1;
+  margin: -10px 0;
+  padding: 30px 22px;
+  border: 1px solid rgba(var(--accent-rgb), 0.7);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.14), rgba(var(--accent-rgb), 0.05)), var(--c-bg-2);
+  box-shadow: 0 18px 48px -18px rgba(var(--accent-rgb), 0.45);
+}
+.hiw-road__row li.is-frontier b { color: var(--c-accent-text); }
+.hiw-road__row li.is-frontier small { color: var(--c-text-88); }
+.hiw-road__row li.is-frontier em { font-style: normal; font-weight: 500; color: var(--c-accent-text); }
+.hiw-road__pin { position: absolute; top: 18px; right: 18px; width: 8px; height: 8px; border-radius: 50%; background: var(--c-accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.22); }
+.hiw-road__note { display: flex; gap: 8px; margin-top: 26px; font-size: var(--hiw-fs-card); line-height: 1.55; color: var(--c-text-40); }
+.hiw-road__note svg { flex: none; width: 14px; height: 14px; margin-top: 3px; }
+@media (prefers-reduced-motion: reduce) { .hiw-road .hiw-road__line, .hiw-road .hiw-road__frontier { transform: none; transition: none; } }
+/* tablet: the milestones keep their row; "Now" moves above the phases, which take the full width */
+@media (max-width: 1080px) {
+  .hiw-road { --c1: 30%; --c2: 30%; grid-template-areas: "s s s" "r r r" "n n n" "p p p"; }
+  .hiw-road__now { max-width: none; margin-bottom: 36px; }
+  .hiw-road__frontier { display: none; }
+}
+/* phones: one column, the rail runs down the left of the milestones */
+@media (max-width: 760px) {
+  .hiw-road { display: block; }
+  .hiw-road__steps { display: grid; grid-template-columns: 1fr; gap: 22px; padding-left: 28px; position: relative; }
+  .hiw-road__steps::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; background: linear-gradient(180deg, var(--c-accent), rgba(var(--accent-rgb), 0.35) 55%, rgba(var(--ink), 0.14)); }
+  .hiw-road__steps li { position: relative; padding-right: 0; }
+  .hiw-road__steps li::before { content: ""; position: absolute; left: -27px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid rgba(var(--ink), 0.88); background: var(--c-bg-2); }
+  .hiw-road__steps li.is-now::before { border-color: var(--c-accent); background: var(--c-accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.18); }
+  .hiw-road__rail { display: none; }
+  .hiw-road__now { margin: 28px 0 32px; }
+  .hiw-road__row { grid-template-columns: 1fr; gap: 0; }
+  .hiw-road__row li, .hiw-road__row li:first-child, .hiw-road__row li:last-child { border: 1px solid var(--c-line-soft); border-radius: 0; }
+  .hiw-road__row li:first-child { border-bottom: 0; border-radius: 12px 12px 0 0; }
+  .hiw-road__row li:last-child { border-top: 0; border-radius: 0 0 12px 12px; }
+  .hiw-road__row li.is-frontier { margin: 0 -6px; padding: 24px 22px; border: 1px solid rgba(var(--accent-rgb), 0.7); border-radius: 12px; }
+}
 .hiw-timeline .hiw-links { margin-top: 36px; }
 
 /* ---------- hiw-priority ---------- */
@@ -349,13 +411,6 @@
   .hiw-chart__ends { position: static; height: auto; display: grid; gap: 8px; margin-top: 18px; }
   .hiw-chart__ends li { position: static; transform: none; }
   .hiw-chart__ends li::after { display: none; }
-  .hiw-mile__steps { grid-template-columns: 1fr; gap: 18px; }
-  .hiw-mile__steps::before { left: 5px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; background: rgba(var(--ink), 0.2); }
-  .hiw-mile__steps li { padding: 0 0 0 26px; }
-  .hiw-mile__bar { width: 100%; }
-  .hiw-phases__fan { display: none; }
-  .hiw-phases__row { grid-template-columns: 1fr; border-top: 1px solid var(--panel-bd); border-radius: 12px; }
-  .hiw-phases__row li + li { border-left: 0; }
   .hiw-backed__list li { grid-template-columns: 18px 52px minmax(0, 1fr) auto; }
   .hiw-backed__count { display: none; }
   .hiw-section-nav { bottom: 12px; max-width: calc(100vw - 24px); overflow-x: auto; }
