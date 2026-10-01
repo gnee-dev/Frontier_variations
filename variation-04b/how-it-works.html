@@ -175,6 +175,8 @@
             <span class="hiw-chart__rate"><i></i>Live rate: 4× · Epoch 1</span>
           </div>
 
+          <!-- the plot, and beside it each line's points, level with where the line ends -->
+          <div class="hiw-chart__body">
           <div class="hiw-chart__plot">
             <span class="hiw-chart__y" style="--y: 0">120K</span>
             <span class="hiw-chart__y" style="--y: 50">60K</span>
@@ -200,12 +202,12 @@
             </div>
           </div>
 
-          <!-- the legend: each line's style, its points after a year, and when it started -->
           <ul class="hiw-chart__ends">
-            <li class="is-open"><i class="hiw-chart__key hiw-chart__key--open"></i><span><b data-value="109200">109,200</b><small>Start at opening</small></span></li>
-            <li><i class="hiw-chart__key hiw-chart__key--3m"></i><span><b data-value="72800">72,800</b> <em>−33%</em><small>Start 3 months in</small></span></li>
-            <li class="is-dim"><i class="hiw-chart__key hiw-chart__key--6m"></i><span><b data-value="36800">36,800</b> <em>−66%</em><small>Start 6 months in</small></span></li>
+            <li class="is-open" style="--y: 9"><i class="hiw-chart__key hiw-chart__key--open"></i><span><b data-value="109200">109,200</b><small>Start at opening</small></span></li>
+            <li style="--y: 39"><i class="hiw-chart__key hiw-chart__key--3m"></i><span><b data-value="72800">72,800</b> <em>−33%</em><small>Start 3 months in</small></span></li>
+            <li class="is-dim" style="--y: 69"><i class="hiw-chart__key hiw-chart__key--6m"></i><span><b data-value="36800">36,800</b> <em>−66%</em><small>Start 6 months in</small></span></li>
           </ul>
+          </div>
           <figcaption class="hiw-chart__note">Estimated points after one year, by start date. Excludes boosts, referrals and sign-up points.</figcaption>
         </figure>
       </div>

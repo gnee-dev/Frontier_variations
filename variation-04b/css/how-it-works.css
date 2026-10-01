@@ -125,7 +125,9 @@
 .hiw-earn__text .hiw-head { margin-bottom: 0; }
 .hiw-invite { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; font-size: var(--hiw-fs-body); }
 .hiw-invite .link-arrow { font-size: var(--hiw-fs-body); }
-.hiw-chart { display: grid; gap: 22px; margin: 0; padding: clamp(20px, 2.2vw, 28px); }
+.hiw-chart { display: grid; gap: 20px; margin: 0; padding: 16px; }
+/* plot | points: the points column sits beside the plot, each value level with its line's end */
+.hiw-chart__body { display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 14px; align-items: start; }
 /* top row: Deposit + its tabs, and the live rate */
 .hiw-chart__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
 .hiw-chart__deposit { display: flex; align-items: center; gap: 14px; }
@@ -136,7 +138,8 @@
 .hiw-chart__rate { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(var(--accent-rgb), 0.35); font-size: var(--hiw-fs-card); color: var(--c-accent-text); white-space: nowrap; }
 .hiw-chart__rate i { width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2); }
 /* the plot */
-.hiw-chart__plot { position: relative; --h: 260px; padding-left: 44px; }
+.hiw-chart__body { --h: 250px; }
+.hiw-chart__plot { position: relative; padding-left: 40px; }
 .hiw-chart__y { position: absolute; left: 0; top: calc(var(--h) * var(--y) / 100); transform: translateY(-50%); font-size: var(--hiw-fs-card); color: var(--c-text-40); }
 .hiw-chart__svg { display: block; width: 100%; height: var(--h); overflow: visible; }
 .hiw-chart__grid { stroke: var(--hiw-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -155,15 +158,15 @@
 .hiw-chart__x span + span { padding-left: 6px; border-left: 1px solid var(--hiw-line); }
 .hiw-chart__x b { font-weight: 600; color: var(--c-text); }
 .hiw-chart__x small { display: block; margin-top: 2px; font-size: var(--hiw-fs-card); color: var(--c-text-40); }
-/* the legend */
-.hiw-chart__ends { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 18px; border-top: 1px solid var(--hiw-line); }
-.hiw-chart__ends li { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
-.hiw-chart__key { flex: none; width: 18px; height: 0; margin-top: 11px; border-top: 2px solid rgba(var(--ink), 0.6); }
+/* the points, beside the plot */
+.hiw-chart__ends { position: relative; height: var(--h, 260px); }
+.hiw-chart__ends li { position: absolute; left: 0; right: 0; top: calc(var(--y) * 1%); display: flex; align-items: flex-start; gap: 8px; min-width: 0; transform: translateY(-11px); }
+.hiw-chart__key { flex: none; width: 14px; height: 0; margin-top: 11px; border-top: 2px solid rgba(var(--ink), 0.6); }
 .hiw-chart__key--open { border-top-color: var(--c-accent); }
 .hiw-chart__key--3m { border-top-style: dashed; }
 .hiw-chart__key--6m { border-top: 2px dotted rgba(var(--ink), 0.45); }
-.hiw-chart__ends b { font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; }
-.hiw-chart__ends em { font-style: normal; font-size: var(--hiw-fs-card); color: var(--c-text-64); }
+.hiw-chart__ends b { font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.hiw-chart__ends em { display: block; font-style: normal; font-size: var(--hiw-fs-card); color: var(--c-text-64); }
 .hiw-chart__ends small { display: block; margin-top: 2px; font-size: var(--hiw-fs-card); color: var(--c-text-40); }
 .hiw-chart__ends li.is-open b { color: var(--c-accent-text); }
 .hiw-chart__ends li.is-dim b { color: var(--c-text-64); }
@@ -307,6 +310,8 @@
 .hiw-section-nav a.is-active::before { background: var(--c-accent); opacity: 1; }
 
 /* ---------- responsive ---------- */
+/* below 1080px the chart needs the full width (with its points beside it): text above, chart below */
+@media (max-width: 1080px) { .hiw-earn__inner { grid-template-columns: 1fr; } .hiw-earn__text { max-width: 640px; } }
 @media (max-width: 900px) {
   .hiw-back__inner, .hiw-priority__grid { grid-template-columns: 1fr; }
   .hiw-priority__grid { gap: 24px; }
@@ -326,8 +331,12 @@
   .hiw-compare__col + .hiw-compare__col { border-left: 0; border-top: 1px solid var(--panel-bd); }
   .hiw-steps li + li { border-left: 0; border-top: 1px solid var(--panel-bd); }
   .hiw-compare__stage { height: 190px; }
-  .hiw-chart__plot { --h: 200px; padding-left: 40px; }
-  .hiw-chart__ends { grid-template-columns: 1fr; }
+  .hiw-chart__body { --h: 200px; grid-template-columns: 1fr; }
+  .hiw-chart__plot { padding-left: 40px; }
+  /* phones: the points go under the plot, one per row */
+  .hiw-chart__ends { height: auto; display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--hiw-line); }
+  .hiw-chart__ends li { position: static; transform: none; }
+  .hiw-chart__ends em { display: inline; margin-left: 6px; }
   .hiw-mile__steps { grid-template-columns: 1fr; gap: 18px; }
   .hiw-mile__steps::before { left: 5px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; background: rgba(var(--ink), 0.2); }
   .hiw-mile__steps li { padding: 0 0 0 26px; }
