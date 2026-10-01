@@ -41,8 +41,11 @@
 .hiw-hero__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .hiw-hero__live { margin-top: -6px; font-size: 13px; color: var(--c-accent-text); }
 
-/* ---------- hiw-compare ---------- */
+/* ---------- hiw-compare ----------
+   Both stages are drawn by the script (hiw-compare in js/how-it-works.js): dots are
+   people (orange: You; square red: bots), the pill is the name they all want. */
 .hiw-compare {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: var(--panel-radius);
@@ -55,36 +58,61 @@
 }
 .hiw-compare__col { position: relative; display: flex; flex-direction: column; min-width: 0; }
 .hiw-compare__col + .hiw-compare__col { border-left: 1px solid var(--panel-bd); }
-.hiw-compare__label { position: absolute; top: 18px; left: 20px; font-size: 12px; font-weight: 500; color: var(--c-text-88); }
+.hiw-compare__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px 0 20px; }
+.hiw-compare__label { font-size: 12px; font-weight: 500; color: var(--c-text-88); }
 .hiw-compare__label--accent { color: var(--c-accent-text); }
-.hiw-compare__stage { position: relative; height: 230px; overflow: hidden; }
-.hiw-compare__foot { padding: 16px 20px; border-top: 1px solid var(--panel-bd); font-size: 13px; color: var(--c-text-88); }
-.hiw-pill { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--c-line); background: rgba(8, 8, 12, 0.9); font-size: 14px; white-space: nowrap; }
-.hiw-pill em { font-style: normal; font-size: 12px; color: var(--hiw-bad); }
-.hiw-pill--taken { left: 50%; top: 50%; transform: translate(-50%, -50%); border-color: var(--hiw-bad); box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.12); }
-/* the swarm: dots placed by the script (hiw-compare in js/how-it-works.js) */
-.hiw-swarm__dot { position: absolute; left: 0; top: 0; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: rgba(var(--ink), 0.6); will-change: transform; }
-.hiw-swarm__dot.is-you { z-index: 3; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; background: var(--c-accent); }
-.hiw-swarm__you { position: absolute; left: 0; top: 0; z-index: 3; padding: 1px 5px; border-radius: 4px; background: rgba(8, 8, 12, 0.85); font-size: 10px; color: var(--c-accent-text); will-change: transform; }
-/* the queue: the name, then members in order; You second */
-.hiw-queue .hiw-pill { left: 6%; top: 50%; transform: translateY(-50%); }
-.hiw-queue__line { position: absolute; left: calc(6% + 92px); right: 5%; top: 50%; display: flex; justify-content: space-between; align-items: center; transform: translateY(-50%); }
-.hiw-queue__line li { position: relative; width: 6px; height: 6px; border-radius: 50%; background: rgba(var(--ink), 0.85); opacity: 0; transform: translateX(14px); transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out); transition-delay: calc(var(--i) * 45ms); }
-.hiw-queue__line li:nth-last-child(-n+4) { background: rgba(var(--ink), 0.45); }
-.hiw-queue__line li.is-you { width: 9px; height: 9px; background: var(--c-accent); box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.5); }
-.hiw-queue__line li.is-you::after { content: "You · 2nd in line"; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 3px 8px; border-radius: 6px; background: rgba(8, 8, 12, 0.85); font-size: 11px; color: var(--c-accent-text); white-space: nowrap; }
-.hiw-queue.is-on .hiw-queue__line li { opacity: 1; transform: none; }
-.hiw-queue.is-on .hiw-queue__line li.is-you { animation: hiw-you 2.4s ease-in-out 1.2s infinite; }
-@keyframes hiw-you { 50% { box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0); } 0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.45); } }
+/* live status of each side ("Public sale in 0:03", "Lining up by points") */
+.hiw-compare__status { padding: 3px 9px; border-radius: 999px; border: 1px solid var(--c-line-soft); font-size: 11px; color: var(--c-text-64); font-variant-numeric: tabular-nums; white-space: nowrap; transition: color 0.3s, border-color 0.3s; }
+.hiw-compare__status.is-bad { color: var(--hiw-bad); border-color: rgba(255, 77, 109, 0.4); }
+.hiw-compare__status--accent { color: var(--c-accent-text); border-color: rgba(var(--accent-rgb), 0.35); }
+.hiw-compare__stage { position: relative; height: 210px; overflow: hidden; transition: opacity 0.2s; }
+.hiw-compare__foot { padding: 14px 20px; border-top: 1px solid var(--panel-bd); font-size: 13px; color: var(--c-text-88); }
+.hiw-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* the name */
+.hiw-pill { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--c-line); background: rgba(8, 8, 12, 0.92); font-size: 14px; white-space: nowrap; transition: border-color 0.3s, box-shadow 0.3s, color 0.3s; }
+.hiw-pill em { font-style: normal; font-size: 12px; }
+.hiw-pill em:empty { display: none; }
+.hiw-crowd .hiw-pill { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.hiw-crowd .hiw-pill.is-open { border-color: rgba(var(--ink), 0.5); box-shadow: 0 0 0 4px rgba(var(--ink), 0.06); }
+.hiw-crowd .hiw-pill.is-open em { color: var(--c-text); }
+.hiw-crowd .hiw-pill.is-taken { border-color: var(--hiw-bad); box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.12); }
+.hiw-crowd .hiw-pill.is-taken em { color: var(--hiw-bad); }
+.hiw-line .hiw-pill { top: 50%; transform: translateY(-50%); }
+.hiw-line .hiw-pill.is-backed { border-color: rgba(var(--accent-rgb), 0.45); }
+.hiw-line .hiw-pill em { color: var(--c-accent-text); }
+.hiw-line .hiw-pill.is-yours { border-color: var(--c-accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.16); }
+.hiw-line .hiw-pill.is-yours .hiw-pill__name { color: var(--c-accent-text); }
+/* people */
+.hiw-dot { position: absolute; left: 0; top: 0; z-index: 1; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: rgba(var(--ink), 0.72); will-change: transform; transition: background-color 0.4s, opacity 0.4s; }
+.hiw-crowd .hiw-dot { transform-origin: center; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; }
+.hiw-dot.is-you { z-index: 3; background: var(--c-accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.18); }
+.hiw-crowd .hiw-dot.is-you { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; }
+.hiw-dot.is-bot { border-radius: 1px; background: var(--hiw-bad); }
+.hiw-dot.is-dim { opacity: 0.35; }
+.hiw-line__links { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hiw-line__links line { stroke: rgba(var(--accent-rgb), 0.9); stroke-width: 1; }
+/* labels that follow a dot */
+.hiw-tag { position: absolute; left: 0; top: 0; z-index: 4; padding: 2px 7px; border-radius: 5px; background: rgba(8, 8, 12, 0.88); font-size: 10.5px; white-space: nowrap; will-change: transform; }
+.hiw-tag--you { color: var(--c-accent-text); }
+.hiw-tag--bot, .hiw-tag--miss { opacity: 0; transition: opacity 0.3s; color: var(--hiw-bad); }
+.hiw-tag--miss { color: var(--c-text-64); }
+.hiw-tag.is-on { opacity: 1; }
 
-/* ---------- hiw-steps ---------- */
+/* ---------- hiw-steps (also the timeline of the With Frontier animation) ---------- */
 .hiw-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-radius: 14px; border: 1px solid var(--panel-bd); background: rgba(10, 10, 14, 0.5); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); overflow: hidden; }
 .hiw-steps li + li { border-left: 1px solid var(--panel-bd); }
-.hiw-steps a { display: flex; gap: 12px; padding: 14px 16px; transition: background-color 0.2s; }
+.hiw-steps a { position: relative; display: flex; gap: 12px; padding: 14px 16px; transition: background-color 0.2s; }
 .hiw-steps a:hover { background: rgba(var(--ink), 0.04); }
-.hiw-steps__n { font-size: 11px; color: var(--c-text-40); line-height: 20px; }
-.hiw-steps b { display: block; font-size: 14px; font-weight: 500; }
+.hiw-steps__n { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--c-line); font-size: 11px; color: var(--c-text-40); transition: color 0.3s, border-color 0.3s, background-color 0.3s; }
+.hiw-steps b { display: block; font-size: 14px; font-weight: 500; transition: color 0.3s; }
 .hiw-steps small { display: block; margin-top: 2px; font-size: 12.5px; color: var(--c-text-40); }
+/* progress of the step that's playing */
+.hiw-steps__bar { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--c-accent); transform: scaleX(var(--p, 0)); transform-origin: left; opacity: 0; transition: opacity 0.3s; }
+.hiw-steps li.is-active .hiw-steps__bar, .hiw-steps li.is-done .hiw-steps__bar { opacity: 1; }
+.hiw-steps li.is-done .hiw-steps__bar { opacity: 0.35; }
+.hiw-steps li.is-active .hiw-steps__n { color: #000; border-color: var(--c-accent); background: var(--c-accent); }
+.hiw-steps li.is-done .hiw-steps__n { color: var(--c-accent-text); border-color: rgba(var(--accent-rgb), 0.5); }
+.hiw-steps li.is-active b { color: var(--c-accent-text); }
 
 /* ---------- hiw-earn ---------- */
 .hiw-earn__deposit { display: grid; justify-items: start; gap: 10px; margin-bottom: 28px; }

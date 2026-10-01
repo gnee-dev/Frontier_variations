@@ -61,8 +61,8 @@ Each section has a name, used on its markup (`data-section`), its CSS block (`cs
 | Section | What it is | Anchor |
 |---|---|---|
 | `hiw-hero` | "Be first in line, not first to click", Join Frontier / How it works, "4× points live now." | |
-| `hiw-compare` | Without Frontier (dots swarm the taken name, You among them) vs With Frontier (an orderly queue, You 2nd in line) | `#why` |
-| `hiw-steps` | Start early / Back extensions / Get in line, linking to the steps | |
+| `hiw-compare` | One story on one 13s clock, both sides at once. Dots are people (orange: You; red squares: bots); the pill is alex.agent. **Without Frontier**: waiting for the public sale (countdown), everyone rushes at once, a bot takes it in 0.4s, You miss it. **With Frontier**: members earn points (dots grow), back .agent (links to the name), line up by points (You 2nd); the line is served in order before the public sale, #1's max is below the price, so You register it. Each side has a live status chip; it runs while on screen, and shows the outcome still with reduced motion | `#why` |
+| `hiw-steps` | Deposit, earn points / Back .agent / Points set your place. Also the timeline of the With Frontier animation: the step playing lights up with its progress; a click jumps the animation to it (or, when the panel is off screen, goes to that section) | |
 | `hiw-earn` | Step 1: "Day one beats month six by 3×", deposit toggle ($100 / $1,000 / $10,000), the points chart (start at opening / 3 months in / 6 months in), invite link | `#deposit` |
 | `hiw-back` | Step 2: "Back extensions like .agent before public sale" and the live most-backed list (Back buttons toggle your backing) | `#back` |
 | `hiw-timeline` | "Build priority now to use later": milestones, then Sunrise / Frontier 7+ days / Public sale | `#timeline` |
