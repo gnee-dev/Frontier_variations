@@ -54,7 +54,7 @@ Each has a poster (`*-poster.jpg`: the intro's final frame, the loop's first). H
 
 ## v2 (v2.html): redesigned sections below the hero
 
-Linked as "v2" in the nav of every 04b page. It has the 04b hero; the sections below it are being rebuilt on shared foundations (no sections yet).
+Linked as "v2" in the nav of every 04b page, before How it works. It has the 04b hero; the sections below it are being rebuilt on shared foundations. Built so far: How it works.
 
 **Tokens** (`css/base.css`, all `--v2-*` so they never collide with the current page's tokens):
 
@@ -97,6 +97,17 @@ It renders a plain `header.v2-sh` with an `h2` in place. Eyebrow 12px uppercase 
 ```
 
 44px min height, 0 18px padding, radius md, 15px. Unselected: 1px border-strong, text-secondary, 500, filled with bg (on a card, `.v2-card`) or surface (on a bg section, `.v2-section`). Selected: 1px accent border, accent-tint fill, accent-on-tint text, 600. `data-chip-group="single"` keeps one pressed; `"multi"` toggles each. The group fires `chipchange` with `{ value, values, chip }`; `FrontierV2.chip({ label, value, pressed })` builds one.
+
+### v2 sections
+
+**How it works** (`section.v2-how#v2-how`, `data-section="v2-how"`): a 48px stack of the SectionHeader ("Full walkthrough" links to `how-it-works.html`), the steps and the estimator.
+
+- **Steps** (20px stack): a rail (3 columns, 24px gap; a 32px number circle and a 1px connector per step: step 1 filled accent with a connector fading from accent to border, steps 2 and 3 outlined with border connectors) over three equal-height cards (surface, 1px border, radius xl, 28px padding, 16px gap; h3 22/600, body 15px muted 1.5; each card's visual pinned to the bottom). Card 1: the asset pills from `ASSETS` and a dashed "+ more"; card 2: the formula "$1 × 1 day × 4× = 4 pts" with `EPOCH_MULTIPLIER`; card 3: the backer rows from `EXTENSIONS` (the same list the leaderboard will read). The backer bars are neutral (text-secondary), since orange is only for actions, links and "you" states.
+- **Estimator** (`[data-estimator]`, surface, radius 2xl, 1.2fr / 1fr): left, the eyebrow, "See what you'd earn", and two single chip groups (`role="group"`, `aria-labelledby`): Deposit ($500, $2,000, $10,000, $50,000; default $2,000) and Hold for (30 days, 90 days, Until epoch ends; default 90). "Until epoch ends" is the days left until `EPOCH_END`, worked out live (172 on 1 Oct 2026). Right, over a radial glow: "Estimated points", the total (64/700 accent), the per-day line, the disclaimer and "Start earning →".
+- **Maths** (`js/v2-how.js`): perDay = deposit × `EPOCH_MULTIPLIER`; total = perDay × days; en-US formatting. The result is `aria-live="polite"`; the total counts up over 300ms (`aria-busy` while counting, so it's announced once), and jumps straight there with reduced motion.
+- **Responsive**: ≤1023px the cards stack, the rail hides and each card shows its number circle; ≤767px the estimator stacks (the form's divider moves to its bottom), the total drops to 48px so the largest value fits, and the chips wrap.
+
+Program constants and shared lists live in `js/v2-config.js` (`window.FRONTIER_V2_CONFIG`): `EPOCH`, `EPOCH_MULTIPLIER`, `EPOCH_END`, `ASSETS`, `EXTENSIONS`, `ESTIMATOR`.
 
 ## How it works page
 
@@ -154,7 +165,7 @@ A faint grid of 20px cells (16px on phones) covers the hero outside the copy and
 
 ```
 index.html
-v2.html                                     # v2: the 04b hero, then the redesigned sections (foundations only so far)
+v2.html                                     # v2: the 04b hero, then the redesigned sections (How it works so far)
 how-it-works.html                           # the How it works page (sections named hiw-*)
 vault-solana.html, vault-hyperliquid.html   # the vault pages (one layout, different content)
 css/
@@ -164,10 +175,12 @@ css/
   page.css                                  # this page only: nav, four stat cards, orange accents, timeline, FAQ, disclaimer
   vaults.css                                # the Vaults dropdown and the vault pages
   how-it-works.css                          # the How it works page, one block per section
-  v2.css                                    # v2: layout, SectionHeader, Chip (tokens in base.css)
+  v2.css                                    # v2: layout, SectionHeader, Chip, the v2 sections (tokens in base.css)
 js/
   vaults.js                                 # the Vaults dropdown
   v2.js                                     # v2: <f-section-header>, chip groups
+  v2-config.js                              # v2: program constants and shared lists (epoch, assets, extensions, estimator)
+  v2-how.js                                 # v2: How it works cards and the points estimator
   how-it-works.js                           # How it works: swarm/queue, chart, Back buttons, priority card, section pill
   variation-4b.js                           # video renditions + placement, hover grid + trail, headline fitting
   main.js                                   # copy of the page script (typing domain, counters, reveals, countdown)

@@ -28,8 +28,8 @@
         <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="128" height="13" />
       </a>
       <nav class="nav__links" aria-label="Main">
-        <a href="how-it-works.html" class="nav__hiw">How it works</a>
         <a href="v2.html" class="nav__hiw nav__v2 is-current" aria-current="page">v2</a>
+        <a href="how-it-works.html" class="nav__hiw">How it works</a>
         <div class="nav__drop" data-dropdown>
           <button class="nav__drop-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="vaults-menu">Vaults <svg class="nav__drop-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div class="nav__menu" id="vaults-menu" role="menu" aria-label="Vaults">
@@ -132,7 +132,92 @@
     <!-- ============================== v2: SECTIONS BELOW THE HERO ==============================
          Built on the v2 foundations: tokens --v2-* (css/base.css), layout and components
          (css/v2.css: .v2-section, .v2-container, <f-section-header>, .v2-chip; js/v2.js).
-         The sections themselves come next. -->
+         Data and constants: js/v2-config.js. -->
+
+    <!-- ============================== v2-how: How it works ==============================
+         SectionHeader, the three steps (rail + cards), and the points estimator.
+         Lists and numbers come from js/v2-config.js (rendered by js/v2-how.js); the
+         markup holds the same defaults so it reads right before the script runs. -->
+    <section class="v2-section v2-how" id="v2-how" data-section="v2-how" aria-labelledby="v2-how-title">
+      <div class="v2-container v2-how__inner">
+        <f-section-header eyebrow="How it works" title="Deposit, earn points, back the names you want" title-id="v2-how-title"
+                          subtitle="Frontier gives you priority access to new top-level domains from ICANN’s 2026 round."
+                          link-label="Full walkthrough" link-href="how-it-works.html"></f-section-header>
+
+        <!-- the steps: a rail of numbers over three equal cards -->
+        <div class="v2-steps">
+          <ol class="v2-steps__rail" aria-hidden="true">
+            <li class="is-current"><span class="v2-step-n">1</span><i class="v2-steps__line"></i></li>
+            <li><span class="v2-step-n">2</span><i class="v2-steps__line"></i></li>
+            <li><span class="v2-step-n">3</span><i class="v2-steps__line"></i></li>
+          </ol>
+          <ol class="v2-steps__cards">
+            <li class="v2-step-card">
+              <span class="v2-step-n v2-step-card__n is-current" aria-hidden="true">1</span>
+              <h3 class="v2-step-card__title"><span class="v2-sr">Step 1: </span>Deposit into a vault</h3>
+              <p class="v2-step-card__body">Put eligible assets into a Frontier vault run by an independent provider. Withdraw on the provider’s terms.</p>
+              <ul class="v2-assets" data-assets aria-label="Eligible assets">
+                <li class="v2-asset">ETH</li><li class="v2-asset">SOL</li><li class="v2-asset">USDC</li><li class="v2-asset v2-asset--more">+ more</li>
+              </ul>
+            </li>
+            <li class="v2-step-card">
+              <span class="v2-step-n v2-step-card__n" aria-hidden="true">2</span>
+              <h3 class="v2-step-card__title"><span class="v2-sr">Step 2: </span>Earn points daily</h3>
+              <p class="v2-step-card__body">Every $1 earns 1 point a day, multiplied by the current epoch and your vault.</p>
+              <p class="v2-formula" data-formula>
+                <span>$1</span><span class="v2-formula__op" aria-label="times">×</span><span>1 day</span><span class="v2-formula__op" aria-label="times">×</span><span class="v2-formula__x" data-mult>4×</span><span class="v2-formula__op" aria-label="equals">=</span><span class="v2-formula__sum" data-mult-pts>4 pts</span>
+              </p>
+            </li>
+            <li class="v2-step-card">
+              <span class="v2-step-n v2-step-card__n" aria-hidden="true">3</span>
+              <h3 class="v2-step-card__title"><span class="v2-sr">Step 3: </span>Back extensions, get priority</h3>
+              <p class="v2-step-card__body">Commit points to the extensions you want. When they launch, you’re ahead of the general market.</p>
+              <ul class="v2-backers" data-backers aria-label="Most backed extensions">
+                <li><span class="v2-backers__tld">.agent</span><span class="v2-backers__track"><i style="--w: 100%"></i></span><span class="v2-backers__n">84 backers</span></li>
+                <li><span class="v2-backers__tld">.crypto</span><span class="v2-backers__track"><i style="--w: 67.9%"></i></span><span class="v2-backers__n">57 backers</span></li>
+                <li><span class="v2-backers__tld">.robot</span><span class="v2-backers__track"><i style="--w: 36.9%"></i></span><span class="v2-backers__n">31 backers</span></li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <!-- the points estimator -->
+        <div class="v2-estimator v2-card" data-estimator>
+          <div class="v2-estimator__form">
+            <div class="v2-estimator__head">
+              <p class="v2-sh__eyebrow">Points estimator</p>
+              <h3 class="v2-estimator__title">See what you’d earn</h3>
+            </div>
+            <div class="v2-estimator__group">
+              <span class="v2-estimator__label" id="v2-est-deposit">Deposit</span>
+              <div class="v2-chip-group" data-chip-group="single" role="group" aria-labelledby="v2-est-deposit" data-est="deposit">
+                <button type="button" class="v2-chip" aria-pressed="false" value="500">$500</button>
+                <button type="button" class="v2-chip" aria-pressed="true" value="2000">$2,000</button>
+                <button type="button" class="v2-chip" aria-pressed="false" value="10000">$10,000</button>
+                <button type="button" class="v2-chip" aria-pressed="false" value="50000">$50,000</button>
+              </div>
+            </div>
+            <div class="v2-estimator__group">
+              <span class="v2-estimator__label" id="v2-est-hold">Hold for</span>
+              <div class="v2-chip-group" data-chip-group="single" role="group" aria-labelledby="v2-est-hold" data-est="hold">
+                <button type="button" class="v2-chip" aria-pressed="false" value="30">30 days</button>
+                <button type="button" class="v2-chip" aria-pressed="true" value="90">90 days</button>
+                <button type="button" class="v2-chip" aria-pressed="false" value="epoch">Until epoch ends</button>
+              </div>
+            </div>
+          </div>
+          <div class="v2-estimator__result">
+            <div class="v2-estimator__out" aria-live="polite">
+              <p class="v2-estimator__label">Estimated points</p>
+              <p class="v2-estimator__total" data-est-total>720,000</p>
+              <p class="v2-estimator__rate" data-est-rate>8,000 pts/day at Epoch 1’s 4× rate</p>
+            </div>
+            <p class="v2-estimator__note">Before vault multiplier. Points are non-cash and don’t purchase a domain.</p>
+            <a class="v2-btn" href="#join">Start earning →</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ============================== FOOTER ============================== -->
@@ -167,6 +252,8 @@
   <script src="js/vaults.js"></script>
   <script src="js/variation-4b.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/v2-config.js"></script>
   <script src="js/v2.js"></script>
+  <script src="js/v2-how.js"></script>
 </body>
 </html>
