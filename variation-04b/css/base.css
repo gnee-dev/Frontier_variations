@@ -423,3 +423,16 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   }
   [data-anim="rise"], [data-reveal] { opacity: 1; transform: none; filter: none; }
 }
+
+/* Secondary button: the size and padding of the primary .btn, a 1.4px accent stroke at
+   64% (an inset shadow, since a 1.4px border rounds to 1px), accent text, black fill.
+   The same look as the How it works page's secondary buttons. */
+.btn--secondary {
+  --btn-bg: #000;
+  --btn-bd: transparent;
+  --btn-fg: var(--c-accent-text);
+  box-shadow: inset 0 0 0 1.4px rgba(var(--accent-rgb), 0.64);
+}
+.btn--secondary:hover { --btn-bg: rgba(var(--accent-rgb), 0.12); box-shadow: inset 0 0 0 1.4px rgba(var(--accent-rgb), 0.85); }
+.btn--secondary svg { width: 16px; height: 16px; flex: none; transition: transform 0.35s var(--ease-out); }
+.btn--secondary:hover .btn__arrow { transform: translateX(3px); }

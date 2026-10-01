@@ -218,6 +218,226 @@
         </div>
       </div>
     </section>
+
+    <!-- ============================== v2-why: Why now ==============================
+         SectionHeader, then the program timeline in one card: a rail of markers
+         (done, you are here, upcoming; the last one is "your" window) over each
+         milestone's date, title, text and what you do then. -->
+    <section class="v2-section v2-why" id="v2-why" data-section="v2-why" aria-labelledby="v2-why-title">
+      <div class="v2-container v2-stack">
+        <f-section-header eyebrow="Why now" title="The internet has only expanded twice. This is the third time." title-id="v2-why-title"
+                          subtitle="1985 · 6 extensions (.com, .net, .org…)  ·  2012 · ~1,200 more (.xyz, .app, .shop…)  ·  No date set for a round after this one."
+                          link-label="Program timeline" link-href="how-it-works.html#timeline"></f-section-header>
+
+        <ol class="v2-tl v2-card" aria-label="Program timeline">
+          <li class="v2-tl__item is-done">
+            <span class="v2-tl__mark" aria-hidden="true"><span class="v2-tl__dot"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><i class="v2-tl__line"></i></span>
+            <p class="v2-tl__when">Aug 2026</p>
+            <h3 class="v2-tl__title">1,600+ applications filed</h3>
+            <p class="v2-tl__body">Registries applied to ICANN for the extensions they want to run.</p>
+          </li>
+          <li class="v2-tl__item is-current" aria-current="step">
+            <span class="v2-tl__mark" aria-hidden="true"><span class="v2-tl__dot"></span><i class="v2-tl__line"></i></span>
+            <p class="v2-tl__when">You are here</p>
+            <h3 class="v2-tl__title">Epoch 1 is live</h3>
+            <p class="v2-tl__body">Points earn at 4×, the highest rate in the program.</p>
+            <p class="v2-tag v2-tag--you">You: deposit &amp; earn</p>
+          </li>
+          <li class="v2-tl__item">
+            <span class="v2-tl__mark" aria-hidden="true"><span class="v2-tl__dot"></span><i class="v2-tl__line"></i></span>
+            <p class="v2-tl__when">Oct 2026</p>
+            <h3 class="v2-tl__title">Reveal day</h3>
+            <p class="v2-tl__body">Every applied-for extension is published, expected mid-month.</p>
+            <p class="v2-tag">You: back extensions</p>
+          </li>
+          <li class="v2-tl__item">
+            <span class="v2-tl__mark" aria-hidden="true"><span class="v2-tl__dot"></span><i class="v2-tl__line"></i></span>
+            <p class="v2-tl__when">Mar 21, 2027</p>
+            <h3 class="v2-tl__title">Epoch 1 ends</h3>
+            <p class="v2-tl__body">The 4× rate closes while ICANN reviews applications.</p>
+            <p class="v2-tag">You: keep backing</p>
+          </li>
+          <li class="v2-tl__item is-yours">
+            <span class="v2-tl__mark" aria-hidden="true"><span class="v2-tl__dot"></span></span>
+            <p class="v2-tl__when">2027</p>
+            <h3 class="v2-tl__title">First extensions go live</h3>
+            <p class="v2-tl__body">Approved extensions are added to the internet.</p>
+            <p class="v2-tag v2-tag--yours">Your priority window opens</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== v2-back: Back the extensions you want ==============================
+         SectionHeader with the List / Map chips on the right; search and the category
+         chips; the leaderboard (a table, or a map of tiles) and the selected extension.
+         Rows come from EXTENSIONS in js/v2-config.js (rendered by js/v2-leaderboard.js). -->
+    <section class="v2-section v2-back" id="v2-back" data-section="v2-back" aria-labelledby="v2-back-title" data-leaderboard>
+      <div class="v2-container v2-stack v2-stack--tight">
+        <f-section-header eyebrow="Back the extensions you want" title="See where demand is forming" title-id="v2-back-title"
+                          subtitle="1,600+ applications filed. Commit points to the ones you want and track your place in line.">
+          <div slot="right" class="v2-chip-group" data-chip-group="single" role="group" aria-label="View" data-lb="view">
+            <button type="button" class="v2-chip" aria-pressed="true" value="list">List</button>
+            <button type="button" class="v2-chip" aria-pressed="false" value="map">Map</button>
+          </div>
+        </f-section-header>
+
+        <div class="v2-lb__tools">
+          <label class="v2-search">
+            <span class="v2-sr">Search extensions</span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m13.2 13.2 3.3 3.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <input type="search" placeholder="Search 1,600+ extensions" autocomplete="off" data-lb="search" />
+          </label>
+          <div class="v2-chip-group" data-chip-group="single" role="group" aria-label="Category" data-lb="category">
+            <button type="button" class="v2-chip" aria-pressed="true" value="All">All</button>
+            <button type="button" class="v2-chip" aria-pressed="false" value="AI">AI</button>
+            <button type="button" class="v2-chip" aria-pressed="false" value="Crypto">Crypto</button>
+            <button type="button" class="v2-chip" aria-pressed="false" value="Identity">Identity</button>
+          </div>
+        </div>
+
+        <div class="v2-lb">
+          <div class="v2-lb__board v2-card">
+            <table class="v2-lb__table" data-lb="list">
+              <thead>
+                <tr><th scope="col" class="v2-lb__rank">#</th><th scope="col">Extension</th><th scope="col" class="v2-lb__applicant">Applicant</th><th scope="col">Backers</th><th scope="col" class="v2-lb__status">Status</th><th scope="col"><span class="v2-sr">Action</span></th></tr>
+              </thead>
+              <tbody data-lb="rows"></tbody>
+            </table>
+            <ul class="v2-lb__map" data-lb="map" hidden></ul>
+            <p class="v2-lb__empty" data-lb="empty" hidden></p>
+          </div>
+
+          <aside class="v2-lb__panel v2-card" aria-labelledby="v2-lb-selected" aria-live="polite">
+            <p class="v2-sh__eyebrow">Selected</p>
+            <p class="v2-lb__name" id="v2-lb-selected" data-lb="name">.agent</p>
+            <dl class="v2-lb__facts">
+              <div><dt>Applicant</dt><dd data-lb="applicant">[Applicant]</dd></div>
+              <div><dt>Backers</dt><dd data-lb="backers">84</dd></div>
+              <div><dt>Status</dt><dd data-lb="status">Applied · Aug 2026</dd></div>
+              <div><dt>Expected launch</dt><dd data-lb="launch">2027</dd></div>
+            </dl>
+            <div class="v2-lb__you">
+              <p class="v2-lb__label">Your position</p>
+              <p class="v2-lb__sign"><a href="#join">Sign in</a> to see where you rank</p>
+            </div>
+            <a class="btn btn--primary btn--shine v2-lb__cta" href="#join" data-lb="cta">Back .agent with points</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== v2-trust: Where your money goes ==============================
+         SectionHeader (no subtitle), then three answers in columns with dividers. -->
+    <section class="v2-section v2-trust" id="v2-trust" data-section="v2-trust" aria-labelledby="v2-trust-title">
+      <div class="v2-container v2-stack">
+        <f-section-header eyebrow="Where your money goes" title="Plain answers, before you deposit" title-id="v2-trust-title"></f-section-header>
+
+        <ul class="v2-trust__cols">
+          <li class="v2-trust__col">
+            <svg class="v2-trust__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.2 2.9 8 7 9.5 4.1-1.5 7-5.3 7-9.5V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3 class="v2-trust__title">D3 never holds your deposit</h3>
+            <p class="v2-trust__body">Vaults are operated by independent, third-party providers. D3 doesn’t custody or manage deposited assets.</p>
+            <ul class="v2-placeholders" aria-label="Vault providers"><li>[Vault logo]</li><li>[Vault logo]</li></ul>
+          </li>
+          <li class="v2-trust__col">
+            <svg class="v2-trust__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h13m-5-5 5 5-5 5M20 5v14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3 class="v2-trust__title">Withdraw on the provider’s terms</h3>
+            <p class="v2-trust__body">Deposits follow the vault provider’s terms, risks, fees and withdrawal conditions. Read them before you commit.</p>
+            <a class="v2-link" href="how-it-works.html#deposit">How vaults work</a>
+          </li>
+          <li class="v2-trust__col">
+            <svg class="v2-trust__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m6.5 6.5 11 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <h3 class="v2-trust__title">Points aren’t money</h3>
+            <p class="v2-trust__body">Frontier Points are non-cash program points. They signal demand and earn priority. They don’t purchase a domain.</p>
+            <a class="v2-link" href="#">Frontier Terms</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================== v2-faq: FAQ ==============================
+         SectionHeader and "View all FAQs" on the left (sticky on desktop); the
+         questions on the right (native <details>, the first one open). -->
+    <section class="v2-section v2-faq" id="faq" data-section="v2-faq" aria-labelledby="v2-faq-title">
+      <div class="v2-container v2-faq__inner">
+        <div class="v2-faq__head">
+          <f-section-header eyebrow="FAQ" title="A few things to know" title-id="v2-faq-title"
+                            subtitle="The essentials before you get started with Frontier."></f-section-header>
+          <a class="btn btn--secondary" href="#faq">View all FAQs <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="v2-faq__list">
+          <details class="v2-faq__item" open>
+            <summary class="v2-faq__q"><span class="v2-tag">Trust</span><span class="v2-faq__text">Does D3 hold my deposit or guarantee a return?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
+            <div class="v2-faq__a">
+              <p>No. Supported vaults are operated by independent, third-party providers, not D3. D3 does not custody or manage deposited assets. Deposits are subject to the provider’s terms, risks, fees and withdrawal conditions.</p>
+            </div>
+          </details>
+          <details class="v2-faq__item">
+            <summary class="v2-faq__q"><span class="v2-tag">Trust</span><span class="v2-faq__text">What are Frontier Points, and can I cash them out?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
+            <div class="v2-faq__a">
+              <p>Frontier Points turn participation into priority. Use them now to support the TLDs you want to see in Frontier. When name-level selection opens, commit them to the names you want. If several members want the same name, the number of points committed determines who ranks first.</p>
+              <p>Frontier Points are program points, not cash: they cannot be sold, withdrawn or traded, and they do not pay the domain’s registration price. Current earning rates and any multipliers will appear in the Frontier interface or Program Rules.</p>
+            </div>
+          </details>
+          <details class="v2-faq__item">
+            <summary class="v2-faq__q"><span class="v2-faq__text">Am I buying a domain name through Frontier?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
+            <div class="v2-faq__a">
+              <p>Frontier is designed to put you in position to buy an eligible name before it reaches the general market. Today, you build points and signal which TLDs matter to you. Later, for participating TLDs, you can select names, commit points and authorize the purchase amount.</p>
+              <p>If your order qualifies during the registry’s launch process, Frontier uses your priority position and reserved purchase funds to complete the registration through a participating registrar.</p>
+            </div>
+          </details>
+          <details class="v2-faq__item">
+            <summary class="v2-faq__q"><span class="v2-faq__text">What happens if more than one member wants the same name?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
+            <div class="v2-faq__a">
+              <p>Frontier replaces a launch-day speed race with a defined priority ranking. Members commit points to the name, and the order with the most points ranks first. If that order meets the registry’s locked price and has sufficient purchase funds reserved, Frontier submits it through a participating registrar.</p>
+              <p>If it cannot be completed, Frontier can move to the next eligible order. You compete through the position you built, not simply through who clicks first.</p>
+            </div>
+          </details>
+          <details class="v2-faq__item">
+            <summary class="v2-faq__q"><span class="v2-faq__text">What if an extension I backed isn’t approved?</span><span class="v2-faq__icon" aria-hidden="true"></span></summary>
+            <div class="v2-faq__a">
+              <p>[Answer]</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== v2-partner: For TLD applicants & registries ==============================
+         One warm panel (registries only use the warm tokens): SectionHeader, the two
+         buttons and the partner logos on the left; the partner dashboard preview on
+         the right (the extension and its backers from js/v2-config.js). -->
+    <section class="v2-section v2-partner" id="registries" data-section="v2-partner" aria-labelledby="v2-partner-title">
+      <div class="v2-container">
+        <div class="v2-partner__panel">
+          <div class="v2-partner__copy">
+            <f-section-header eyebrow="For TLD applicants &amp; registries" title="Know which strings have real money behind them before you launch" title-id="v2-partner-title"
+                              subtitle="Over 20 TLD applicants and registries are part of Frontier. See live backing data for your strings before you spend a dollar on launch."></f-section-header>
+            <div class="v2-actions">
+              <a class="btn btn--primary btn--shine" href="#partner">Become a Frontier Partner</a>
+              <a class="btn btn--secondary" href="#registries">How it works for registries <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+            <ul class="v2-placeholders v2-partner__logos" aria-label="Partners">
+              <li>[Logo]</li><li>[Logo]</li><li>[Logo]</li><li>[Logo]</li><li>[Logo]</li><li>+14</li>
+            </ul>
+          </div>
+
+          <figure class="v2-preview" data-partner-preview aria-label="Partner dashboard preview">
+            <figcaption class="v2-preview__head"><span>Partner dashboard preview</span><span class="v2-preview__live">Live</span></figcaption>
+            <p class="v2-preview__name"><span data-pp="tld">.agent</span> <span class="v2-preview__backers" data-pp="backers">84 backers</span></p>
+            <svg class="v2-preview__chart" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true">
+              <path class="v2-preview__area" d="M0 130 L50 122 L100 115 L150 104 L200 84 L250 68 L300 44 L350 26 L400 4 L400 140 L0 140 Z"/>
+              <path class="v2-preview__line" d="M0 130 L50 122 L100 115 L150 104 L200 84 L250 68 L300 44 L350 26 L400 4"/>
+            </svg>
+            <dl class="v2-preview__stats">
+              <div><dt>Points committed</dt><dd>[#,###]</dd></div>
+              <div><dt>Names reserved</dt><dd>[###]</dd></div>
+            </dl>
+          </figure>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ============================== FOOTER ============================== -->
@@ -255,5 +475,6 @@
   <script src="js/v2-config.js"></script>
   <script src="js/v2.js"></script>
   <script src="js/v2-how.js"></script>
+  <script src="js/v2-leaderboard.js"></script>
 </body>
 </html>

@@ -31,9 +31,12 @@
   /* ---- card 3: backers, each fill against the most backed ---- */
   var backers = root.querySelector("[data-backers]");
   if (backers) {
-    var max = Math.max.apply(null, C.EXTENSIONS.map(function (e) { return e.backers; }));
+    // the three most backed (extensions without a published count are left out)
+    var top = C.EXTENSIONS.filter(function (e) { return e.backers != null; })
+                          .sort(function (x, y) { return y.backers - x.backers; }).slice(0, 3);
+    var max = Math.max.apply(null, top.map(function (e) { return e.backers; }));
     backers.replaceChildren();
-    C.EXTENSIONS.forEach(function (e) {
+    top.forEach(function (e) {
       var li = make("li");
       li.appendChild(make("span", "v2-backers__tld", e.tld));
       var track = make("span", "v2-backers__track"), fill = make("i");
