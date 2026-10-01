@@ -72,6 +72,12 @@ Breakpoints: mobile <768, tablet 768–1023, desktop ≥1024. Fonts are untouche
 
 **Rules**: orange is for primary actions, links and "you/your" states only; numbers are tabular; no background grid textures below the hero; anything you can press is at least 44px tall and a real `<button>`, `<a>`, `<input>` or `<label>`.
 
+**Consistency rules** (for all future work):
+- **Buttons**: one button style. Every primary button is the site's `.btn .btn--primary` (the same as Join Frontier: 18px/600 label, 9px × 16px padding, 8px radius, 40px tall; 16px label and 14px sides on phones), with the arrow icon where it leads somewhere. No one-off button classes.
+- **Subtitles**: every subtitle (hero and sections) is `--v2-fs-subtitle` (17px), 400, `--v2-text-muted`.
+- **Small tabs**: every clickable small tab or toggle is a `.v2-chip`: 15px, 500, 0 18px padding, 44px tall, the font token. Selected changes only the colours, never the weight or the size.
+- **Type floor**: no text under 14px anywhere on v2 (eyebrows, notes, labels included).
+
 **Layout** (`css/v2.css`): `.v2-section` (the v2 background, section padding, tabular numbers, no texture) and `.v2-container` (1200px centred, with the gutter).
 
 **SectionHeader** (`<f-section-header>`, `js/v2.js` + `css/v2.css`):
@@ -85,7 +91,7 @@ Breakpoints: mobile <768, tablet 768–1023, desktop ≥1024. Fonts are untouche
 <f-section-header eyebrow="Points estimator" title="See what you'd earn"><div slot="right">…</div></f-section-header>
 ```
 
-It renders a plain `header.v2-sh` with an `h2` in place. Eyebrow 12px uppercase 0.12em muted; title 44px/600/-0.02em/1.1 (32px on mobile); subtitle 17px muted 1.5; link 14px/600 accent with "→", on the bottom line of the left column (max 680px). On mobile it stacks, with the link 16px under the subtitle. `FrontierV2.sectionHeader({ eyebrow, title, subtitle, link: { label, href }, rightSlot })` builds the same element in script.
+It renders a plain `header.v2-sh` with an `h2` in place. Eyebrow 14px uppercase 0.12em muted; title 44px/600/-0.02em/1.1 (32px on mobile); subtitle `--v2-fs-subtitle` (17px) muted 1.5; link 14px/600 accent with "→", on the bottom line of the left column (max 680px). On mobile it stacks, with the link 16px under the subtitle. `FrontierV2.sectionHeader({ eyebrow, title, subtitle, link: { label, href }, rightSlot })` builds the same element in script.
 
 **Chip** (`.v2-chip`, a toggle `<button>` with `aria-pressed`):
 
@@ -96,14 +102,14 @@ It renders a plain `header.v2-sh` with an `h2` in place. Eyebrow 12px uppercase 
 </div>
 ```
 
-44px min height, 0 18px padding, radius md, 15px. Unselected: 1px border-strong, text-secondary, 500, filled with bg (on a card, `.v2-card`) or surface (on a bg section, `.v2-section`). Selected: 1px accent border, accent-tint fill, accent-on-tint text, 600. `data-chip-group="single"` keeps one pressed; `"multi"` toggles each. The group fires `chipchange` with `{ value, values, chip }`; `FrontierV2.chip({ label, value, pressed })` builds one.
+44px min height, 0 18px padding, radius md, 15px. Unselected: 1px border-strong, text-secondary, 500, filled with bg (on a card, `.v2-card`) or surface (on a bg section, `.v2-section`). Selected: 1px accent border, accent-tint fill, accent-on-tint text (same 500 weight, so nothing shifts). `data-chip-group="single"` keeps one pressed; `"multi"` toggles each. The group fires `chipchange` with `{ value, values, chip }`; `FrontierV2.chip({ label, value, pressed })` builds one.
 
 ### v2 sections
 
 **How it works** (`section.v2-how#v2-how`, `data-section="v2-how"`): a 48px stack of the SectionHeader ("Full walkthrough" links to `how-it-works.html`), the steps and the estimator.
 
 - **Steps** (20px stack): a rail (3 columns, 24px gap; a 32px number circle and a 1px connector per step: step 1 filled accent with a connector fading from accent to border, steps 2 and 3 outlined with border connectors) over three equal-height cards (surface, 1px border, radius xl, 28px padding, 16px gap; h3 22/600, body 15px muted 1.5; each card's visual pinned to the bottom). Card 1: the asset pills from `ASSETS` and a dashed "+ more"; card 2: the formula "$1 × 1 day × 4× = 4 pts" with `EPOCH_MULTIPLIER`; card 3: the backer rows from `EXTENSIONS` (the same list the leaderboard will read). The backer bars are neutral (text-secondary), since orange is only for actions, links and "you" states.
-- **Estimator** (`[data-estimator]`, surface, radius 2xl, 1.2fr / 1fr): left, the eyebrow, "See what you'd earn", and two single chip groups (`role="group"`, `aria-labelledby`): Deposit ($500, $2,000, $10,000, $50,000; default $2,000) and Hold for (30 days, 90 days, Until epoch ends; default 90). "Until epoch ends" is the days left until `EPOCH_END`, worked out live (172 on 1 Oct 2026). Right, over a radial glow: "Estimated points", the total (64/700 accent), the per-day line, the disclaimer and "Start earning →".
+- **Estimator** (`[data-estimator]`, surface, radius 2xl, 1.2fr / 1fr): left, the eyebrow, "See what you'd earn", and two single chip groups (`role="group"`, `aria-labelledby`): Deposit ($500, $2,000, $10,000, $50,000; default $2,000) and Hold for (30 days, 90 days, Until epoch ends; default 90). "Until epoch ends" is the days left until `EPOCH_END`, worked out live (172 on 1 Oct 2026). Right, over a radial glow: "Estimated points", the total (64px, Medium 500, accent), the per-day line, the disclaimer (14px) and "Start earning" (the site's primary `.btn`).
 - **Maths** (`js/v2-how.js`): perDay = deposit × `EPOCH_MULTIPLIER`; total = perDay × days; en-US formatting. The result is `aria-live="polite"`; the total counts up over 300ms (`aria-busy` while counting, so it's announced once), and jumps straight there with reduced motion.
 - **Responsive**: ≤1023px the cards stack, the rail hides and each card shows its number circle; ≤767px the estimator stacks (the form's divider moves to its bottom), the total drops to 48px so the largest value fits, and the chips wrap.
 

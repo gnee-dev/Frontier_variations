@@ -62,7 +62,8 @@
   --v2-container: 1200px;              /* content width, centred */
   --v2-gutter: 120px;                  /* >= 1280px; 48px at 768-1279; 20px below 768 */
   --v2-section-pad: 96px;              /* desktop; 64px tablet; 48px mobile */
-  --v2-target: 44px;                   /* minimum height of anything you can press */
+  --v2-target: 44px;
+  --v2-fs-subtitle: 17px;   /* every subtitle on v2: hero and sections, in --v2-text-muted */                   /* minimum height of anything you can press */
 }
 @media (max-width: 1279px) { :root { --v2-gutter: 48px; } }
 @media (max-width: 1023px) { :root { --v2-section-pad: 64px; } }

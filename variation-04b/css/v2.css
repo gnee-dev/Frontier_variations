@@ -48,10 +48,10 @@ body.v2-page { background: var(--v2-bg); }
   gap: 24px 48px;
 }
 .v2-sh__text { display: flex; flex-direction: column; gap: 14px; max-width: 680px; min-width: 0; }
-/* eyebrow: the site's uppercase label style, at 12px */
+/* eyebrow: the site's uppercase label style, at 14px (the smallest size on v2) */
 .v2-sh__eyebrow {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: 0.12em;
@@ -67,7 +67,7 @@ body.v2-page { background: var(--v2-bg); }
   color: var(--v2-text);
   text-wrap: balance;
 }
-.v2-sh__subtitle { margin: 0; font-size: 17px; line-height: 1.5; color: var(--v2-text-muted); text-wrap: pretty; }
+.v2-sh__subtitle { margin: 0; font-size: var(--v2-fs-subtitle); line-height: 1.5; font-weight: 400; color: var(--v2-text-muted); text-wrap: pretty; }
 .v2-sh__right { flex: none; display: flex; align-items: flex-end; }
 /* the header link: 14px, 600, accent, with a trailing arrow; a 44px target */
 .v2-link {
@@ -121,7 +121,6 @@ body.v2-page { background: var(--v2-bg); }
   border-color: var(--v2-accent);
   background: var(--v2-accent-tint);
   color: var(--v2-accent-on-tint);
-  font-weight: 600;
 }
 .v2-chip:focus-visible { outline: 2px solid var(--v2-accent); outline-offset: 2px; }
 .v2-chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -129,27 +128,6 @@ body.v2-page { background: var(--v2-bg); }
 /* screen-reader-only text */
 .v2-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* ---------- .v2-btn: the primary button ---------- */
-.v2-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: var(--v2-target);
-  padding: 14px 22px;
-  border-radius: var(--v2-r-md);
-  background: var(--v2-accent);
-  color: var(--v2-bg);
-  font-family: var(--font);
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1;
-  text-decoration: none;
-  transition: background-color 0.2s, transform 0.3s var(--ease-out);
-}
-.v2-btn:hover { background: var(--v2-accent-hover); }
-.v2-btn:active { transform: scale(0.98); }
-.v2-btn:focus-visible { outline: 2px solid var(--v2-accent); outline-offset: 3px; }
 
 /* ==========================================================================
    v2-how: How it works (SectionHeader, steps, estimator)
@@ -250,10 +228,10 @@ body.v2-page { background: var(--v2-bg); }
   min-width: 0;
 }
 .v2-estimator__out { display: grid; gap: 12px; }
-.v2-estimator__total { margin: 0; font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; color: var(--v2-accent); }
+.v2-estimator__total { margin: 0; font-size: 64px; font-weight: 500; line-height: 1; letter-spacing: -0.02em; color: var(--v2-accent); }
 .v2-estimator__rate { margin: 0; font-size: 15px; color: var(--v2-text-secondary); }
-.v2-estimator__note { margin: 0; font-size: 12px; line-height: 1.5; color: var(--v2-text-subtle); }
-.v2-estimator__result .v2-btn { margin-top: 12px; }
+.v2-estimator__note { margin: 0; font-size: 14px; line-height: 1.5; color: var(--v2-text-subtle); }
+.v2-estimator__result .btn { margin-top: 12px; align-self: flex-start; }
 
 /* ---------- tablet and mobile: one card per row; the number moves into each card ---------- */
 @media (max-width: 1023px) {
@@ -268,3 +246,10 @@ body.v2-page { background: var(--v2-bg); }
   .v2-estimator__total { font-size: 48px; }
   .v2-formula { font-size: 15px; padding: 14px; }
 }
+
+/* ---------- v2 page rules: one subtitle style, nothing under 14px ----------
+   Every subtitle (the hero's and each section's) uses --v2-fs-subtitle in muted.
+   The hero's small labels come from the shared 04b CSS at 12–13px; on v2 they're 14px. */
+.v2-page .hero--v4b .hero-v2b__sub { font-size: var(--v2-fs-subtitle); line-height: 1.5; font-weight: 400; color: var(--v2-text-muted); }
+.v2-page .panel__label,
+.v2-page .hero-v4b__cards .stat-card__note { font-size: 14px; }
