@@ -54,7 +54,7 @@ Each has a poster (`*-poster.jpg`: the intro's final frame, the loop's first). H
 
 ## How it works page
 
-`how-it-works.html` recreates frontier.d3.com/how-it-works (layout, copy and interactions, from the screenshots and screen recording) in the 04b design: black page, Google Sans Flex, the orange accent, and the Ocean B hero background (rise, then loop) with the same placement rules. It's linked from the nav on every 04b page: a "How it works" link, or on phones the first item in the Vaults menu.
+`how-it-works.html` recreates frontier.d3.com/how-it-works (layout, copy and interactions, from the screenshots and screen recording) in the 04b design: black page, Google Sans Flex, the orange accent, and the Ocean B hero background (rise, then loop) with the same placement rules. The hero has `data-fill`: the video always fills the full width (no side fades), moving down when it needs to so the ring stays at least 28px under the nav. It's linked from the nav on every 04b page: a "How it works" link, or on phones the first item in the Vaults menu.
 
 Each section has a name, used on its markup (`data-section`), its CSS block (`css/how-it-works.css`) and its JS block (`js/how-it-works.js`), so it can be changed on its own:
 

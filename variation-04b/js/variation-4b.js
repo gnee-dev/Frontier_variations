@@ -339,6 +339,10 @@
       h = Math.max(h, Math.min(hFill, hRing, hFitRing));
     }
     h = Math.max(160, h);
+    // data-fill on the hero: always the full width (no side fades); if the ring
+    // would then come too close to the nav, the video moves down instead (below)
+    var fill = hero4b.hasAttribute("data-fill");
+    if (fill) h = Math.max(h, hCover);
     var w = h * g.ratio;
     var left;
     if (w >= W) {
@@ -363,6 +367,7 @@
     var top = horizon - h * g.hz;
     var lift = Math.min(H * 0.15, Math.max(0, top + g.ringT * h - (navBottom + 28)));
     lift -= Math.min(H * 0.03, lift + (W < 760 ? 28 : 40) - 12);
+    if (fill) lift = Math.min(lift, top + g.ringT * h - (navBottom + 28));   // negative: moves down to keep the ring clear
     vids.forEach(function (v) { v.style.top = Math.round(top - lift) + "px"; });
     // the design's vignette sits on the full frame (1440 × 1076), wherever the crop is
     if (vignette4b) {

@@ -43,7 +43,7 @@
 
     var place = function (t) {
       var W = swarm.clientWidth, H = swarm.clientHeight, cx = W / 2, cy = H / 2;
-      var inX = 90, inY = 30, outX = Math.min(W * 0.42, 210), outY = H * 0.46;   // keep clear of the name pill
+      var inX = 90, inY = 30, outX = Math.min(W * 0.42, 210), outY = H * 0.5 - 30;   // the "You" label stays inside the stage   // keep clear of the name pill
       dots.forEach(function (p, k) {
         var r = p.r + 0.12 * Math.sin(t * p.rw + p.rp);
         var rx = inX + (outX - inX) * r, ry = inY + (outY - inY) * r;
