@@ -11,7 +11,8 @@
 /* type scale: body copy (= the hero subtitle) 16px, info on cards 14px,
    animation labels 16px (the name) / 14px (tags), corner status tags 14px */
 .hiw-page { --hiw-line: rgba(var(--ink), 0.08); --hiw-bad: #ff4d6d; --hiw-fs-body: 16px; --hiw-fs-card: 14px; }
-.hiw-section { scroll-margin-top: calc(20px + var(--nav-h) + 16px); padding-block: clamp(56px, 7vw, 104px); }
+/* the six sections after the hero (earn, back, timeline, priority, cta, registries): 80px top and bottom */
+.hiw-section { scroll-margin-top: calc(20px + var(--nav-h) + 16px); padding-block: 80px; }
 .hiw-kicker { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-accent-text); }
 .hiw-kicker--dim { color: var(--c-text-40); font-weight: 500; }
 .hiw-accent { color: var(--c-accent-text); }
@@ -22,7 +23,34 @@
 .hiw-desc { max-width: 620px; font-size: var(--hiw-fs-body); line-height: 1.6; color: var(--c-text-64); }
 .hiw-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .hiw-chips li { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--c-line-soft); background: rgba(var(--ink), 0.03); font-size: var(--hiw-fs-card); color: var(--c-text-64); }
-.hiw-links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+.hiw-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+/* secondary buttons (were underlined orange links): the size and padding of the page's
+   orange buttons, with a 2px orange border, orange text, black fill */
+.hiw-page main .link-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 9px 16px;
+  border: 2px solid var(--c-accent);
+  border-radius: var(--radius-sm);
+  background: #000;
+  color: var(--c-accent-text);
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: -0.0008em;
+  white-space: nowrap;
+  transition: background-color 0.2s, transform 0.35s var(--ease-out), gap 0.25s var(--ease-out);
+}
+.hiw-page main .link-arrow:hover { background: rgba(var(--accent-rgb), 0.12); border-color: var(--c-accent); transform: translateY(-2px); gap: 8px; }
+.hiw-page main .link-arrow:active { transform: translateY(0) scale(0.98); }
+.hiw-page main .link-arrow svg { width: 16px; height: 16px; }
+.hiw-page main .link-arrow:hover .btn__arrow { transform: translateX(3px); }
+@media (max-width: 400px) { .hiw-page main .link-arrow { font-size: 16px; padding-inline: 14px; } }
+/* phones: long labels wrap inside the button instead of running off the screen */
+@media (max-width: 560px) { .hiw-page main .link-arrow { height: auto; min-height: 40px; white-space: normal; text-align: left; } }
 .nav__links a.nav__hiw { color: var(--c-text-64); transition: color 0.2s; }
 .nav__links a.nav__hiw:hover, .nav__links a.nav__hiw.is-current { color: var(--c-text); }
 /* dark secondary button ("How it works ↓", "Read the FAQ") */
@@ -108,7 +136,6 @@
 .hiw-earn__text { display: grid; align-content: start; gap: 8px; }
 .hiw-earn__text .hiw-head { margin-bottom: 0; }
 .hiw-invite { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; font-size: var(--hiw-fs-body); }
-.hiw-invite .link-arrow { font-size: var(--hiw-fs-body); }
 .hiw-chart { display: grid; gap: 24px; margin: 0; padding: 16px; }   /* 24px between the bar, the chart and the note */
 /* the plot runs the full width; the points sit in boxes on it, at each line's end */
 .hiw-chart__body { position: relative; }
@@ -255,12 +282,12 @@
 .hiw-card[data-state="4"] li[data-m="orbiter"] .hiw-card__who { text-decoration: line-through; }
 
 /* ---------- hiw-cta ---------- */
-.hiw-cta { padding-block: clamp(48px, 6vw, 88px); }
+.hiw-cta { padding-block: 80px; }
 .hiw-cta .hiw-title { margin-bottom: 28px; }
 
 /* ---------- hiw-registries ---------- */
 .hiw-registries { background: rgba(var(--ink), 0.025); border-block: 1px solid var(--hiw-line); }
-.hiw-registries__inner { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; padding-block: clamp(40px, 5vw, 64px); }
+.hiw-registries__inner { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; padding-block: 80px; }
 .hiw-registries__inner > div:first-child { display: grid; gap: 12px; }
 .hiw-registries__title { font-size: clamp(24px, 2.2vw, 30px); line-height: 1.2; font-weight: 500; letter-spacing: -0.01em; }
 
