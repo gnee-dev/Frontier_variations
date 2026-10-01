@@ -27,7 +27,6 @@
 
     hiw-hero          "Be first in line, not first to click" over the Ocean B background
     hiw-compare       Without Frontier (swarm) vs With Frontier (queue)          #why
-    hiw-steps         the three-step strip, also the timeline of the With Frontier animation
     hiw-earn          Step 1: Day one beats month six by 3x (deposit + chart)      #deposit
     hiw-back          Step 2: Back extensions (live most-backed list)             #back
     hiw-timeline      Build priority now to use later (milestones + phases)       #timeline
@@ -105,7 +104,7 @@
              alex.agent. Without Frontier they wait for the public sale, rush it at once and a
              bot takes it in 0.4s. With Frontier they earn points, back .agent, line up by
              points, and the line is served in order before the public sale: #1's max falls
-             short, so You get it. The hiw-steps strip below follows the With Frontier side. -->
+             short, so You get it. -->
         <div class="hiw-compare" id="why" data-section="hiw-compare" data-compare data-horizon data-globe-avoid data-anim="rise" style="--d: 0.44s">
           <div class="hiw-compare__col">
             <header class="hiw-compare__top">
@@ -131,14 +130,6 @@
           <p class="hiw-sr">Without Frontier, everyone rushes the public sale and a bot takes alex.agent in 0.4 seconds. With Frontier, members earn points, back .agent and line up by points; the line is served in order before the public sale, and you register alex.agent.</p>
         </div>
 
-        <!-- ============================== hiw-steps ==============================
-             The three steps, and the timeline of the With Frontier animation: the current
-             step lights up (with its progress), and a click jumps the animation to it. -->
-        <ol class="hiw-steps" data-section="hiw-steps" data-steps data-globe-avoid data-anim="rise" style="--d: 0.52s">
-          <li data-phase="earn"><a href="#deposit"><span class="hiw-steps__n">1</span><span><b>Deposit, earn points</b><small>Every $1 earns points daily, from day one</small></span><i class="hiw-steps__bar"></i></a></li>
-          <li data-phase="back"><a href="#back"><span class="hiw-steps__n">2</span><span><b>Back .agent</b><small>Show registries which extensions you want</small></span><i class="hiw-steps__bar"></i></a></li>
-          <li data-phase="line"><a href="#get-in-line"><span class="hiw-steps__n">3</span><span><b>Points set your place</b><small>The line is served before the public sale</small></span><i class="hiw-steps__bar"></i></a></li>
-        </ol>
 
       </div>
     </section>
@@ -175,7 +166,7 @@
             <span class="hiw-chart__rate"><i></i>Live rate: 4× · Epoch 1</span>
           </div>
 
-          <!-- the plot, and beside it each line's points, level with where the line ends -->
+          <!-- the plot (full width); each line's points in a box on it, at the line's end -->
           <div class="hiw-chart__body">
           <div class="hiw-chart__plot">
             <span class="hiw-chart__y" style="--y: 0">120K</span>
@@ -203,9 +194,9 @@
           </div>
 
           <ul class="hiw-chart__ends">
-            <li class="is-open" style="--y: 9"><span><b data-value="109200">109,200</b><small>Start at opening</small></span></li>
-            <li style="--y: 39"><span><b data-value="72800">72,800</b> <em>−33%</em><small>Start 3 months in</small></span></li>
-            <li class="is-dim" style="--y: 69"><span><b data-value="36800">36,800</b> <em>−66%</em><small>Start 6 months in</small></span></li>
+            <li class="is-open" style="--y: 9"><span class="hiw-chart__box"><b data-value="109200">109,200</b><small>Start at opening</small></span></li>
+            <li style="--y: 39"><span class="hiw-chart__box"><b data-value="72800">72,800</b> <em>−33%</em><small>Start 3 months in</small></span></li>
+            <li class="is-dim" style="--y: 69"><span class="hiw-chart__box"><b data-value="36800">36,800</b> <em>−66%</em><small>Start 6 months in</small></span></li>
           </ul>
           </div>
           <figcaption class="hiw-chart__note">Estimated points after one year, by start date. Excludes boosts, referrals and sign-up points.</figcaption>

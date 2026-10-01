@@ -17,7 +17,7 @@
       { threshold: threshold || 0 }).observe(el);
   }
 
-  /* ---------------- hiw-compare + hiw-steps: one story on one clock ----------------
+  /* ---------------- hiw-compare: one story on one clock ----------------
      T seconds, looping. Both sides share the clock, so the same moment plays out
      two ways:
        Without Frontier  0-5 waiting for the public sale (countdown)
@@ -28,11 +28,10 @@
                          5.5-8  LINE: they line up by points; You land 2nd
                          8-11   LAUNCH: the line is served in order; #1's max falls
                                 short, so the name goes to You
-     The hiw-steps strip follows the With Frontier phases; a click jumps to one. */
+     */
   var compare = document.querySelector("[data-compare]");
   if (compare) (function () {
     var T = 13;
-    var PH = { earn: [0, 3.5], back: [3.5, 5.5], line: [5.5, 13] };   // strip steps (LINE includes the launch)
     var clamp = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
     var ease = function (x) { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
     var out = function (x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
@@ -74,10 +73,8 @@
     var lYou = document.createElement("span"); lYou.className = "hiw-tag hiw-tag--you"; lineEl.appendChild(lYou);
     var lTop = document.createElement("span"); lTop.className = "hiw-tag hiw-tag--miss"; lTop.textContent = "max below price"; lineEl.appendChild(lTop);
 
-    /* ---- status chips, strip ---- */
+    /* ---- status chips ---- */
     var stWithout = compare.querySelector('[data-status="without"]'), stWith = compare.querySelector('[data-status="with"]');
-    var strip = document.querySelector("[data-steps]");
-    var stepEls = strip ? strip.querySelectorAll("[data-phase]") : [];
     var setText = function (el, txt) { if (el && el.textContent !== txt) el.textContent = txt; };
     // place a label that follows a dot, kept inside its stage
     var tagAt = function (tag, x, y, W) {
@@ -171,17 +168,9 @@
       setText(stWith, t < 3.5 ? "Earning points" : t < 5.5 ? "Backing .agent" : t < 8 ? "Lining up by points" : win > 0.5 ? "Registered before the public sale" : "Served in order");
       lineEl.style.opacity = fade.toFixed(2);
       crowd.style.opacity = fade.toFixed(2);
-
-      /* the strip */
-      stepEls.forEach(function (li) {
-        var ph = PH[li.dataset.phase], on = t >= ph[0] && t < ph[1];
-        li.classList.toggle("is-active", on);
-        li.classList.toggle("is-done", t >= ph[1]);
-        li.style.setProperty("--p", on ? ((t - ph[0]) / (ph[1] - ph[0])).toFixed(3) : t >= ph[1] ? 1 : 0);
-      });
     }
 
-    // the clock: runs while the panel is on screen; a click on a step jumps to it
+    // the clock: runs while the panel is on screen
     var t = 0, last = 0, running = false;
     var frame = function (now) {
       if (!running) return;
@@ -189,19 +178,6 @@
       render(t);
       requestAnimationFrame(frame);
     };
-    stepEls.forEach(function (li) {
-      var a = li.querySelector("a");
-      if (!a) return;
-      a.addEventListener("click", function (e) {
-        if (reduce) return;
-        var rect = compare.getBoundingClientRect();
-        if (rect.bottom > 0 && rect.top < window.innerHeight) {   // the animation is on screen: jump to the step there
-          e.preventDefault();
-          t = PH[li.dataset.phase][0] + 0.01;
-          render(t);
-        }
-      });
-    });
     compare.hiwSeek = function (x) { t = x; render(x); };   // for checks: show the moment x seconds in
     if (reduce) { render(10.6); return; }           // still: the outcome of both sides
     render(0);
