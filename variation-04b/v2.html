@@ -438,6 +438,37 @@
         </div>
       </div>
     </section>
+
+    <!-- ============================== v2-cta: Stake your claim ==============================
+         The closing panel: the epoch pill (days left worked out live from EPOCH_END),
+         a centred SectionHeader, the hero's domain field (a real input + the .agent
+         suffix) with Join Frontier, and the hero's sign-up line. -->
+    <section class="v2-section v2-cta" id="join" data-section="v2-cta" aria-labelledby="v2-cta-title">
+      <div class="v2-container">
+        <div class="v2-cta__panel">
+          <svg class="v2-cta__waves" viewBox="0 0 1200 390" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 78C200 40 420 40 640 70s420 50 560 10"/>
+            <path d="M0 300C220 270 430 260 650 280s390 40 550 0"/>
+            <path d="M0 330C230 300 450 300 660 318s380 30 540 -6"/>
+            <path d="M0 362C240 336 460 336 670 352s370 24 530 -8"/>
+          </svg>
+          <p class="v2-tag v2-cta__pill" data-cta-epoch>Epoch 1 · 4× points · 172 days left</p>
+          <f-section-header title="Stake your claim on the new internet" title-id="v2-cta-title"></f-section-header>
+          <form class="domain-box v2-cta__field" data-cta-form>
+            <label class="v2-cta__name" data-value="yourname">
+              <span class="v2-sr">Your name</span>
+              <input type="text" name="name" size="1" placeholder="yourname" autocomplete="off" spellcheck="false" maxlength="63" />
+            </label>
+            <span class="v2-cta__tld" data-cta-tld>.agent</span>
+            <button type="submit" class="btn btn--primary btn--lg btn--shine">
+              Join Frontier
+              <svg class="btn__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+          <p class="v2-cta__bonus"><span class="hero-v2b__pts">+10,000 pts</span> <span class="hero-v2b__muted">on sign-up · Name registration isn’t guaranteed</span></p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ============================== FOOTER ============================== -->

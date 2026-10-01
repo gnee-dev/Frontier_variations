@@ -94,3 +94,27 @@
   est.addEventListener("chipchange", function () { update(true); });
   update(false);
 })();
+
+/* ---- the closing panel: the epoch pill (live days left) and the name field ---- */
+(function () {
+  "use strict";
+  var C = window.FRONTIER_V2_CONFIG;
+  if (!C) return;
+  var days = Math.max(0, Math.ceil((new Date(C.EPOCH_END).getTime() - Date.now()) / 86400000));
+  var pill = document.querySelector("[data-cta-epoch]");
+  if (pill) pill.textContent = "Epoch " + C.EPOCH + " · " + C.EPOCH_MULTIPLIER + "× points · " + days + " days left";
+  var form = document.querySelector("[data-cta-form]");
+  if (!form) return;
+  var input = form.querySelector("input");
+  // names are letters, digits and hyphens: drop anything else as it's typed
+  input.addEventListener("input", function () {
+    var v = input.value.toLowerCase().replace(/[^a-z0-9-]/g, "");
+    if (v !== input.value) input.value = v;
+    input.parentNode.setAttribute("data-value", v || input.placeholder);
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!input.value) { input.focus(); return; }
+    location.hash = "join";
+  });
+})();

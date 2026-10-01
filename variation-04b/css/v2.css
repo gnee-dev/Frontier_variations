@@ -555,6 +555,66 @@ body.v2-page { background: var(--v2-bg); }
   .v2-actions .btn { width: 100%; }
 }
 
+/* ---------- Stake your claim: the closing panel ---------- */
+.v2-cta__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 44px 48px 44px;
+  border: 1px solid var(--v2-border);
+  border-radius: var(--v2-r-2xl);
+  background: radial-gradient(70% 90% at 50% 120%, rgba(242, 106, 33, 0.12), transparent 70%), var(--v2-surface);
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+}
+.v2-cta__waves { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; }
+.v2-cta__waves path { fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.v2-cta__pill { align-self: center; border-radius: 999px; padding: 6px 14px; }
+.v2-cta .v2-sh { justify-content: center; }
+.v2-cta .v2-sh__text { align-items: center; max-width: 520px; }
+/* the hero's domain field, at section size: a real input, the TLD, Join Frontier */
+.v2-cta__field {
+  width: 100%;
+  max-width: 560px;
+  height: 68px;
+  gap: 4px;
+  padding: 0 8px 0 22px;
+  margin-top: 4px;
+  font-size: 26px;
+  background: var(--v2-bg);
+  border-color: var(--v2-border-strong);
+}
+/* the input grows with its text (a hidden copy in ::after sizes it), so the TLD follows the name */
+.v2-cta__name { display: inline-grid; flex: 0 1 auto; min-width: 0; max-width: 60%; }
+.v2-cta__name::after { content: attr(data-value); grid-area: 1 / 1; visibility: hidden; white-space: pre; overflow: hidden; }
+.v2-cta__name input { grid-area: 1 / 1; }
+.v2-cta__name input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--v2-target);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--v2-text);
+  font: inherit;
+  letter-spacing: inherit;
+  outline: none;
+}
+.v2-cta__name input::placeholder { color: var(--c-text-64); opacity: 1; }   /* the name part at 64%, as in the hero */
+.v2-cta__tld { flex: 1; min-width: 0; text-align: left; color: var(--c-accent-text); }
+.v2-cta__field .btn { flex: none; margin-left: 12px; }
+.v2-cta__field:focus-within { border-color: var(--v2-accent); box-shadow: 0 0 0 3px var(--v2-accent-tint); }
+.v2-cta__bonus { margin: 0; font-size: 16px; line-height: 1.4; font-weight: 500; }
+@media (max-width: 767px) {
+  .v2-cta__panel { padding: 36px 20px; gap: 20px; }
+  .v2-cta__field { flex-wrap: wrap; height: auto; padding: 10px 8px 8px 16px; font-size: 22px; }
+  .v2-cta__name { max-width: 70%; }
+  .v2-cta__field .btn { flex-basis: 100%; margin: 6px 0 0; }
+}
+
 /* ---------- v2 page rules: one subtitle style, nothing under 14px ----------
    Every subtitle (the hero's and each section's) uses --v2-fs-subtitle in muted.
    The hero's small labels come from the shared 04b CSS at 12–13px; on v2 they're 14px. */

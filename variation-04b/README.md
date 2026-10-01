@@ -54,7 +54,7 @@ Each has a poster (`*-poster.jpg`: the intro's final frame, the loop's first). H
 
 ## v2 (v2.html): redesigned sections below the hero
 
-Linked as "v2" in the nav of every 04b page, before How it works. It has the 04b hero; the sections below it are being rebuilt on shared foundations. Built so far: How it works, Why now, Back the extensions, Where your money goes, FAQ, For registries.
+Linked as "v2" in the nav of every 04b page, before How it works. It has the 04b hero; the sections below it are being rebuilt on shared foundations. Built so far: How it works, Why now, Back the extensions, Where your money goes, FAQ, For registries, Stake your claim.
 
 **Tokens** (`css/base.css`, all `--v2-*` so they never collide with the current page's tokens):
 
@@ -123,6 +123,8 @@ It renders a plain `header.v2-sh` with an `h2` in place. Eyebrow 14px uppercase 
 
 **For registries** (`#registries`): one warm panel (`--v2-surface-warm`, `--v2-border-warm`): SectionHeader, "Become a Frontier Partner" (primary) and "How it works for registries" (secondary), the logo placeholders, and the partner dashboard preview (the most backed extension from the config, a Live status, the chart, and the two placeholder stats).
 
+**Stake your claim** (`#join`, the closing panel; every "Join" / "Sign in" / "Back" link on v2 lands here): surface panel (radius 2xl) with faint wave lines and a low orange glow; a pill "Epoch 1 · 4× points · N days left" (N worked out live from `EPOCH_END`); a centred SectionHeader; the hero's domain field at section size: a real input ("yourname" at 64%, letters, digits and hyphens only, growing with its text so ".agent" follows it) and the hero's Join Frontier button; and the hero's sign-up line ("+10,000 pts" in #4AFFBA). On phones the button drops under the name.
+
 Colour: per the v2 rules, orange is kept for buttons, links, the selected state and "you/your"; the bars, the chart line, the trust icons, the FAQ tags and the +/− are neutral.
 
 **Secondary button** (`.btn--secondary`, `css/base.css`): the primary `.btn`'s size and padding with a 1.4px accent stroke at 64%, accent text and a black fill (the How it works page's secondary look).
@@ -185,7 +187,7 @@ A faint grid of 20px cells (16px on phones) covers the hero outside the copy and
 
 ```
 index.html
-v2.html                                     # v2: the 04b hero, then the redesigned sections (How it works → For registries)
+v2.html                                     # v2: the 04b hero, then the redesigned sections (How it works → Stake your claim)
 how-it-works.html                           # the How it works page (sections named hiw-*)
 vault-solana.html, vault-hyperliquid.html   # the vault pages (one layout, different content)
 css/
