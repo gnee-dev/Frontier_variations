@@ -1,0 +1,136 @@
+/* ==========================================================================
+   Hero · Variation 2b — "Nucleus centred" (dark mode)
+   Layout (second Figma file): one centred stack of the headline, the
+   domain field with Join Frontier inside it (always exactly as wide as
+   the headline's text, set in js/variation-2-nucleus.js), the bonus line
+   and the subtitle. A much bigger particle sphere rises out of the bottom of the
+   hero behind everything; three compact stat cards sit at the bottom.
+   ========================================================================== */
+
+/* -0.08% letter-spacing across the page on this tab (as in Variation 2) */
+/* (Variations 3, 3b and 3c reuse this layout, and 4 shares its type and buttons; 4b reuses the layout, so the tab-wide rules cover them too) */
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"], [data-variation="4b"]),
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"], [data-variation="4b"]) :is(
+  .hero-v2b__title, .domain-box, .stat-card__value, .btn,
+  .section-head__title, .card__title, .points__value, .tld-grid li,
+  .timeline__title, .banner__title
+) {
+  letter-spacing: -0.0008em;
+}
+
+/* ---------- Hero shell (Figma: 968px tall, nav at 20px + 54px) ---------- */
+.hero--v2b {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max(760px, min(968px, 100svh));
+  /* top padding ends exactly at the nav's bottom edge (nav: 20px + 54px) */
+  padding: calc(20px + var(--nav-h)) 0 40px;
+  background: var(--c-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero--v2b.is-globe-hover { cursor: crosshair; }
+
+/* ---------- Particle sphere (behind everything, rising from the bottom) ---------- */
+.nucleus-2b {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease-out) 0.2s;
+  /* soft fade at the bottom edge, like the Variation 1 globe */
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}
+.hero--v2b.is-entered .nucleus-2b { opacity: 0.82; }
+
+/* ---------- Centred stack ---------- */
+/* The stack sits in the space between the nav and the stat cards, raised
+   above centre: the free space splits 30% above / 70% below, which lifts it
+   by about 10% of that space's height on desktop. On short screens with no
+   free space it keeps the minimum gaps. */
+.hero-v2b__inner { flex: 1; display: flex; flex-direction: column; }
+.hero-v2b__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-block: clamp(32px, 5vh, 56px);   /* minimum breathing room on short screens */
+}
+.hero-v2b__center::before { content: ""; flex: 3 1 0; }
+.hero-v2b__center::after  { content: ""; flex: 7 1 0; }
+.hero-v2b__stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);   /* the headline must not widen the column */
+  justify-items: center;
+  gap: 24px;                          /* Figma: 24px between headline, field group and subtitle */
+  text-align: center;
+  width: 100%;
+  max-width: 674px;                   /* Figma column width */
+  margin-inline: auto;
+}
+.hero-v2b__title {
+  display: inline-block;              /* its natural width sets the domain field's width */
+  white-space: nowrap;
+  font-size: 48px;                    /* same size as the typed domain; line-height 1.2 */
+  line-height: 1.2;
+  font-weight: 500;
+}
+/* the domain field is sized in JS to exactly this text's width */
+.hero-v2b__claim { display: grid; justify-items: center; gap: 20px; width: 100%; }   /* Figma: 20px field → bonus line */
+
+/* Domain field with Join Frontier inside (Figma: 674 × 88, 18px insets) */
+.hero-v2b__domain {
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  padding: 17.5px 16px 17.5px 18px;   /* around the 40px button: 2px tighter top, right and bottom */
+  border-radius: 16px;
+  background: rgba(var(--ink), 0.06);
+  border-color: rgba(var(--ink), 0.12);
+  font-size: min(48px, 9vw);          /* Figma 56px, 8px smaller */
+  line-height: 1.2;
+  max-width: 100%;                    /* width = the headline's text width (set in JS) */
+}
+.hero-v2b__typed { display: inline-flex; align-items: center; min-width: 0; height: 40px; line-height: 40px; }   /* same height as the button */
+.hero-v2b__domain .domain-box__text { color: var(--c-text); }   /* Figma: "vault." white, "crypto" orange */
+.hero-v2b__join { flex: none; }
+
+/* One button everywhere on the page content of this tab: 40px tall, 18px label,
+   9px × 16px padding. The nav's Sign up keeps the same size as the other tabs. */
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"], [data-variation="4b"]) main .btn {
+  height: 40px;
+  padding: 9px 16px;
+  font-size: 18px;
+  line-height: 22px;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+}
+body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"], [data-variation="4b"]) main .btn .btn__arrow { width: 16px; height: 16px; }
+/* very narrow phones: 16px labels so the longest button ("Become a Frontier TLD partner") fits */
+@media (max-width: 400px) { body:is([data-variation="2b"], [data-variation="3"], [data-variation="3b"], [data-variation="3c"], [data-variation="4"], [data-variation="4b"]) main .btn { font-size: 16px; padding-inline: 14px; } }
+
+/* Bonus line (Figma highlight usage) */
+.hero-v2b__bonus { font-size: 16px; line-height: 1.2; font-weight: 500; color: var(--c-text); }   /* Figma 18px, 2px smaller */
+.hero-v2b__pts { color: #4affba; font-weight: 600; }
+.hero-v2b__muted { color: var(--c-text-64); }
+.hero-v2b__countdown { font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.hero-v2b__sub { font-size: 14px; line-height: 1.2; font-weight: 500; color: var(--c-text-64); }   /* Figma 16px, 2px smaller; 64%, one line */
+@media (min-width: 760px) { .hero-v2b__bonus, .hero-v2b__sub { white-space: nowrap; } }
+
+/* Compact stat cards (shared look with Variation 2), frosted over the sphere */
+.hero-v2b__cards .stat-card { background: rgba(12, 12, 12, 0.55); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 560px) {
+  .hero--v2b { min-height: 0; padding-top: calc(12px + var(--nav-h)); }   /* nav sits at 12px here */
+  .hero-v2b__domain { flex-direction: column; align-items: stretch; height: auto; gap: 8px; padding: 12px 8px 8px 14px; }
+  .hero-v2b__typed { height: 48px; font-size: 36px; }
+  .hero-v2b__bonus { font-size: 15px; line-height: 1.35; }
+  .hero-v2b__sub { line-height: 1.4; }
+}

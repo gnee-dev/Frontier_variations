@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frontier × Solana — Stake SOL</title>
+  <meta name="description" content="Stake SOL in the D3 Internet Vault on Loopscale: keep custody, keep your yield, and earn priority on .sol, .agent, .human and .robot." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..800&display=swap" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/hero-shared.css" />
+  <link rel="stylesheet" href="css/variation-2b-nucleus-centred.css" />
+  <link rel="stylesheet" href="css/variation-4b-video-full-bleed.css" />
+  <link rel="stylesheet" href="css/page.css" />
+  <link rel="stylesheet" href="css/vaults.css" />
+</head>
+
+<body data-variation="4b" class="vault-page vault-page--solana">
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <div class="nav__brand">
+        <a class="nav__logo" href="index.html" aria-label="Frontier home">
+          <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="128" height="13" />
+        </a>
+        <span class="nav__x" aria-hidden="true">×</span>
+        <span class="nav__chain"><svg class="nav__chain-mark" viewBox="0 0 29 26" aria-hidden="true"><defs><linearGradient id="solg-nav__chain-mark" x1="0" y1="26" x2="29" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><path fill="url(#solg-nav__chain-mark)" d="M28.85 20.5L24.06 25.65C23.96 25.76 23.83 25.85 23.69 25.91C23.55 25.97 23.4 26 23.25 26L0.56 26C0.45 26 0.34 25.97 0.25 25.91C0.16 25.85 0.09 25.76 0.05 25.66C0 25.57 -0.01 25.46 0.01 25.35C0.03 25.24 0.08 25.14 0.15 25.06L4.94 19.92C5.04 19.8 5.17 19.72 5.31 19.65C5.45 19.59 5.6 19.56 5.75 19.56L28.44 19.56C28.55 19.56 28.66 19.59 28.75 19.65C28.84 19.71 28.91 19.8 28.95 19.9C29 20 29.01 20.11 28.99 20.21C28.97 20.32 28.92 20.42 28.85 20.5ZM24.06 10.14C23.96 10.02 23.83 9.93 23.69 9.87C23.55 9.81 23.4 9.78 23.25 9.78L0.56 9.78C0.45 9.78 0.34 9.81 0.25 9.87C0.16 9.93 0.09 10.02 0.05 10.12C0 10.22 -0.01 10.33 0.01 10.43C0.03 10.54 0.08 10.64 0.15 10.72L4.94 15.86C5.04 15.98 5.17 16.07 5.31 16.13C5.45 16.19 5.6 16.22 5.75 16.22L28.44 16.22C28.55 16.22 28.66 16.19 28.75 16.13C28.84 16.07 28.91 15.98 28.95 15.88C29 15.78 29.01 15.67 28.99 15.57C28.97 15.46 28.92 15.36 28.85 15.28L24.06 10.14ZM0.56 6.44L23.25 6.44C23.4 6.44 23.55 6.41 23.69 6.35C23.83 6.28 23.96 6.2 24.06 6.08L28.85 0.94C28.92 0.86 28.97 0.76 28.99 0.65C29.01 0.54 29 0.43 28.95 0.34C28.91 0.24 28.84 0.15 28.75 0.09C28.66 0.03 28.55 0 28.44 0L5.75 0C5.6 0 5.45 0.03 5.31 0.09C5.17 0.15 5.04 0.24 4.94 0.35L0.15 5.5C0.08 5.58 0.03 5.68 0.01 5.79C-0.01 5.89 0 6 0.05 6.1C0.09 6.2 0.16 6.29 0.25 6.35C0.34 6.41 0.45 6.44 0.56 6.44Z"/></svg><span>Solana</span></span>
+      </div>
+      <nav class="nav__links" aria-label="Main">
+        <a href="v2.html" class="nav__hiw nav__v2">v2</a>
+        <a href="how-it-works.html" class="nav__hiw">How it works</a>
+        <div class="nav__drop is-active" data-dropdown>
+          <button class="nav__drop-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="vaults-menu">Vaults <svg class="nav__drop-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav__menu" id="vaults-menu" role="menu" aria-label="Vaults">
+            <span class="nav__menu-label">Frontier vaults</span>
+            <a class="nav__menu-item is-current" aria-current="page" href="vault-solana.html" role="menuitem">
+              <span class="nav__menu-icon"><svg class="nav__menu-mark" viewBox="0 0 29 26" aria-hidden="true"><defs><linearGradient id="solg-nav__menu-mark" x1="0" y1="26" x2="29" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><path fill="url(#solg-nav__menu-mark)" d="M28.85 20.5L24.06 25.65C23.96 25.76 23.83 25.85 23.69 25.91C23.55 25.97 23.4 26 23.25 26L0.56 26C0.45 26 0.34 25.97 0.25 25.91C0.16 25.85 0.09 25.76 0.05 25.66C0 25.57 -0.01 25.46 0.01 25.35C0.03 25.24 0.08 25.14 0.15 25.06L4.94 19.92C5.04 19.8 5.17 19.72 5.31 19.65C5.45 19.59 5.6 19.56 5.75 19.56L28.44 19.56C28.55 19.56 28.66 19.59 28.75 19.65C28.84 19.71 28.91 19.8 28.95 19.9C29 20 29.01 20.11 28.99 20.21C28.97 20.32 28.92 20.42 28.85 20.5ZM24.06 10.14C23.96 10.02 23.83 9.93 23.69 9.87C23.55 9.81 23.4 9.78 23.25 9.78L0.56 9.78C0.45 9.78 0.34 9.81 0.25 9.87C0.16 9.93 0.09 10.02 0.05 10.12C0 10.22 -0.01 10.33 0.01 10.43C0.03 10.54 0.08 10.64 0.15 10.72L4.94 15.86C5.04 15.98 5.17 16.07 5.31 16.13C5.45 16.19 5.6 16.22 5.75 16.22L28.44 16.22C28.55 16.22 28.66 16.19 28.75 16.13C28.84 16.07 28.91 15.98 28.95 15.88C29 15.78 29.01 15.67 28.99 15.57C28.97 15.46 28.92 15.36 28.85 15.28L24.06 10.14ZM0.56 6.44L23.25 6.44C23.4 6.44 23.55 6.41 23.69 6.35C23.83 6.28 23.96 6.2 24.06 6.08L28.85 0.94C28.92 0.86 28.97 0.76 28.99 0.65C29.01 0.54 29 0.43 28.95 0.34C28.91 0.24 28.84 0.15 28.75 0.09C28.66 0.03 28.55 0 28.44 0L5.75 0C5.6 0 5.45 0.03 5.31 0.09C5.17 0.15 5.04 0.24 4.94 0.35L0.15 5.5C0.08 5.58 0.03 5.68 0.01 5.79C-0.01 5.89 0 6 0.05 6.1C0.09 6.2 0.16 6.29 0.25 6.35C0.34 6.41 0.45 6.44 0.56 6.44Z"/></svg></span>
+              <span class="nav__menu-text"><strong>Solana</strong><small>Stake SOL · Loopscale vault</small></span>
+              <svg class="nav__menu-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="nav__menu-item" href="vault-hyperliquid.html" role="menuitem">
+              <span class="nav__menu-icon"><svg class="nav__menu-mark" viewBox="5.97 10.69 36.06 26.5" aria-hidden="true"><path transform="translate(5.97 10.69)" fill="#97FCE4" d="M36.06 13.14C36.06 25.01 28.77 28.82 24.9 25.45C21.75 22.69 20.82 16.84 16.07 16.23C10.05 15.52 9.5 23.52 5.52 23.52C0.88 23.52 0 16.84 0 13.36C0 9.83 0.99 5.02 4.91 5.02C9.5 5.02 9.77 11.93 15.52 11.54C21.2 11.15 21.31 3.98 25.07 0.94C28.33 -1.77 36.06 1.1 36.06 13.14Z"/></svg></span>
+              <span class="nav__menu-text"><strong>Hyperliquid</strong><small>Stake HYPE · Upshift vault</small></span>
+              <svg class="nav__menu-go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <a class="btn btn--primary btn--sm" href="#join">Sign in</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ======================= HERO (the 04b full-bleed video, vault copy) ======================= -->
+    <section class="hero hero--v2b hero--v4b vault-hero" id="hero-v4b" data-hero="4b" data-media="hero-04b-sol" data-tld=".sol" aria-label="Frontier × Solana">
+      <div class="hero-v4b__bg" id="hero-v4b-bg" aria-hidden="true">
+        <!-- the loop (hero-04b*-loop), underneath: takes over from the intro and repeats -->
+        <video class="hero-v4b__media hero-v4b__media--loop" id="hero-v4b-loop" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+        <video class="hero-v4b__media" id="hero-v4b-video" muted playsinline preload="none" poster="assets/media/hero-04b-sol-poster.jpg" tabindex="-1">
+          <source src="assets/media/hero-04b-sol.mp4" type="video/mp4" />
+          <source src="assets/media/hero-04b-sol.webm" type="video/webm" />
+        </video>
+        <!-- Ocean B vignette: darkens the frame's edges (placed with the video) -->
+        <div class="hero-v4b__vignette" id="hero-v4b-vignette"></div>
+      </div>
+      <div class="hero-tip" id="hero-v4b-tooltip" aria-hidden="true">
+        <span class="hero-tip__name"></span>
+      </div>
+
+      <div class="container hero-v2b__inner">
+        <div class="hero-v2b__center">
+        <div class="hero-v2b__stack">
+          <h1 class="hero-v2b__title" id="hero-v4b-title" data-anim="rise" data-globe-avoid style="--d: 0.10s">Be the first to ever own</h1>
+
+          <div class="hero-v2b__claim" data-anim="rise" style="--d: 0.22s">
+            <div class="domain-box hero-v2b__domain vault-hero__domain" data-globe-avoid>
+              <span class="hero-v2b__typed" aria-live="polite"><span class="domain-box__text" data-words="alpha.sol, maker.sol, degen.sol, stake.sol, gm.sol, validator.sol, mint.sol">alpha.sol</span><span class="domain-box__caret" aria-hidden="true"></span></span>
+            </div>
+            <p class="hero-v2b__sub vault-hero__sub" data-globe-avoid>1,600+ applications filed for new extensions arriving in 2026. They work exactly like .com.</p>
+          </div>
+
+          <div data-anim="rise" style="--d: 0.34s"><a class="btn btn--primary btn--lg btn--shine vault-hero__cta" href="#join" data-globe-avoid>Stake SOL</a></div>
+        </div>
+        </div>
+
+        <!-- The bottom of the hero keeps the main page's stat-card row, invisible, so the hero, the
+             copy and the video sit exactly as on the main page; the line sits over that row. -->
+        <div class="vault-hero__foot">
+          <ul class="hero-cards hero-v2__cards hero-v2b__cards hero-v4b__cards vault-hero__ghost" aria-hidden="true">
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Points rate</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2Z"/></svg>
+              </div>
+              <div class="stat-card__value stat-card__value--accent">4×</div>
+              <div class="stat-card__note">Epoch 1 · ends Mar 21, 2027</div>
+            </li>
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Program TVL</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M7 3h10"/><circle cx="16" cy="15" r="1.2"/></svg>
+              </div>
+              <div class="stat-card__value">$113K</div>
+              <div class="stat-card__note" aria-hidden="true">&nbsp;</div>
+            </li>
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Members</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M15.5 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>
+              </div>
+              <div class="stat-card__value">34,434</div>
+              <div class="stat-card__note" aria-hidden="true">&nbsp;</div>
+            </li>
+            <li class="panel stat-card">
+              <div class="panel__label">
+                <span>Extensions live</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg>
+              </div>
+              <div class="stat-card__value">55</div>
+              <div class="stat-card__note" aria-hidden="true">&nbsp;</div>
+            </li>
+          </ul>
+          <p class="vault-hero__lead" data-globe-avoid data-anim="rise" style="--d: 0.46s">
+            <span class="vault-hero__tlds"><b>.sol</b><i aria-hidden="true">·</i><b>.agent</b><i aria-hidden="true">·</i><b>.human</b><i aria-hidden="true">·</i><b>.robot</b></span>
+            <span>lead the round for Solana</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== BACKED BY ============================== -->
+    <section class="vault-strip" aria-label="Backed by">
+      <div class="container vault-strip__inner" data-reveal>
+        <span class="vault-strip__chain"><svg class="vault-strip__mark" viewBox="0 0 29 26" aria-hidden="true"><defs><linearGradient id="solg-vault-strip__mark" x1="0" y1="26" x2="29" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><path fill="url(#solg-vault-strip__mark)" d="M28.85 20.5L24.06 25.65C23.96 25.76 23.83 25.85 23.69 25.91C23.55 25.97 23.4 26 23.25 26L0.56 26C0.45 26 0.34 25.97 0.25 25.91C0.16 25.85 0.09 25.76 0.05 25.66C0 25.57 -0.01 25.46 0.01 25.35C0.03 25.24 0.08 25.14 0.15 25.06L4.94 19.92C5.04 19.8 5.17 19.72 5.31 19.65C5.45 19.59 5.6 19.56 5.75 19.56L28.44 19.56C28.55 19.56 28.66 19.59 28.75 19.65C28.84 19.71 28.91 19.8 28.95 19.9C29 20 29.01 20.11 28.99 20.21C28.97 20.32 28.92 20.42 28.85 20.5ZM24.06 10.14C23.96 10.02 23.83 9.93 23.69 9.87C23.55 9.81 23.4 9.78 23.25 9.78L0.56 9.78C0.45 9.78 0.34 9.81 0.25 9.87C0.16 9.93 0.09 10.02 0.05 10.12C0 10.22 -0.01 10.33 0.01 10.43C0.03 10.54 0.08 10.64 0.15 10.72L4.94 15.86C5.04 15.98 5.17 16.07 5.31 16.13C5.45 16.19 5.6 16.22 5.75 16.22L28.44 16.22C28.55 16.22 28.66 16.19 28.75 16.13C28.84 16.07 28.91 15.98 28.95 15.88C29 15.78 29.01 15.67 28.99 15.57C28.97 15.46 28.92 15.36 28.85 15.28L24.06 10.14ZM0.56 6.44L23.25 6.44C23.4 6.44 23.55 6.41 23.69 6.35C23.83 6.28 23.96 6.2 24.06 6.08L28.85 0.94C28.92 0.86 28.97 0.76 28.99 0.65C29.01 0.54 29 0.43 28.95 0.34C28.91 0.24 28.84 0.15 28.75 0.09C28.66 0.03 28.55 0 28.44 0L5.75 0C5.6 0 5.45 0.03 5.31 0.09C5.17 0.15 5.04 0.24 4.94 0.35L0.15 5.5C0.08 5.58 0.03 5.68 0.01 5.79C-0.01 5.89 0 6 0.05 6.1C0.09 6.2 0.16 6.29 0.25 6.35C0.34 6.41 0.45 6.44 0.56 6.44Z"/></svg><span>Solana</span></span>
+        <span class="vault-strip__sep" aria-hidden="true"></span>
+        <span class="vault-kicker">Backed by</span>
+        <ul class="vault-strip__logos">
+          <li><span class="wm wm--sunrise">sunrise</span></li><li><span class="wm wm--meteora">Meteora</span></li><li><span class="wm wm--raydium">RAYDIUM</span></li><li><span class="wm wm--jupiter">Jupiter</span></li><li><span class="wm wm--kamino">kamino</span></li><li><span class="wm wm--superteam">superteam</span></li><li><span class="wm wm--more">+ more</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================== ONE NAME, THREE PLACES ============================== -->
+    <section class="section vault-section" id="one-name">
+      <div class="container">
+        <header class="vault-head" data-reveal>
+          <h2 class="section-head__title">Web. Mail. Wallet.</h2>
+          <span class="vault-kicker">One name, three places</span>
+        </header>
+
+        <div class="vault-uses">
+          <!-- Browser -->
+          <article class="panel vault-use" data-reveal style="--d: 0s">
+            <div class="vault-use__bar">
+              <span class="vault-use__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="vault-use__url"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7" width="9" height="7" rx="1.5" fill="currentColor"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span>maker<span class="tld">.sol</span></span></span>
+            </div>
+            <div class="vault-use__body">
+              <p class="vault-use__site">Maker</p>
+              <span class="vault-skel" style="--w: 78%"></span>
+              <span class="vault-skel vault-skel--dim" style="--w: 56%"></span>
+              <span class="vault-skel" style="--w: 88%"></span>
+              <span class="vault-skel vault-skel--dim" style="--w: 64%"></span>
+              <span class="vault-skel" style="--w: 100%"></span>
+            </div>
+            <span class="vault-kicker vault-use__label">Browser</span>
+          </article>
+
+          <!-- Email -->
+          <article class="panel vault-use" data-reveal style="--d: 0.1s">
+            <div class="vault-use__bar vault-use__bar--title">
+              <span>New message</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="vault-use__body">
+              <dl class="vault-mail">
+                <div><dt>To</dt><dd>gm@maker<span class="tld">.sol</span></dd></div>
+                <div><dt>Subject</dt><dd>Vault boost live monday</dd></div>
+              </dl>
+              <span class="vault-skel vault-skel--dim" style="--w: 100%"></span>
+              <span class="vault-skel vault-skel--dim" style="--w: 62%"></span>
+              <span class="vault-use__send">Send</span>
+            </div>
+            <span class="vault-kicker vault-use__label">Email</span>
+          </article>
+
+          <!-- Wallet -->
+          <article class="panel vault-use" data-reveal style="--d: 0.2s">
+            <div class="vault-use__bar vault-use__bar--title">
+              <span class="vault-use__coin"><svg class="vault-use__coin-mark" viewBox="0 0 29 26" aria-hidden="true"><defs><linearGradient id="solg-vault-use__coin-mark" x1="0" y1="26" x2="29" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><path fill="url(#solg-vault-use__coin-mark)" d="M28.85 20.5L24.06 25.65C23.96 25.76 23.83 25.85 23.69 25.91C23.55 25.97 23.4 26 23.25 26L0.56 26C0.45 26 0.34 25.97 0.25 25.91C0.16 25.85 0.09 25.76 0.05 25.66C0 25.57 -0.01 25.46 0.01 25.35C0.03 25.24 0.08 25.14 0.15 25.06L4.94 19.92C5.04 19.8 5.17 19.72 5.31 19.65C5.45 19.59 5.6 19.56 5.75 19.56L28.44 19.56C28.55 19.56 28.66 19.59 28.75 19.65C28.84 19.71 28.91 19.8 28.95 19.9C29 20 29.01 20.11 28.99 20.21C28.97 20.32 28.92 20.42 28.85 20.5ZM24.06 10.14C23.96 10.02 23.83 9.93 23.69 9.87C23.55 9.81 23.4 9.78 23.25 9.78L0.56 9.78C0.45 9.78 0.34 9.81 0.25 9.87C0.16 9.93 0.09 10.02 0.05 10.12C0 10.22 -0.01 10.33 0.01 10.43C0.03 10.54 0.08 10.64 0.15 10.72L4.94 15.86C5.04 15.98 5.17 16.07 5.31 16.13C5.45 16.19 5.6 16.22 5.75 16.22L28.44 16.22C28.55 16.22 28.66 16.19 28.75 16.13C28.84 16.07 28.91 15.98 28.95 15.88C29 15.78 29.01 15.67 28.99 15.57C28.97 15.46 28.92 15.36 28.85 15.28L24.06 10.14ZM0.56 6.44L23.25 6.44C23.4 6.44 23.55 6.41 23.69 6.35C23.83 6.28 23.96 6.2 24.06 6.08L28.85 0.94C28.92 0.86 28.97 0.76 28.99 0.65C29.01 0.54 29 0.43 28.95 0.34C28.91 0.24 28.84 0.15 28.75 0.09C28.66 0.03 28.55 0 28.44 0L5.75 0C5.6 0 5.45 0.03 5.31 0.09C5.17 0.15 5.04 0.24 4.94 0.35L0.15 5.5C0.08 5.58 0.03 5.68 0.01 5.79C-0.01 5.89 0 6 0.05 6.1C0.09 6.2 0.16 6.29 0.25 6.35C0.34 6.41 0.45 6.44 0.56 6.44Z"/></svg>Send SOL</span>
+            </div>
+            <div class="vault-use__body">
+              <div class="vault-wallet">
+                <span class="vault-wallet__label">Recipient</span>
+                <span class="vault-wallet__to">maker<span class="tld">.sol</span></span>
+                <span class="vault-wallet__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.5 3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>resolves to</span>
+                <span class="vault-wallet__addr">7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU</span>
+              </div>
+              <div class="vault-wallet__amount"><span>Amount</span><strong>2,500 SOL</strong></div>
+            </div>
+            <span class="vault-kicker vault-use__label">Wallet</span>
+          </article>
+        </div>
+        <p class="vault-note" data-reveal>Works exactly like .com. Nothing to install.</p>
+      </div>
+    </section>
+
+    <!-- ============================== WHAT TO DO ============================== -->
+    <section class="section vault-section" id="what-to-do">
+      <div class="container">
+        <header class="vault-head" data-reveal>
+          <h2 class="section-head__title">Solana’s community goes first.</h2>
+          <span class="vault-kicker">Points decide who registers first</span>
+        </header>
+        <ol class="panel vault-steps" data-reveal>
+          <li><span class="vault-steps__n">01</span><h3>Stake</h3><p>Your SOL, your custody. Withdraw any time.</p></li>
+          <li><span class="vault-steps__n">02</span><h3>Earn</h3><p>Best-in-class staking APY, plus 1 point a day for every $1 deposited.</p></li>
+          <li><span class="vault-steps__n">03</span><h3>Go first</h3><p>Most points registers the name first.</p></li>
+        </ol>
+        <div class="vault-cta vault-cta--center" data-reveal><a class="btn btn--primary btn--shine" href="#join">Stake SOL</a></div>
+      </div>
+    </section>
+
+    <!-- ============================== TWICE BEFORE ============================== -->
+    <section class="section vault-section" id="twice-before">
+      <div class="container">
+        <header class="vault-head" data-reveal>
+          <h2 class="section-head__title">This has happened twice before.</h2>
+          <span class="vault-kicker">1985 · 2012 · Now</span>
+        </header>
+        <div class="vault-eras">
+          <article class="panel vault-era" data-reveal style="--d: 0s">
+            <header><h3>1985</h3><span>the first six</span></header>
+            <ul class="vault-tags"><li>.com</li><li>.net</li><li>.org</li><li>.edu</li><li>.gov</li><li>.mil</li></ul>
+          </article>
+          <article class="panel vault-era" data-reveal style="--d: 0.1s">
+            <header><h3>2012-2015</h3><span>27 years later</span></header>
+            <ul class="vault-tags"><li>.xyz</li><li>.app</li><li>.dev</li><li>.fun</li><li>.shop</li><li>.club</li><li>.live</li></ul>
+            <p class="vault-era__note">~1,200 issued, then the window shut</p>
+          </article>
+          <article class="panel vault-era vault-era--now" data-reveal style="--d: 0.2s">
+            <header><h3>2026</h3><span>12 years later · <b>open now</b></span></header>
+            <span class="vault-era__hot">.sol</span>
+            <ul class="vault-tags"><li>.agent</li><li>.human</li><li>.robot</li></ul>
+            <p class="vault-era__note">1,600+ applications filed, names open to this community</p>
+          </article>
+        </div>
+        <p class="vault-note" data-reveal>The list has been closed for twelve years.</p>
+      </div>
+    </section>
+
+    <!-- ============================== ONE MOVE ============================== -->
+    <section class="section vault-section" id="one-move">
+      <div class="container">
+        <header class="vault-head" data-reveal>
+          <h2 class="section-head__title">Same SOL. <em>One move.</em></h2>
+        </header>
+        <div class="vault-compare" data-reveal>
+          <div class="panel vault-compare__card">
+            <header><h3>Your SOL today</h3><span class="vault-kicker">Now</span></header>
+            <dl class="vault-rows">
+              <div><dt>staked</dt><dd>1,250 SOL</dd></div>
+              <div><dt>yield</dt><dd>native rate</dd></div>
+              <div><dt>custody</dt><dd>yours</dd></div>
+              <div><dt>place in line</dt><dd class="is-dim">none</dd></div>
+            </dl>
+          </div>
+          <div class="vault-compare__link" aria-hidden="true"><i></i></div>
+          <div class="panel vault-compare__card vault-compare__card--vault">
+            <header><h3>D3 Internet Vault <span>on Loopscale</span></h3><span class="vault-kicker">Frontier vault</span></header>
+            <dl class="vault-rows">
+              <div><dt>staked</dt><dd>1,250 SOL</dd></div>
+              <div><dt>yield</dt><dd class="is-good">native rate or better</dd></div>
+              <div><dt>custody</dt><dd>still yours</dd></div>
+              <div><dt>place in line</dt><dd class="is-accent">10,000 on sign-up, then 8× daily in month one</dd></div>
+            </dl>
+          </div>
+        </div>
+        <div class="vault-cta" data-reveal><a class="btn btn--primary btn--shine" href="#join">Stake SOL</a><span class="vault-kicker">D3 never holds your funds</span></div>
+      </div>
+    </section>
+
+    <!-- ============================== MULTIPLIERS ============================== -->
+    <section class="section vault-section" id="multipliers">
+      <div class="container">
+        <header class="vault-head" data-reveal>
+          <h2 class="section-head__title">8× in month one.</h2>
+          <span class="vault-kicker">Points per $1 a day</span>
+        </header>
+        <p class="vault-lede" data-reveal>1 point per $1 a day is the base. The epoch and the vault multiply it.</p>
+        <div class="vault-chart" data-reveal role="img" aria-label="Points multiplier: 8× in month one, 4× to month 6, 2× to month 12, 1× after">
+          <div class="vault-chart__col is-boost" style="--w: 6; --h: 100%; --d: 0s"><span class="vault-chart__val">8×</span><span class="vault-chart__bar"></span><span class="vault-chart__x">month one</span></div>
+          <div class="vault-chart__col" style="--w: 27; --h: 50%; --d: 0.12s"><span class="vault-chart__val">4×</span><span class="vault-chart__bar"></span><span class="vault-chart__x">to month 6</span></div>
+          <div class="vault-chart__col" style="--w: 33.5; --h: 25%; --d: 0.24s"><span class="vault-chart__val">2×</span><span class="vault-chart__bar"></span><span class="vault-chart__x">to month 12</span></div>
+          <div class="vault-chart__col" style="--w: 33.5; --h: 12.5%; --d: 0.36s"><span class="vault-chart__val">1×</span><span class="vault-chart__bar"></span><span class="vault-chart__x">after</span></div>
+        </div>
+        <ul class="vault-legend" data-reveal>
+          <li><i class="vault-legend__sw"></i>epoch rate</li>
+          <li><i class="vault-legend__sw vault-legend__sw--accent"></i>Loopscale vault ×2</li>
+          <li class="vault-legend__chip">month one</li>
+        </ul>
+        <p class="vault-punch" data-reveal>More points, <em>higher priority</em>.</p>
+      </div>
+    </section>
+
+    <!-- ============================== BANNER ============================== -->
+    <section class="section banner-wrap">
+      <div class="container">
+        <div class="panel banner vault-banner" data-reveal style="--banner-img: url('assets/media/hero-04b-sol-poster.jpg')">
+          <div class="vault-banner__text">
+            <h2 class="banner__title">1,600+ applications filed. First claim on the names.</h2>
+            <p>8× in month one.</p>
+          </div>
+          <a class="btn btn--primary btn--shine" href="#join">Stake SOL</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="footer vault-foot">
+    <div class="container vault-foot__top">
+      <div class="vault-foot__logos">
+        <span class="vault-foot__solana"><img src="assets/logos/partner-solana.svg" alt="Solana" width="96" height="18" /><small>Foundation</small></span>
+          <span class="vault-foot__sep" aria-hidden="true"></span>
+          <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="110" height="11" />
+        <span class="vault-foot__sep" aria-hidden="true"></span>
+        <span class="vault-foot__d3"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M3.1 6l13.8 8M3.1 14 16.9 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>D3</span>
+      </div>
+      <p>.sol, .agent, .human and .robot are applications in the 2026 ICANN new gTLD round. Delegation is subject to ICANN evaluation.</p>
+      <p>Frontier is operated by D3. Points are priority only, not transferable, and have no monetary value.</p>
+    </div>
+    <div class="container footer__inner">
+      <div class="footer__links">
+        <img src="assets/logos/frontier-wordmark.svg" alt="Frontier" width="110" height="11" />
+        <span>2026</span>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="how-it-works.html">How it works</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="index.html#registries">For registries</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="index.html#faq">FAQ</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Terms of Service</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Frontier Terms</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Privacy Policy</a>
+        <span class="footer__bullet" aria-hidden="true"></span>
+        <a href="#">Brand kit</a>
+      </div>
+      <div class="footer__social">
+        <a href="#" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78L17.75 3Zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45Z"/></svg></a>
+        <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.3 5.3A17 17 0 0 0 15.1 4l-.5 1a15.7 15.7 0 0 0-5.2 0l-.5-1a17 17 0 0 0-4.2 1.3C2 9.2 1.3 13 1.6 16.8a17 17 0 0 0 5.2 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a12.2 12.2 0 0 0 10.8 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.2-3.1-11.5ZM8.5 14.5c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm7 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75V21h-4V9.5Z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/vaults.js"></script>
+  <script src="js/variation-4b.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/title-reveal.js"></script>
+</body>
+</html>

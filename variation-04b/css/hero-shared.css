@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Hero pieces shared by every variation
+   Domain field with typing caret, the row of four stat/CTA cards, the
+   hover name card and the hint line. Colours come from the theme tokens
+   in base.css, so each variation's theme (dark / light) applies.
+   ========================================================================== */
+
+/* ---------- Domain "input" with typing caret ---------- */
+.domain-box {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  padding: 0 24px;
+  border-radius: var(--panel-radius);
+  background: var(--panel-bg-solid);
+  border: 1px solid var(--panel-bd);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-size: clamp(34px, 3.6vw, 48px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.domain-box__text { color: var(--c-text-64); }            /* name part: text colour at 64% */
+.domain-box__text .tld { color: var(--c-accent-text); }   /* TLD in the accent orange */
+.domain-box__caret {
+  width: 3px;
+  height: 0.95em;
+  margin-left: 6px;
+  border-radius: 2px;
+  background: var(--c-accent-text);
+  animation: caret 1s steps(1) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+/* ---------- Cards row ---------- */
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--panel-gap);
+}
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--stat-h);
+  background: var(--panel-bg-solid);
+}
+.stat-card__value {
+  margin-top: auto;
+  font-size: clamp(40px, 3.9vw, 56px);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+.stat-card__note { margin-top: 10px; font-size: 14px; color: var(--c-text-64); }
+.stat-card--cta .btn { margin-top: auto; }
+.stat-card__bonus { display: inline-flex; align-items: center; gap: 10px; }
+
+/* ---------- Hover name card ---------- */
+.hero-tip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--c-tip-bg);
+  border: 1px solid rgba(var(--ink), 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-tip);
+  color: var(--c-text);
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate3d(var(--tx, 0), var(--ty, 0), 0) scale(0.92);
+  transform-origin: 0 100%;
+  transition: opacity 0.16s, transform 0.12s var(--ease-out);
+}
+.hero-tip.is-visible { opacity: 1; transform: translate3d(var(--tx, 0), var(--ty, 0), 0) scale(1); }
+.hero-tip__name { font-size: 14px; line-height: 18px; font-weight: 600; }
+.hero-tip__name .tld { color: var(--c-text-64); font-weight: 500; }
+.hero-tip.is-swap .hero-tip__name { animation: tip-swap 0.16s var(--ease-out); }
+@keyframes tip-swap { from { opacity: 0.35; transform: translateY(3px); } }
+
+/* ---------- Hint line under the cards ---------- */
+.hero-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-text-40);
+  white-space: nowrap;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.is-globe-hover .hero-hint { opacity: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .hero-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .hero-cards { grid-template-columns: 1fr; }
+  .stat-card { min-height: 0; gap: 18px; }
+  .domain-box { height: 68px; padding: 0 18px; }
+  .hero-hint { display: none; }
+}

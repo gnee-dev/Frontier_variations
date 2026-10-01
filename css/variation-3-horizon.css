@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Hero · Variation 3 — "Horizon" (dark mode)
+   The Variation 2b layout (centred headline, domain field, bonus line and
+   subtitle; three compact stat cards at the bottom) over a pixel landscape
+   along the bottom of the hero: rolling hills of small square pixels in
+   perspective, moving toward the viewer as if flying forward over them.
+   The layout classes (hero-v2b__*) come from variation-2b-nucleus-centred.css.
+   ========================================================================== */
+
+.horizon-3 {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease-out) 0.2s;
+  /* soft fade into the page at the bottom edge */
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+}
+.hero--v3.is-entered .horizon-3 { opacity: 0.9; }
+
+/* frosted stat cards over the landscape */
+.hero--v3 .hero-v2b__cards .stat-card {
+  background: rgba(10, 10, 10, 0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
