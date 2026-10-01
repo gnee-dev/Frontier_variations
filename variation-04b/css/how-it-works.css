@@ -25,7 +25,7 @@
 .hiw-chips li { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--c-line-soft); background: rgba(var(--ink), 0.03); font-size: var(--hiw-fs-card); color: var(--c-text-64); }
 .hiw-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 /* secondary buttons (were underlined orange links): the size and padding of the page's
-   orange buttons, with a 2px orange border, orange text, black fill */
+   orange buttons, with a 1.4px orange border at 64%, orange text, black fill */
 .hiw-page main .link-arrow {
   display: inline-flex;
   align-items: center;
@@ -33,8 +33,9 @@
   gap: 8px;
   height: 40px;
   padding: 9px 16px;
-  border: 2px solid var(--c-accent);
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 1.4px rgba(var(--accent-rgb), 0.64);   /* the 1.4px stroke (a border would round to 1px) */
   background: #000;
   color: var(--c-accent-text);
   font-size: 18px;
@@ -42,9 +43,9 @@
   font-weight: 600;
   letter-spacing: -0.0008em;
   white-space: nowrap;
-  transition: background-color 0.2s, transform 0.35s var(--ease-out), gap 0.25s var(--ease-out);
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.35s var(--ease-out), gap 0.25s var(--ease-out);
 }
-.hiw-page main .link-arrow:hover { background: rgba(var(--accent-rgb), 0.12); border-color: var(--c-accent); transform: translateY(-2px); gap: 8px; }
+.hiw-page main .link-arrow:hover { background: rgba(var(--accent-rgb), 0.12); box-shadow: inset 0 0 0 1.4px rgba(var(--accent-rgb), 0.85); transform: translateY(-2px); gap: 8px; }
 .hiw-page main .link-arrow:active { transform: translateY(0) scale(0.98); }
 .hiw-page main .link-arrow svg { width: 16px; height: 16px; }
 .hiw-page main .link-arrow:hover .btn__arrow { transform: translateX(3px); }
