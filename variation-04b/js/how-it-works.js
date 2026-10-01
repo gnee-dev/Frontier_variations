@@ -17,7 +17,7 @@
       { threshold: threshold || 0 }).observe(el);
   }
 
-  /* ---------------- hiw-compare + hiw-steps: one story on one clock ----------------
+  /* ---------------- hiw-compare + its hiw-rail timelines: one story on one clock ----------------
      T seconds, looping. Both sides share the clock, so the same moment plays out
      two ways:
        Without Frontier  0-5 waiting for the public sale (countdown)
@@ -28,11 +28,15 @@
                          5.5-8  LINE: they line up by points; You land 2nd
                          8-11   LAUNCH: the line is served in order; #1's max falls
                                 short, so the name goes to You
-     The hiw-steps strip follows the With Frontier phases; a click jumps to one. */
+     Each card's rail (hiw-rail) lights the step that's playing; a click on a With
+     Frontier step jumps the animation to it. */
   var compare = document.querySelector("[data-compare]");
   if (compare) (function () {
     var T = 13;
-    var PH = { earn: [0, 3.5], back: [3.5, 5.5], line: [5.5, 13] };   // strip steps (LINE includes the launch)
+    var PH = {                                                         // the rails' steps, in seconds
+      wait: [0, 5], click: [5, 5.4], taken: [5.4, 13],                 // without: the public sale
+      earn: [0, 3.5], back: [3.5, 5.5], line: [5.5, 13]                // with: Frontier (LINE includes the launch)
+    };
     var clamp = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
     var ease = function (x) { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
     var out = function (x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
@@ -49,7 +53,7 @@
       crowd.appendChild(el);
       people.push({
         el: el, you: you, bot: bot, win: i === 1,
-        a: rnd() * Math.PI * 2, w: (rnd() < 0.5 ? -1 : 1) * (0.15 + rnd() * 0.35), r: 0.3 + rnd() * 0.7, j: rnd() * 6.28,
+        a: rnd() * Math.PI * 2, w: (rnd() < 0.5 ? -1 : 1) * (0.15 + rnd() * 0.35), r: you ? 0.92 : 0.3 + rnd() * 0.7, j: rnd() * 6.28,   // You: the outer orbit, clear of the name
         delay: bot ? 0.02 * i : 0.1 + rnd() * 0.5, dur: bot ? 0.32 : 0.6 + rnd() * 0.7
       });
     }
@@ -76,9 +80,13 @@
 
     /* ---- status chips, strip ---- */
     var stWithout = compare.querySelector('[data-status="without"]'), stWith = compare.querySelector('[data-status="with"]');
-    var strip = document.querySelector("[data-steps]");
-    var stepEls = strip ? strip.querySelectorAll("[data-phase]") : [];
+    var stepEls = compare.querySelectorAll(".hiw-rail [data-phase]");
     var setText = function (el, txt) { if (el && el.textContent !== txt) el.textContent = txt; };
+    // place a label that follows a dot, kept inside its stage
+    var tagAt = function (tag, x, y, W) {
+      x = Math.max(4, Math.min(x, W - tag.offsetWidth - 4));
+      tag.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
+    };
     var fmtPts = function (n) { return Math.round(n / 100) * 100 >= 1000 ? Math.round(n).toLocaleString("en-US") : Math.round(n); };
 
     function render(t) {
@@ -87,6 +95,7 @@
       var hw = cChip.offsetWidth / 2 + 5, hh = cChip.offsetHeight / 2 + 5;
       var inX = hw + 22, inY = hh + 14, outX = Math.min(W * 0.46, 240), outY = H * 0.5 - 16;
       var taken = t >= 5.4;
+      setText(cYou, taken ? "You · missed it" : "You");               // text first, so the tag is placed at its real width
       people.forEach(function (p) {
         var a = p.a + p.w * t;
         var r = p.r + 0.08 * Math.sin(t * 0.9 + p.j);
@@ -100,11 +109,20 @@
         if (t > 4.4 && t < 5) { x += Math.sin(t * 40 + p.j) * 0.8; }                // restless just before
         p.el.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
         p.el.classList.toggle("is-dim", taken && !p.win && !p.you);
-        if (p.you) { cYou.style.transform = "translate(" + (x - 12).toFixed(1) + "px," + (y - 22).toFixed(1) + "px)"; }
+        if (p.you) {
+          // above the dot, or below, right or left of it: the first spot clear of the name
+          var tw = cYou.offsetWidth, spots = [[x - 12, y - 30], [x - 12, y + 10], [x + 10, y - 11], [x - tw - 10, y - 11],
+            [x - 12, cy - hh - 26], [x - 12, cy + hh + 2]];   // last resort (narrow stages): clear of the name's row
+          var spot = spots[0];
+          for (var q = 0; q < spots.length; q++) {
+            var tx = Math.max(4, Math.min(spots[q][0], W - tw - 4)), ty = spots[q][1];
+            if (!(tx < cx + hw && tx + tw > cx - hw && ty < cy + hh && ty + 25 > cy - hh)) { spot = spots[q]; break; }
+          }
+          tagAt(cYou, spot[0], spot[1], W);
+        }
       });
-      setText(cYou, taken ? "You · missed it" : "You");
       // the winning bot's tag sits just above the taken name (clear of the crowd's labels)
-      cBot.style.transform = "translate(" + (cx + hw - 40).toFixed(1) + "px," + (cy - hh - 22).toFixed(1) + "px)";
+      tagAt(cBot, cx + hw - 50, cy - hh - 30, W);
       cBot.classList.toggle("is-on", taken);
       cChip.classList.toggle("is-taken", taken);
       cChip.classList.toggle("is-open", t >= 5 && !taken);
@@ -114,14 +132,20 @@
 
       /* With Frontier */
       var W2 = lineEl.clientWidth, H2 = lineEl.clientHeight, cy2 = H2 / 2;
+      var back = clamp((t - 3.5) / 1.2) * (1 - clamp((t - 6) / 0.8)), win = ease((t - 9.6) / 0.7);
+      lChip.classList.toggle("is-yours", win > 0.5);
+      lChip.classList.toggle("is-backed", back > 0.4);
+      setText(lNote, win > 0.5 ? "Yours" : back > 0.4 ? members.length + " backing" : "");
       var chipL = Math.min(W2 * 0.06, 22), chipW = lChip.offsetWidth, chipR = chipL + chipW;
       lChip.style.left = chipL + "px";
       var gap = Math.min(34, (W2 - chipR - 30) / members.length);
-      var earn = ease(t / 3.5), back = clamp((t - 3.5) / 1.2) * (1 - clamp((t - 6) / 0.8));
+      var earn = ease(t / 3.5);
       var lineK = ease((t - 5.5) / 1.8);
-      var miss = out((t - 8.4) / 0.6), shift = ease((t - 8.9) / 0.6), win = ease((t - 9.6) / 0.7);
+      var miss = out((t - 8.4) / 0.6), shift = ease((t - 8.9) / 0.6);
       var fade = 1 - clamp((t - 12.4) / 0.6);
       links.setAttribute("viewBox", "0 0 " + W2 + " " + H2);
+      var youPts = POINTS[0] * earn;
+      setText(lYou, win > 0.5 ? "You · registered" : t >= 7 ? "You · #" + (shift > 0.5 ? 1 : 2) + " in line" : "You · " + fmtPts(youPts) + " pts");
       members.forEach(function (m) {
         // scattered across the field, each growing with its points
         var fx = chipR + 40 + m.sx * (W2 - chipR - 70), fy = 22 + m.sy * (H2 - 44);
@@ -137,20 +161,21 @@
         m.ln.setAttribute("x1", chipR); m.ln.setAttribute("y1", cy2);
         m.ln.setAttribute("x2", x.toFixed(1)); m.ln.setAttribute("y2", y.toFixed(1));
         m.ln.style.opacity = (back * 0.5).toFixed(2);
-        if (m.you) lYou.style.transform = "translate(" + (x - 16).toFixed(1) + "px," + (y - 26).toFixed(1) + "px)";
-        if (m.top) lTop.style.transform = "translate(" + (x - 40).toFixed(1) + "px," + (y + 9).toFixed(1) + "px)";
+        if (m.you) {
+          // above the dot; if that covers the name (while You slide into the line), above the name's row
+          var lw = lYou.offsetWidth, lx = Math.max(4, Math.min(x - 16, W2 - lw - 4)), ly = y - 34;
+          var ch = lChip.offsetHeight / 2 + 4;
+          if (win < 0.5 && lx < chipR + 4 && lx + lw > chipL - 4 && ly < cy2 + ch && ly + 25 > cy2 - ch) ly = cy2 - ch - 28;
+          tagAt(lYou, lx, ly, W2);
+        }
+        if (m.top) tagAt(lTop, x - 50, y + 10, W2);
       });
-      var youPts = POINTS[0] * earn;
-      setText(lYou, win > 0.5 ? "You · registered" : t >= 7 ? "You · #" + (shift > 0.5 ? 1 : 2) + " in line" : "You · " + fmtPts(youPts) + " pts");
       lTop.classList.toggle("is-on", miss > 0.3);
-      lChip.classList.toggle("is-yours", win > 0.5);
-      lChip.classList.toggle("is-backed", back > 0.4);
-      setText(lNote, win > 0.5 ? "Yours" : back > 0.4 ? members.length + " backing" : "");
       setText(stWith, t < 3.5 ? "Earning points" : t < 5.5 ? "Backing .agent" : t < 8 ? "Lining up by points" : win > 0.5 ? "Registered before the public sale" : "Served in order");
       lineEl.style.opacity = fade.toFixed(2);
       crowd.style.opacity = fade.toFixed(2);
 
-      /* the strip */
+      /* the rails */
       stepEls.forEach(function (li) {
         var ph = PH[li.dataset.phase], on = t >= ph[0] && t < ph[1];
         li.classList.toggle("is-active", on);
@@ -168,7 +193,9 @@
       requestAnimationFrame(frame);
     };
     stepEls.forEach(function (li) {
-      li.querySelector("a").addEventListener("click", function (e) {
+      var a = li.querySelector("a");
+      if (!a) return;
+      a.addEventListener("click", function (e) {
         if (reduce) return;
         var rect = compare.getBoundingClientRect();
         if (rect.bottom > 0 && rect.top < window.innerHeight) {   // the animation is on screen: jump to the step there

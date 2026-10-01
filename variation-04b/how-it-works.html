@@ -27,7 +27,7 @@
 
     hiw-hero          "Be first in line, not first to click" over the Ocean B background
     hiw-compare       Without Frontier (swarm) vs With Frontier (queue)          #why
-    hiw-steps         the three-step strip: Start early / Back extensions / Get in line
+    hiw-rail          inside hiw-compare: each card's three-step timeline, in sync with its animation
     hiw-earn          Step 1: Day one beats month six by 3x (deposit + chart)      #deposit
     hiw-back          Step 2: Back extensions (live most-backed list)             #back
     hiw-timeline      Build priority now to use later (milestones + phases)       #timeline
@@ -96,7 +96,6 @@
           <p class="hiw-hero__sub" data-anim="rise" style="--d: 0.20s">New extensions like .agent are coming. The best names go in seconds.<br />Frontier puts you in line before the public sale.</p>
           <div class="hiw-hero__actions" data-anim="rise" style="--d: 0.30s">
             <a class="btn btn--primary btn--shine" href="#join">Join Frontier</a>
-            <a class="btn btn--ghost hiw-btn-dark" href="#deposit">How it works <svg class="hiw-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v11m-5-4 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
           <p class="hiw-hero__live" data-anim="rise" style="--d: 0.36s">4× points live now.</p>
         </div>
@@ -106,7 +105,8 @@
              alex.agent. Without Frontier they wait for the public sale, rush it at once and a
              bot takes it in 0.4s. With Frontier they earn points, back .agent, line up by
              points, and the line is served in order before the public sale: #1's max falls
-             short, so You get it. The hiw-steps strip below follows the With Frontier side. -->
+             short, so You get it. Under each stage, its timeline (hiw-rail) lights the step
+             that's playing; the two rails run in sync, so the cards compare step by step. -->
         <div class="hiw-compare" id="why" data-section="hiw-compare" data-compare data-horizon data-globe-avoid data-anim="rise" style="--d: 0.44s">
           <div class="hiw-compare__col">
             <header class="hiw-compare__top">
@@ -116,7 +116,12 @@
             <div class="hiw-compare__stage hiw-crowd" data-crowd aria-hidden="true">
               <span class="hiw-pill hiw-pill--name" data-chip><span class="hiw-pill__name">alex.agent</span><em data-chip-note></em></span>
             </div>
-            <p class="hiw-compare__foot">Public sale opens. Everyone clicks at once. The fastest bot wins.</p>
+            <!-- hiw-rail (without): the public sale, in three beats, on the same clock -->
+            <ol class="hiw-rail" data-rail="without">
+              <li data-phase="wait"><span class="hiw-rail__n">1</span><span><b>Wait for the public sale</b><small>No way to get ahead</small></span><i class="hiw-rail__bar"></i></li>
+              <li data-phase="click"><span class="hiw-rail__n">2</span><span><b>Everyone clicks at once</b><small>People and bots, same second</small></span><i class="hiw-rail__bar"></i></li>
+              <li data-phase="taken" class="is-bad"><span class="hiw-rail__n">3</span><span><b>The fastest bot wins</b><small>Taken in 0.4s</small></span><i class="hiw-rail__bar"></i></li>
+            </ol>
           </div>
           <div class="hiw-compare__col">
             <header class="hiw-compare__top">
@@ -127,19 +132,16 @@
               <svg class="hiw-line__links" data-links></svg>
               <span class="hiw-pill hiw-pill--name" data-chip><span class="hiw-pill__name">alex.agent</span><em data-chip-note></em></span>
             </div>
-            <p class="hiw-compare__foot">Earn and commit points before launch. Points set your place in line.</p>
+            <!-- hiw-rail (with): the three steps of Frontier; each links to its section below -->
+            <ol class="hiw-rail" data-rail="with">
+              <li data-phase="earn"><a href="#deposit"><span class="hiw-rail__n">1</span><span><b>Deposit, earn points</b><small>Every $1 earns daily, from day one</small></span><i class="hiw-rail__bar"></i></a></li>
+              <li data-phase="back"><a href="#back"><span class="hiw-rail__n">2</span><span><b>Back .agent</b><small>Show registries the demand</small></span><i class="hiw-rail__bar"></i></a></li>
+              <li data-phase="line"><a href="#get-in-line"><span class="hiw-rail__n">3</span><span><b>Points set your place</b><small>Served in order, before the sale</small></span><i class="hiw-rail__bar"></i></a></li>
+            </ol>
           </div>
           <p class="hiw-sr">Without Frontier, everyone rushes the public sale and a bot takes alex.agent in 0.4 seconds. With Frontier, members earn points, back .agent and line up by points; the line is served in order before the public sale, and you register alex.agent.</p>
         </div>
 
-        <!-- ============================== hiw-steps ==============================
-             The three steps, and the timeline of the With Frontier animation: the current
-             step lights up (with its progress), and a click jumps the animation to it. -->
-        <ol class="hiw-steps" data-section="hiw-steps" data-steps data-globe-avoid data-anim="rise" style="--d: 0.52s">
-          <li data-phase="earn"><a href="#deposit"><span class="hiw-steps__n">1</span><span><b>Deposit, earn points</b><small>Every $1 earns points daily, from day one</small></span><i class="hiw-steps__bar"></i></a></li>
-          <li data-phase="back"><a href="#back"><span class="hiw-steps__n">2</span><span><b>Back .agent</b><small>Show registries which extensions you want</small></span><i class="hiw-steps__bar"></i></a></li>
-          <li data-phase="line"><a href="#get-in-line"><span class="hiw-steps__n">3</span><span><b>Points set your place</b><small>The line is served before the public sale</small></span><i class="hiw-steps__bar"></i></a></li>
-        </ol>
       </div>
     </section>
 
