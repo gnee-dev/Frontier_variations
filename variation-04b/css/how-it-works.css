@@ -161,9 +161,9 @@
 /* the points, beside the plot */
 /* all in one grid cell, each pushed down to its line's end: the column is as wide as the
    widest value, so the plot takes the rest and the box keeps its 16px padding on the right */
-.hiw-chart__ends { display: grid; min-width: 146px; height: var(--h, 260px); }   /* 146px: the widest values ($10,000), so the plot keeps its width on every tab */
-.hiw-chart__ends li { grid-area: 1 / 1; align-self: start; margin-top: calc(var(--h, 260px) * var(--y) / 100 - 11px); white-space: nowrap; }
-.hiw-chart__ends b { font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.hiw-chart__ends { display: grid; min-width: 136px; height: var(--h, 260px); }   /* the widest values: the widest values ($10,000), so the plot keeps its width on every tab */
+.hiw-chart__ends li { grid-area: 1 / 1; align-self: start; margin-top: calc(var(--h, 260px) * var(--y) / 100 - 10px); white-space: nowrap; }
+.hiw-chart__ends b { font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
 .hiw-chart__ends em { margin-left: 6px; font-style: normal; font-size: var(--hiw-fs-card); color: var(--c-text-64); }
 .hiw-chart__ends small { display: block; margin-top: 2px; font-size: var(--hiw-fs-card); color: var(--c-text-40); }
 .hiw-chart__ends li.is-open b { color: var(--c-accent-text); }
